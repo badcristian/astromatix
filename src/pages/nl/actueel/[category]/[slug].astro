@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../../../layouts/Base.astro';
-import ContactCta from '../../../../components/sections/ContactCta.astro';
 import { localiseBodyImages } from '../../../../lib/richtext';
 
 // The 11 HubSpot blog posts — the only genuine article template on the site.
@@ -30,10 +29,14 @@ const a = entry.data;
 const body = localiseBodyImages(a.bodyHtml, a.slug);
 
 const backHref = `/nl/actueel/${a.category.toLowerCase()}`;
+
+// No ContactCta here. Blog posts on the original end at the body — the whole
+// page is 1144px, and appending the shared 856px CTA strip made the rebuild
+// nearly twice the original's height. Marketing pages carry it; articles do not.
 ---
 
 <Base title={a.metaTitle} description={a.metaDescription ?? undefined}>
-  <article class="px-6 pt-[120px] pb-16">
+  <article class="px-6 pt-[60px] pb-16">
     <div class="mx-auto max-w-[850px]">
       <p class="mb-4 text-[14.4px]">
         <a href={backHref} class="text-orange hover:underline">{a.category}</a>
@@ -60,8 +63,6 @@ const backHref = `/nl/actueel/${a.category.toLowerCase()}`;
       </p>
     </div>
   </article>
-
-  <ContactCta intro={null} />
 </Base>
 
 <style>

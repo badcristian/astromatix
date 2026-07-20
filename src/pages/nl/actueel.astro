@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/sections/PageHero.astro';
 import ArticleListing from '../../components/sections/ArticleListing.astro';
 import ContactCta from '../../components/sections/ContactCta.astro';
+import { ctaHeading } from '../../lib/cta';
+import page from '../../i18n/pages/nl-actueel.json';
 
 // The unfiltered hub. Category views live at /nl/actueel/[category] and are
 // generated from the same component — see ArticleListing.astro for why this
@@ -10,7 +12,7 @@ import ContactCta from '../../components/sections/ContactCta.astro';
 ---
 
 <Base title="Actueel — Jobmatix" description="Nieuws, blogs, kennis en events van Jobmatix.">
-  <PageHero title="Actueel" />
+  <PageHero title="Actueel" subtitle={page.blocks[0]?.heading ?? null} />
   <ArticleListing />
-  <ContactCta intro={null} />
+  <ContactCta title={ctaHeading(page, 'actueel')} intro={null} />
 </Base>

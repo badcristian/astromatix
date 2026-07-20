@@ -47,8 +47,15 @@ export function caseData(entry: Klantcase) {
 
   const intro = d.featureCards?.[0] ?? null;
 
-  // The closing CTA heading is the last module--heading on the page.
   const headingBlocks = blocks.filter((b) => b.module === 'heading');
+
+  // The FIRST heading module is the case study's lead section — a headline
+  // plus several paragraphs summarising the engagement. Only the last one (the
+  // CTA) was being read, which left every case study ~1000px short. A negative
+  // height delta means missing content, not tight spacing (FINDINGS.md §2).
+  const lead = headingBlocks.length > 1 ? headingBlocks[0] : null;
+
+  // The closing CTA heading is the last module--heading on the page.
   const cta = headingBlocks.at(-1) ?? null;
 
   return {
@@ -56,6 +63,7 @@ export function caseData(entry: Klantcase) {
     title: d.hero?.title ?? entry.slug,
     tags: (d.properties ?? []).map((p: any) => p.label).filter(Boolean),
     intro: intro?.title ? { title: intro.title, body: intro.body ?? '' } : null,
+    lead: lead ? { heading: lead.heading as string, body: (lead.body ?? []) as string[] } : null,
     narrative,
     quickfeat: d.quickfeat ?? [],
     contacts: d.compactCards ?? [],

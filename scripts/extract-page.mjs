@@ -388,6 +388,16 @@ const data = await page.evaluate(() => {
         );
       };
 
+      // Component internals are extracted separately (feature cards, quickfeat,
+      // forms, logo walls, person cards…). Without this exclusion the LAST
+      // heading on a page absorbs everything after it — on /nl/demo-aanvragen
+      // that turned a 1670px page into 33 "paragraphs" of form labels and logo
+      // captions, and rendered ~2400px of duplicated content.
+      const NOT_PROSE =
+        'nav, footer, form, .logos, .content-card, .team-card, .feature-card,' +
+        ' .compact-card, .go-card, .quickfeat, .steps, .accordion, .properties,' +
+        ' .splide__slide--clone';
+
       return heads
         .map((h) => {
           // Paragraphs between this heading and the next one, in document order.
@@ -396,7 +406,7 @@ const data = await page.evaluate(() => {
           walker.currentNode = h;
           let node = walker.nextNode();
           while (node && !heads.includes(node)) {
-            if ((node.tagName === 'P' || node.tagName === 'LI') && !node.closest('nav, footer')) {
+            if ((node.tagName === 'P' || node.tagName === 'LI') && !node.closest(NOT_PROSE)) {
               const t = text(node);
               if (t && !body.includes(t)) body.push(t);
             }

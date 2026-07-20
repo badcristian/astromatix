@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/sections/PageHero.astro';
 import PropertyItem from '../components/ui/PropertyItem.astro';
-import ContactCta from '../components/sections/ContactCta.astro';
 import Reveal from '../components/ui/Reveal.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../lib/icons';
@@ -14,6 +13,10 @@ import page from '../i18n/pages/voor-wie.json';
 // short — the image-box half was missing entirely.
 const icons = ['download', 'expand', 'send', 'arrow'] as const;
 const blocks = (page.audienceBlocks ?? []).map((b) => ({ ...b, img: resolveIcon(b.image) }));
+
+// No ContactCta on this page. The original /voor-wie carries no form and no
+// closing CTA section at all — it ends at the fourth audience block. Appending
+// the shared strip added a form the page does not have.
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
@@ -52,5 +55,4 @@ const blocks = (page.audienceBlocks ?? []).map((b) => ({ ...b, img: resolveIcon(
     </section>
   ))}
 
-  <ContactCta intro={null} />
 </Base>

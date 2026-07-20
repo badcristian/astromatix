@@ -12,28 +12,91 @@ import page from '../../i18n/pages/nl-platform.json';
 // entirely from alternating image+text blocks, which map onto the same
 // ProductBlock the homepage uses, plus a single pull-quote and a logo wall.
 //
-// Section map measured on the original @1440 (page height 4243):
-//   hero        y=85   h=462  navy, padding 60/24, text beside an image
-//   Job data    y=739  h=390  image left
-//   Smart auto  y=1129 h=361  image right
-//   quote       y=1489 h=347  single pull-quote, not the homepage carousel
-//   Campaigns   y=1837 h=404  image left
-//   partners    y=2241 h=469  logo carousel
+// SECTION ORDER MATTERS AND IS NOT THE OBVIOUS ONE.
 //
-// The extractor's hero.title fuses the h1 with a button label, so the title is
-// taken from the page <title> instead.
-const heroTitle = page.meta.title.split('|')[0].trim();
+// The logo wall sits BETWEEN "Campaigns" and "Insights", not after all four
+// image+text blocks. An earlier version rendered the four blocks consecutively
+// and put the wall last; total page height was only +330 off, because the two
+// errors cancelled — the wall was ~1100px too late and Insights ~1450px too
+// early. Total height hides ordering bugs. scripts/measure.mjs finds them by
+// comparing per-heading y-offsets, which is why it reports `step` and not just
+// a total.
+//
+// Order, with the original's measured y at 1440 (page height 4242):
+//   h1                     85
+//   Job data              852   image left
+//   Smart automation     1215   image right
+//   pull-quote           ~1500  single quote, not the homepage carousel
+//   Campaigns            1945   image left
+//   Onze campaign partners 2290 logo wall
+//   Insights             2876   image left
+//   Aan de slag met Jobmatix? 3400ish
+//   Jobmatix voordelen   3485
+//
+// The <h1> is taken from hero.title, which is the original's actual heading
+// ("All-in-one Recruitment Marketing platform Ontdek de mogelijkheden"). An
+// earlier version derived it from the page <title> to dodge a since-fixed
+// extractor bug, which silently shipped different copy than the original —
+// exactly what the byte-for-byte rule exists to prevent.
+const heroTitle = page.hero.title;
 const heroCta = page.buttons.find((b) => /demo/i.test(b.label)) ?? null;
 
 const blocks = page.imageTextBlocks
   .map((b) => ({ ...b, resolved: resolveIcon(b.image) }))
   .filter((b) => b.resolved);
+
+// Split around the logo wall rather than rendering all four then the wall.
+const beforeWall = blocks.filter((b) => b.title !== 'Insights');
+const afterWall = blocks.filter((b) => b.title === 'Insights');
+
+const findBlock = (heading: string) =>
+  page.blocks?.find((b: any) => b.heading?.startsWith(heading)) ?? null;
+const partnersHeading = findBlock('Onze campaign partners');
+const ctaHeading = findBlock('Aan de slag met Jobmatix');
+const voordelen = findBlock('Jobmatix voordelen');
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={heroTitle} subtitle={page.headings[0] ?? null} cta={heroCta} />
+  <PageHero title={heroTitle} cta={heroCta} />
 
-  {blocks.map((block, i) => (
+  {beforeWall.map((block, i) => (
+    <>
+      <ProductBlock
+        title={block.title}
+        body={block.body ?? ''}
+        image={block.resolved!}
+        cta={heroCta ?? { label: '', href: '#' }}
+        reverse={block.imageRight}
+        reveal={block.imageRight ? 'right' : 'left'}
+        background={i % 2 === 0 ? 'white' : 'mist'}
+      />
+
+      {/* The pull-quote sits between Smart automation and Campaigns. */}
+      {block.title === 'Smart automation' && page.quote?.text && (
+        <section class="bg-mist px-6 py-24">
+          <figure class="mx-auto max-w-[850px] text-center">
+            <blockquote class="text-[20px] leading-[30px] text-navy">
+              {page.quote.text}
+            </blockquote>
+            {page.quote.author && (
+              <figcaption class="mt-6 font-display text-[16px] font-bold text-navy">
+                {page.quote.author}
+              </figcaption>
+            )}
+          </figure>
+        </section>
+      )}
+    </>
+  ))}
+
+  <section class="px-6 pt-[50px]">
+    <h2 class="mb-8 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
+      {partnersHeading?.heading ?? 'Onze campaign partners'}
+    </h2>
+  </section>
+  <LogoWall />
+
+  {afterWall.map((block) => (
     <ProductBlock
       title={block.title}
       body={block.body ?? ''}
@@ -41,31 +104,22 @@ const blocks = page.imageTextBlocks
       cta={heroCta ?? { label: '', href: '#' }}
       reverse={block.imageRight}
       reveal={block.imageRight ? 'right' : 'left'}
-      background={i % 2 === 0 ? 'white' : 'mist'}
+      background="white"
     />
   ))}
 
-  {page.quote?.text && (
-    <section class="bg-mist px-6 py-24">
-      <figure class="mx-auto max-w-[850px] text-center">
-        <blockquote class="text-[20px] leading-[30px] text-navy">
-          {page.quote.text}
-        </blockquote>
-        {page.quote.author && (
-          <figcaption class="mt-6 font-display text-[16px] font-bold text-navy">
-            {page.quote.author}
-          </figcaption>
-        )}
-      </figure>
+  {voordelen && (
+    <section class="bg-mist px-6 py-20">
+      <div class="mx-auto max-w-[850px]">
+        <h2 class="mb-6 font-display text-[30px] leading-[33px] font-bold text-navy">
+          {voordelen.heading}
+        </h2>
+        {voordelen.body.map((para: string) => (
+          <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+      </div>
     </section>
   )}
 
-  <section class="px-6 pt-[50px]">
-    <h2 class="mb-8 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
-      {page.headings[3] ?? 'Onze campaign partners'}
-    </h2>
-  </section>
-  <LogoWall />
-
-  <ContactCta title={page.headings[5] ?? undefined} intro={null} />
+  <ContactCta title={ctaHeading?.heading ?? undefined} intro={null} />
 </Base>

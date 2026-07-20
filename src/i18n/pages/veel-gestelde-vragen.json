@@ -50,10 +50,82 @@
     "Neem contact met ons op"
   ],
   "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
   "goCards": null,
   "imageTextBlocks": [],
   "quote": null,
   "quickfeat": null,
   "pricing": null,
-  "steps": null
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [
+    {
+      "title": "Aan de slag",
+      "body": "",
+      "image": "https://f.hubspotusercontent20.net/hubfs/273774/act3/images/sample-z32k7.svg"
+    },
+    {
+      "title": "Accountbeheer",
+      "body": "",
+      "image": "https://f.hubspotusercontent20.net/hubfs/273774/act3/images/sample-blr05.svg"
+    },
+    {
+      "title": "Betaling en facturatie",
+      "body": "",
+      "image": "https://f.hubspotusercontent20.net/hubfs/273774/act3/images/sample-no5at.svg"
+    }
+  ],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [
+    {
+      "title": "Veelgestelde vragen",
+      "body": ""
+    },
+    {
+      "title": "Neem contact met ons op",
+      "body": ""
+    }
+  ],
+  "logos": [],
+  "blocks": [
+    {
+      "heading": "Veelgestelde vragen",
+      "level": 1,
+      "module": "content_bucket-module-3",
+      "body": []
+    },
+    {
+      "heading": "Aan de slag",
+      "level": 2,
+      "module": "content_bucket-module-4",
+      "body": []
+    },
+    {
+      "heading": "Aan de slag",
+      "level": 2,
+      "module": "content_bucket-module-13",
+      "body": []
+    },
+    {
+      "heading": "Accountbeheer",
+      "level": 2,
+      "module": "accordion",
+      "body": []
+    },
+    {
+      "heading": "Betalingen en facturatie",
+      "level": 2,
+      "module": "accordion",
+      "body": []
+    },
+    {
+      "heading": "Neem contact met ons op",
+      "level": 2,
+      "module": "content_bucket-module-16",
+      "body": []
+    }
+  ],
+  "forms": []
 }

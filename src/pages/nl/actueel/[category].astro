@@ -4,6 +4,8 @@ import PageHero from '../../../components/sections/PageHero.astro';
 import ArticleListing from '../../../components/sections/ArticleListing.astro';
 import ContactCta from '../../../components/sections/ContactCta.astro';
 import listing from '../../../i18n/pages/listing.json';
+import hub from '../../../i18n/pages/nl-actueel.json';
+import { ctaHeading } from '../../../lib/cta';
 
 // The original ships /nl/actueel/{blogs,nieuws,kennis,events} as four
 // byte-identical 115,751-byte copies of /nl/actueel — same empty <div>, same
@@ -28,5 +30,5 @@ const count = listing.items.filter((i) => i.category === category).length;
 >
   <PageHero title={category} />
   <ArticleListing activeCategory={category} />
-  <ContactCta intro={null} />
+  <ContactCta title={ctaHeading(hub, 'actueel-category')} intro={null} />
 </Base>

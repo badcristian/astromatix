@@ -26,6 +26,8 @@
     "Tevreden klanten"
   ],
   "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
   "goCards": [
     {
       "name": "Djops Uitzendgroep",
@@ -68,5 +70,68 @@
   "quote": null,
   "quickfeat": null,
   "pricing": null,
-  "steps": null
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [],
+  "blocks": [
+    {
+      "heading": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Djops Uitzendgroep",
+      "level": 4,
+      "module": "go-card",
+      "body": []
+    },
+    {
+      "heading": "DHL Express",
+      "level": 4,
+      "module": "go-card",
+      "body": []
+    },
+    {
+      "heading": "Kruidvat",
+      "level": 4,
+      "module": "go-card",
+      "body": []
+    },
+    {
+      "heading": "Schiphol",
+      "level": 4,
+      "module": "go-card",
+      "body": []
+    },
+    {
+      "heading": "JAM werkt",
+      "level": 4,
+      "module": "go-card",
+      "body": []
+    },
+    {
+      "heading": "Faam",
+      "level": 4,
+      "module": "go-card",
+      "body": []
+    },
+    {
+      "heading": "Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren en optimaliseren?",
+      "level": 3,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Tevreden klanten",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    }
+  ],
+  "forms": []
 }

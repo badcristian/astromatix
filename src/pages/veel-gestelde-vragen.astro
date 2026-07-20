@@ -10,6 +10,12 @@ import page from '../i18n/pages/veel-gestelde-vragen.json';
 // accordion rather than repeating the same items under each heading.
 // Restoring the grouping needs the extractor to capture the category each item
 // belongs to; noted rather than faked.
+
+// This page's closing CTA heading lives in a section-intro, not a heading
+// module, so ctaHeading() cannot find it. Passed explicitly — the point of
+// making ContactCta's title required is that this is a build error rather
+// than a silent fallback to the homepage's copy.
+const ctaTitle = page.sectionIntros.at(-1)?.title ?? 'Neem contact met ons op';
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
@@ -21,5 +27,5 @@ import page from '../i18n/pages/veel-gestelde-vragen.json';
     </div>
   </section>
 
-  <ContactCta intro={null} />
+  <ContactCta title={ctaTitle} intro={null} />
 </Base>

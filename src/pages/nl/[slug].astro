@@ -7,9 +7,11 @@ import FormStub from '../../components/ui/FormStub.astro';
 import GoCard from '../../components/ui/GoCard.astro';
 import Button from '../../components/ui/Button.astro';
 import ContactCta from '../../components/sections/ContactCta.astro';
+import LogoWall from '../../components/sections/LogoWall.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../lib/icons';
 import { LANDING_SLUGS } from '../../lib/landing';
+import { ctaHeading } from '../../lib/cta';
 
 // The 13 funnel and thank-you pages, from one data-driven template.
 //
@@ -51,14 +53,18 @@ const title =
 const looksLikePath = /^\/?[a-z]+\/[a-z-]+$/i.test(d.meta.title ?? '');
 const metaTitle = looksLikePath || !d.meta.title ? `${title} — Jobmatix` : d.meta.title;
 
-// Prose: whichever block carries the most body copy, minus the one that just
-// repeats the title.
-const prose: string[] =
-  (intro?.body ? [intro.body] : []) .concat(
-    blocks
-      .filter((b) => b.heading !== title)
-      .flatMap((b) => b.body ?? []),
-  );
+// Sections keep their own headings rather than being flattened into a wall of
+// paragraphs. An earlier version collected only the body text, which silently
+// dropped headings like "Plan een demo en ontdek wat ons platform voor jouw
+// bedrijf kan betekenen" — copy loss a pixel diff would never catch, because
+// the page still reflowed to a plausible height.
+const sections = blocks
+  .filter((b) => b.heading !== title)
+  .filter((b) => b.heading || b.body?.length)
+  .map((b) => ({ heading: b.heading as string | null, level: b.level, body: b.body ?? [] }));
+
+// section-intro carries its own lead paragraph outside the block outline.
+const introBody = intro?.body ? [intro.body] : [];
 
 const form = d.forms?.[0] ?? null;
 const contact = d.teamCards?.[0] ?? null;
@@ -78,11 +84,23 @@ const usesBookingEmbed = ['demo-emile', 'meeting-koen'].includes(slug!);
 <Base title={metaTitle} description={d.meta.description || undefined}>
   <PageHero title={title} subtitle={slide?.body ?? null} />
 
-  {prose.length > 0 && (
+  {(introBody.length > 0 || sections.length > 0) && (
     <section class="px-6 py-12">
       <div class="mx-auto max-w-[850px]">
-        {prose.map((para) => (
+        {introBody.map((para) => (
           <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+        {sections.map((s) => (
+          <>
+            {s.heading && (
+              <h2 class="mt-8 mb-4 font-display text-[30px] leading-[33px] font-bold text-navy first:mt-0">
+                {s.heading}
+              </h2>
+            )}
+            {s.body.map((para) => (
+              <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+            ))}
+          </>
         ))}
       </div>
     </section>
@@ -186,23 +204,12 @@ const usesBookingEmbed = ['demo-emile', 'meeting-koen'].includes(slug!);
     </section>
   )}
 
-  {logos.length > 0 && (
-    <section class="px-6 pb-20">
-      <div class="mx-auto max-w-[1138px]">
-        <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
-          {logos.map((logo: any) => (
-            <Image
-              src={logo.resolved}
-              alt={logo.alt ?? ''}
-              width={120}
-              height={48}
-              class="h-12 w-auto object-contain opacity-60 grayscale"
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+  {/*
+    The original presents the wall as a six-at-a-time carousel (169px tall),
+    not a wrapped grid. Rendering 19 logos as a grid was ~600px too tall on
+    every landing page — reuse the shared component instead.
+  */}
+  {logos.length > 0 && <LogoWall />}
 
-  <ContactCta intro={null} />
+  <ContactCta title={ctaHeading(d, slug)} intro={null} />
 </Base>

@@ -35,13 +35,13 @@
       "name": "JAM werkt",
       "title": "Datadriven young professionals werven",
       "image": "https://www.jobmatix.com/hs-fs/hubfs/Slider2.jpg",
-      "href": "https://www.hubspot.com/?__hstc=90885381.d0f280d671ae1b17f2e0eb0ad3b6a631.1784583707680.1784583707680.1784583707680.1&__hssc=90885381.13.1784583707680&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
+      "href": "https://www.hubspot.com/?__hstc=90885381.bcfb172183c2460004bf48886aa1adad.1784584730182.1784584730182.1784584730182.1&__hssc=90885381.28.1784584730182&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
     },
     {
       "name": "Faam",
       "title": "Efficiëntieslag in recruitment marketing",
       "image": "https://www.jobmatix.com/hs-fs/hubfs/faam-1.webp",
-      "href": "https://www.hubspot.com/?__hstc=90885381.d0f280d671ae1b17f2e0eb0ad3b6a631.1784583707680.1784583707680.1784583707680.1&__hssc=90885381.13.1784583707680&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
+      "href": "https://www.hubspot.com/?__hstc=90885381.bcfb172183c2460004bf48886aa1adad.1784584730182.1784584730182.1784584730182.1&__hssc=90885381.28.1784584730182&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
     }
   ],
   "imageTextBlocks": [],
@@ -79,25 +79,19 @@
       "heading": "Schiphol",
       "level": 4,
       "module": "go-card",
-      "body": [
-        "Vliegensvlug 1.000 vacatures invullen"
-      ]
+      "body": []
     },
     {
       "heading": "JAM werkt",
       "level": 4,
       "module": "go-card",
-      "body": [
-        "Datadriven young professionals werven"
-      ]
+      "body": []
     },
     {
       "heading": "Faam",
       "level": 4,
       "module": "go-card",
-      "body": [
-        "Efficiëntieslag in recruitment marketing"
-      ]
+      "body": []
     }
   ],
   "forms": []

@@ -30,6 +30,9 @@
     "Jobmatix voordelen"
   ],
   "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
   "imageTextBlocks": [
     {
       "title": "Job data",
@@ -62,5 +65,184 @@
   },
   "quickfeat": null,
   "pricing": null,
-  "steps": null
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [
+    {
+      "title": "Lotte van den Dries",
+      "body": "Lotte van den Dries",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/lotte.jpeg"
+    }
+  ],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/jobboards.png",
+      "alt": "Indeed advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/jobboards5.png",
+      "alt": "Monster advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/jobboards2.png",
+      "alt": "Adzuna advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/jobboards4.png",
+      "alt": "Jobbird advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw15.png",
+      "alt": "Talent.com advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/jobboards6.png",
+      "alt": "Jobrapido advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw10.png",
+      "alt": "Jooble advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw7.png",
+      "alt": "Joblift advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/jobboards3.png",
+      "alt": "Glassdoor advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw9.png",
+      "alt": "Jobtome advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw2.png",
+      "alt": "Careerjet advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw.png",
+      "alt": "beBee advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw20.png",
+      "alt": "Vindazo advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw8.png",
+      "alt": "Jobsora advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw11.png",
+      "alt": "Joof advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw6.png",
+      "alt": "Jobg8 advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw16.png",
+      "alt": "Tideri advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Jobboards%20ZW/zw5.png",
+      "alt": "JoBBsquare advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Naamloos-14.png",
+      "alt": "Sercanto advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Naamloos-17.png",
+      "alt": "Whatjobs advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Naamloos-16.png",
+      "alt": "Vacat.nl advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Naamloos-1.png",
+      "alt": "CareerWallet advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Naamloos-15.png",
+      "alt": "The BIG jobsite advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Naamloos-12.png",
+      "alt": "Nederland Vacature Groep advertising Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Naamloos-13.png",
+      "alt": "NieuweJobs advertising Jobmatix"
+    }
+  ],
+  "blocks": [
+    {
+      "heading": "All-in-one Recruitment Marketing platform Ontdek de mogelijkheden",
+      "level": 1,
+      "module": "rtext",
+      "body": []
+    },
+    {
+      "heading": "Job data",
+      "level": 2,
+      "module": "rtext",
+      "body": [
+        "Vacatures worden automatisch geladen, verrijkt en geclassificeerd. AI, Machine Learning en internationale data standaarden zorgen ervoor dat vacatures automatisch aan alle eisen van online kanalen voldoen. Optimaal gemak bij het publiceren van vacatures."
+      ]
+    },
+    {
+      "heading": "Smart automation",
+      "level": 2,
+      "module": "rtext",
+      "body": [
+        "Stel automatisch regels in om vacatureteksten en vacaturevelden te verrijken en te optimaliseren. Maak eenvoudig regels aan wanneer vacatures wel of niet geadverteerd moeten worden. Stop automatisch het adverteren op vacatures als een bepaald aantal sollicitaties zijn behaald of als vacatures slecht presteren. Allemaal regels die je eenvoudig zelf aanmaakt."
+      ]
+    },
+    {
+      "heading": "Campaigns",
+      "level": 2,
+      "module": "rtext",
+      "body": [
+        "Zet in slechts enkele stappen meerdere vacature feeds en type campagnes op. Promoot vacatures eenvoudig op Indeed, LinkedIn, jobboards en vele andere online kanalen. Campagnes op de performance based jobboards worden automatisch beheerd, afgestemd op de strategie, doelstellingen en resultaten. Het kiezen van jobboards en direct contact met de jobboards is niet meer nodig."
+      ]
+    },
+    {
+      "heading": "Onze campaign partners",
+      "level": 2,
+      "module": "rtext",
+      "body": []
+    },
+    {
+      "heading": "Insights",
+      "level": 2,
+      "module": "rtext",
+      "body": [
+        "Met je eigen Jobmatix performance dashboard, heb je direct inzicht in de resultaten, waaronder bezoekersaantallen, sollicitaties, uitgegeven budget en kosten per sollicitatie en meer. Optimaliseer jouw vacatures op basis van deze inzichten en versterk je recruitment marketing strategie."
+      ]
+    },
+    {
+      "heading": "Aan de slag met Jobmatix?",
+      "level": 3,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Jobmatix voordelen",
+      "level": 2,
+      "module": "img-txt",
+      "body": [
+        "Aangesloten op alle belangrijke jobboards",
+        "Één platform voor alle online kanalen om vacatures te adverteren",
+        "Optimale flexibiliteit én controle",
+        "Bespaar tijd en geld",
+        "Realtime dashboard met inzichten",
+        "Ondersteuning van Customer Success Team"
+      ]
+    }
+  ],
+  "forms": []
 }

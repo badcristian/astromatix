@@ -59,6 +59,19 @@ const c = caseData(entry);
     </section>
   )}
 
+  {c.lead && (
+    <section class="px-6 pb-8">
+      <div class="mx-auto max-w-[850px]">
+        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+          {c.lead.heading}
+        </h2>
+        {c.lead.body.map((para) => (
+          <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+      </div>
+    </section>
+  )}
+
   {c.narrative.map((section) => (
     <section class="px-6 pb-14">
       <div class="mx-auto max-w-[850px]">

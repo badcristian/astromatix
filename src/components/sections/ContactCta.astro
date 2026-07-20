@@ -7,14 +7,14 @@ import copy from '../../i18n/home-copy.json';
 //   h2       650 wide, centred, Poppins 700 30px/33px
 //   intro    650 wide, 16px/22.4px
 //   form     800 wide, centred
+// `title` is REQUIRED on purpose. It used to default to the homepage's CTA
+// copy, and six pages that omitted it silently rendered the wrong heading —
+// see src/lib/cta.ts. A required prop turns that into a build error.
 interface Props {
-  title?: string;
+  title: string;
   intro?: string | null;
 }
-const {
-  title = copy.contactCta.title,
-  intro = copy.contactCta.intro,
-} = Astro.props;
+const { title, intro = null } = Astro.props;
 ---
 
 <section class="bg-mist px-6 py-24">

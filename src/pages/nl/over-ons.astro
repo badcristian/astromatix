@@ -8,6 +8,7 @@ import Reveal from '../../components/ui/Reveal.astro';
 import Timeline from '../../components/ui/Timeline.astro';
 import { resolveIcon } from '../../lib/icons';
 import page from '../../i18n/pages/nl-over-ons.json';
+import { ctaHeading } from '../../lib/cta';
 
 // No <h1> on the original — rendered here deliberately.
 const bandIcons = ['download', 'expand', 'send', 'arrow'] as const;
@@ -44,5 +45,5 @@ const band = page.properties.map((p, i) => ({ icon: bandIcons[i % 4], label: p.l
     </section>
   )}
 
-  <ContactCta intro={null} />
+  <ContactCta title={ctaHeading(page, "over-ons")} intro={null} />
 </Base>

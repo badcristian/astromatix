@@ -117,6 +117,11 @@
     "Klaar om jouw vacature te laten opvallen?"
   ],
   "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
   "quickfeat": [
     {
       "title": "Best passende jobboards",
@@ -205,5 +210,201 @@
       "disclaimer": null
     }
   ],
-  "steps": null
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [],
+  "blocks": [
+    {
+      "heading": "Jobboost",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Boost jouw vacature en vergroot de zichtbaarheid!",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Kies jouw Jobboost en bereik jouw kandidaten",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Met een jobboost wordt jouw vacature optimaal geadverteerd op de meest passende jobboards. En dankzij onze slimme programmatic technologie bereik je de juiste doelgroep voor de beste resultaten."
+      ]
+    },
+    {
+      "heading": "Kies en activeer de Jobboost voor jouw vacature",
+      "level": 4,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "De beste jobboards worden automatisch geselecteerd",
+      "level": 3,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Jouw vacature advertentie wordt actief met extra boost",
+      "level": 3,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "30 dagen extra boost voor jouw gekozen vacature",
+      "level": 3,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Word extra zichtbaar bij jouw kandidaten",
+      "level": 3,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Vergroot het bereik van jouw vacature bij de juiste doelgroep",
+      "level": 3,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Jobboost",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Boost jouw vacature en vergroot de zichtbaarheid!",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Kies jouw Jobboost!",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren en optimaliseren?",
+      "level": 4,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Best passende jobboards",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Extra media budget",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "AI check & optimalisatie",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Social advertentie",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "A/B tekst test",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Veelgestelde vragen",
+      "level": 2,
+      "module": "accordion",
+      "body": []
+    },
+    {
+      "heading": "Klaar om jouw vacature te laten opvallen?",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Laat je gegevens achter en kies direct de boost die bij je past. Twijfel je? Geen zorgen! Onze boost-experts helpen je graag bij het maken van de juiste keuze."
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "title": null,
+      "submitLabel": "Boost mijn vacature!",
+      "fields": [
+        {
+          "name": "company",
+          "type": "text",
+          "label": "Bedrijfsnaam",
+          "placeholder": null,
+          "required": false
+        },
+        {
+          "name": "firstname",
+          "type": "text",
+          "label": "Voornaam*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "lastname",
+          "type": "text",
+          "label": "Achternaam*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "phone",
+          "type": "tel",
+          "label": "Telefoonnummer*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "E-mail*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "boost",
+          "type": "checkbox",
+          "label": "Small",
+          "placeholder": null,
+          "required": false
+        },
+        {
+          "name": "boost",
+          "type": "checkbox",
+          "label": "Medium",
+          "placeholder": null,
+          "required": false
+        },
+        {
+          "name": "boost",
+          "type": "checkbox",
+          "label": "Large",
+          "placeholder": null,
+          "required": false
+        }
+      ]
+    }
+  ]
 }

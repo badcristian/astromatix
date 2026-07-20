@@ -150,5 +150,99 @@
   "quote": null,
   "quickfeat": null,
   "pricing": null,
-  "steps": null
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Schiphol%20Group.png",
+      "alt": "Schiphol Group"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/RijksWaterStaat-logo.jpg",
+      "alt": "RijksWaterStaat-logo"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/2560px-Hornbach_Logo_black.svg.png",
+      "alt": "2560px-Hornbach_Logo_black.svg"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/klantlogos9.jpg",
+      "alt": "klantlogos9"
+    },
+    {
+      "src": "https://www.jobmatix.com/hubfs/Decathlon_-_logo_(France%2c_2024).svg",
+      "alt": "Decathlon_-_logo_(France,_2024)"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/images.png",
+      "alt": "images"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/DHLEXPRESS.jpg",
+      "alt": "DHLEXPRESS"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Remondis_logo.svg.png",
+      "alt": "Remondis_logo.svg"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/Kinder-2.png",
+      "alt": "Kinder-2"
+    }
+  ],
+  "blocks": [
+    {
+      "heading": "De oplossing voor elke wervingsvraag",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Met Jobmatix haal je alles uit één platform. Of je nu talent zoekt voor jezelf, voor opdrachtgevers of je zichtbaarheid wilt vergroten: wij groeien met je mee."
+      ]
+    },
+    {
+      "heading": "Jouw succes, onze technologie",
+      "level": 1,
+      "module": null,
+      "body": [
+        "Of je nu een ambitieuze ondernemer bent die zijn eerste team bouwt, of een internationaal bureau dat duizenden vacatures per dag beheert: de uitdaging is hetzelfde. Je wilt de juiste mensen bereiken zonder kostbaar budget te verspillen. Bij Jobmatix hebben we onze technologie zo ontwikkeld dat deze zich aanpast aan jouw unieke behoeften. Wij vertalen complexe data naar eenvoudige resultaten, zodat jij je kunt focussen op waar je écht goed in bent. Ontdek hoe wij jouw specifieke uitdagingen omzetten in geautomatiseerd succes."
+      ]
+    },
+    {
+      "heading": "Maximaal resultaat met minimale tijdsinvestering",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Je hebt geen fulltime recruitment-afdeling, maar je hebt wél die ene cruciale nieuwe collega nodig. Jobmatix fungeert als jouw 'digitale recruiter'. Wij nemen het complexe werk van jobboards, biedingen en teksten schrijven uit handen. Zo concurreer je moeiteloos met de grote spelers op de arbeidsmarkt, terwijl jij je gewoon op je bedrijfsvoering kunt storten."
+      ]
+    },
+    {
+      "heading": "Strategische grip op grootschalige werving",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Voor de corporate recruiter is overzicht heilig. Hoe behoud je de controle over je employer brand en je budget als je op tientallen locaties tegelijk werft? Jobmatix biedt de structuur die je nodig hebt. Wij centraliseren je recruitment advertising en automatiseren de uitvoering, zodat jouw team de handen vrij heeft voor strategisch talentmanagement en interne verantwoording."
+      ]
+    },
+    {
+      "heading": "Versnel je time-to-hire en vergroot je marge",
+      "level": 2,
+      "module": null,
+      "body": [
+        "In de wereld van uitzenden en detacheren is snelheid alles. De kandidaat die jij vandaag niet spreekt, zit morgen bij de concurrent. Jobmatix geeft je die voorsprong. Onze algoritmes zorgen dat jouw vacatures altijd bovenaan staan op het juiste moment tegen de laagste kosten. Wij optimaliseren je bereik terwijl jij de matches maakt."
+      ]
+    },
+    {
+      "heading": "De technologische motor achter jouw klantadvies",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Als mediabureau wil je je klanten de beste ROI bieden en je eigen operatie schaalbaar maken. Jobmatix biedt de white-label kracht en data-insights die jouw bureau nodig heeft om te excelleren. Gebruik onze programmatic advertising platform om campagnes voor je volledige portfolio te automatiseren en onderbouw je succes met rapportages die er echt toe doen."
+      ]
+    }
+  ],
+  "forms": []
 }

@@ -127,6 +127,11 @@
       "image": null
     }
   ],
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
   "quickfeat": [
     {
       "title": "Alles-in-één platform",
@@ -179,6 +184,257 @@
       "number": "4",
       "title": "Incl. campaign management",
       "body": "Wil je in nog minder tijd de beste resultaten uit je campagnes halen? Dan kun je kiezen voor een abonnement met campagnemanagement, zodat je kunt rekenen op intensieve begeleiding en optimale ondersteuning!"
+    }
+  ],
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [],
+  "blocks": [
+    {
+      "heading": "Job Advertising",
+      "level": 1,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "De beste alles-in-een oplossing voor jouw job marketing!",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Job Advertising",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "De beste alles-in-een oplossing voor jouw job marketing!",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Bereik altijd de juiste kandidaten met jouw vacatures",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Job Advertising is de complete oplossing voor slimme job marketing: automatische advertenties op de beste kanalen, AI-ondersteunde tekstoptimalisatie, efficiënter werken, betere resultaten en nog veel meer. Ben jij klaar om ons platform in te zetten als jouw digitale collega?"
+      ]
+    },
+    {
+      "heading": "Job marketing via 1 platform",
+      "level": 4,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Adverteer jouw vacatures",
+      "level": 3,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Bereik jouw doelgroep",
+      "level": 3,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Slim aan de slag",
+      "level": 3,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Leer van data",
+      "level": 3,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Alles-in-één oplossing",
+      "level": 2,
+      "module": "featshow",
+      "body": [
+        "Nooit meer schakelen tussen verschillende systemen of eindeloze contracten met diverse jobboards. Met Job Advertising centraliseer je al je job marketing, bundel je je data en werk je met één partij samen. Efficiënt, simpel en krachtig – alles wat je nodig hebt, binnen één platform."
+      ]
+    },
+    {
+      "heading": "Slim adverteren",
+      "level": 2,
+      "module": "featshow",
+      "body": [
+        "Met programmatic advertising maak je jouw job marketing slimmer en efficiënter. Je job advertenties worden automatisch geplaatst op de beste kanalen, gericht op de juiste doelgroep. Ons platform optimaliseert het gebruik van je advertentiebudget, zodat je vacatures altijd opvallen bij de meest geschikte kandidaten."
+      ]
+    },
+    {
+      "heading": "Data inzicht",
+      "level": 2,
+      "module": "featshow",
+      "body": [
+        "Bekijk de data van je jobcampagnes direct in je dashboard. Krijg inzicht in clicks, sollicitaties, budgetten en ontdek welke jobboards het beste voor jou presteren."
+      ]
+    },
+    {
+      "heading": "Meta advertenties",
+      "level": 2,
+      "module": "featshow",
+      "body": [
+        "Via ons platform adverteer je jouw vacature in no-time op Facebook en Instagram. En dankzij de integratie met je eigen Meta-account promoot je deze altijd vanuit je eigen merk."
+      ]
+    },
+    {
+      "heading": "AI Assistent",
+      "level": 2,
+      "module": "featshow",
+      "body": [
+        "Onze AI Assistant maakt job marketing eenvoudig en effectief. Met slechts een paar klikken controleer je of je vacatureteksten klaar zijn voor jobboards. Je tekst krijgt een check en een score op belangrijke punten zoals vindbaarheid, juiste zoekwoorden, inclusiviteit en meer. Daarnaast helpt de assistant je bij het schrijven en herschrijven van teksten, speciaal geoptimaliseerd voor jobboards.",
+        "Alles-in-één oplossing",
+        "Slim adverteren",
+        "Data inzicht",
+        "Meta advertenties",
+        "AI Assistent"
+      ]
+    },
+    {
+      "heading": "Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren en optimaliseren?",
+      "level": 4,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "De beste tools voor jouw job marketing",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Alles-in-één platform",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Slim adverteren",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Data insights",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "AI Assistent",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Social job-ads",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Let's get your job done....in een paar stappen",
+      "level": 2,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Jouw vacatures, eenvoudig geïntegreerd",
+      "level": 4,
+      "module": "steps",
+      "body": []
+    },
+    {
+      "heading": "Onboarding platform",
+      "level": 4,
+      "module": "steps",
+      "body": []
+    },
+    {
+      "heading": "Check!",
+      "level": 4,
+      "module": "steps",
+      "body": []
+    },
+    {
+      "heading": "Incl. campaign management",
+      "level": 4,
+      "module": "steps",
+      "body": []
+    },
+    {
+      "heading": "Veelgestelde vragen",
+      "level": 2,
+      "module": "accordion",
+      "body": []
+    },
+    {
+      "heading": "Klaar om jouw vacatures te laten opvallen?",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Heb je vragen over job marketing of wil je weten hoe je je vacaturecampagnes naar een hoger niveau tilt? Laat je gegevens achter! We denken graag met je mee en geven advies dat bij jouw situatie past."
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "title": null,
+      "submitLabel": "Versturen",
+      "fields": [
+        {
+          "name": "company",
+          "type": "text",
+          "label": "Bedrijfsnaam",
+          "placeholder": null,
+          "required": false
+        },
+        {
+          "name": "firstname",
+          "type": "text",
+          "label": "Voornaam*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "lastname",
+          "type": "text",
+          "label": "Achternaam*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "phone",
+          "type": "tel",
+          "label": "Telefoonnummer*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "E-mail*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "message",
+          "type": "textarea",
+          "label": "Bericht",
+          "placeholder": null,
+          "required": false
+        }
+      ]
     }
   ]
 }

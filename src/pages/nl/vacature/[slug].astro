@@ -3,7 +3,6 @@ import Base from '../../../layouts/Base.astro';
 import PageHero from '../../../components/sections/PageHero.astro';
 import Steps from '../../../components/ui/Steps.astro';
 import Button from '../../../components/ui/Button.astro';
-import ContactCta from '../../../components/sections/ContactCta.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../../lib/icons';
 
@@ -52,6 +51,9 @@ const closingHeading = headingBlocks.at(-1)?.heading ?? null;
 
 // The recruiter card. team-card on two pages, contact-card on the third —
 // same rendered card, different theme module (see extract-page.mjs).
+// No ContactCta on this page: the vacancy ends with its own "Ben jij klaar
+// voor verandering?" apply CTA, which is rendered below. Appending the shared
+// strip as well duplicated that call to action and added 856px.
 const recruiter = d.teamCards?.[0] ?? d.contactCards?.[0] ?? null;
 const portrait = resolveIcon(recruiter?.image);
 const mailto = recruiter?.links?.find((l: any) => l.href?.startsWith('mailto:'));
@@ -141,6 +143,4 @@ const tel = recruiter?.links?.find((l: any) => l.href?.startsWith('tel:'));
       </div>
     </section>
   )}
-
-  <ContactCta intro={null} />
 </Base>

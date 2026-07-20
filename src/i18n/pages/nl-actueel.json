@@ -74,5 +74,113 @@
   "quote": null,
   "quickfeat": null,
   "pricing": null,
-  "steps": null
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [],
+  "blocks": [
+    {
+      "heading": "Kennis & Updates",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Effectief werven? Begin met een sterke vacaturetekst",
+      "level": 3,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Werkzoeken.nl & Jobmatix",
+      "level": 3,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Programmatic Advertising",
+      "level": 3,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Online talkshow Recruitment Marketing",
+      "level": 3,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Video Recruitment Marketing Automation",
+      "level": 3,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "RecBuzz Conferentie Barcelona",
+      "level": 3,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Trotse Partner van Demo Day België",
+      "level": 3,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "1e plaats Recruitment Tech 35",
+      "level": 3,
+      "module": null,
+      "body": []
+    },
+    {
+      "heading": "Podcast Recruitment marketing",
+      "level": 3,
+      "module": null,
+      "body": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "heading": "Vragen, opmerkingen of wil je meer informatie?",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "We helpen je graag",
+      "level": 3,
+      "module": null,
+      "body": [
+        "Neem gerust contact op, dan denken we met je mee.",
+        "Schrijf je in voor onze nieuwsbrief"
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "title": null,
+      "submitLabel": "Schrijf me in",
+      "fields": [
+        {
+          "name": "firstname",
+          "type": "text",
+          "label": "Voornaam",
+          "placeholder": null,
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "E-mail*",
+          "placeholder": null,
+          "required": true
+        }
+      ]
+    }
+  ]
 }

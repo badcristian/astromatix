@@ -17,6 +17,20 @@ export const ORIGIN_BASE = 'https://www.jobmatix.com';
 // Used by probe-modules.mjs and extract-page.mjs, which both accept a group
 // name in place of a path.
 export const GROUPS = {
+  // The hand-built marketing pages. They predate the `blocks` extractor, so
+  // re-extract them whenever extract-page.mjs gains a field or their templates
+  // will keep reading data that is one schema behind.
+  marketing: [
+    '/nl/platform',
+    '/nl/oplossingen/jobadvertising',
+    '/nl/oplossingen/jobboost',
+    '/nl/jobbooster',
+    '/nl/over-ons',
+    '/nl/contact',
+    '/nl/klantcases',
+    '/voor-wie',
+    '/veel-gestelde-vragen',
+  ],
   klantcase: [
     '/nl/actueel/klantcase/djops',
     '/nl/actueel/klantcase/faam',
