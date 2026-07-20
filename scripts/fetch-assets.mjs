@@ -12,6 +12,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 
 const PAGES_DIR = path.resolve('src/i18n/pages');
+const ARTICLES_DIR = path.resolve('src/content/articles');
 const OUT_DIR = path.resolve('src/assets/icons');
 
 /** Stable, filesystem-safe name for a remote asset URL. */
@@ -26,19 +27,32 @@ export function slugForUrl(url) {
 
 const urls = new Set();
 
-for (const file of await readdir(PAGES_DIR)) {
-  if (!file.endsWith('.json')) continue;
-  const data = JSON.parse(await readFile(path.join(PAGES_DIR, file), 'utf8'));
-  const visit = (node) => {
-    if (!node) return;
-    if (typeof node === 'string') {
-      if (/^https?:\/\/.*\.(png|jpe?g|webp|svg)$/i.test(node)) urls.add(node);
-      return;
+const visit = (node) => {
+  if (!node) return;
+  if (typeof node === 'string') {
+    if (/^https?:\/\/.*\.(png|jpe?g|webp|svg)$/i.test(node)) urls.add(node);
+    // Article bodies are raw HTML, so image URLs live inside a string rather
+    // than in a field of their own. Pull them out of src="" too.
+    for (const m of node.matchAll(/src="(https?:\/\/[^"]+?\.(?:png|jpe?g|webp|svg))"/gi)) {
+      urls.add(m[1]);
     }
-    if (Array.isArray(node)) return node.forEach(visit);
-    if (typeof node === 'object') return Object.values(node).forEach(visit);
-  };
-  visit(data);
+    return;
+  }
+  if (Array.isArray(node)) return node.forEach(visit);
+  if (typeof node === 'object') return Object.values(node).forEach(visit);
+};
+
+for (const dir of [PAGES_DIR, ARTICLES_DIR]) {
+  let files;
+  try {
+    files = await readdir(dir);
+  } catch {
+    continue; // collection may not exist yet
+  }
+  for (const file of files) {
+    if (!file.endsWith('.json')) continue;
+    visit(JSON.parse(await readFile(path.join(dir, file), 'utf8')));
+  }
 }
 
 await mkdir(OUT_DIR, { recursive: true });

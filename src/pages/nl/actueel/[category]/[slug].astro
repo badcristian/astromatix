@@ -1,0 +1,185 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../../layouts/Base.astro';
+import ContactCta from '../../../../components/sections/ContactCta.astro';
+import { localiseBodyImages } from '../../../../lib/richtext';
+
+// The 11 HubSpot blog posts — the only genuine article template on the site.
+// Routes are generated from each entry's stored `path` so they match the live
+// URLs exactly (/nl/actueel/blogs/…, /nieuws/…, /kennis/…).
+//
+// The body is sanitised HTML rather than Markdown (see content.config.ts).
+// It is rendered with set:html, which is safe here because the content is
+// build-time data we sanitised ourselves in scripts/extract-articles.mjs —
+// not user input.
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((entry) => {
+    const [, , , category, slug] = entry.data.path.split('/');
+    return { params: { category, slug }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const a = entry.data;
+
+// Images inside the body still carry their HubSpot URLs; swap them for the
+// local assets. Throws at build time if one was never downloaded, rather than
+// silently shipping a CDN hotlink.
+const body = localiseBodyImages(a.bodyHtml, a.slug);
+
+const backHref = `/nl/actueel/${a.category.toLowerCase()}`;
+---
+
+<Base title={a.metaTitle} description={a.metaDescription ?? undefined}>
+  <article class="px-6 pt-[120px] pb-16">
+    <div class="mx-auto max-w-[850px]">
+      <p class="mb-4 text-[14.4px]">
+        <a href={backHref} class="text-orange hover:underline">{a.category}</a>
+      </p>
+
+      <h1 class="font-display text-[40px] leading-[48px] font-bold text-navy">
+        {a.title}
+      </h1>
+
+      {(a.author || a.date) && (
+        <p class="mt-4 text-[14.4px] text-navy/60">
+          {a.author && <>Door {a.author}</>}
+          {a.author && a.date && ' op '}
+          {a.date}
+        </p>
+      )}
+
+      <div class="rich-text mt-10" set:html={body} />
+
+      <p class="mt-12">
+        <a href={backHref} class="text-[16px] text-orange hover:underline">
+          &larr; Terug naar {a.category}
+        </a>
+      </p>
+    </div>
+  </article>
+
+  <ContactCta intro={null} />
+</Base>
+
+<style>
+  /*
+    Prose styles for the sanitised article bodies.
+
+    The extractor flattens HubSpot's structural divs but PRESERVES the semantic
+    module types it finds inside post bodies as `rt-*` classes — team-card
+    testimonials, feature/compact cards, CTA buttons, images. Those are real
+    structure the articles have, not editor cruft, so they get styled rather
+    than flattened. See scripts/extract-articles.mjs.
+  */
+  .rich-text {
+    color: var(--color-navy);
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .rich-text :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .rich-text :global(h2) {
+    font-family: var(--font-display);
+    font-size: 30px;
+    line-height: 33px;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+  }
+
+  .rich-text :global(h3),
+  .rich-text :global(h4),
+  .rich-text :global(h5) {
+    font-family: var(--font-display);
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 700;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .rich-text :global(ul),
+  .rich-text :global(ol) {
+    margin: 0 0 1.25rem 1.25rem;
+  }
+
+  .rich-text :global(ul) { list-style: disc; }
+  .rich-text :global(ol) { list-style: decimal; }
+  .rich-text :global(li) { margin-bottom: 0.5rem; }
+
+  .rich-text :global(a) {
+    color: var(--color-orange);
+    text-decoration: underline;
+  }
+
+  .rich-text :global(strong) { font-weight: 700; }
+  .rich-text :global(em) { font-style: italic; }
+
+  .rich-text :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .rich-text :global(hr) {
+    border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-navy) 15%, transparent);
+    margin: 2.5rem 0;
+  }
+
+  /* Embeds (one podcast iframe across the 11 posts) must not overflow. */
+  .rich-text :global(iframe) {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  /* --- preserved module types ------------------------------------------- */
+
+  /* Testimonial cards: portrait, attribution, quote. */
+  .rich-text :global(.rt-team-card) {
+    display: grid;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .rich-text :global(.rt-team-card img) {
+    width: 96px;
+    height: 96px;
+    border-radius: 9999px;
+    object-fit: cover;
+    margin: 0;
+  }
+
+  .rich-text :global(.rt-feature-card),
+  .rich-text :global(.rt-compact-card) {
+    background: var(--color-fog);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .rich-text :global(.rt-button a) {
+    display: inline-block;
+    background: var(--color-orange);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 9999px;
+    padding: 14px 32px;
+    font-weight: 700;
+  }
+
+  .rich-text :global(.rt-image img) {
+    margin: 2rem 0;
+  }
+</style>

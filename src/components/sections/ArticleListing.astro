@@ -1,0 +1,133 @@
+---
+import { Image } from 'astro:assets';
+import { resolveIcon } from '../../lib/icons';
+import listing from '../../i18n/pages/listing.json';
+
+// THE headline improvement over the original.
+//
+// The live site renders these cards client-side with List.js into an empty
+// <div>: non-JS crawlers see nothing, and only 9 of the 15 entries reach the
+// DOM at all (the rest are paginated away). Here every card is real HTML at
+// build time, and filtering is a small progressive-enhancement island — remove
+// the JS and you still have a complete, crawlable, linkable list.
+//
+// The original also ships /nl/actueel/{blogs,nieuws,kennis,events} as four
+// byte-identical copies of this page (FINDINGS.md §6). We render them as real
+// server-filtered pages instead, which makes each category deep-linkable
+// rather than a JS-only view of the same URL.
+//
+// Source data is inconsistent (a duplicate, mixed casing, a literal "null"
+// category, one category/label mismatch); scripts/extract-listing.mjs
+// normalises it and reports what it changed rather than hiding it.
+
+interface Props {
+  /** Server-side filter. null renders every card with the filter bar active. */
+  activeCategory?: string | null;
+}
+
+const { activeCategory = null } = Astro.props;
+
+const { items, categories } = listing;
+const visible = activeCategory ? items.filter((i) => i.category === activeCategory) : items;
+const cards = visible.map((item) => ({ ...item, img: resolveIcon(item.image) }));
+
+/** Category slug as the original routes it: /nl/actueel/blogs. */
+const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
+---
+
+<section class="px-6 py-16">
+  <div class="mx-auto max-w-[1138px]">
+    <div class="mb-10 flex flex-wrap gap-3" role="group" aria-label="Filter op categorie">
+      {/*
+        Real links, not buttons: each category is a genuine URL on both the
+        original and here, so the filter works without JS and is crawlable.
+        The click handler below upgrades it to instant client-side filtering.
+      */}
+      <a
+        href="/nl/actueel"
+        class="rounded-full border border-navy px-5 py-2 text-[16px] text-navy transition-colors aria-[current=page]:bg-navy aria-[current=page]:text-white"
+        aria-current={activeCategory === null ? 'page' : undefined}
+        data-filter="*"
+      >
+        Alles
+      </a>
+      {categories.map((cat) => (
+        <a
+          href={hrefFor(cat)}
+          class="rounded-full border border-navy px-5 py-2 text-[16px] text-navy transition-colors aria-[current=page]:bg-navy aria-[current=page]:text-white"
+          aria-current={activeCategory === cat ? 'page' : undefined}
+          data-filter={cat}
+        >
+          {cat}
+        </a>
+      ))}
+    </div>
+
+    <div class="flex flex-wrap -mx-3" data-listing>
+      {cards.map((card) => (
+        <article class="w-full px-3 pb-6 md:w-1/2 lg:w-1/3" data-category={card.category}>
+          <a
+            href={card.href ?? '#'}
+            class="flex h-full flex-col overflow-hidden rounded-3xl bg-fog transition-opacity hover:opacity-90"
+            {...(card.external ? { rel: 'noopener', target: '_blank' } : {})}
+          >
+            {card.img && (
+              <Image src={card.img} alt="" width={363} height={272} class="h-[272px] w-full object-cover" />
+            )}
+            <div class="flex flex-1 flex-col p-6">
+              <p class="text-[14.4px] text-orange">{card.category}</p>
+              <h2 class="mt-2 font-display text-[20px] leading-[28px] font-bold text-navy">
+                {card.title}
+              </h2>
+              <p class="mt-2 text-[14.4px] leading-[20.16px] text-navy">{card.excerpt}</p>
+              <time class="mt-auto pt-4 text-[14.4px] text-navy/60" datetime={card.date}>
+                {card.date}
+              </time>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <p class="mt-8 text-[16px] text-navy/60" data-empty hidden>
+      Geen resultaten in deze categorie.
+    </p>
+  </div>
+</section>
+
+<script>
+  // Progressive enhancement only: every card is already in the HTML, and each
+  // filter is a real link to a real page. This just avoids the navigation.
+  const list = document.querySelector<HTMLElement>('[data-listing]');
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-filter]'));
+  const empty = document.querySelector<HTMLElement>('[data-empty]');
+
+  // Only safe to intercept on the unfiltered page — a category page has been
+  // server-filtered, so it does not hold the cards for other categories.
+  const isUnfiltered = document.querySelector('[data-filter="*"]')?.getAttribute('aria-current') === 'page';
+
+  if (list && isUnfiltered) {
+    const cards = Array.from(list.querySelectorAll<HTMLElement>('[data-category]'));
+
+    links.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const wanted = link.dataset.filter;
+        links.forEach((l) =>
+          l.setAttribute('aria-current', l === link ? 'page' : 'false'),
+        );
+
+        let shown = 0;
+        cards.forEach((card) => {
+          const match = wanted === '*' || card.dataset.category === wanted;
+          card.hidden = !match;
+          if (match) shown += 1;
+        });
+        if (empty) empty.hidden = shown > 0;
+
+        // Keep the URL honest so a filtered view is still shareable.
+        history.replaceState(null, '', link.href);
+      });
+    });
+  }
+</script>
