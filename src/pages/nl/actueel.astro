@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import ContactCta from '../../components/sections/ContactCta.astro';
+import { Image } from 'astro:assets';
+import { resolveIcon } from '../../lib/icons';
+import listing from '../../i18n/pages/listing.json';
+
+// THE headline improvement over the original.
+//
+// The live site renders these cards client-side with List.js into an empty
+// <div>: non-JS crawlers see nothing, and only 9 of the 15 entries reach the
+// DOM at all (the rest are paginated away). Here every card is real HTML at
+// build time, and filtering is a small progressive-enhancement island — remove
+// the JS and you still have a complete, crawlable, linkable list.
+//
+// Source data is inconsistent (a duplicate, mixed casing, a literal "null"
+// category, one category/label mismatch); scripts/extract-listing.mjs
+// normalises it and reports what it changed rather than hiding it.
+
+const { items, categories } = listing;
+const cards = items.map((item) => ({ ...item, img: resolveIcon(item.image) }));
+---
+
+<Base title="Actueel — Jobmatix" description="Nieuws, blogs, kennis en events van Jobmatix.">
+  <PageHero title="Actueel" />
+
+  <section class="px-6 py-16">
+    <div class="mx-auto max-w-[1138px]">
+      <div class="mb-10 flex flex-wrap gap-3" role="group" aria-label="Filter op categorie">
+        <button
+          type="button"
+          class="rounded-full border border-navy px-5 py-2 text-[16px] text-navy transition-colors aria-pressed:bg-navy aria-pressed:text-white"
+          aria-pressed="true"
+          data-filter="*"
+        >
+          Alles
+        </button>
+        {categories.map((cat) => (
+          <button
+            type="button"
+            class="rounded-full border border-navy px-5 py-2 text-[16px] text-navy transition-colors aria-pressed:bg-navy aria-pressed:text-white"
+            aria-pressed="false"
+            data-filter={cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <div class="flex flex-wrap -mx-3" data-listing>
+        {cards.map((card) => (
+          <article class="w-full px-3 pb-6 md:w-1/2 lg:w-1/3" data-category={card.category}>
+            <a
+              href={card.href ?? '#'}
+              class="flex h-full flex-col overflow-hidden rounded-3xl bg-fog transition-opacity hover:opacity-90"
+              {...(card.external ? { rel: 'noopener', target: '_blank' } : {})}
+            >
+              {card.img && (
+                <Image src={card.img} alt="" width={363} height={272} class="h-[272px] w-full object-cover" />
+              )}
+              <div class="flex flex-1 flex-col p-6">
+                <p class="text-[14.4px] text-orange">{card.category}</p>
+                <h2 class="mt-2 font-display text-[20px] leading-[28px] font-bold text-navy">
+                  {card.title}
+                </h2>
+                <p class="mt-2 text-[14.4px] leading-[20.16px] text-navy">{card.excerpt}</p>
+                <time class="mt-auto pt-4 text-[14.4px] text-navy/60" datetime={card.date}>
+                  {card.date}
+                </time>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <p class="mt-8 text-[16px] text-navy/60" data-empty hidden>
+        Geen resultaten in deze categorie.
+      </p>
+    </div>
+  </section>
+
+  <ContactCta intro={null} />
+</Base>
+
+<script>
+  // Progressive enhancement only: every card is already in the HTML.
+  const list = document.querySelector<HTMLElement>('[data-listing]');
+  const buttons = Array.from(document.querySelectorAll<HTMLElement>('[data-filter]'));
+  const empty = document.querySelector<HTMLElement>('[data-empty]');
+
+  if (list) {
+    const cards = Array.from(list.querySelectorAll<HTMLElement>('[data-category]'));
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const wanted = button.dataset.filter;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+
+        let shown = 0;
+        cards.forEach((card) => {
+          const match = wanted === '*' || card.dataset.category === wanted;
+          card.hidden = !match;
+          if (match) shown += 1;
+        });
+        if (empty) empty.hidden = shown > 0;
+      });
+    });
+  }
+</script>

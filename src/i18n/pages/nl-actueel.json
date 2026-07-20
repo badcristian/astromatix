@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Actueel",
+    "description": "",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Kennis & Updates",
+    "background": null
+  },
+  "properties": [
+    {
+      "label": "Bel 085 - 303 67 60",
+      "icon": null
+    },
+    {
+      "label": "Contact",
+      "icon": null
+    }
+  ],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    },
+    {
+      "label": "Lees meer",
+      "href": "/nl/actueel/blogs/effectief-werven-10-tips-vacatureteksten"
+    },
+    {
+      "label": "Lees meer",
+      "href": "/nl/actueel/nieuws/premium-partnership-werkzoeken.nl"
+    },
+    {
+      "label": "Lees meer",
+      "href": "/nl/actueel/blogs/programmatic-advertising-de-toekomst-van-job-marketing"
+    },
+    {
+      "label": "Lees meer",
+      "href": "/nl/actueel/nieuws/talkshow-recruitment-marketing"
+    },
+    {
+      "label": "Bekijk de video",
+      "href": "/nl/actueel/kennis/webinar-recruitment-marketing-automation"
+    },
+    {
+      "label": "Meer informatie",
+      "href": "https://recbuzz.com/"
+    },
+    {
+      "label": "Aanmelden",
+      "href": "https://www.recruitmenttech.be/demoday/"
+    },
+    {
+      "label": "Lees verder",
+      "href": "/nl/actueel/nieuws/recruitment-tech-35"
+    },
+    {
+      "label": "Luister de podcast",
+      "href": "/nl/actueel/blogs/podcast-recruitment-marketing"
+    }
+  ],
+  "headings": [
+    "Kennis & Updates",
+    "Vragen, opmerkingen of wil je meer informatie?"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null
+}
