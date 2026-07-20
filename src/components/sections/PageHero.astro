@@ -16,7 +16,9 @@ interface Props {
 const { title, subtitle, cta } = Astro.props;
 ---
 
-<section class="bg-navy px-6 pt-[100px] pb-[60px] text-center text-white">
+{/* h1 sits 200px below the section top on the original (section padding
+    is 100, with another 100 inside), not the 100 first assumed. */}
+<section class="bg-navy px-6 pt-[200px] pb-[60px] text-center text-white">
   <div class="container-site">
     <h1 class="font-display text-[40px] leading-[52px] font-bold text-white">
       {title}
