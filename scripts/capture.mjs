@@ -117,38 +117,108 @@ async function forceLazyLoad(page) {
   });
 }
 
-async function capture(context, { slug, path: urlPath, wide }) {
+/**
+ * Interactive states. Each `apply` runs after the page has settled; the
+ * screenshot that follows is viewport-height, not fullPage — these capture a
+ * transient UI state, not the whole document.
+ *
+ * `viewports` restricts a state to widths where it exists at all (the mobile
+ * menu has no desktop equivalent).
+ */
+const STATES = {
+  'menu-open': {
+    viewports: ['390'],
+    async apply(page) {
+      await page.click('.mnav__open');
+      // .mnav__open does NOT toggle — closing requires .mnav__close. Clicking
+      // it twice leaves the menu open and silently corrupts later captures.
+      await page.waitForSelector('body.mnav-active', { timeout: 5_000 });
+      await page.waitForTimeout(500);
+    },
+  },
+  'accordion-open': {
+    async apply(page) {
+      await page.click('.accordion__header');
+      await page.waitForSelector('.accordion__item--expanded', { timeout: 5_000 });
+      await page.waitForTimeout(400);
+    },
+  },
+  'nav-stuck': {
+    viewports: ['1440'],
+    async apply(page) {
+      await page.evaluate(() => window.scrollTo(0, 600));
+      await page.waitForSelector('.header--sticky-active', { timeout: 5_000 });
+      await page.waitForTimeout(400);
+    },
+  },
+  'hover-cta': {
+    viewports: ['1440'],
+    async apply(page) {
+      // The header renders three button sets (__static / __sticky / __overlap)
+      // and hides all but one, so a bare `.btn--fill` matches a hidden node and
+      // hover waits forever on actionability. `:visible` picks the live one.
+      await page.hover('.btn--fill:visible');
+      await page.waitForTimeout(400);
+    },
+  },
+  'slider-2': {
+    viewports: ['1440'],
+    async apply(page) {
+      await page.click('.splide__arrow--next');
+      await page.waitForTimeout(800);
+    },
+  },
+  'slider-3': {
+    viewports: ['1440'],
+    async apply(page) {
+      await page.click('.splide__arrow--next');
+      await page.waitForTimeout(800);
+      await page.click('.splide__arrow--next');
+      await page.waitForTimeout(800);
+    },
+  },
+};
+
+/** Open a page, block consent scripts, navigate, and settle it. */
+async function preparePage(context, url, vp, slug) {
+  const page = await context.newPage();
+  for (const pattern of CONSENT_HOSTS) {
+    await page.route(pattern, (route) => route.abort());
+  }
+  await page.setViewportSize({ width: vp.width, height: vp.height });
+
+  const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 45_000 });
+  if (res && !res.ok()) {
+    console.warn(`      ! ${slug} @${vp.label} → HTTP ${res.status()}`);
+  }
+
+  // Re-inject: addStyleTag before navigation does not survive the load.
+  await page.addStyleTag({ content: FREEZE_CSS });
+  await page.evaluate(() => document.fonts.ready);
+  const stats = await forceLazyLoad(page);
+  return { page, stats };
+}
+
+async function capture(context, { slug, path: urlPath, wide, states }) {
   const viewports = wide ? [...VIEWPORTS, WIDE_VIEWPORT] : VIEWPORTS;
   const dir = path.join(outRoot, slug);
+  const url = new URL(urlPath, base).href;
   await mkdir(dir, { recursive: true });
 
   for (const vp of viewports) {
-    const page = await context.newPage();
+    // --- base capture ---
+    let page;
     try {
-      for (const pattern of CONSENT_HOSTS) {
-        await page.route(pattern, (route) => route.abort());
-      }
-      await page.setViewportSize({ width: vp.width, height: vp.height });
-
-      const url = new URL(urlPath, base).href;
-      const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 45_000 });
-
-      if (res && !res.ok()) {
-        console.warn(`      ! ${slug} @${vp.label} → HTTP ${res.status()}`);
-      }
-
-      // Re-inject: addStyleTag before navigation does not survive the load.
-      await page.addStyleTag({ content: FREEZE_CSS });
-      await page.evaluate(() => document.fonts.ready);
-      const stats = await forceLazyLoad(page);
+      const prepared = await preparePage(context, url, vp, slug);
+      page = prepared.page;
+      const { stats } = prepared;
 
       // Clip to exact viewport width instead of fullPage. fullPage widens the
       // canvas to scrollWidth, so any horizontal overflow changes the image
       // dimensions — and odiff reports a dimension mismatch as `layout-diff`,
       // which would mask every real difference on the page.
-      const file = path.join(dir, `${vp.label}.png`);
       await page.screenshot({
-        path: file,
+        path: path.join(dir, `${vp.label}.png`),
         animations: 'disabled',
         clip: { x: 0, y: 0, width: vp.width, height: stats.fullHeight },
       });
@@ -164,7 +234,37 @@ async function capture(context, { slug, path: urlPath, wide }) {
     } catch (err) {
       console.error(`   ✗ ${slug} @${vp.label}: ${err.message.split('\n')[0]}`);
     } finally {
-      await page.close();
+      await page?.close();
+    }
+
+    // --- interactive states ---
+    // Each state gets its OWN page load. Reusing one page would compound the
+    // states — the mobile menu has no toggle-off, so it would stay open into
+    // every subsequent shot.
+    for (const name of states ?? []) {
+      const state = STATES[name];
+      if (!state) {
+        console.warn(`      ! unknown state "${name}"`);
+        continue;
+      }
+      if (state.viewports && !state.viewports.includes(vp.label)) continue;
+
+      let statePage;
+      try {
+        const prepared = await preparePage(context, url, vp, slug);
+        statePage = prepared.page;
+        await state.apply(statePage);
+        // Viewport-height, not fullPage: these capture a transient UI state.
+        await statePage.screenshot({
+          path: path.join(dir, `${vp.label}--${name}.png`),
+          animations: 'disabled',
+        });
+        console.log(`   ✓ ${slug} @${vp.label} [${name}]`);
+      } catch (err) {
+        console.error(`   ✗ ${slug} @${vp.label} [${name}]: ${err.message.split('\n')[0]}`);
+      } finally {
+        await statePage?.close();
+      }
     }
   }
 }

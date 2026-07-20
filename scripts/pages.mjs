@@ -18,8 +18,17 @@ export const VIEWPORTS = [
 // always the hero and the logo wall.
 export const WIDE_VIEWPORT = { width: 1920, height: 1080, label: '1920' };
 
+// Interactive states worth capturing. A static full-page shot silently lies
+// about all of these. Selectors verified against the live site via CDP — the
+// theme JS is minified, so do not try to re-derive them by grepping.
+//
+//   body.mnav-active            mobile menu open  (.mnav__open / .mnav__close)
+//   .accordion__item--expanded  FAQ item open     (.accordion__header)
+//   .header--sticky-active      sticky nav        (added on scroll)
+//   .splide__arrow--next        carousel advance  (loop mode, uses clones)
 export const PAGES = [
-  { slug: 'home', path: '/nl/', template: 'home', wide: true },
+  { slug: 'home', path: '/nl/', template: 'home', wide: true,
+    states: ['menu-open', 'nav-stuck', 'hover-cta', 'slider-2', 'slider-3'] },
 
   { slug: 'platform', path: '/nl/platform', template: 'product' },
   { slug: 'jobadvertising', path: '/nl/oplossingen/jobadvertising', template: 'product' },
@@ -29,7 +38,8 @@ export const PAGES = [
   { slug: 'over-ons', path: '/nl/over-ons', template: 'marketing' },
   { slug: 'contact', path: '/nl/contact', template: 'marketing' },
   { slug: 'voor-wie', path: '/voor-wie', template: 'marketing' },
-  { slug: 'faq', path: '/veel-gestelde-vragen', template: 'marketing' },
+  { slug: 'faq', path: '/veel-gestelde-vragen', template: 'marketing',
+    states: ['accordion-open'] },
   { slug: 'klantcases', path: '/nl/klantcases', template: 'marketing' },
 
   { slug: 'actueel', path: '/nl/actueel', template: 'listing' },
