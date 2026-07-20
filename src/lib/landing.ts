@@ -17,6 +17,10 @@ export const LANDING_SLUGS = [
   'webinar-recruitment-marketing-video',
   'jobmarketing-scan',
   'job-marketing-tool-0',
+  // Legal / informational. Linked from the footer of every page, so their
+  // absence was a broken link on all 48 routes.
+  'privacy-statement',
+  'algemene-voorwaarden',
   // Thank-you pages
   'bedankt-contact',
   'bedankt-demo-emile',

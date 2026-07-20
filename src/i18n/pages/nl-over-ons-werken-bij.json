@@ -1,0 +1,262 @@
+{
+  "meta": {
+    "title": "Op zoek naar een uitdagende job in een techbedrijf? Kom meer over ons te weten en solliciteer!",
+    "description": "Op zoek naar een uitdagende job in een techbedrijf? Dan leren we je graag kennen! Solliciteer snel.",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Bouw mee aan succes!",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [
+    {
+      "title": "Betrokken",
+      "body": "We moedigen onze medewerkers aan om actief betrokken te zijn bij hun persoonlijke groei en ontwikkeling, evenals bij te dragen aan het succes van ons product en onze klanten",
+      "icon": null
+    },
+    {
+      "title": "Eenvoud",
+      "body": "Bij Jobmatix streven we ernaar om zowel intern als in onze contact met klanten, eenvoudige en effectieve oplossingen te bieden, met een focus op open communicatie en transparantie.",
+      "icon": null
+    },
+    {
+      "title": "Vooruitstrevend",
+      "body": "Innovatie is verweven in onze cultuur en ons werkgeverschap. Bij Jobmatix stimuleren we medewerkers om grenzen te verleggen, te groeien en met baanbrekende oplossingen te komen voor online recruitment marketing.",
+      "icon": null
+    }
+  ],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    },
+    {
+      "label": "Bekijk vacature",
+      "href": "/nl/vacature/customer-success-manager"
+    }
+  ],
+  "headings": [
+    "Bouw mee aan succes!",
+    "Onze kernwaarden",
+    "Kantoormomenten",
+    "Wat zeggen onze collega's?"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [
+    {
+      "title": "Customer Success Manager",
+      "body": "Breda | € 3.000 - € 4.000 | 40 uur Weet jij organisaties te overtuigen en klantrelaties uit te bouwen en te onderhouden? Dan zijn wij op zoek naar jou!",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Afbeeding%201%20%201200x%20600x.png",
+      "links": [
+        {
+          "label": "Customer Success Manager",
+          "href": "/nl/vacature/customer-success-manager"
+        },
+        {
+          "label": "Bekijk vacature",
+          "href": "/nl/vacature/customer-success-manager"
+        }
+      ]
+    }
+  ],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Afbeeding%201%20%201200x%20600x.png",
+      "width": 384,
+      "height": 192,
+      "afterHeading": "Bouw mee aan succes!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider12.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider7.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider4.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider3.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider10.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/founders.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider6.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider9.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider12.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider7.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider4.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider3.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider10.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/founders.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider6.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider9.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider12.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider7.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider4.jpg",
+      "width": 352,
+      "height": 234,
+      "afterHeading": "Kantoormomenten"
+    }
+  ],
+  "blocks": [
+    {
+      "heading": "Bouw mee aan succes!",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Customer Success Manager",
+      "level": 4,
+      "module": "contact-card",
+      "body": []
+    },
+    {
+      "heading": "Onze kernwaarden",
+      "level": 2,
+      "module": "rtext",
+      "body": []
+    },
+    {
+      "heading": "Betrokken",
+      "level": 4,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Eenvoud",
+      "level": 4,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Vooruitstrevend",
+      "level": 4,
+      "module": "feature-card",
+      "body": []
+    },
+    {
+      "heading": "Kantoormomenten",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Wat zeggen onze collega's?",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    }
+  ],
+  "forms": []
+}

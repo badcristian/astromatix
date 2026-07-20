@@ -1,0 +1,81 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/sections/PageHero.astro';
+import FeatureCard from '../../../components/ui/FeatureCard.astro';
+import ContactCta from '../../../components/sections/ContactCta.astro';
+import { Image } from 'astro:assets';
+import { resolveIcon } from '../../../lib/icons';
+import { ctaHeading } from '../../../lib/cta';
+import page from '../../../i18n/pages/nl-over-ons-werken-bij.json';
+
+// "Werken bij Jobmatix" — linked from the main nav on EVERY page, so its
+// absence was a broken link on all 48 routes rather than a missing extra.
+// Two-segment path, which is why it needs its own route rather than joining
+// the /nl/[slug] landing template.
+
+const title = page.hero.title || page.headings[0] || 'Werken bij Jobmatix';
+const intro = page.blocks?.find((b: any) => b.body?.length)?.body ?? [];
+const cards = page.featureCards
+  .map((c) => ({ ...c, resolved: resolveIcon(c.icon) }))
+  .filter((c) => c.title);
+const contact = page.contactCards?.[0] ?? page.teamCards?.[0] ?? null;
+const portrait = resolveIcon(contact?.image);
+---
+
+<Base title={page.meta.title} description={page.meta.description ?? undefined}>
+  <PageHero title={title} />
+
+  {intro.length > 0 && (
+    <section class="px-6 py-12">
+      <div class="mx-auto max-w-[850px]">
+        {intro.map((para: string) => (
+          <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {cards.length > 0 && (
+    <section class="px-6 pb-12">
+      <div class="mx-auto flex max-w-[1138px] flex-wrap -mx-3">
+        {cards.map((card) => (
+          <div class="w-full px-3 pb-6 md:w-1/2 lg:w-1/3">
+            <FeatureCard
+              icon={card.resolved}
+              title={card.title}
+              body={card.body ?? ''}
+              background="white"
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {contact && (
+    <section class="px-6 pb-16">
+      <div class="mx-auto flex max-w-[850px] flex-wrap items-center gap-5">
+        {portrait && (
+          <Image src={portrait} alt="" width={96} height={96} class="size-24 rounded-full object-cover" />
+        )}
+        <div>
+          {contact.title && (
+            <p class="font-display text-[20px] leading-[28px] font-bold text-navy">{contact.title}</p>
+          )}
+          {contact.body && <p class="text-[14.4px] text-navy/70">{contact.body}</p>}
+          <p class="mt-2 flex flex-wrap gap-4 text-[14.4px]">
+            {(contact.links ?? [])
+              .filter((l: any) => /^(mailto|tel):/.test(l.href ?? ''))
+              .map((l: any) => (
+                <a href={l.href} class="text-orange hover:underline">
+                  {l.href.replace(/^(mailto|tel):/, '')}
+                </a>
+              ))}
+          </p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <ContactCta title={ctaHeading(page, 'werken-bij')} intro={null} />
+</Base>

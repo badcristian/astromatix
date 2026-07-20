@@ -31,6 +31,13 @@ export const GROUPS = {
     '/voor-wie',
     '/veel-gestelde-vragen',
   ],
+  // Linked from the nav and footer of EVERY page. Missing them meant three
+  // broken links on all 48 routes — a prospect clicking the footer got a 404.
+  legal: [
+    '/nl/over-ons/werken-bij',
+    '/nl/privacy-statement',
+    '/nl/algemene-voorwaarden',
+  ],
   klantcase: [
     '/nl/actueel/klantcase/djops',
     '/nl/actueel/klantcase/faam',

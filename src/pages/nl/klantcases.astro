@@ -31,6 +31,14 @@ const cards = (page.goCards ?? []).map((c) => ({ ...c, img: resolveIcon(c.image)
 const ctaTitle =
   page.blocks.find((b: any) => b.heading?.startsWith('Benieuwd hoe jij'))?.heading ??
   'Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt regelen?';
+
+// Two case studies are linked at doubled /nl/nl/ paths on the original —
+// migration artifacts. We serve them at the clean /nl/actueel/klantcase/ path,
+// so the links have to be rewritten or they 404 in our own build.
+const cleanHref = (href: string | null | undefined) =>
+  (href ?? '#')
+    .replace('/nl/nl/actueel/klantcase/', '/nl/actueel/klantcase/')
+    .replace('/nl/nl/klantcase/', '/nl/actueel/klantcase/');
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
@@ -41,7 +49,7 @@ const ctaTitle =
       <Reveal variant="zoom" duration={500} class="flex flex-wrap -mx-3">
         {cards.map((card) => card.img && (
           <div class="w-full px-3 md:w-1/3">
-            <GoCard image={card.img} name={card.name} title={card.title} href={card.href ?? '#'} />
+            <GoCard image={card.img} name={card.name} title={card.title} href={cleanHref(card.href)} />
           </div>
         ))}
       </Reveal>

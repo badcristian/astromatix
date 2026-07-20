@@ -41,7 +41,10 @@ export const footer = {
     // HubSpot Memberships portal is out of scope for this rebuild.
   ],
   legal: [
-    { label: 'Algemene voorwaarden', href: '/algemene-voorwaarden-2025' },
+    // /algemene-voorwaarden-2025 301s to /algemene-voorwaarden which 301s to
+    // /nl/algemene-voorwaarden. Point at the destination — the plan calls for
+    // collapsing the original's redirect chains.
+    { label: 'Algemene voorwaarden', href: '/nl/algemene-voorwaarden' },
     { label: 'Privacy statement', href: '/nl/privacy-statement' },
   ],
   socials: [

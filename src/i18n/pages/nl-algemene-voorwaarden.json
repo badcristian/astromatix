@@ -1,0 +1,551 @@
+{
+  "meta": {
+    "title": "Algemene voorwaarden | Jobmatix",
+    "description": "",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Algemene voorwaarden Jobmatix",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "Algemene voorwaarden Jobmatix",
+    "Module A – Aanvullende Voorwaarden Service Levels (SLA)"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [],
+  "contentImages": [],
+  "blocks": [
+    {
+      "heading": "Algemene voorwaarden Jobmatix",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "Deze Algemene Voorwaarden zijn van toepassing op alle aanbiedingen, overeenkomsten en leveringen van Jobmatix NL B.V., gevestigd aan Willemstraat 11a, 4811 AH Breda, KvK 66198887, tenzij schriftelijk anders is overeengekomen. Deze voorwaarden zijn gedeponeerd bij de Kamer van Koophandel onder nummer 00661526.",
+        "De voorwaarden zijn opgebouwd uit een algemeen deel en een aantal aanvullende modules:",
+        "Module A – Aanvullende Voorwaarden Service Levels (SLA)",
+        "Module B – Aanvullende Voorwaarden Persoonsgegevens (VO)",
+        "Deze voorwaarden bevatten bepalingen over het gebruik van onze software en dienstverlening, service levels, verwerking van persoonsgegevens, en afspraken over eigendom, aansprakelijkheid en beëindiging. De modules bevatten aanvullende afspraken die van toepassing zijn op specifieke onderdelen."
+      ]
+    },
+    {
+      "heading": "Samenvatting van de Algemene Voorwaarden van Jobmatix",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "(Let op: deze samenvatting is puur informatief. De volledige juridische tekst van de Algemene Voorwaarden is leidend.)",
+        "Welkom bij Jobmatix. We maken het makkelijker voor je om vacatures te publiceren en te beheren via ons softwareplatform. Hieronder vind je een korte en begrijpelijke samenvatting van de belangrijkste punten uit onze voorwaarden.",
+        "Onze dienstverlening",
+        "Jobmatix levert software én ondersteuning om jouw vacatures zichtbaar te maken op verschillende platformen.",
+        "Je krijgt toegang tot een eigen account. Daarmee kun je functies beheren, content plaatsen en prestaties volgen.",
+        "We kunnen ook consultancy leveren, zoals het ondersteunen van campagnes.",
+        "Privacy en persoonsgegevens",
+        "We verwerken persoonsgegevens alleen namens jou en volgens de AVG.",
+        "Je blijft zelf verantwoordelijk voor hoe sollicitatiegegevens worden gebruikt in jouw systemen.",
+        "Zie ook onze aanvullende privacyvoorwaarden (Module B).",
+        "Beschikbaarheid en support",
+        "We streven naar 99% beschikbaarheid van onze software.",
+        "Heb je een probleem? Meld het via onze helpdesk. We reageren snel, afhankelijk van hoe ernstig het probleem is.",
+        "We voeren soms onderhoud uit, bij voorkeur buiten piekuren.",
+        "Mediabudget en kosten",
+        "Je kunt budget aan ons overmaken voor vacatureplaatsingen. Wij beheren dat dan zorgvuldig.",
+        "Niet gebruikt budget blijft beschikbaar (binnen de looptijd).",
+        "Facturen van mediapartners zijn altijd leidend.",
+        "Aansprakelijkheid",
+        "We doen ons best, maar kunnen geen garanties geven over het aantal sollicitaties of kwaliteit.",
+        "Onze aansprakelijkheid is beperkt tot €5.000 per jaar en geldt alleen bij ernstige fouten van onze kant.",
+        "Wij zijn niet aansprakelijk voor indirecte schade zoals gemiste omzet of reputatieverlies.",
+        "Beëindiging en exit",
+        "Je kunt de overeenkomst opzeggen, mits je dat tijdig en schriftelijk doet.",
+        "Bij het einde van het contract kunnen wij je data aanleveren, mits alle facturen zijn betaald.",
+        "Na afloop verwijderen we de data, tenzij die volledig geanonimiseerd zijn.",
+        "Juridisch",
+        "Op onze afspraken is Nederlands recht van toepassing.",
+        "Eventuele geschillen worden voorgelegd aan de rechtbank in Breda.",
+        "Vragen? We vinden het belangrijk dat je begrijpt wat je tekent. Aarzel dus niet om contact met ons op te nemen als je ergens over twijfelt.",
+        "Hieronder vind je de juridische tekst van onze algemene voorwaarden;"
+      ]
+    },
+    {
+      "heading": "Artikel 1 – Definities",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "Alle met hoofdletter geschreven begrippen in deze Algemene Voorwaarden hebben, zowel in enkelvoud als in meervoud, de betekenis die daaraan in dit artikel wordt toegekend. Een overzicht van alle definities is opgenomen aan het begin van dit document, met onder meer:",
+        "\"Aanvullende Voorwaarden Persoonsgegevens\": de aanvullende voorwaarden opgenomen in Module B van deze Algemene Voorwaarden, die betrekking hebben op de verwerking van persoonsgegevens.",
+        "\"Aanvullende Voorwaarden Service Levels\": de aanvullende voorwaarden opgenomen in Module A, die betrekking hebben op de service en het onderhoud van de Software.",
+        "\"Account\": de gebruikersnaam, het wachtwoord en eventuele andere autorisatiemiddelen die Opdrachtgever en/of diens Eindgebruiker nodig heeft om in te kunnen loggen op, en gebruik te kunnen maken van de Software.",
+        "\"Algemene Voorwaarden\": deze Algemene Voorwaarden van Jobmatix, inclusief alle modules en eventuele bijlagen.",
+        "\"Back-up\": een reservekopie van de Klantdata of de Diensten die door Jobmatix kan worden teruggezet in het geval van Incidenten.",
+        "\"Beschikbaarheid\": de tijdsperiode waarin de Software gedurende een bepaalde maand benaderd kan worden via het internet, uitgedrukt in een percentage.",
+        "\"Consultancy\": iedere vorm van het verlenen van expertise ten behoeve van Opdrachtgever door Jobmatix of een door Jobmatix ingeschakelde derde, zoals ontwerpen van websites, marketingondersteuning, vacatureteksten, trainingen, analyses en beheer van Software.",
+        "\"Diensten\": alle Software en/of Consultancy die Jobmatix aan Opdrachtgever levert onder de Overeenkomst.",
+        "\"Eindgebruikers\": iedere natuurlijke persoon die onder de Overeenkomst gebruik maakt van de Software, met een persoonlijk Account.",
+        "\"Functionaliteit\": eigenschappen of kenmerken die een bepaald gebruik of toepassing binnen de Software mogelijk maken.",
+        "\"Gepland Onderhoud\": reguliere onderhoudswerkzaamheden aan de Software, die geen Spoedonderhoud zijn.",
+        "\"Impact\": de ernst van de gevolgen van een Incident voor Opdrachtgever.",
+        "\"Incident\": het substantieel niet voldoen van de Software aan de overeengekomen specificaties, inclusief niet-Beschikbaarheid, buiten Onderhoud om.",
+        "\"Intellectuele Eigendomsrechten\": auteursrechten, databankrechten, merkrechten, modelrechten, octrooirechten, knowhow en andere rechten.",
+        "\"Klantdata\": alle gegevens die door Opdrachtgever of Eindgebruikers worden opgeslagen of beschikbaar gesteld aan Jobmatix in het kader van de Overeenkomst.",
+        "\"Materialen\": websites, (web)applicaties, software, documentatie, concepten, teksten, adviezen, rapporten en andere voortbrengselen van de geest.",
+        "\"Mediabudget\": budget dat Opdrachtgever beschikbaar stelt aan Jobmatix voor het plaatsen van vacatures via Software op externe kanalen.",
+        "\"Onderhoud\": alle onderhoudswerkzaamheden door Jobmatix, inclusief Gepland Onderhoud en Spoedonderhoud.",
+        "\"Opdrachtgever\": de natuurlijke of rechtspersoon handelend in beroep of bedrijf die een Overeenkomst met Jobmatix sluit.",
+        "\"Openingstijden\": de gebruikelijke openingstijden van Jobmatix zoals vermeld in artikel A.4.3.",
+        "\"Oplostijd\": de tijd tussen melding van een Incident en het aandragen of realiseren van een (tijdelijke of definitieve) oplossing.",
+        "\"Overeenkomst\": de volledige overeenkomst tussen Jobmatix en Opdrachtgever, inclusief het aanbod, deze Algemene Voorwaarden en de gekozen dienst(en) / product(en).",
+        "\"Prioriteit\": de prioriteit toegekend aan een Incident, gebaseerd op Impact en Urgentie.",
+        "\"Reactietijd\": de tijd tussen melding van een Incident en de eerste inhoudelijke reactie door Jobmatix.",
+        "\"Software\": het recruitment marketing platform van Jobmatix dat aan Opdrachtgever geleverd wordt.",
+        "\"Spoedonderhoud\": onvoorziene onderhoudswerkzaamheden die vanwege Impact en Urgentie direct ingrijpen vereisen.",
+        "\"Vertrouwelijke Informatie\": alle informatie die als vertrouwelijk is aangemerkt of redelijkerwijs als vertrouwelijk te herkennen is, zoals prijzen.)"
+      ]
+    },
+    {
+      "heading": "Artikel 2 – Toepasselijkheid en rangorde",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "2.1 Deze Algemene Voorwaarden zijn van toepassing op alle tussen partijen gesloten Overeenkomsten, inclusief eventuele modules en bijlagen.",
+        "2.2 De Overeenkomst tussen partijen kan bestaan uit meerdere documenten. In geval van strijdigheid geldt de volgende rangorde: a. Schriftelijke aanvullingen en/of afwijkingen; b. De geaccordeerde offerte of het aanbod; c. Deze Algemene Voorwaarden (inclusief modules).",
+        "2.3 Indien bepalingen uit verschillende documenten conflicteren, prevaleert het hoger gerangschikte document."
+      ]
+    },
+    {
+      "heading": "Artikel 3 – Totstandkoming van de Overeenkomst",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "3.1 Elk aanbod van Jobmatix is vrijblijvend, tenzij schriftelijk anders vermeld. Tenzij anders bepaald, blijft een aanbod geldig gedurende dertig (30) dagen.",
+        "3.2 Indien een aanvaarding van Opdrachtgever afwijkt van het aanbod, dan geldt deze slechts als aanvaard als Jobmatix dit schriftelijk bevestigt.",
+        "3.3 Jobmatix is gerechtigd een aanbod aan te passen of te herroepen indien blijkt dat het gebaseerd is op onjuiste of onvolledige informatie van Opdrachtgever."
+      ]
+    },
+    {
+      "heading": "Artikel 4 – Uitvoering van de Overeenkomst",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "4.1 Na totstandkoming van de Overeenkomst zal Jobmatix zich inspannen om de overeengekomen Diensten zo spoedig mogelijk te leveren.",
+        "4.2 Door Jobmatix genoemde termijnen zijn steeds indicatief, tenzij uitdrukkelijk als bindend overeengekomen.",
+        "4.3 Jobmatix heeft het recht om bij de uitvoering van de Overeenkomst derden in te schakelen.",
+        "4.4 Opdrachtgever draagt zorg voor tijdige, juiste en volledige aanlevering van alle benodigde gegevens en medewerking.",
+        "4.5 Jobmatix is gerechtigd om voor de uitvoering van de Diensten gebruik te maken van (handels)namen, merken of logo’s van Opdrachtgever, of alle andere door Opdrachtgever aangeleverde content, uitsluitend voor zover noodzakelijk voor uitvoering van de Overeenkomst."
+      ]
+    },
+    {
+      "heading": "Artikel 5 – Installatie, configuratie en instellingen van Software",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "5.1 Tenzij anders overeengekomen zal Jobmatix zich inspannen om de Software na totstandkoming van de Overeenkomst zo spoedig mogelijk beschikbaar te maken.",
+        "5.2 Enkel indien expliciet overeengekomen, verleent Jobmatix Consultancy voor het inladen, converteren of migreren van Klantdata. Tenzij reeds prijsafspraken zijn gemaakt, kunnen hier aanvullende kosten voor in rekening worden gebracht.",
+        "5.3 Tenzij anders verzocht, worden standaardkoppelingen met derden (zoals sollicitatieknoppen of sociale media) geactiveerd. Indien Opdrachtgever deze koppelingen niet wenst te gebruiken, moet dit vooraf schriftelijk worden gemeld. Opdrachtgever stemt er voorts mee in dat Jobmatix, tenzij vooraf schriftelijk anders aangegeven door Opdrachtgever, naar eigen inzicht mag bepalen welke mediakanalen worden ingezet ten behoeve van de dienstverlening en het mediabudget.",
+        "5.4 Opdrachtgever is zelf verantwoordelijk voor de juistheid van instellingen in de Software. Indien Jobmatix vaststelt dat instellingen niet optimaal zijn, mag zij aanpassingen doen met kennisgeving achteraf. Kosten hiervoor kunnen in rekening worden gebracht."
+      ]
+    },
+    {
+      "heading": "Artikel 6 – Accounts",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "6.1 Voor gebruik van de Software zijn accounts vereist. Opdrachtgever is verantwoordelijk voor beheer, geheimhouding en controle van inloggegevens.",
+        "6.2 Accounts zijn persoonsgebonden en mogen niet gedeeld worden.",
+        "6.3 Jobmatix mag ervan uitgaan dat handelingen via een account door of namens Opdrachtgever worden verricht, tenzij schriftelijk anders gemeld.",
+        "6.4 Bij vermoeden van misbruik dient Opdrachtgever direct maatregelen te nemen en melding te doen bij Jobmatix indien nodig. 6.5 Het is Opdrachtgever en Eindgebruikers niet toegestaan om het Account of de Software te gebruiken met behulp van bots, scripts of geautomatiseerde technologieën die geen menselijke interactie betreffen. Uitsluitend natuurlijke personen mogen direct gebruik maken van de Software, tenzij uitdrukkelijk schriftelijk anders overeengekomen.",
+        "6.6 Indien Opdrachtgever procesautomatisering of systeemintegratie wenst (zoals automatische synchronisatie, datadoorvoer of rapportageverwerking), dient hiervoor vooraf schriftelijk toestemming te worden gevraagd aan Jobmatix. Indien mogelijk en wenselijk zal Jobmatix hiervoor een API-koppeling of andere passende technische oplossing aanbieden. Gebruik van dergelijke koppelingen is uitsluitend toegestaan onder de voorwaarden die door Jobmatix worden gesteld."
+      ]
+    },
+    {
+      "heading": "Artikel 7 – Gebruiksregels",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "7.1 Het is Opdrachtgever en diens Eindgebruikers verboden om Software te gebruiken in strijd met Nederlandse of andere toepasselijke wet- en regelgeving, dan wel op een wijze die anderszins onrechtmatig is.",
+        "7.2 Onverminderd het hiervoor bepaalde, is het Opdrachtgever en diens Eindgebruikers uitdrukkelijk niet toegestaan, ongeacht of dit rechtmatig is, om via de Software gegevens op te slaan of te verspreiden die: a. schadelijke inhoud bevatten (zoals virussen, malware of andere schadelijke software) of hiernaar verwijzen; b. inbreuk maken op rechten van derden (waaronder Intellectuele Eigendomsrechten), of die smadelijk, lasterlijk, beledigend, discriminerend of haatzaaiend zijn; c. de indruk wekken dat Opdrachtgever zich voordoet als een andere (rechts)persoon; d. betrekking hebben op functies die niet daadwerkelijk vacant zijn of die niet bestaan; e. een schending van de persoonlijke levenssfeer van derden opleveren, zoals het zonder toestemming verspreiden van persoonsgegevens; f. hyperlinks of verwijzingen bevatten naar materialen die inbreuk maken op rechten van derden; g. uitingen bevatten of verwijzen naar terrorisme of andere strafbare feiten die in strijd zijn met de openbare orde of goede zeden.",
+        "7.3 Indien Jobmatix constateert dat Opdrachtgever of diens Eindgebruikers de voorwaarden overtreedt, of een klacht hierover ontvangt, mag Jobmatix ingrijpen om de overtreding te beëindigen. Dit kan bestaan uit blokkering van accounts of content, of beperking van toegang tot de Software.",
+        "7.4 Onverminderd het hiervoor bepaalde, is het Opdrachtgever en diens Eindgebruikers uitdrukkelijk niet toegestaan om: a. de broncode van de Software te reverse engineeren of te decompileren (tenzij wettelijk toegestaan); b. de Software te kopiëren naar of beschikbaar te stellen aan derden (bv. via sublicentie of verhuur); c. wijzigingen in de Software aan te brengen, tenzij toegestaan onder dwingend recht; d. eigendoms- of rechtenduidingen van Jobmatix te verwijderen; e. beveiligingsmaatregelen van de Software te omzeilen.",
+        "7.5 Jobmatix kan alle schade die voortvloeit uit inbreuken door Opdrachtgever of diens Eindgebruikers op deze gedragsregels verhalen op Opdrachtgever. Opdrachtgever vrijwaart Jobmatix voor aanspraken van derden die hieruit voortvloeien."
+      ]
+    },
+    {
+      "heading": "Artikel 8 – Mediabudget",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "8.1 Deze bepaling geldt voor zowel vooruit gestort Mediabudget (incidenteel of periodiek) als voor achteraf berekend Mediabudget dat op nacalculatiebasis wordt afgerekend.",
+        "8.2 Incidenteel gestort budget is maximaal twaalf (12) maanden geldig, tenzij verlengd door een aanvullende storting van minimaal €500,-.",
+        "8.3 Restitutie kan tegen betaling van €125,- administratiekosten binnen de geldigheidsperiode worden aangevraagd.",
+        "8.4 Periodiek budget wordt beoordeeld op verbruik. Niet-verbruikt budget schuift door naar de volgende periode.",
+        "8.5 Mediabudget kan worden ingezet via geselecteerde mediakanalen. Jobmatix is niet aansprakelijk voor prestaties van externe systemen.",
+        "8.6 Bij gebruik van campagnelimieten kan onder- of overschrijding plaatsvinden: a. Onderscheiding wordt als saldo bewaard. b. Overschrijding wordt verrekend of gefactureerd.",
+        "8.7 In geval van verschillen tussen het dashboard of rapportages in de Software van Jobmatix en de daadwerkelijke facturen van mediapartners of leveranciers, zijn de facturen van de leveranciers leidend. Opdrachtgever is gehouden deze kosten te voldoen, ongeacht de weergave in rapportages. Jobmatix zal Opdrachtgever op verzoek inzage geven in de desbetreffende facturen of brondata.",
+        "8.8 Jobmatix behoudt zich het recht voor om bij mediabudgetten inkoopvoordelen, kortingen of commissies van mediapartners te bedingen. Tenzij schriftelijk anders overeengekomen, komen deze voordelen volledig toe aan Jobmatix.",
+        "8.9 Het is voor Opdrachtgever mogelijk om, in overleg, eigen inkoopcontracten met mediapartijen toe te voegen aan de Software van Jobmatix. In dat geval is Opdrachtgever volledig zelf verantwoordelijk voor een correcte administratie, controle en betaling van de bijbehorende facturen. Jobmatix is in dat geval niet verantwoordelijk voor fouten, onvolledigheden of achterstallige betalingen ten aanzien van die contracten.",
+        "8.10 Voor campagnes die worden uitgevoerd op basis van een eigen inkoopcontract van Opdrachtgever, rekent Jobmatix een maandelijkse service fee. Deze service fee wordt berekend over het mediabudget dat via het eigen contract wordt verwerkt, en wordt vooraf met Opdrachtgever afgestemd en schriftelijk vastgelegd."
+      ]
+    },
+    {
+      "heading": "Artikel 9 – Service Levels",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "9.1 Tenzij anders overeengekomen geldt voor Onderhoud, ondersteuning en Beschikbaarheid van de Software hetgeen is geregeld in de Aanvullende Voorwaarden Service Levels, opgenomen als Module A bij deze Algemene Voorwaarden."
+      ]
+    },
+    {
+      "heading": "Artikel 10 – Consultancy",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "10.1 Opdrachtgever kan Jobmatix verzoeken om, naast het leveren van Software, aanvullende Consultancy te leveren. Voor zover hierover nog geen afspraken zijn gemaakt, is Jobmatix niet verplicht om deze diensten uit te voeren.",
+        "10.2 Indien Consultancy wordt overeengekomen, zal Jobmatix deze professioneel en zorgvuldig uitvoeren.",
+        "10.3 Consultancy wordt in beginsel uitgevoerd op basis van bestede tijd tegen het overeengekomen of gebruikelijke uurtarief van Jobmatix. Bij uitvoering buiten openingstijden kan een afwijkend tarief gelden.",
+        "10.4 Consultancy m.b.t. service levels wordt geacht inbegrepen te zijn in de vergoeding voor de Software, tenzij anders overeengekomen."
+      ]
+    },
+    {
+      "heading": "Artikel 11 – Intellectuele Eigendomsrechten",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "11.1 Alle Intellectuele Eigendomsrechten op de Software en andere Materialen berusten bij Jobmatix of diens toeleveranciers, tenzij schriftelijk anders overeengekomen.",
+        "11.2 Opdrachtgever verkrijgt uitsluitend een niet-exclusief, niet-overdraagbaar en niet-sublicentieerbaar gebruiksrecht voor de duur van de Overeenkomst, uitsluitend voor intern gebruik.",
+        "11.3 Opdrachtgever mag geen wijzigingen aanbrengen in de Software of aanduidingen van rechten verwijderen.",
+        "11.4 Toegang tot broncode wordt niet verstrekt, behoudens dwingendrechtelijke uitzonderingen.",
+        "11.5 Het is Opdrachtgever niet toegestaan om beveiligingsmaatregelen in of rond de Software te omzeilen of te verwijderen."
+      ]
+    },
+    {
+      "heading": "Artikel 12 – Klantdata",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "12.1 Opdrachtgever verleent hierbij aan Jobmatix een niet-exclusief recht om geanonimiseerde klantdata, waaronder maar niet beperkt tot content, analytische gegevens en kosteninformatie, te gebruiken voor marketingdoeleinden, data-analyse, optimalisatie van haar systemen of voor andere doeleinden naar eigen goeddunken, mits zodanig gebruik niet herleidbaar is tot een individuele Opdrachtgever of persoon. Dit gebruik is beperkt tot de duur van de klantrelatie en maximaal twee (2) jaar na beëindiging, tenzij de data volledig geaggregeerd en niet herleidbaar is.",
+        "12.2 Indien de Klantdata persoonsgegevens bevatten, gelden de afspraken uit Module B (Persoonsgegevens).",
+        "12.3 Na beëindiging van de Overeenkomst zal Jobmatix de Klantdata verwijderen of retourneren, met inachtneming van de exitbepalingen."
+      ]
+    },
+    {
+      "heading": "Artikel 13 – Exit-regeling",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "13.1 Indien de Overeenkomst wordt beëindigd, kan Jobmatix op verzoek van Opdrachtgever een kopie van de Klantdata aanleveren in een gangbaar bestandsformaat. De hieraan verbonden kosten kunnen afzonderlijk in rekening worden gebracht.",
+        "13.2 Opdrachtgever moet het verzoek hiertoe uiterlijk indienen vóór de einddatum van de Overeenkomst. Jobmatix is alleen gehouden hieraan mee te werken indien alle openstaande verplichtingen zijn voldaan.",
+        "13.3 Na aanlevering van de kopie en bevestiging van ontvangst door Opdrachtgever, of uiterlijk dertig (30) dagen na beëindiging van de Overeenkomst indien geen verzoek is ingediend, is Jobmatix gerechtigd om de Klantdata en omgevingen te verwijderen.",
+        "13.4 Jobmatix is geen back-updienst. Zij spant zich in om gegevens maximaal tot één (1) jaar terug op te slaan. Opdrachtgever erkent dat herstelmogelijkheden beperkt zijn tot deze periode.",
+        "13.5 Jobmatix is niet verplicht om geanonimiseerde data, zoals bedoeld in artikel 12.1, te verwijderen na beëindiging van de Overeenkomst, aangezien deze niet te herleiden is tot Opdrachtgever of individuele personen."
+      ]
+    },
+    {
+      "heading": "Artikel 14 – Geheimhouding",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "14.1 Partijen zullen alle Vertrouwelijke Informatie strikt geheimhouden en uitsluitend gebruiken voor de doeleinden waarvoor deze is verstrekt.",
+        "14.2 De ontvangende partij zal ten minste dezelfde zorgvuldigheid in acht nemen als bij haar eigen vertrouwelijke informatie, met een minimum van redelijke zorg.",
+        "14.3 Deze verplichtingen gelden ook voor werknemers en ingeschakelde derden.",
+        "14.4 De geheimhoudingsplicht geldt niet indien de informatie: a. reeds rechtmatig in bezit was vóór ontvangst; b. door een derde zonder schending is verstrekt; c. openbaar beschikbaar is zonder schending; of d. zelfstandig is ontwikkeld zonder gebruik van vertrouwelijke informatie.",
+        "14.5 Indien wettelijke verplichting tot openbaarmaking bestaat, wordt de verstrekkende partij vooraf geïnformeerd, tenzij verboden. Bij verweer tegen openbaarmaking zal de andere partij wachten met afgifte."
+      ]
+    },
+    {
+      "heading": "Artikel 15 – Betalingsvoorwaarden",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "15.1 Opdrachtgever is de prijzen verschuldigd zoals overeengekomen in de Overeenkomst. Alle bedragen zijn exclusief btw en heffingen.",
+        "15.2 Jobmatix mag vooraf factureren. Facturen worden digitaal verzonden met een betaaltermijn van veertien (14) dagen, tenzij anders overeengekomen.",
+        "15.3 Mediabudget dat op nacalculatiebasis wordt afgerekend, wordt door Jobmatix achteraf gefactureerd op basis van ontvangen facturen van mediapartners. Opdrachtgever erkent en aanvaardt dat deze vorm van facturatie deel uitmaakt van de dienstverlening van Jobmatix en verwijst hierbij naar Artikel 8 (Mediabudget).",
+        "15.4 Reis- en verblijfkosten voor Consultancy worden afzonderlijk gefactureerd. Bij geschil hierover is het oordeel van Jobmatix leidend.",
+        "15.5 Bij betwisting van (een deel van) de factuur dient dit binnen de betaaltermijn schriftelijk te worden gemeld. Onbetwiste bedragen blijven verschuldigd.",
+        "15.6 Bij niet-tijdige betaling is Opdrachtgever automatisch in verzuim en is wettelijke handelsrente verschuldigd. Jobmatix mag de Diensten opschorten.",
+        "15.7 Indien betaling uitblijft na aanmaning, mag Jobmatix incassomaatregelen nemen. Alle daarbij gemaakte kosten komen voor rekening van Opdrachtgever.",
+        "15.8 Jaarlijks per januari kan Jobmatix de tarieven indexeren op basis van de CBS Dienstenprijsindex. Daarnaast kunnen tussentijdse verhogingen plaatsvinden bij stijging van toeleverancierstarieven.",
+        "15.9 Verrekening door Opdrachtgever is niet toegestaan."
+      ]
+    },
+    {
+      "heading": "Artikel 16 – Aansprakelijkheid",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "16.1 De totale aansprakelijkheid van Jobmatix wegens een toerekenbare tekortkoming, onrechtmatige daad of enige andere rechtsgrond, is per kalenderjaar beperkt tot het bedrag dat Opdrachtgever onder de Overeenkomst aan Jobmatix heeft betaald (exclusief btw) in de twaalf (12) maanden voorafgaand aan het ontstaan van de schade, met een maximum van €5.000 per jaar, ongeacht het aantal gebeurtenissen waarop de aansprakelijkheid betrekking heeft.",
+        "16.2 Bij de berekening van het hiervoor bedoelde maximum blijven eenmalige kosten (zoals implementatie- en mediabudget) buiten beschouwing.",
+        "16.3 Jobmatix is niet aansprakelijk voor indirecte schade, waaronder begrepen: gevolgschade, gemiste besparingen, verminderde goodwill, schade door bedrijfsstagnatie, schade als gevolg van het uitblijven van leads of sollicitaties, en reputatieschade.",
+        "16.4 Jobmatix garandeert niet dat de door haar geleverde diensten of campagnes het gewenste resultaat zullen opleveren. Resultaten zoals het aantal sollicitaties of kwaliteit van reacties vallen buiten haar risicodomein.",
+        "16.5 Aansprakelijkheid van Jobmatix ontstaat uitsluitend indien Opdrachtgever Jobmatix schriftelijk en deugdelijk in gebreke heeft gesteld, waarbij een redelijke termijn wordt geboden om alsnog na te komen, en Jobmatix ook na die termijn toerekenbaar tekort blijft schieten.",
+        "16.6 De in de Overeenkomst opgenomen aansprakelijkheidsbeperkingen en -uitsluitingen komen te vervallen indien en voor zover de schade het gevolg is van opzet of bewuste roekeloosheid van de bedrijfsleiding van Jobmatix of bij dood of lichamelijk letsel."
+      ]
+    },
+    {
+      "heading": "Artikel 17 – Overmacht",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "17.1 Jobmatix is niet verplicht tot nakoming van enige verplichting indien zij daartoe is verhinderd als gevolg van overmacht.",
+        "17.2 Onder overmacht wordt onder meer verstaan: storingen in de telecommunicatie-infrastructuur, netwerkaanvallen (zoals DoS/DDoS), stroomstoringen, binnenlandse onlusten, mobilisatie, oorlog, overheidsmaatregelen, stakingen, brand, overstromingen, en nalatigheid van leveranciers of andere ingeschakelde derden.",
+        "17.3 Indien de overmachtsituatie langer dan drie (3) maanden voortduurt, hebben beide partijen het recht de Overeenkomst schriftelijk te beëindigen, zonder verplichting tot schadevergoeding.",
+        "17.4 Indien Jobmatix bij het intreden van overmacht al gedeeltelijk verplichtingen is nagekomen, is zij gerechtigd dit separaat te factureren."
+      ]
+    },
+    {
+      "heading": "Artikel 18 – Duur en beëindiging",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "18.1 Bij een eenmalige opdracht eindigt de Overeenkomst van rechtswege na het voltooien van de opdracht.",
+        "18.2 Duurovereenkomsten hebben standaard een looptijd van twaalf (12) maanden, tenzij anders overeengekomen.",
+        "18.3 Tenzij schriftelijk anders overeengekomen, wordt een duurovereenkomst stilzwijgend verlengd met telkens twaalf (12) maanden, tenzij deze uiterlijk drie (3) maanden voor het einde schriftelijk wordt opgezegd.",
+        "18.4 Na de initiële looptijd mag een duurovereenkomst voor onbepaalde tijd door beide partijen worden opgezegd met een opzegtermijn van twee (2) maanden.",
+        "18.5 Tussentijdse beëindiging is alleen mogelijk in gevallen waarin dat uitdrukkelijk is toegestaan in deze Algemene Voorwaarden of uit de wet voortvloeit.",
+        "18.6 Jobmatix heeft het recht de Overeenkomst met onmiddellijke ingang op te schorten of te beëindigen indien: a. Opdrachtgever wezenlijk tekortschiet in zijn verplichtingen en geen herstel biedt na ingebrekestelling; b. Opdrachtgever failliet wordt verklaard, surseance van betaling aanvraagt of de bedrijfsactiviteiten staakt; c. zich omstandigheden voordoen die nakoming onmogelijk maken of voortzetting onredelijk bezwarend.",
+        "18.7 Beëindiging van de Overeenkomst laat bestaande betalingsverplichtingen van Opdrachtgever onverlet. Alle op het moment van beëindiging openstaande vorderingen van Jobmatix blijven volledig opeisbaar."
+      ]
+    },
+    {
+      "heading": "Artikel 19 – Personeel en concurrentie",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "19.1 Het is Opdrachtgever niet toegestaan om werknemers van Jobmatix in dienst te nemen of anderszins direct of indirect voor zich te laten werken tijdens de looptijd van de Overeenkomst en tot twaalf (12) maanden daarna, tenzij Jobmatix hiervoor schriftelijk toestemming heeft gegeven.",
+        "19.2 Onder werknemers worden mede verstaan personen die minder dan één jaar geleden bij Jobmatix of een gelieerde onderneming in dienst waren.",
+        "19.3 Bij overtreding van het verbod in lid 1 is Opdrachtgever een direct opeisbare boete verschuldigd van €25.000,- per overtreding en €1.000,- voor iedere dag dat de overtreding voortduurt.",
+        "19.4 Deze boete laat het recht van Jobmatix op aanvullende schadevergoeding onverlet."
+      ]
+    },
+    {
+      "heading": "Artikel 20 – Wijzigingen",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "20.1 Jobmatix heeft het recht om deze Algemene Voorwaarden te wijzigen. Wijzigingen worden ten minste dertig (30) dagen voor inwerkingtreding schriftelijk aangekondigd.",
+        "20.2 Indien Opdrachtgever niet akkoord is met een wijziging, kan hij binnen veertien (14) dagen na bekendmaking bezwaar maken. Indien het bezwaar wordt afgewezen, mag Opdrachtgever de Overeenkomst opzeggen tot aan de ingangsdatum van de wijziging.",
+        "20.3 Wijzigingen van ondergeschikt belang of die in het voordeel van Opdrachtgever zijn, mogen direct worden doorgevoerd zonder bezwaarprocedure."
+      ]
+    },
+    {
+      "heading": "Artikel 21 – Aanvullende en dienstspecifieke voorwaarden",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "21.1 Bij bepaalde leveranciers bestaat de mogelijkheid om gebruik te maken van de dienst \"easy apply\", waarbij sollicitaties rechtstreeks plaatsvinden via het platform van de betreffende leverancier. Wanneer Opdrachtgever gebruik wenst te maken van deze functionaliteit, zal Jobmatix in overleg een koppeling realiseren tussen het platform van Jobmatix en het door Opdrachtgever gebruikte ATS of CRM-systeem. In verband met deze dienst bewaart Jobmatix sollicitatiegegevens tijdelijk (gedurende maximaal zeven dagen) teneinde bij eventuele foutmeldingen of mislukte overdrachten de kans te hebben om de sollicitatie alsnog correct door te sturen naar het systeem van Opdrachtgever.",
+        "21.2 Opdrachtgever verplicht zich om medewerking te verlenen aan de technische en functionele inrichting van deze koppeling, inclusief het aanleveren van vereiste gegevens of toegangsinformatie. Opdrachtgever verleent hierbij uitdrukkelijk toestemming aan Jobmatix om in dit kader persoonsgegevens van sollicitanten te verwerken en deze rechtstreeks door te sturen naar het systeem van Opdrachtgever.",
+        "21.3 De verdere verwerking van deze sollicitatiegegevens ligt volledig onder de verantwoordelijkheid van Opdrachtgever als Verwerkingsverantwoordelijke in de zin van de AVG. Jobmatix draagt in deze gevallen uitsluitend zorg voor de correcte overdracht en is niet aansprakelijk voor de verwerking, opslag of verdere verwerking van de persoonsgegevens binnen systemen van Opdrachtgever.",
+        "21.4 Jobmatix werkt samen met leveranciers en mediapartners om campagnes zo effectief mogelijk in te richten. In dat kader kan het voorkomen dat bepaalde leveranciers toegang verlangen tot conversiedata of andere informatie over de prestaties van advertenties (ook wel aangeduid als \"dispositioning data\"). Jobmatix is gerechtigd dergelijke informatie te verstrekken, tenzij Opdrachtgever voorafgaand schriftelijk aangeeft dat zij dit niet wenst. In dat geval zal Jobmatix zich inspannen om de campagne-uitvoering in overleg met de betreffende leverancier aan te passen.",
+        "21.5 Daarnaast biedt Jobmatix geselecteerde leveranciers toegang tot rapportages of dashboards met campagnedata, waaronder gegevens die inzicht geven in prestaties per kanaal, conversies en doelgroepinteractie. Deze data is niet geanonimiseerd en kan herleidbaar zijn tot de specifieke campagne of klant. De toegang wordt uitsluitend verstrekt voor zover dit de dienstverlening aan Opdrachtgever ten goede komt en is beperkt tot functionele doeleinden zoals optimalisatie, monitoring en kwaliteitsverbetering van het geleverde verkeer.",
+        "21.6 Bij de introductie of wijziging van specifieke Diensten, modules of Functionaliteiten van het platform kan Jobmatix aanvullende of afwijkende voorwaarden stellen. Deze voorwaarden worden separaat verstrekt of beschikbaar gesteld aan Opdrachtgever voorafgaand aan het gebruik van de betreffende Dienst of Functionaliteit.",
+        "21.7 De aanvullende voorwaarden maken, na bekendmaking en/of acceptatie door Opdrachtgever, onderdeel uit van de Overeenkomst.",
+        "21.8 In geval van tegenstrijdigheid tussen deze Algemene Voorwaarden en de aanvullende voorwaarden, prevaleren de bepalingen uit de aanvullende voorwaarden uitsluitend voor zover die betrekking hebben op de betreffende Dienst of Functionaliteit.",
+        "21.9 Indien Opdrachtgever direct toegang krijgt tot systemen van derden (zoals mediapartners of leveranciers), en daar zelfstandig wijzigingen aanbrengt of bestellingen plaatst buiten medeweten en goedkeuring van Jobmatix om, is Opdrachtgever volledig verantwoordelijk en aansprakelijk voor de gevolgen hiervan. Dit geldt ook voor fouten of verstoringen die hierdoor ontstaan in rapportages, prestaties of softwarekoppelingen.",
+        "21.10 Het is Opdrachtgever niet toegestaan om onder het contract van Jobmatix zelfstandig producten of diensten te bestellen bij leveranciers of mediapartijen zonder voorafgaande schriftelijke instemming van Jobmatix. Alleen orders die via Jobmatix worden geplaatst en door Jobmatix worden bevestigd, vallen onder de verantwoordelijkheid van Jobmatix.",
+        "21.11 Alle kosten en schade die voortvloeien uit niet-geautoriseerde bestellingen of directe handelingen van Opdrachtgever bij leveranciers, inclusief eventuele extra kosten of claims van de betreffende partij, worden volledig aan Opdrachtgever doorbelast, vermeerderd met een service fee zoals nader bepaald door Jobmatix. tussen deze Algemene Voorwaarden en de aanvullende voorwaarden, prevaleren de bepalingen uit de aanvullende voorwaarden uitsluitend voor zover die betrekking hebben op de betreffende Dienst of Functionaliteit."
+      ]
+    },
+    {
+      "heading": "Artikel 22 - Toepasselijk recht en bevoegde rechter:",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "22.1 Op deze Algemene Voorwaarden is uitsluitend Nederlands recht van toepassing.",
+        "22.2 Geschillen tussen partijen die voortvloeien uit of verband houden met de Overeenkomst worden bij uitsluiting voorgelegd aan de bevoegde rechter in het arrondissement waar Jobmatix statutair is gevestigd."
+      ]
+    },
+    {
+      "heading": "Module A – Aanvullende Voorwaarden Service Levels (SLA)",
+      "level": 2,
+      "module": "rtext",
+      "body": [
+        "Deze module bevat aanvullende bepalingen over de beschikbaarheid, onderhoud en ondersteuning van de Software van Jobmatix.",
+        "Artikel A.1 – Onderhoud en beschikbaarheid",
+        "A.1.1 Jobmatix zal zich inspannen om de Software en Diensten gedurende de looptijd van de Overeenkomst te onderhouden. Daarbij wordt de Software continu doorontwikkeld en worden bestaande Functionaliteiten verbeterd, aangepast of vervangen, en kunnen nieuwe Functionaliteiten worden toegevoegd.",
+        "A.1.2 Onderhoudswerkzaamheden kunnen tijdelijk de Beschikbaarheid beïnvloeden. Gepland Onderhoud wordt zoveel mogelijk uitgevoerd buiten piekuren. Indien daarbij sprake is van (groot) onderhoud waardoor de Dienst tijdelijk verminderd of niet beschikbaar is, zal Jobmatix Opdrachtgever hiervan tijdig op de hoogte stellen.",
+        "A.1.3 Spoedonderhoud mag zonder voorafgaande toestemming worden uitgevoerd. Jobmatix zal Opdrachtgever zo spoedig mogelijk informeren over aard en duur.",
+        "A.1.4 Voor reguliere updates of onderhoud die geen invloed hebben op de Beschikbaarheid van de Dienst, is Jobmatix niet verplicht om Opdrachtgever vooraf te informeren."
+      ]
+    },
+    {
+      "heading": "Artikel A.2 – Beschikbaarheid",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "A.2.1 Jobmatix streeft naar een jaarlijkse Beschikbaarheid van minimaal 99%.",
+        "A.2.2 Beschikbaarheid wordt als volgt berekend:",
+        "Tm = totaal aantal minuten per jaar",
+        "Om = aantal minuten niet-Beschikbaarheid",
+        "Beschikbaarheid B = ((Tm - Om) / Tm) × 100%",
+        "A.2.3 Niet-Beschikbaarheid als gevolg van overmacht telt niet mee voor deze berekening."
+      ]
+    },
+    {
+      "heading": "Artikel A.3 – Back-ups",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "A.3.1 Jobmatix maakt regelmatig back-ups om bij Incidenten Klantdata of Diensten te kunnen herstellen.",
+        "A.3.2 Jobmatix is geen back-updienst. Het terugzetten van back-ups gebeurt enkel in uitzonderlijke gevallen en kan kosten met zich meebrengen.",
+        "A.3.3 Herstel leidt mogelijk tot verlies van gegevens die sinds het laatste back-upmoment zijn ingevoerd."
+      ]
+    },
+    {
+      "heading": "Artikel A.4 – Helpdesk",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "A.4.1 Opdrachtgever wijst maximaal twee key-users aan voor communicatie met Jobmatix.",
+        "A.4.2 Alleen deze key-users mogen vragen, wijzigingsverzoeken en Incidenten melden.",
+        "A.4.3 De helpdesk is beschikbaar op werkdagen van 09:00 tot 17:00 uur (Nederlandse tijd), met uitzondering van officiële feestdagen. De helpdesk is bereikbaar via een ticketsysteem dat te raadplegen is via de website of per e-mail op support@jobmatix.com. Jobmatix streeft ernaar om binnen 24 uur na ontvangst van de vraag inhoudelijk te reageren, waarbij uitsluitend de tijd binnen de genoemde openingstijden wordt meegerekend."
+      ]
+    },
+    {
+      "heading": "Artikel A.5 – Wijzigingsverzoeken",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "A.5.1 Opdrachtgever kan wijzigingsverzoeken indienen bij de helpdesk.",
+        "A.5.2 Jobmatix beoordeelt binnen vijf (5) werkdagen of een wijziging uitvoerbaar is en informeert Opdrachtgever.",
+        "A.5.3 Jobmatix mag kosten rekenen voor uitvoering van wijzigingsverzoeken. Jobmatix is echter nooit verplicht om wijzigingsverzoeken van Opdrachtgever te honoreren of uit te voeren."
+      ]
+    },
+    {
+      "heading": "Artikel A.6 – Incidenten en prioriteit",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "A.6.1 Bij een Incident meldt Opdrachtgever dit via het ticketsysteem van Jobmatix.",
+        "A.6.2 Opdrachtgever verstrekt alle benodigde informatie en toegang om de melding te onderzoeken.",
+        "A.6.3 Jobmatix bepaalt op basis van Impact en Urgentie de Prioriteit volgens onderstaande matrix:",
+        "Impactcategorieën:",
+        "Hoog (H): Een grote groep Eindgebruikers kan geen gebruik maken van de Software; financiële schade hoger dan zes maanden licentiekosten; groot risico op reputatieschade.",
+        "Middel (M): Een beperkte groep Eindgebruikers wordt geraakt; financiële schade tussen twee en zes maanden licentiekosten; aannemelijke reputatieschade.",
+        "Laag (L): Slechts een klein aantal Eindgebruikers of processen wordt geraakt; beperkte financiële schade; kleine kans op reputatieschade.",
+        "Urgentiecategorieën:",
+        "Hoog (H): Schade neemt snel toe; proces is tijdkritisch; snel ingrijpen voorkomt verdere escalatie.",
+        "Middel (M): Schade neemt merkbaar toe in de tijd; processen kunnen beperkt worden uitgesteld.",
+        "Laag (L): Schade neemt nauwelijks toe; processen zijn niet tijdgebonden.",
+        "Impact ↓ / Urgentie →",
+        "Hoog (H)",
+        "Middel (M)",
+        "Laag (L)",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Prioriteit",
+        "Reactietijd",
+        "Oplostijd",
+        "1 (Kritiek)",
+        "< 1 uur",
+        "binnen 4-8 uur",
+        "2 (Hoog)",
+        "< 2 uur",
+        "binnen 8-24 uur",
+        "3 (Gemiddeld)",
+        "< 4 uur",
+        "binnen 2-3 werkdagen",
+        "4 (Laag)",
+        "< 8 uur",
+        "binnen 5 werkdagen",
+        "A.6.4 Indien Opdrachtgever het oneens is met de prioritering, kan escalatie plaatsvinden naar het management.",
+        "A.6.5 Jobmatix hanteert per prioriteit Reactietijden en Oplostijden tijdens openingstijden. Deze worden vastgelegd in een aparte bijlage of SLA.",
+        "A.6.6 Tijdens afhandeling wordt Opdrachtgever regelmatig geïnformeerd over voortgang en verwachte oplostijd."
+      ]
+    },
+    {
+      "heading": "Module B – Aanvullende Voorwaarden Persoonsgegevens (VO)",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "Deze module functioneert als verwerkersovereenkomst en bevat bepalingen over de verwerking van persoonsgegevens door Jobmatix namens Opdrachtgever."
+      ]
+    },
+    {
+      "heading": "Artikel B.1 – Rollen en verantwoordelijkheden",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "B.1.1 Voor zover Jobmatix bij het uitvoeren van de Overeenkomst persoonsgegevens verwerkt in opdracht van Opdrachtgever, geldt Jobmatix als Verwerker en Opdrachtgever als Verwerkingsverantwoordelijke in de zin van de Algemene Verordening Gegevensbescherming (AVG).",
+        "B.1.2 Deze Module B geldt als verwerkersovereenkomst in de zin van artikel 28 AVG en is van rechtswege van toepassing zodra Jobmatix als Verwerker optreedt onder de Overeenkomst. Het is daarmee niet vereist dat partijen hiervoor een afzonderlijke verwerkersovereenkomst ondertekenen. Indien Opdrachtgever desondanks een separate verwerkingsovereenkomst wenst, zal Jobmatix hieraan meewerken, mits deze inhoudelijk gelijkwaardig is aan deze Module B. Partijen leggen hun wederzijdse verplichtingen vast in een separate Verwerkersovereenkomst. Bij tegenstrijdigheid prevaleert de Verwerkersovereenkomst boven deze Algemene Voorwaarden."
+      ]
+    },
+    {
+      "heading": "Artikel B.2 – Verwerkingsdoeleinden",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "B.2.1 Jobmatix verwerkt persoonsgegevens uitsluitend voor het uitvoeren van de Overeenkomst, en overeenkomstig de schriftelijke instructies van Opdrachtgever, tenzij een wettelijke bepaling Jobmatix verplicht anders te handelen.",
+        "B.2.2 Jobmatix zal Opdrachtgever voorafgaand informeren indien een instructie naar haar oordeel in strijd is met de AVG of andere toepasselijke wetgeving."
+      ]
+    },
+    {
+      "heading": "Artikel B.3 – Subverwerkers en doorgifte",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "B.3.1 Jobmatix mag gebruik maken van subverwerkers mits zij met deze subverwerkers schriftelijke afspraken maakt die minimaal hetzelfde beschermingsniveau bieden als tussen partijen.",
+        "B.3.2 Een actuele lijst van subverwerkers wordt bijgehouden en gepubliceerd op jobmatix.com/subverwerkers.",
+        "B.3.3 Indien persoonsgegevens buiten de Europese Economische Ruimte (EER) worden verwerkt, garandeert Jobmatix dat passende waarborgen zijn getroffen zoals vereist onder de AVG."
+      ]
+    },
+    {
+      "heading": "Artikel B.4 – Rechten van betrokkenen",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "B.4.1 Verzoeken van betrokkenen (zoals inzage, correctie of verwijdering) worden zoveel mogelijk gefaciliteerd door Jobmatix, maar blijven de verantwoordelijkheid van Opdrachtgever. B.4.2 Indien een verzoek rechtstreeks bij Jobmatix binnenkomt, informeert zij Opdrachtgever zonder onredelijke vertraging."
+      ]
+    },
+    {
+      "heading": "Artikel B.5 – Beveiliging en incidentmeldingen",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "B.5.1 Jobmatix treft passende technische en organisatorische maatregelen om persoonsgegevens te beveiligen tegen verlies of onrechtmatige verwerking.",
+        "B.5.2 Bij een datalek meldt Jobmatix dit onverwijld aan Opdrachtgever, met daarbij de relevante informatie voor melding aan de toezichthouder en/of betrokkene."
+      ]
+    },
+    {
+      "heading": "Artikel B.6 – Audits en controle",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "B.6.1 Opdrachtgever kan uitsluitend in geval van een zwaarwegende en gemotiveerde aanleiding een auditverzoek indienen bij Jobmatix met betrekking tot de naleving van afspraken over gegevensverwerking. Een dergelijk verzoek dient onderbouwd te worden en wordt alleen in behandeling genomen na voorafgaand overleg. Jobmatix beoordeelt zelfstandig of het verzoek gerechtvaardigd is en of een audit van toepassing is. Een audit mag alleen plaatsvinden na schriftelijke goedkeuring van Jobmatix.",
+        "B.6.2 De audit wordt minimaal vier (4) weken van tevoren schriftelijk aangekondigd en in overleg uitgevoerd, met zo min mogelijk verstoring van de werkzaamheden.",
+        "B.6.3 Eventuele kosten voor audits komen voor rekening van Opdrachtgever, tenzij uit de audit blijkt dat Jobmatix wezenlijk tekort is geschoten."
+      ]
+    },
+    {
+      "heading": "Artikel B.7 – Verwijdering of retournering",
+      "level": 3,
+      "module": "rtext",
+      "body": [
+        "B.7.1 Na beëindiging van de Overeenkomst zal Jobmatix op verzoek van Opdrachtgever alle persoonsgegevens retourneren of vernietigen, tenzij wettelijk vereist is deze te bewaren.",
+        "B.7.2 Geanonimiseerde gegevens die niet te herleiden zijn tot een individu of organisatie zijn hiervan uitgezonderd."
+      ]
+    }
+  ],
+  "forms": []
+}
