@@ -31,6 +31,16 @@ await page.evaluate(() => document.fonts.ready);
 const copy = await page.evaluate(() => {
   const clean = (s) => (s || '').replace(/\s+/g, ' ').trim();
 
+  // The theme injects per-instance <style> blocks INSIDE elements (buttons
+  // especially), so a naive textContent returns raw CSS such as
+  // ".btn--17321853330957-1 .btn__i". Strip those before reading text.
+  const text = (el) => {
+    if (!el) return '';
+    const clone = el.cloneNode(true);
+    clone.querySelectorAll('style, script').forEach((n) => n.remove());
+    return clean(clone.textContent);
+  };
+
   const rows = Array.from(document.querySelectorAll('.row-fluid-wrapper.row-depth-1'))
     .filter((el) => el.getBoundingClientRect().height > 20);
 
@@ -58,7 +68,19 @@ const copy = await page.evaluate(() => {
       };
     });
 
+  // --- navy CTA strip between the value prop and the product blocks ---
+  const stripRow = rows[9];
+  const stripHeading = stripRow.querySelector('h2, h3, h4');
+  const stripBtn = Array.from(stripRow.querySelectorAll('a.btn')).find((b) => b.offsetWidth);
+
   return {
+    ctaStrip: {
+      heading: text(stripHeading),
+      cta: {
+        label: text(stripBtn),
+        href: stripBtn?.getAttribute('href')?.replace('https://www.jobmatix.com', '') ?? null,
+      },
+    },
     valueProp: {
       // The original renders the h2 with an inline <br>; keep the split so the
       // rebuild can reproduce the same line breaks rather than guess them.

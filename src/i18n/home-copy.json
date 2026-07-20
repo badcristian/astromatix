@@ -1,4 +1,11 @@
 {
+  "ctaStrip": {
+    "heading": "Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren en optimaliseren?",
+    "cta": {
+      "label": "Plan een gesprek!",
+      "href": "/nl/demo-aanvraag"
+    }
+  },
   "valueProp": {
     "titleHtml": "<span style=\"color: #11417a;\">Bereik jouw doelgroep op het juiste moment, <br>via het beste&nbsp; kanaal</span>",
     "title": "Bereik jouw doelgroep op het juiste moment, via het beste kanaal",

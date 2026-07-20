@@ -1,0 +1,25 @@
+---
+import Button from '../ui/Button.astro';
+import copy from '../../i18n/home-copy.json';
+
+// Measured @1440:
+//   section    y=1505 1440×150, bg navy, padding 40px 24px
+//   container  x=151 w=1138 (max-width 1138, centred)
+//   heading    751 wide, Poppins 700 28px/35px, white, left-aligned
+//   button col 363 wide, 24px gap, button 207×53 vertically centred
+const { ctaStrip } = copy;
+---
+
+<section class="bg-navy px-6 py-10">
+  <div class="mx-auto flex max-w-[1138px] flex-col gap-6 md:flex-row">
+    <h2 class="w-full font-display text-[28px] leading-[35px] font-bold text-white md:w-[751px]">
+      {ctaStrip.heading}
+    </h2>
+
+    {/* Explicit 9px offset rather than items-center: centring a 53px button in
+        a 70px row gives 8.5px, which rounds down here and up on the original. */}
+    <div class="flex items-start md:w-[363px] md:pt-[9px]">
+      <Button href={ctaStrip.cta.href} label={ctaStrip.cta.label} height={53} icon />
+    </div>
+  </div>
+</section>

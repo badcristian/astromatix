@@ -1,0 +1,48 @@
+---
+// The original's `.btn--fill`. Measured @1440:
+//   bg #ff6b00, white, radius 12px, padding 14.56px 21.76px,
+//   Manrope 500 16px
+//
+// Height is a prop because the original is not consistent about it: the hero
+// button measures 52px and the CTA strip's measures 53px. Deriving height from
+// the 14.56px padding rounds up here, and a stray pixel offsets everything
+// below it — so each instance pins its own measured value.
+
+interface Props {
+  href: string;
+  label: string;
+  height?: number;
+  /** Trailing 24×24 arrow, as `.btn__icon--right` on the original. */
+  icon?: boolean;
+  class?: string;
+}
+
+const { href, label, height = 53, icon = false, class: className = '' } = Astro.props;
+---
+
+<a
+  href={href}
+  style={`height:${height}px`}
+  class:list={[
+    'inline-flex items-center gap-[6px] rounded-[12px] bg-orange px-[21.76px]',
+    'text-[16px] font-medium text-white transition-opacity hover:opacity-90',
+    className,
+  ]}
+>
+  {label}
+  {icon && (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M4 12h14m0 0l-5-5m5 5l-5 5" />
+    </svg>
+  )}
+</a>
