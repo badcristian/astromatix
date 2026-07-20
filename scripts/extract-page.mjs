@@ -99,6 +99,35 @@ const data = await page.evaluate(() => {
       .filter((b) => b.offsetWidth)
       .map((b) => ({ label: text(b), href: href(b) })),
     headings: Array.from(document.querySelectorAll('h2')).map((h) => text(h)).filter(Boolean),
+
+    // .module--featshow: a <ul> of nav entries on the left, matching
+    // .featshow__item panels on the right. Note the first entry is a real tab,
+    // not the section title.
+    featshow: (() => {
+      const root = document.querySelector('.featshow');
+      if (!root) return null;
+      const navs = Array.from(root.querySelectorAll('.featshow__nav__wrapper li'));
+      const panels = Array.from(root.querySelectorAll('.featshow__items .featshow__item'));
+      return navs.map((li, i) => ({
+        title: text(li),
+        body: text(panels[i]?.querySelector('p')) || null,
+        image: src(panels[i]?.querySelector('img')),
+      }));
+    })(),
+
+    // .module--steps: numbered circular nav plus a content panel.
+    steps: (() => {
+      const root = document.querySelector('.steps');
+      if (!root) return null;
+      const btns = Array.from(root.querySelectorAll('.steps__icon'));
+      const panels = Array.from(root.querySelectorAll('.steps__content > *'));
+      return btns.map((b, i) => ({
+        label: text(b.querySelector('.ttip')),
+        number: text(b.querySelector('.steps__glyph')),
+        title: text(panels[i]?.querySelector('h3, h4, strong')) || null,
+        body: text(panels[i]?.querySelector('p')) || text(panels[i]) || null,
+      }));
+    })(),
   };
 });
 

@@ -99,5 +99,58 @@
     "Let's get your job done....in een paar stappen",
     "Veelgestelde vragen",
     "Klaar om jouw vacatures te laten opvallen?"
+  ],
+  "featshow": [
+    {
+      "title": "Alles-in-één oplossing",
+      "body": "Nooit meer schakelen tussen verschillende systemen of eindeloze contracten met diverse jobboards. Met Job Advertising centraliseer je al je job marketing, bundel je je data en werk je met één partij samen. Efficiënt, simpel en krachtig – alles wat je nodig hebt, binnen één platform.",
+      "image": null
+    },
+    {
+      "title": "Slim adverteren",
+      "body": "Met programmatic advertising maak je jouw job marketing slimmer en efficiënter. Je job advertenties worden automatisch geplaatst op de beste kanalen, gericht op de juiste doelgroep. Ons platform optimaliseert het gebruik van je advertentiebudget, zodat je vacatures altijd opvallen bij de meest geschikte kandidaten.",
+      "image": null
+    },
+    {
+      "title": "Data inzicht",
+      "body": "Bekijk de data van je jobcampagnes direct in je dashboard. Krijg inzicht in clicks, sollicitaties, budgetten en ontdek welke jobboards het beste voor jou presteren.",
+      "image": null
+    },
+    {
+      "title": "Meta advertenties",
+      "body": "Via ons platform adverteer je jouw vacature in no-time op Facebook en Instagram. En dankzij de integratie met je eigen Meta-account promoot je deze altijd vanuit je eigen merk.",
+      "image": null
+    },
+    {
+      "title": "AI Assistent",
+      "body": "Onze AI Assistant maakt job marketing eenvoudig en effectief. Met slechts een paar klikken controleer je of je vacatureteksten klaar zijn voor jobboards. Je tekst krijgt een check en een score op belangrijke punten zoals vindbaarheid, juiste zoekwoorden, inclusiviteit en meer. Daarnaast helpt de assistant je bij het schrijven en herschrijven van teksten, speciaal geoptimaliseerd voor jobboards.",
+      "image": null
+    }
+  ],
+  "steps": [
+    {
+      "label": "stap 1",
+      "number": "1",
+      "title": "Jouw vacatures, eenvoudig geïntegreerd",
+      "body": "Jij (of je team) publiceert je vacatures zoals je gewend bent, via je eigen website of ATS. Dankzij onze integratie verschijnen deze vacatures automatisch in ons platform. Zo zijn ze altijd up-to-date en hoef je nergens aan te denken. Samen zorgen we voor een soepel proces, zodat jouw vacatures klaar zijn om succesvol geadverteerd te worden."
+    },
+    {
+      "label": "stap 2",
+      "number": "2",
+      "title": "Onboarding platform",
+      "body": "Alles goed gekoppeld? Dan leer je samen met je vaste customer success medewerker het platform goed kennen. Tijdens de onboarding ontdek je alles over het opzetten van campagnes, slimme regels en handige tips & tricks voor jouw campagnes, afgestemd op jouw doelgroep. Zo zorg je voor de beste start van je campagnes!"
+    },
+    {
+      "label": "stap 3",
+      "number": "3",
+      "title": "Check!",
+      "body": "Na de onboarding en een maand campagnes kijken we samen hoe alles loopt. Zo controleren we of alles goed is ingesteld, passen we aan waar nodig en beantwoorden we je vragen. Een nieuw platform gebruiken is altijd even wennen, dus we nemen hier de tijd voor."
+    },
+    {
+      "label": "stap 4",
+      "number": "4",
+      "title": "Incl. campaign management",
+      "body": "Wil je in nog minder tijd de beste resultaten uit je campagnes halen? Dan kun je kiezen voor een abonnement met campagnemanagement, zodat je kunt rekenen op intensieve begeleiding en optimale ondersteuning!"
+    }
   ]
 }

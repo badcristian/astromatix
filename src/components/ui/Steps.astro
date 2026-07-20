@@ -1,0 +1,96 @@
+---
+// The original's `.module--steps`. Measured @1440:
+//   module   1200 wide, 225 tall
+//   nav      1200×51 — four 44×44 circular buttons, ~101px apart, centred
+//            active button filled navy, glyph is the step number
+//   tooltip  "stap N" sits above each button
+//   content  1200×174 below the nav
+//
+// Buttons carry aria-selected and the panels are real tabpanels, so this is
+// keyboard-navigable — the original uses plain divs.
+
+interface Props {
+  steps: {
+    label: string | null;
+    number: string | null;
+    title: string | null;
+    body: string | null;
+  }[];
+}
+
+const { steps } = Astro.props;
+const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class="mx-auto max-w-[1200px]" data-steps>
+  <div class="flex items-center justify-center gap-[57px]" role="tablist">
+    {steps.map((step, i) => (
+      <div class="relative">
+        {step.label && (
+          <span
+            class="absolute -top-[41px] left-1/2 -translate-x-1/2 text-[13.12px] font-medium whitespace-nowrap text-orange"
+            aria-hidden="true"
+          >
+            {step.label}
+          </span>
+        )}
+        <button
+          type="button"
+          role="tab"
+          id={`${uid}-tab-${i}`}
+          aria-controls={`${uid}-panel-${i}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          class="grid size-11 place-items-center rounded-full border border-navy text-[21.76px] font-medium text-navy transition-colors aria-selected:bg-navy aria-selected:text-white"
+          data-steps-tab={i}
+        >
+          {step.number ?? i + 1}
+        </button>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-8">
+    {steps.map((step, i) => (
+      <div
+        role="tabpanel"
+        id={`${uid}-panel-${i}`}
+        aria-labelledby={`${uid}-tab-${i}`}
+        class:list={['mx-auto max-w-[800px] text-center', i !== 0 && 'hidden']}
+        data-steps-panel={i}
+      >
+        {step.title && (
+          <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
+            {step.title}
+          </h3>
+        )}
+        {step.body && step.body !== step.title && (
+          <p class="mt-4 text-[16px] leading-[22.4px] text-navy">{step.body}</p>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-steps]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLElement>('[data-steps-tab]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-steps-panel]'));
+
+    const select = (index: number) => {
+      tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === index)));
+      panels.forEach((p, i) => p.classList.toggle('hidden', i !== index));
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(i));
+      tab.addEventListener('keydown', (event) => {
+        const key = (event as KeyboardEvent).key;
+        if (key !== 'ArrowRight' && key !== 'ArrowLeft') return;
+        event.preventDefault();
+        const next = (i + (key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[next].focus();
+        select(next);
+      });
+    });
+  });
+</script>

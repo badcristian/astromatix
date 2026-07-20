@@ -1,0 +1,84 @@
+---
+// The original's `.featshow` (nav-left variant). Measured @1440 on
+// /nl/oplossingen/jobadvertising:
+//   wrapper  1200 wide, 514 tall
+//   nav      480 wide on the left, inner list 370 wide
+//   content  720 wide, white, 24px radius
+//   panel    inner wrapper 500 wide
+//
+// Selecting a nav entry swaps the panel. Built as buttons with aria-selected
+// rather than the original's plain divs, so it is keyboard-navigable.
+
+interface Props {
+  items: { title: string; body: string | null }[];
+}
+
+const { items } = Astro.props;
+const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class="mx-auto flex max-w-[1200px] flex-col gap-8 lg:flex-row" data-featshow>
+  <div class="lg:w-[480px] lg:shrink-0">
+    <ul class="mx-auto flex max-w-[370px] flex-col gap-4" role="tablist">
+      {items.map((item, i) => (
+        <li>
+          <button
+            type="button"
+            role="tab"
+            id={`${uid}-tab-${i}`}
+            aria-controls={`${uid}-panel-${i}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            class="w-full text-left font-display text-[20px] leading-[28px] font-bold text-navy/40 transition-colors aria-selected:text-navy"
+            data-featshow-tab={i}
+          >
+            {item.title}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="rounded-3xl bg-white p-10 lg:w-[720px]">
+    {items.map((item, i) => (
+      <div
+        role="tabpanel"
+        id={`${uid}-panel-${i}`}
+        aria-labelledby={`${uid}-tab-${i}`}
+        class:list={['mx-auto max-w-[500px]', i !== 0 && 'hidden']}
+        data-featshow-panel={i}
+      >
+        <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
+          {item.title}
+        </h3>
+        {item.body && (
+          <p class="mt-4 text-[16px] leading-[22.4px] text-navy">{item.body}</p>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-featshow]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-tab]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-panel]'));
+
+    const select = (index: number) => {
+      tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === index)));
+      panels.forEach((p, i) => p.classList.toggle('hidden', i !== index));
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(i));
+      // Left/right arrows move between tabs, as expected of a tablist.
+      tab.addEventListener('keydown', (event) => {
+        const key = (event as KeyboardEvent).key;
+        if (key !== 'ArrowRight' && key !== 'ArrowLeft') return;
+        event.preventDefault();
+        const next = (i + (key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[next].focus();
+        select(next);
+      });
+    });
+  });
+</script>
