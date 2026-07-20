@@ -1,0 +1,257 @@
+{
+  "meta": {
+    "title": "JAMwerkt Succesverhaal",
+    "description": "Ontdek hoe JAM Werkt succes boekt met marketing automation van Jobmatix en maandelijks meer dan 800 sollicitanten ontvangt.",
+    "hasH1": true
+  },
+  "hero": {
+    "title": "JAM Werkt Young professionals, data driven werven",
+    "background": null
+  },
+  "properties": [
+    {
+      "label": "Uitzendbureau",
+      "icon": null
+    },
+    {
+      "label": "Intermediair",
+      "icon": null
+    },
+    {
+      "label": "Landelijk",
+      "icon": null
+    }
+  ],
+  "featureCards": [
+    {
+      "title": "JAM Werkt",
+      "body": "JAM helpt studenten, starters en young professionals aan een succesvolle start op de arbeidsmarkt. JAM heeft de ambitie om uit te groeien tot één van de grootste arbeidsmarktplatformen voor jongeren en werkt hier met 30 collega’s hard aan.",
+      "icon": null
+    }
+  ],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "Jong talent werven met marketing automation",
+    "Uitdaging",
+    "Oplossing",
+    "Resultaat",
+    "Get the job done"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": [
+    {
+      "title": "Zichtbaar bij de juiste doelgroep",
+      "body": "JAM zet programmatic job advertising in voor grotere zichtbaarheid bij hun doelgroep.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%205%20jobboost%20blauw.png"
+    },
+    {
+      "title": "Slimme recruitment automation",
+      "body": "JAM hoeft niet langer handmatig de meest geschikte kanalen voor job ads te selecteren.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/automatiseren.png"
+    },
+    {
+      "title": "KPI’s direct duidelijk",
+      "body": "In het Jobmatix dashboard zien de recuiters hun belangrijkste KPI’s in één oogopslag.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/overzicht%20.png"
+    },
+    {
+      "title": "Continu analyseren & optimaliseren",
+      "body": "Met het duidelijke dashboard én de hulp van de Jobmatix Customer Succes Manager.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/automatiseren.png"
+    },
+    {
+      "title": "Campagnes die werken",
+      "body": "De vacaturecampagnes zijn zó ingericht dat ze optimaal aansluiten bij JAM’s backend.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%203%20jobboost%20blauw.png"
+    },
+    {
+      "title": "Plan een gratis demo",
+      "body": "Ontdek hoe jij ook succesvoller kan werven, tijdens een demo op maat.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/Demo%20%20(2).png"
+    }
+  ],
+  "pricing": null,
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [
+    {
+      "title": "Erik van de Snepscheut",
+      "body": "Marketing & Recruitment",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1718265980075.jpeg"
+    }
+  ],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [],
+  "blocks": [
+    {
+      "heading": "JAM Werkt Young professionals, data driven werven",
+      "level": 1,
+      "module": "rtext",
+      "body": []
+    },
+    {
+      "heading": "Jong talent werven met marketing automation",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "JAM Werkt is er speciaal voor jongeren. Met slimme marketing automation weet de intermediair deze doelgroep nóg beter te bereiken.",
+        "Sollicitanten per maand op de opdrachten van JAM.",
+        "Van de sollicitanten is direct de herleiden naar een van de jobboard advertenties.",
+        "Jongeren werken dagelijks op flexbasis via JAM."
+      ]
+    },
+    {
+      "heading": "Uitdaging",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Zo’n 500 jongeren werken dagelijks op flexibele basis via JAM. Zij kunnen bij de intermediair terecht voor een baan in de sectoren logistiek, horeca, techniek of office.",
+        "JAM heeft meerdere vestigingen in Nederland en wil dit aantal uitbreiden, zodat jongeren altijd ergens bij de uitzendspecialist naar binnen kunnen lopen. Vooral in de coronaperiode bleek echter een andere aanpak nodig om nieuwe sollicitanten aan te trekken. De van oorsprong Kempische organisatie, die al ruim 12 jaar actief is in recruitment, is daarom steeds meer marketing driven gaan werken. De samenwerking met Jobmatix draagt daaraan bij."
+      ]
+    },
+    {
+      "heading": "JAM Werkt",
+      "level": 4,
+      "module": "feature-card",
+      "body": [
+        "JAM helpt studenten, starters en young professionals aan een succesvolle start op de arbeidsmarkt. JAM heeft de ambitie om uit te groeien tot één van de grootste arbeidsmarktplatformen voor jongeren en werkt hier met 30 collega’s hard aan."
+      ]
+    },
+    {
+      "heading": "Oplossing",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Met hun datagedreven aanpak werft JAM maandelijks zo’n 800 sollicitanten."
+      ]
+    },
+    {
+      "heading": "Zichtbaar bij de juiste doelgroep",
+      "level": 4,
+      "module": "quickfeat",
+      "body": [
+        "JAM zet programmatic job advertising in voor grotere zichtbaarheid bij hun doelgroep."
+      ]
+    },
+    {
+      "heading": "Slimme recruitment automation",
+      "level": 4,
+      "module": "quickfeat",
+      "body": [
+        "JAM hoeft niet langer handmatig de meest geschikte kanalen voor job ads te selecteren."
+      ]
+    },
+    {
+      "heading": "KPI’s direct duidelijk",
+      "level": 4,
+      "module": "quickfeat",
+      "body": [
+        "In het Jobmatix dashboard zien de recuiters hun belangrijkste KPI’s in één oogopslag."
+      ]
+    },
+    {
+      "heading": "Continu analyseren & optimaliseren",
+      "level": 4,
+      "module": "quickfeat",
+      "body": [
+        "Met het duidelijke dashboard én de hulp van de Jobmatix Customer Succes Manager."
+      ]
+    },
+    {
+      "heading": "Campagnes die werken",
+      "level": 4,
+      "module": "quickfeat",
+      "body": [
+        "De vacaturecampagnes zijn zó ingericht dat ze optimaal aansluiten bij JAM’s backend."
+      ]
+    },
+    {
+      "heading": "Plan een gratis demo",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Resultaat",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Bij de uitbreiding naar een nieuwe regio speelt voor JAM niet langer de vraag hoe zij hier kandidaten kunnen bereiken. Ruim 80 procent van de sollicitanten is rechtstreeks te herleiden naar een van de jobboards waarop de organisatie via Jobmatix adverteert.",
+        "JAM is gedreven om nog meer uit recruitment marketing automation te halen. Erik van de Snepscheut (Marketing- en Recruitment Directeur) bij JAM vertelt: “Iedere maand bespreken we met Marketing, Recruitment en HR welke kansen er liggen. Dit doen we aan de hand van het Jobmatix dashboard. We doen er alles aan om onze ambities waar te maken en deze datagedreven aanpak werkt voor ons heel goed.”",
+        "“Het recruitment marketing platform van Jobmatix speelt een essentiële rol in ons wervingsproces. Onze vacatures worden snel op veel jobboards geadverteerd en Jobmatix denkt actief mee over het optimaliseren van onze campagnes en het efficiënt verdelen van onze budgetten. Een mooie samenwerking die ons succesvol maakt!”",
+        "Marketing & Recruitment"
+      ]
+    },
+    {
+      "heading": "Get the job done",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "Ook succesvoller werven dankzij recruitment marketing automation? Laat je gegevens achter en wij nemen zo snel mogelijk contact met je op."
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "title": null,
+      "submitLabel": "Verzenden",
+      "fields": [
+        {
+          "name": "firstname",
+          "type": "text",
+          "label": "Voornaam*",
+          "placeholder": "Voornaam",
+          "required": true
+        },
+        {
+          "name": "lastname",
+          "type": "text",
+          "label": "Achternaam*",
+          "placeholder": "Achternaam",
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "e-mail*",
+          "placeholder": "Email",
+          "required": true
+        },
+        {
+          "name": "phone",
+          "type": "tel",
+          "label": "Telefoonnummer*",
+          "placeholder": "Telefoonnummer",
+          "required": true
+        },
+        {
+          "name": "message",
+          "type": "textarea",
+          "label": "Jouw bericht *",
+          "placeholder": "Jouw bericht",
+          "required": true
+        },
+        {
+          "name": "g-recaptcha-response",
+          "type": "textarea",
+          "label": null,
+          "placeholder": null,
+          "required": false
+        }
+      ]
+    }
+  ]
+}

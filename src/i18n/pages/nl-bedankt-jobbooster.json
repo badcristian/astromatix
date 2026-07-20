@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "nl/bedankt-jobbooster",
+    "description": "",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Bedankt voor je aanvraag!",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "Bedankt voor je aanvraag!",
+    "Je aanvraag is succesvol verstuurd!"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [],
+  "blocks": [
+    {
+      "heading": "Bedankt voor je aanvraag!",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Je aanvraag is succesvol verstuurd!",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Bedankt voor je aanvraag. We nemen zo snel mogelijk contact met je op zodat jouw vacature binnen no-time online staat!"
+      ]
+    }
+  ],
+  "forms": []
+}

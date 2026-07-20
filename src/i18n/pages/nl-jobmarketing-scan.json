@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "title": "Jobmarketing scan",
+    "description": "",
+    "hasH1": true
+  },
+  "hero": {
+    "title": "Jobmarketing Scan",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "Waarom Jobmatix",
+    "Succesvolle partnerships"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": [
+    {
+      "title": "Bespaar tijd en geld",
+      "body": "Dankzij de slimme algoritmes en automatisering in ons platform.",
+      "icon": null
+    },
+    {
+      "title": "Adverteer makkelijker en effectiever",
+      "body": "Beheer al jouw online vacature-advertenties op één plek.",
+      "icon": null
+    },
+    {
+      "title": "Toegang tot alle belangrijke jobboards",
+      "body": "Zonder dat je individuele afspraken hoeft te maken.",
+      "icon": null
+    },
+    {
+      "title": "Haal meer waarde uit elke euro",
+      "body": "Zet jouw budget effectiever in, voor meer kwalitatieve sollicitanten.",
+      "icon": null
+    },
+    {
+      "title": "Analyseer jouw resultaten eenvoudig",
+      "body": "Bekijk al jouw jobboard resultaten voortaan in één dashboard.",
+      "icon": null
+    },
+    {
+      "title": "Optimaliseer je marketing",
+      "body": "Doe je voordeel met de ondersteuning van ons Customer Succes Team.",
+      "icon": null
+    }
+  ],
+  "pricing": null,
+  "steps": null,
+  "teamCards": [
+    {
+      "name": "",
+      "role": "",
+      "body": "",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1582016973477.jpeg",
+      "links": [
+        {
+          "label": null,
+          "href": "mailto:koen.somers@jobmatix.com"
+        },
+        {
+          "label": null,
+          "href": "https://www.linkedin.com/in/somerskoen/"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "role": "",
+      "body": "",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1752064831033.jpg",
+      "links": [
+        {
+          "label": null,
+          "href": "mailto:emile.serruys@jobmatix.com"
+        },
+        {
+          "label": null,
+          "href": "https://www.linkedin.com/in/emile-serruys/"
+        }
+      ]
+    }
+  ],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": [
+    {
+      "title": "Jobmarketing Scan",
+      "body": "",
+      "image": null,
+      "buttons": []
+    }
+  ],
+  "sectionIntros": [],
+  "logos": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/schiphol.jpg",
+      "alt": "schiphol"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png3.png",
+      "alt": "zw png3"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png4.png",
+      "alt": "zw png4"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/decathlon.jpg",
+      "alt": "decathlon"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/rws.jpg",
+      "alt": "rws"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/dhl%20x.jpg",
+      "alt": "dhl x"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/vebego.jpg",
+      "alt": "vebego"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/vgz.jpg",
+      "alt": "vgz"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/gamma.jpg",
+      "alt": "gamma"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/bataviastad.jpg",
+      "alt": "bataviastad"
+    }
+  ],
+  "blocks": [
+    {
+      "heading": "Jobmarketing Scan",
+      "level": 1,
+      "module": "hero-slider",
+      "body": []
+    },
+    {
+      "heading": "Meld je nu aan voor een gratis Jobmarketing Scan",
+      "level": 3,
+      "module": null,
+      "body": [
+        "Hoe goed zijn jouw vacatures online zichtbaar? Kom erachter met de gratis jobmarketing scan.",
+        "Wat houdt de scan in?",
+        "Jouw huidige vindbaarheid en wat er te verbeteren valt",
+        "Inzicht in het gebruik van je kanalen en hoe dit effectiever kan",
+        "Wat je al meet en welke extra inzichten wij kunnen bieden",
+        "Praktische tips en tricks om direct toe te passen",
+        "Laat vrijblijvend checken hoe jouw job marketing ervoor staat."
+      ]
+    },
+    {
+      "heading": "Let's connect!",
+      "level": 4,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Waarom Jobmatix",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Bespaar tijd en geld",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Adverteer makkelijker en effectiever",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Toegang tot alle belangrijke jobboards",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Haal meer waarde uit elke euro",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Analyseer jouw resultaten eenvoudig",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Optimaliseer je marketing",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Succesvolle partnerships",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    }
+  ],
+  "forms": [
+    {
+      "title": null,
+      "submitLabel": "Verzenden",
+      "fields": [
+        {
+          "name": "firstname",
+          "type": "text",
+          "label": "Voornaam*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "lastname",
+          "type": "text",
+          "label": "Achternaam*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "E-mail*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": "phone",
+          "type": "tel",
+          "label": "Telefoonnummer",
+          "placeholder": null,
+          "required": false
+        }
+      ]
+    }
+  ]
+}

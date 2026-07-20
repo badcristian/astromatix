@@ -1,0 +1,65 @@
+// Shapes the raw extractor output into what the klantcase template renders.
+//
+// Kept out of the .astro file because two of the six live at doubled /nl/nl/
+// paths on the original and therefore need their own routes, so this mapping
+// is used from more than one place.
+
+const pages = import.meta.glob<{ default: any }>('../i18n/pages/*klantcase*.json', {
+  eager: true,
+});
+
+export interface Klantcase {
+  /** Route slug under /nl/actueel/klantcase/. */
+  slug: string;
+  /** Extractor output file, keyed by the original path. */
+  file: string;
+}
+
+// Four sit at /nl/actueel/klantcase/*. Kruidvat and DHL Express sit at doubled
+// /nl/nl/ paths — migration artifacts on the original, but they are the live,
+// linked URLs. We serve both those pages at the clean path and keep the
+// doubled ones as real routes too, so no inbound link breaks.
+export const KLANTCASES: Klantcase[] = [
+  { slug: 'djops', file: 'nl-actueel-klantcase-djops' },
+  { slug: 'faam', file: 'nl-actueel-klantcase-faam' },
+  { slug: 'jam-werkt', file: 'nl-actueel-klantcase-jam-werkt' },
+  { slug: 'royal-schiphol-group', file: 'nl-actueel-klantcase-royal-schiphol-group' },
+  { slug: 'kruidvat', file: 'nl-nl-actueel-klantcase-kruidvat' },
+  { slug: 'dhl-express', file: 'nl-nl-klantcase-dhl-express' },
+];
+
+/** Headings that structure every case study's narrative, in order. */
+const NARRATIVE = ['Uitdaging', 'Oplossing', 'Resultaat'];
+
+export function caseData(entry: Klantcase) {
+  const key = Object.keys(pages).find((p) => p.endsWith(`/${entry.file}.json`));
+  if (!key) throw new Error(`No extractor output for klantcase "${entry.slug}" (${entry.file}.json)`);
+  const d = pages[key].default;
+
+  const blocks: any[] = d.blocks ?? [];
+
+  // The narrative headings carry no module wrapper on the original — that is
+  // how we identify them, and why `module: null` is the filter rather than a
+  // class name.
+  const narrative = NARRATIVE.map((name) =>
+    blocks.find((b) => b.heading?.trim() === name && b.module === null),
+  ).filter(Boolean) as { heading: string; body: string[] }[];
+
+  const intro = d.featureCards?.[0] ?? null;
+
+  // The closing CTA heading is the last module--heading on the page.
+  const headingBlocks = blocks.filter((b) => b.module === 'heading');
+  const cta = headingBlocks.at(-1) ?? null;
+
+  return {
+    meta: d.meta,
+    title: d.hero?.title ?? entry.slug,
+    tags: (d.properties ?? []).map((p: any) => p.label).filter(Boolean),
+    intro: intro?.title ? { title: intro.title, body: intro.body ?? '' } : null,
+    narrative,
+    quickfeat: d.quickfeat ?? [],
+    contacts: d.compactCards ?? [],
+    ctaTitle: cta?.heading ?? null,
+    ctaIntro: cta?.body?.[0] ?? null,
+  };
+}

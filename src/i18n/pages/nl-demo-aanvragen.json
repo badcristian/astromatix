@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "title": "Demo aanvragen",
+    "description": "Wij vertellen jou graag meer over programmatic jobmarketing en over de mogelijkheden van onze tool. Vraag nu je demo aan.",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Get the job done!",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "Get the job done!",
+    "Plan een demo en ontdek wat ons platform voor jouw bedrijf kan doen!"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null,
+  "teamCards": [
+    {
+      "name": "",
+      "role": "",
+      "body": "",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1752064831033.jpg",
+      "links": [
+        {
+          "label": null,
+          "href": "https://www.linkedin.com/in/emile-serruys/"
+        },
+        {
+          "label": null,
+          "href": "mailto:emile.serruys@jobmatix.com"
+        },
+        {
+          "label": null,
+          "href": "tel:0853036760"
+        }
+      ]
+    }
+  ],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png.png",
+      "alt": "Schiphol"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png13.png",
+      "alt": "JAMwerkt"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png5.png",
+      "alt": "Startpeople"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/rws.png",
+      "alt": "Rijkswaterstaat"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png4.png",
+      "alt": "Kruidvat"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png12.png",
+      "alt": "Covebo"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png3.png",
+      "alt": "Hornbach"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png10.png",
+      "alt": "DPA Professionals"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png16.png",
+      "alt": "Vermaat"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png17.png",
+      "alt": "Goodzo"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png2.png",
+      "alt": "ICI PARIS XL"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png8.png",
+      "alt": "Vecos"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png9.png",
+      "alt": "ConQuaestor"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/logo-albron%20kopie.png",
+      "alt": "logo-albron kopie"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png11.png",
+      "alt": "Teleperformance"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png6.png",
+      "alt": "Faam"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png15.png",
+      "alt": "Created first"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png20.png",
+      "alt": "EN HR Solutions"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png14.png",
+      "alt": "Farrow + Dutch"
+    }
+  ],
+  "blocks": [
+    {
+      "heading": "Get the job done!",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Plan een demo en ontdek wat ons platform voor jouw bedrijf kan doen!",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "In 45 minuten laten wij je alles zien en beantwoorden wij al je vragen. Zo leer je hoe je:",
+        "Vacatures adverteert en optimaliseert",
+        "Campagnes opzet en beheert",
+        "Optimaal zichtbaar wordt bij jouw doelgroep",
+        "Inzichten en data benut voor betere resultaten",
+        "Ondersteuning krijgt van ons team voor succesvolle jobmarketing",
+        "Klaar om jouw vacatures te versterken? Plan je gratis demo.",
+        "Automotive",
+        "Bouw en vastgoed",
+        "Chemische industrie",
+        "Consultancy & Advies",
+        "Detailhandel",
+        "Energie en Nutsvoorziening",
+        "Facilitaire dienstverlening",
+        "Farmaceutische industrie",
+        "Financiële dienstverlening",
+        "Gezondheidszorg",
+        "Horeca",
+        "ICT",
+        "Industrie",
+        "Legal & Juridisch",
+        "Marketing & Communicatie",
+        "Media en entertainment",
+        "Non-profit",
+        "Onderwijs",
+        "Overheid",
+        "Personeel en werving",
+        "Recreatie en sport",
+        "Telecommunicatie",
+        "Toerisme",
+        "Transport en logistiek",
+        "Voedingsmiddelenindustrie",
+        "Anders"
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "title": null,
+      "submitLabel": "Verzenden",
+      "fields": [
+        {
+          "name": "0-1/firstname",
+          "type": "text",
+          "label": "Voornaam",
+          "placeholder": null,
+          "required": false
+        },
+        {
+          "name": "0-1/lastname",
+          "type": "text",
+          "label": "Achternaam",
+          "placeholder": null,
+          "required": false
+        },
+        {
+          "name": "0-2/name",
+          "type": "text",
+          "label": "Bedrijfsnaam*",
+          "placeholder": null,
+          "required": true
+        },
+        {
+          "name": null,
+          "type": "text",
+          "label": "In welke branche actief? *",
+          "placeholder": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "type": "text",
+          "label": null,
+          "placeholder": "Search",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

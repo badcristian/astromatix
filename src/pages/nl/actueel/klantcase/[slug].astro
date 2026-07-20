@@ -1,0 +1,113 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import PageHero from '../../../../components/sections/PageHero.astro';
+import QuickFeat from '../../../../components/ui/QuickFeat.astro';
+import ContactCta from '../../../../components/sections/ContactCta.astro';
+import { Image } from 'astro:assets';
+import { resolveIcon } from '../../../../lib/icons';
+import { KLANTCASES, caseData } from '../../../../lib/klantcases';
+
+// Six customer stories, one template.
+//
+// The plan called these an "article template"; they are not. Every one is an
+// `hs-site-page` DnD composition of modules we already had components for
+// (FINDINGS.md §14), and probe-modules.mjs shows all six use the identical
+// seven: properties, feature-card, heading, rtext, quickfeat, compact-card,
+// form. They differ only in content, so they are data, not templates.
+//
+// Structure, measured at 1440 (page heights 4376-5036):
+//   hero            h1 + three properties tags (sector, type, reach)
+//   client intro    feature-card: who the customer is
+//   narrative       Uitdaging / Oplossing / Resultaat, each h2 + prose
+//   quickfeat       six how-we-did-it items (djops ships none)
+//   contact         compact-card: the account manager
+//   cta             form
+//
+// Uitdaging/Oplossing/Resultaat carry NO module wrapper on the original, so
+// they are found by walking the heading outline rather than by class — see the
+// `blocks` extractor in scripts/extract-page.mjs.
+
+export function getStaticPaths() {
+  return KLANTCASES.map((c) => ({ params: { slug: c.slug }, props: { entry: c } }));
+}
+
+const { entry } = Astro.props;
+const c = caseData(entry);
+---
+
+<Base title={c.meta.title} description={c.meta.description ?? undefined}>
+  <PageHero title={c.title} />
+
+  {c.tags.length > 0 && (
+    <section class="px-6">
+      <div class="mx-auto flex max-w-[1138px] flex-wrap gap-3">
+        {c.tags.map((tag) => (
+          <span class="rounded-full bg-mist px-5 py-2 text-[14.4px] text-navy">{tag}</span>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {c.intro && (
+    <section class="px-6 py-16">
+      <div class="mx-auto max-w-[850px] rounded-3xl bg-fog p-8">
+        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+          {c.intro.title}
+        </h2>
+        <p class="mt-4 text-[16px] leading-[26px] text-navy">{c.intro.body}</p>
+      </div>
+    </section>
+  )}
+
+  {c.narrative.map((section) => (
+    <section class="px-6 pb-14">
+      <div class="mx-auto max-w-[850px]">
+        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+          {section.heading}
+        </h2>
+        {section.body.map((para) => (
+          <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  {c.quickfeat.length > 0 && (
+    <section class="bg-mist px-6 py-20">
+      <div class="mx-auto max-w-[1138px]">
+        <QuickFeat items={c.quickfeat} />
+      </div>
+    </section>
+  )}
+
+  {c.contacts.length > 0 && (
+    <section class="px-6 py-16">
+      <div class="mx-auto flex max-w-[850px] flex-wrap gap-8">
+        {c.contacts.map((person) => {
+          const portrait = resolveIcon(person.image);
+          return (
+            <div class="flex items-center gap-5">
+              {portrait && (
+                <Image
+                  src={portrait}
+                  alt=""
+                  width={96}
+                  height={96}
+                  class="size-24 rounded-full object-cover"
+                />
+              )}
+              <div>
+                <p class="font-display text-[20px] leading-[28px] font-bold text-navy">
+                  {person.title}
+                </p>
+                {person.body && <p class="text-[14.4px] text-navy/70">{person.body}</p>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  )}
+
+  <ContactCta title={c.ctaTitle ?? undefined} intro={c.ctaIntro} />
+</Base>

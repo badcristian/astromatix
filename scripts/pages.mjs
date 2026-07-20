@@ -8,6 +8,49 @@
 
 export const ORIGIN_BASE = 'https://www.jobmatix.com';
 
+// The 22 DnD pages, by family. All are `hs-site-page` — despite the plan
+// calling klantcase and vacature "article templates", only the 11 blog posts
+// are a genuine article template. These are ordinary pages built from the
+// theme's module vocabulary, which probe-modules.mjs shows is only 19 types
+// wide across all of them.
+//
+// Used by probe-modules.mjs and extract-page.mjs, which both accept a group
+// name in place of a path.
+export const GROUPS = {
+  klantcase: [
+    '/nl/actueel/klantcase/djops',
+    '/nl/actueel/klantcase/faam',
+    '/nl/actueel/klantcase/jam-werkt',
+    '/nl/actueel/klantcase/royal-schiphol-group',
+    // Two case studies sit at doubled /nl/nl/ paths on the original. Migration
+    // artifacts, but they are the live URLs and they are linked, so they stay.
+    '/nl/nl/actueel/klantcase/kruidvat',
+    '/nl/nl/klantcase/dhl-express',
+  ],
+  vacature: [
+    '/nl/vacature/customer-success-manager',
+    '/nl/vacature/recruitment-marketeer',
+    '/nl/vacature/senior-software-developer',
+  ],
+  landing: [
+    '/nl/advies-gesprek',
+    '/nl/demo-aanvraag',
+    '/nl/demo-aanvragen',
+    '/nl/demo-day-actie',
+    '/nl/demo-emile',
+    '/nl/meeting-koen',
+    '/nl/webinar-recruitment-marketing-video',
+    '/nl/jobmarketing-scan',
+    '/nl/job-marketing-tool-0',
+  ],
+  bedankt: [
+    '/nl/bedankt-contact',
+    '/nl/bedankt-demo-emile',
+    '/nl/bedankt-demo-koen',
+    '/nl/bedankt-jobbooster',
+  ],
+};
+
 export const VIEWPORTS = [
   { width: 390, height: 844, label: '390' },   // mobile
   { width: 768, height: 1024, label: '768' },  // tablet

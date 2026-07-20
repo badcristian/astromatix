@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "title": "Demo aanvragen bij Koen Somers",
+    "description": "",
+    "hasH1": true
+  },
+  "hero": {
+    "title": "Demo aanvragen bij Koen Somers",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "Waarom Jobmatix",
+    "Succesvolle partnerships"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": [
+    {
+      "title": "Bespaar tijd en geld",
+      "body": "Dankzij de slimme algoritmes en automatisering in ons platform.",
+      "icon": null
+    },
+    {
+      "title": "Adverteer makkelijker en effectiever",
+      "body": "Beheer al jouw online vacature-advertenties op één plek.",
+      "icon": null
+    },
+    {
+      "title": "Toegang tot alle belangrijke jobboards",
+      "body": "Zonder dat je individuele afspraken hoeft te maken.",
+      "icon": null
+    },
+    {
+      "title": "Haal meer waarde uit elke euro",
+      "body": "Zet jouw budget effectiever in, voor meer kwalitatieve sollicitanten.",
+      "icon": null
+    },
+    {
+      "title": "Analyseer jouw resultaten eenvoudig",
+      "body": "Bekijk al jouw jobboard resultaten voortaan in één dashboard.",
+      "icon": null
+    },
+    {
+      "title": "Optimaliseer je marketing",
+      "body": "Doe je voordeel met de ondersteuning van ons Customer Succes Team.",
+      "icon": null
+    }
+  ],
+  "pricing": null,
+  "steps": null,
+  "teamCards": [
+    {
+      "name": "",
+      "role": "",
+      "body": "",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1582016973477.jpeg",
+      "links": [
+        {
+          "label": null,
+          "href": "mailto:koen.somers@jobmatix.com"
+        },
+        {
+          "label": null,
+          "href": "https://www.linkedin.com/in/somerskoen/"
+        },
+        {
+          "label": null,
+          "href": "tel:+31634844208"
+        }
+      ]
+    }
+  ],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": [
+    {
+      "title": "Demo aanvragen bij Koen Somers",
+      "body": "",
+      "image": null,
+      "buttons": []
+    }
+  ],
+  "sectionIntros": [],
+  "logos": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png.png",
+      "alt": "zw png"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png13.png",
+      "alt": "zw png13"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png5.png",
+      "alt": "zw png5"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png2.png",
+      "alt": "zw png2"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png9.png",
+      "alt": "zw png9"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png6.png",
+      "alt": "zw png6"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png16.png",
+      "alt": "zw png16"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png19.png",
+      "alt": "zw png19"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png17.png",
+      "alt": "zw png17"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png8.png",
+      "alt": "zw png8"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png18.png",
+      "alt": "zw png18"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png11.png",
+      "alt": "zw png11"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png7.png",
+      "alt": "zw png7"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png4.png",
+      "alt": "zw png4"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png12.png",
+      "alt": "zw png12"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png15.png",
+      "alt": "zw png15"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png10.png",
+      "alt": "zw png10"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png3.png",
+      "alt": "zw png3"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png20.png",
+      "alt": "zw png20"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Klantlogos/ZW/zw%20png/zw%20png14.png",
+      "alt": "zw png14"
+    }
+  ],
+  "blocks": [
+    {
+      "heading": "Demo aanvragen bij Koen Somers",
+      "level": 1,
+      "module": "hero-slider",
+      "body": []
+    },
+    {
+      "heading": "Benieuwd wat ons platform voor jouw bedrijf kan doen?",
+      "level": 3,
+      "module": null,
+      "body": [
+        "In 45 minuten laat Koen je alles zien en beantwoordt hij al je vragen. Zo leer je hoe je:",
+        "Vacatures adverteert en optimaliseert",
+        "Campagnes opzet en beheert",
+        "Optimaal zichtbaar wordt bij jouw doelgroep",
+        "Inzichten en data benut voor betere resultaten",
+        "Ondersteuning krijgt van ons team voor succesvolle jobmarketing"
+      ]
+    },
+    {
+      "heading": "Let's connect!",
+      "level": 4,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Waarom Jobmatix",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Bespaar tijd en geld",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Adverteer makkelijker en effectiever",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Toegang tot alle belangrijke jobboards",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Haal meer waarde uit elke euro",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Analyseer jouw resultaten eenvoudig",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Optimaliseer je marketing",
+      "level": 4,
+      "module": "quickfeat",
+      "body": []
+    },
+    {
+      "heading": "Succesvolle partnerships",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    }
+  ],
+  "forms": []
+}

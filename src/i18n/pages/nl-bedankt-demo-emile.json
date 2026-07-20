@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Demo aangevraagd",
+    "description": "",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Bedankt voor je aanvraag!",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "Bedankt voor je aanvraag!",
+    "Demo succesvol aangevraagd!"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [],
+  "logos": [],
+  "blocks": [
+    {
+      "heading": "Bedankt voor je aanvraag!",
+      "level": 2,
+      "module": "heading",
+      "body": []
+    },
+    {
+      "heading": "Demo succesvol aangevraagd!",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Bedankt voor het aanvragen van een demo. We kijken ernaar uit"
+      ]
+    }
+  ],
+  "forms": []
+}

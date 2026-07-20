@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "nl/bedankt-contact",
+    "description": "",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Leuk dat je interesse hebt!",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "Leuk dat je interesse hebt!",
+    "Samen succesvol"
+  ],
+  "featshow": null,
+  "timeline": null,
+  "audienceBlocks": null,
+  "goCards": [
+    {
+      "name": "Schiphol",
+      "title": "Vliegensvlug 1.000 vacatures invullen",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Slider.jpg",
+      "href": "/nl/actueel/klantcase/royal-schiphol-group"
+    },
+    {
+      "name": "JAM werkt",
+      "title": "Datadriven young professionals werven",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Slider2.jpg",
+      "href": "https://www.hubspot.com/?__hstc=90885381.c1f224c2cb8c8877e7396cddf4337b29.1784583500074.1784583500074.1784583500074.1&__hssc=90885381.19.1784583500075&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
+    },
+    {
+      "name": "Faam",
+      "title": "Efficiëntieslag in recruitment marketing",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/faam-1.webp",
+      "href": "https://www.hubspot.com/?__hstc=90885381.c1f224c2cb8c8877e7396cddf4337b29.1784583500074.1784583500074.1784583500074.1&__hssc=90885381.19.1784583500075&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
+    }
+  ],
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null,
+  "teamCards": [],
+  "compactCards": [],
+  "contactCards": [],
+  "heroSlider": null,
+  "sectionIntros": [
+    {
+      "title": "Samen succesvol",
+      "body": ""
+    }
+  ],
+  "logos": [],
+  "blocks": [
+    {
+      "heading": "Leuk dat je interesse hebt!",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "We nemen snel contact met je op om je meer te vertellen en al je vragen te beantwoorden. Wil je alvast meer lezen over hoe we anderen hebben geholpen? Neem een kijkje bij onze klantcases ⬇️"
+      ]
+    },
+    {
+      "heading": "Samen succesvol",
+      "level": 2,
+      "module": "section-intro",
+      "body": []
+    },
+    {
+      "heading": "Schiphol",
+      "level": 4,
+      "module": "go-card",
+      "body": [
+        "Vliegensvlug 1.000 vacatures invullen"
+      ]
+    },
+    {
+      "heading": "JAM werkt",
+      "level": 4,
+      "module": "go-card",
+      "body": [
+        "Datadriven young professionals werven"
+      ]
+    },
+    {
+      "heading": "Faam",
+      "level": 4,
+      "module": "go-card",
+      "body": [
+        "Efficiëntieslag in recruitment marketing"
+      ]
+    }
+  ],
+  "forms": []
+}
