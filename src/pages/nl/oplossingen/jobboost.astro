@@ -7,11 +7,9 @@ import Accordion from '../../../components/ui/Accordion.astro';
 import ContactCta from '../../../components/sections/ContactCta.astro';
 import Reveal from '../../../components/ui/Reveal.astro';
 import PricingTier from '../../../components/ui/PricingTier.astro';
+import { resolveIcon } from '../../../lib/icons';
 import page from '../../../i18n/pages/nl-oplossingen-jobboost.json';
 
-import iconCentraliseren from '../../../assets/icon-centraliseren.png';
-import iconAutomatiseren from '../../../assets/icon-automatiseren.png';
-import iconAutomatiseren2 from '../../../assets/icon-automatiseren-2.png';
 
 // Shares jobadvertising's shape but without the featshow and steps modules.
 //
@@ -21,14 +19,6 @@ import iconAutomatiseren2 from '../../../assets/icon-automatiseren-2.png';
 const bandIcons = ['download', 'expand', 'send', 'arrow'] as const;
 const band = page.properties.map((p, i) => ({ icon: bandIcons[i], label: p.label }));
 
-const cardIcons = [
-  iconCentraliseren,
-  iconAutomatiseren,
-  iconAutomatiseren2,
-  iconCentraliseren,
-  iconAutomatiseren,
-  iconAutomatiseren2,
-];
 
 const heroCta = page.buttons.find((b) => b.href?.includes('demo-aanvraag')) ?? null;
 ---
@@ -47,7 +37,7 @@ const heroCta = page.buttons.find((b) => b.href?.includes('demo-aanvraag')) ?? n
       <Reveal variant="zoom" duration={1000} class="mt-11 flex flex-wrap justify-center -mx-3">
         {page.featureCards.map((card, i) => (
           <div class="w-full px-3 md:w-1/2 lg:w-1/3">
-            <FeatureCard icon={cardIcons[i]} title={card.title} body={card.body} />
+            <FeatureCard icon={resolveIcon(card.icon)!} title={card.title} body={card.body} />
           </div>
         ))}
       </Reveal>
