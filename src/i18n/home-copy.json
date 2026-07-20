@@ -1,0 +1,24 @@
+{
+  "valueProp": {
+    "titleHtml": "<span style=\"color: #11417a;\">Bereik jouw doelgroep op het juiste moment, <br>via het beste&nbsp; kanaal</span>",
+    "title": "Bereik jouw doelgroep op het juiste moment, via het beste kanaal",
+    "intro": "Wij geloven dat job marketing voor iedereen toegankelijk kan zijn. Met ons gebruiksvriendelijke platform adverteer je jouw vacatures eenvoudig en effectief. We zorgen ervoor dat jouw vacatures de juiste doelgroep bereiken, met de beste resultaten als doel. En het mooiste is: je hoeft geen job marketing-expert te zijn om aan de slag te gaan!",
+    "cards": [
+      {
+        "title": "Job marketing op één plek",
+        "body": "Bij ons vind je alles wat je nodig hebt om jouw job marketing naar een hoger niveau te tillen. En dit alles binnen één platform, dus hoef je niet te wisselen tussen verschillende tools.",
+        "icon": "https://www.jobmatix.com/hs-fs/hubfs/centraliseren.png"
+      },
+      {
+        "title": "Werk slimmer en sneller",
+        "body": "Ons platform automatiseert job marketing. Waardoor het is alsof je een slimme medewerker hebt die zorgt dat jij tijd, moeite en geld bespaart.",
+        "icon": "https://www.jobmatix.com/hs-fs/hubfs/automatiseren%20(2).png"
+      },
+      {
+        "title": "Vernieuwen en verbeteren",
+        "body": "Net zoals ons platform continu campagnes en advertenties optimaliseert, zijn wij altijd in beweging: we onderzoeken nieuwe trends, innoveren en ontwikkelen.",
+        "icon": "https://www.jobmatix.com/hs-fs/hubfs/automatiseren.png"
+      }
+    ]
+  }
+}

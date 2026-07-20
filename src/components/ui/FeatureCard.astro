@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// The original's `.feature-card`. Measured @1440:
+//   card    384 wide, padding 24, radius 24, bg rgba(255,255,255,0.05),
+//           shadow rgba(17,65,122,0.05) 0 16px 32px, margin-bottom 24
+//   body    300 wide, 18px side margins (24 padding + 18 margin = 42 inset)
+//   icon    58×58 chip, bg #f5f5ff, radius 10, holding a 29×29 glyph;
+//           margin 8.96px 0 24px
+//   title   Poppins 700 20px/28px navy, margin-bottom 24
+//   desc    16px/22.4px navy, margin-bottom 24
+//
+// Everything is centred. The 24px rhythm between every element is what drives
+// the card's 327px height — worth preserving rather than eyeballing gaps.
+
+interface Props {
+  icon: ImageMetadata;
+  title: string;
+  body: string;
+}
+
+const { icon, title, body } = Astro.props;
+---
+
+<div
+  class="mb-6 rounded-3xl bg-white/5 p-6 text-center shadow-[0_16px_32px_0_rgba(17,65,122,0.05)]"
+>
+  <div class="mx-[18px] max-w-[300px]">
+    <div class="mt-[8.96px] mb-6 flex justify-center">
+      <span class="inline-flex size-[58px] items-center justify-center rounded-[10px] bg-mist">
+        <Image src={icon} alt="" width={29} densities={[1, 2]} />
+      </span>
+    </div>
+
+    <h4 class="mb-6 font-display text-[20px] leading-[28px] font-bold text-navy">
+      {title}
+    </h4>
+
+    <p class="mb-6 text-[16px] leading-[22.4px] text-navy">
+      {body}
+    </p>
+  </div>
+</div>
