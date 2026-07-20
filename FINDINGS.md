@@ -381,7 +381,38 @@ Reduced **below `md` only**: the homepage measures +55 at 768 and any change
 there makes it worse. When a fix helps one viewport, re-measure the other two
 before keeping it.
 
-## 30. Known deliberate divergences, deliberately left.
+## 30. The tabbed modules are not tabs on the original.
+
+`featshow` and `steps` hide their inactive panels in our components. The
+original lays **all** of them out at every width — 5/5 featshow panels and 4/4
+steps panels have a box at 1440, 768 and 390. At 390 it exposes 27 headings
+where the tabbed rebuild exposed 13.
+
+Panels now stack below 768 and tab from 768 up. That is also the better no-JS
+default: all content reachable without script.
+
+Watch the class direction. `hidden md:block` hides BELOW the breakpoint —
+the exact inverse of what "expand on mobile" needs, which is `md:hidden`. The
+first attempt moved 1440 and 768 while leaving 390 untouched, which is the
+signature of getting this backwards.
+
+## 31. The over-ons timeline changes shape twice.
+
+| Width | Layout |
+|---|---|
+| ≥ 1140 | alternates around the centre line, image BESIDE the text |
+| 768–1139 | still alternates, but each card stacks its image above its text |
+| < 768 | single column, full width |
+
+Both breakpoints had been collapsed to `lg`, leaving every one of nine items
+200–350px short at 768. Collapsing them the other way — full width below 1140 —
+overshot to +3021, which is what made the two-stage behaviour visible.
+
+Its images also do not share an aspect ratio (one is 151×202 where the rest are
+151×101). The original pins the width and lets height follow; forcing a 3:2
+`object-cover` crops them.
+
+## 32. Known deliberate divergences, deliberately left.
 
 - `quickfeat` and over-ons card icons are fallback glyphs: the theme inlines
   the SVG, so there is no URL for the extractor to fetch.
