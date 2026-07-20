@@ -1,0 +1,33 @@
+---
+// Wraps a section so it fades in as it enters the viewport.
+//
+// The original applies this to eight elements on the homepage, each with its
+// own variant and duration (hero CTA and feature band rise 40px; the product
+// blocks slide in from opposite sides; card rows scale up from 0.9).
+//
+// Styles live in global.css; the observer is registered once in Base.astro.
+
+interface Props {
+  variant?: 'fade' | 'up' | 'down' | 'left' | 'right' | 'zoom';
+  /** Milliseconds. The original uses 500, 1000 and 2000. */
+  duration?: number;
+  delay?: number;
+  class?: string;
+}
+
+const { variant = 'fade', duration = 500, delay = 0, class: className = '' } = Astro.props;
+
+const style = [
+  `--reveal-duration:${duration}ms`,
+  delay ? `--reveal-delay:${delay}ms` : '',
+]
+  .filter(Boolean)
+  .join(';');
+---
+
+<div
+  class:list={['reveal', variant !== 'fade' && `reveal--${variant}`, className]}
+  style={style}
+>
+  <slot />
+</div>

@@ -1,5 +1,6 @@
 ---
 import Button from '../ui/Button.astro';
+import Reveal from '../ui/Reveal.astro';
 import copy from '../../i18n/home-copy.json';
 
 // Measured @1440:
@@ -19,7 +20,9 @@ const { ctaStrip } = copy;
     {/* Explicit 9px offset rather than items-center: centring a 53px button in
         a 70px row gives 8.5px, which rounds down here and up on the original. */}
     <div class="flex items-start md:w-[363px] md:pt-[9px]">
-      <Button href={ctaStrip.cta.href} label={ctaStrip.cta.label} height={53} icon />
+      <Reveal variant="zoom" duration={500}>
+        <Button href={ctaStrip.cta.href} label={ctaStrip.cta.label} height={53} icon />
+      </Reveal>
     </div>
   </div>
 </section>

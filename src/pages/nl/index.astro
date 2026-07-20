@@ -29,6 +29,7 @@ const blockImages = [productJobAdvertising, productJobboost];
       cta={block.cta}
       {/* Block 1 puts the image on the RIGHT, block 2 on the left. */}
       reverse={i % 2 === 0}
+      reveal={i % 2 === 0 ? 'left' : 'right'}
       background={i % 2 === 0 ? 'mist' : 'white'}
     />
   ))}

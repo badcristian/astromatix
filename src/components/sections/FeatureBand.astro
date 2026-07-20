@@ -1,5 +1,6 @@
 ---
 import PropertyItem from '../ui/PropertyItem.astro';
+import Reveal from '../ui/Reveal.astro';
 import { home } from '../../i18n/nl';
 
 // Measured @1440:
@@ -15,7 +16,7 @@ import { home } from '../../i18n/nl';
 ---
 
 <section class="bg-navy">
-  <div class="bg-white/10 px-6 py-[10px]">
+  <Reveal variant="up" duration={500} class="bg-white/10 px-6 py-[10px]">
     {/* Inner row is 68px on the original — items are 44px, vertically centred
         with 12px above and below. 10px padding either side makes the strip 88. */}
     <div class="flex h-[68px] flex-wrap items-center justify-center">
@@ -32,5 +33,5 @@ import { home } from '../../i18n/nl';
         </div>
       ))}
     </div>
-  </div>
+  </Reveal>
 </section>

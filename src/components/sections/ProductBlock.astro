@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Button from '../ui/Button.astro';
+import Reveal from '../ui/Reveal.astro';
 
 // Measured @1440. Both blocks share one structure, alternating sides:
 //   section  padding 80px 24px 50px; block 1 on mist, block 2 on white
@@ -23,17 +24,21 @@ interface Props {
   cta: { label: string; href: string };
   /** Put the image on the left and the text on the right. */
   reverse?: boolean;
+  /** Scroll-reveal direction: block 1 slides left, block 2 right. */
+  reveal?: 'left' | 'right';
   background?: 'mist' | 'white';
 }
 
-const { title, body, image, cta, reverse = false, background = 'white' } = Astro.props;
+const { title, body, image, cta, reverse = false, reveal = 'left', background = 'white' } = Astro.props;
 ---
 
 {/* pb is 138, not the section's own 50: the original follows each block's
     inner row with an empty 1200×88 spacer before the section's bottom
     padding. Same pattern as the 46px spacer under the value prop. */}
 <section class:list={['px-6 pt-20 pb-[138px]', background === 'mist' && 'bg-mist']}>
-  <div
+  <Reveal
+    variant={reveal}
+    duration={1000}
     class:list={[
       'mx-auto flex max-w-[1200px] flex-col gap-10 lg:flex-row lg:gap-20',
       reverse && 'lg:flex-row-reverse',
@@ -63,5 +68,5 @@ const { title, body, image, cta, reverse = false, background = 'white' } = Astro
         <Button href={cta.href} label={cta.label} height={52} />
       </div>
     </div>
-  </div>
+  </Reveal>
 </section>

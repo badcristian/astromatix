@@ -54,6 +54,63 @@
   }
 }
 
+/* Scroll-reveal.
+   The original fades sections in as they enter the viewport: opacity 0 -> 1,
+   optionally with a 40px translate or a 0.9 -> 1 scale, over 0.5–2s ease-out,
+   applied by an IntersectionObserver.
+
+   The `opacity: 0` start state is gated on `html.js`, which an inline script in
+   the head sets immediately. Without that gate, a JS failure would leave the
+   whole page permanently invisible.
+
+   It is also gated on prefers-reduced-motion, which doubles as the reason the
+   parity screenshots still work: the capture script requests reduced motion, so
+   every revealed element renders in its final state. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+  }
+
+  .js .reveal--done {
+    animation-duration: var(--reveal-duration, 500ms);
+    animation-delay: var(--reveal-delay, 0ms);
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+    animation-name: revealFade;
+  }
+
+  .js .reveal--up.reveal--done { animation-name: revealUp; }
+  .js .reveal--down.reveal--done { animation-name: revealDown; }
+  .js .reveal--left.reveal--done { animation-name: revealLeft; }
+  .js .reveal--right.reveal--done { animation-name: revealRight; }
+  .js .reveal--zoom.reveal--done { animation-name: revealZoom; }
+}
+
+@keyframes revealFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes revealUp {
+  from { opacity: 0; translate: 0 40px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes revealDown {
+  from { opacity: 0; translate: 0 -40px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes revealLeft {
+  from { opacity: 0; translate: 40px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes revealRight {
+  from { opacity: 0; translate: -40px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes revealZoom {
+  from { opacity: 0; scale: 0.9; }
+  to { opacity: 1; scale: 1; }
+}
+
 /* Measured: header inner is 1248px wide at a 1440 viewport, 24px side padding. */
 @utility container-site {
   width: 100%;
