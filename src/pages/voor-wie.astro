@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import PropertyItem from '../components/ui/PropertyItem.astro';
+import ContactCta from '../components/sections/ContactCta.astro';
+import Reveal from '../components/ui/Reveal.astro';
+import page from '../i18n/pages/voor-wie.json';
+
+// Twelve properties, grouped by the four audience headings that follow the
+// page title — three per audience.
+const icons = ['download', 'expand', 'send', 'arrow'] as const;
+const groups = page.headings.slice(1).map((heading, g) => ({
+  heading,
+  items: page.properties.slice(g * 3, g * 3 + 3).map((p, i) => ({
+    icon: icons[i % 4],
+    label: p.label,
+  })),
+}));
+---
+
+<Base title={page.meta.title} description={page.meta.description ?? undefined}>
+  <PageHero title={page.hero.title} subtitle={page.headings[0] ?? null} />
+
+  {groups.map((group, i) => group.items.length > 0 && (
+    <section class:list={['px-6 py-16', i % 2 === 1 && 'bg-mist']}>
+      <div class="mx-auto max-w-[1138px]">
+        <h2 class="font-display text-[30px] leading-[38px] font-bold text-navy">
+          {group.heading}
+        </h2>
+        <Reveal variant="up" duration={500} class="mt-8 flex flex-wrap gap-x-10 gap-y-6">
+          {group.items.map((item) => (
+            <PropertyItem icon={item.icon} label={item.label} variant="dark" />
+          ))}
+        </Reveal>
+      </div>
+    </section>
+  ))}
+
+  <ContactCta intro={null} />
+</Base>

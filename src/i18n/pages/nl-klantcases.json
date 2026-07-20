@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "Recruitment marketing platform prijzen | Jobmatix",
+    "description": "Wij maken recruitment marketing toegankelijk voor elke organisatie. Bekijk hier onze klantcases.",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    },
+    {
+      "label": "Plan een gesprek!",
+      "href": "/nl/demo-aanvragen"
+    }
+  ],
+  "headings": [
+    "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!",
+    "Tevreden klanten"
+  ],
+  "featshow": null,
+  "goCards": [
+    {
+      "name": "Djops Uitzendgroep",
+      "title": "Van onderbuikgevoel naar data gedreven aanpak",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Djops-1.jpg",
+      "href": "/nl/actueel/klantcase/djops"
+    },
+    {
+      "name": "DHL Express",
+      "title": "De juiste kandidaten voor de business leveren",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/DHL%20afb%202%20(1).png",
+      "href": "/nl/nl/klantcase/dhl-express"
+    },
+    {
+      "name": "Kruidvat",
+      "title": "De juiste kandidaten via het juiste kanaal",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Kruidvat.png",
+      "href": "/nl/nl/actueel/klantcase/kruidvat"
+    },
+    {
+      "name": "Schiphol",
+      "title": "Vliegensvlug 1.000 vacatures invullen",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Schiphol.png",
+      "href": "/nl/actueel/klantcase/royal-schiphol-group"
+    },
+    {
+      "name": "JAM werkt",
+      "title": "Datadriven young professionals werven",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Jam%20werkt.png",
+      "href": "/nl/actueel/klantcase/jam-werkt"
+    },
+    {
+      "name": "Faam",
+      "title": "Efficiëntieslag in recruitment marketing",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/faam-2.png",
+      "href": "/nl/actueel/klantcase/faam"
+    }
+  ],
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null
+}

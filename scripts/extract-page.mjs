@@ -115,6 +115,18 @@ const data = await page.evaluate(() => {
       }));
     })(),
 
+    // .go-card grids (customer cases, listings).
+    goCards: (() => {
+      const cards = Array.from(document.querySelectorAll('.go-card'));
+      if (!cards.length) return null;
+      return cards.map((c) => ({
+        name: text(c.querySelector('.go-card__title')),
+        title: text(c.querySelector('.go-card__desc')),
+        image: src(c.querySelector('img')),
+        href: href(c.querySelector('a.go-card__link, a')),
+      }));
+    })(),
+
     // Alternating image + text blocks (module--image beside module--rtext).
     // The platform page is built almost entirely from these; they map onto the
     // same ProductBlock component the homepage uses.

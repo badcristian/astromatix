@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "title": "Jobmatix | Hét job marketing platform dat voor je werkt!",
+    "description": "Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren, automatiseren en optimaliseren?",
+    "hasH1": true
+  },
+  "hero": {
+    "title": "Jouw succes, onze technologie",
+    "background": null
+  },
+  "properties": [
+    {
+      "label": "Gebruiksgemak",
+      "icon": null
+    },
+    {
+      "label": "Snelheid",
+      "icon": null
+    },
+    {
+      "label": "Resultaat",
+      "icon": null
+    },
+    {
+      "label": "Schaalbaar",
+      "icon": null
+    },
+    {
+      "label": "Compliance",
+      "icon": null
+    },
+    {
+      "label": "Controle",
+      "icon": null
+    },
+    {
+      "label": "Conversie",
+      "icon": null
+    },
+    {
+      "label": "Snelheid",
+      "icon": null
+    },
+    {
+      "label": "Marktaandeel",
+      "icon": null
+    },
+    {
+      "label": "Efficiëntie",
+      "icon": null
+    },
+    {
+      "label": "Datagedreven",
+      "icon": null
+    },
+    {
+      "label": "Partnerships",
+      "icon": null
+    }
+  ],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "De oplossing voor elke wervingsvraag",
+    "Maximaal resultaat met minimale tijdsinvestering",
+    "Strategische grip op grootschalige werving",
+    "Versnel je time-to-hire en vergroot je marge",
+    "De technologische motor achter jouw klantadvies"
+  ],
+  "featshow": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null
+}

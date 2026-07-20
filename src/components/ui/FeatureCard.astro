@@ -18,7 +18,9 @@ import type { ImageMetadata } from 'astro';
 // body, and no side inset — hence the props.
 
 interface Props {
-  icon: ImageMetadata;
+  // Optional: some pages (over-ons, quickfeat) use inline SVG in the theme,
+  // so there is no URL for the extractor to find. Falls back to a glyph.
+  icon?: ImageMetadata;
   title: string;
   body: string;
   /** translucent = value prop (white/5); white = stats band. */
@@ -49,8 +51,15 @@ const {
     {/* 9px, not the original's 8.96 — the fraction truncates to a 32px offset
         from the card top here, where the original computes 33. */}
     <div class="mt-[9px] mb-6 flex justify-center">
-      <span class="inline-flex size-[58px] items-center justify-center rounded-[10px] bg-mist">
-        <Image src={icon} alt="" width={29} densities={[1, 2]} />
+      <span class="inline-flex size-[58px] items-center justify-center rounded-[10px] bg-mist text-navy">
+        {icon ? (
+          <Image src={icon} alt="" width={29} densities={[1, 2]} />
+        ) : (
+          <svg width="29" height="29" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M8 12l3 3 5-6" />
+          </svg>
+        )}
       </span>
     </div>
 

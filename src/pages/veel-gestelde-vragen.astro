@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import Accordion from '../components/ui/Accordion.astro';
+import ContactCta from '../components/sections/ContactCta.astro';
+import page from '../i18n/pages/veel-gestelde-vragen.json';
+
+// The original groups its questions under category headings, but the extractor
+// returns a flat list with no group association — so we render a single
+// accordion rather than repeating the same items under each heading.
+// Restoring the grouping needs the extractor to capture the category each item
+// belongs to; noted rather than faked.
+---
+
+<Base title={page.meta.title} description={page.meta.description ?? undefined}>
+  <PageHero title={page.hero.title} />
+
+  <section class="bg-mist px-6 py-24">
+    <div class="mx-auto max-w-[900px]">
+      <Accordion items={page.accordion} />
+    </div>
+  </section>
+
+  <ContactCta intro={null} />
+</Base>

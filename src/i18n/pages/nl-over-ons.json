@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "title": "Over Ons",
+    "description": "Jobmatix is een innovatieve- en internationale speler op het gebied van jobmarketing. Ontmoet ons team!",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Alles over Jobmatix",
+    "background": null
+  },
+  "properties": [
+    {
+      "label": "15+ jaar ervaring",
+      "icon": null
+    },
+    {
+      "label": "150+ tevreden klanten",
+      "icon": null
+    },
+    {
+      "label": "20 gedreven professionals",
+      "icon": null
+    }
+  ],
+  "featureCards": [
+    {
+      "title": "Vooruitstrevend",
+      "body": "Wij stellen de norm in recruitment marketing. En om voorop te blijven lopen, ontwikkelen we continu. We signaleren de nieuwste ontwikkelingen en vormen onze eigen pragmatische visie met oog voor hoge kwaliteit, efficiëntie en eenvoud. Daar kunnen onze klanten op rekenen.",
+      "icon": null
+    },
+    {
+      "title": "Eenvoud",
+      "body": "Samenwerken met ons is prettig (en) eenvoudig. En zo werkt ons platform ook. Want hoe gebruiksvriendelijker onze oplossingen, hoe blijer onze gebruikers. En dus: hoe groter de kans op succes. Zo simpel is het.",
+      "icon": null
+    },
+    {
+      "title": "Betrokken",
+      "body": "Wij doen er alles aan om het maximale uit een samenwerking te halen. Dat we dicht bij onze klanten en onze mensen staan, vinden wij dan ook logisch. Want wij geloven in de kracht van verbinding. Door samen op te trekken en samen ambitieuze doelen te stellen, komen we altijd verder.",
+      "icon": null
+    }
+  ],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    },
+    {
+      "label": "Bekijk alle vacatures",
+      "href": "/nl/over-ons/werken-bij"
+    }
+  ],
+  "headings": [
+    "Alles over Jobmatix",
+    "Onze kernwaarden",
+    "Ons verhaal",
+    "\"De positieve reacties van onze klanten bevestigen dat Jobmatix een verschil maakt in recruitment marketing\"."
+  ],
+  "featshow": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null
+}

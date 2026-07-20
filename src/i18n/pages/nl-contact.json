@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "title": "Contactpagina",
+    "description": "Wil je spreken met een van onze collega’s? Neem dan gerust contact op! We helpen je graag verder.",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Let's get in touch",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    }
+  ],
+  "headings": [
+    "Let's get in touch",
+    "Hoe kunnen we je helpen?"
+  ],
+  "featshow": null,
+  "imageTextBlocks": [],
+  "quote": null,
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null
+}

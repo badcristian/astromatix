@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import GoCard from '../../components/ui/GoCard.astro';
+import ContactCta from '../../components/sections/ContactCta.astro';
+import Reveal from '../../components/ui/Reveal.astro';
+import { resolveIcon } from '../../lib/icons';
+import page from '../../i18n/pages/nl-klantcases.json';
+
+// The original ships no <h1> here (as on jobboost, over-ons and contact).
+// We render one — three of five marketing pages share that defect, so it is
+// systemic on their site and worth raising as a finding rather than copying.
+const heroTitle = page.headings[0]?.split('Bekijk')[0].trim() || 'Klantcases';
+const cards = (page.goCards ?? []).map((c) => ({ ...c, img: resolveIcon(c.image) }));
+---
+
+<Base title={page.meta.title} description={page.meta.description ?? undefined}>
+  <PageHero title={heroTitle} subtitle={page.headings[1] ?? null} />
+
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-[1138px]">
+      <Reveal variant="zoom" duration={500} class="flex flex-wrap -mx-3">
+        {cards.map((card) => card.img && (
+          <div class="w-full px-3 md:w-1/3">
+            <GoCard image={card.img} name={card.name} title={card.title} href={card.href ?? '#'} />
+          </div>
+        ))}
+      </Reveal>
+    </div>
+  </section>
+
+  <ContactCta intro={null} />
+</Base>
