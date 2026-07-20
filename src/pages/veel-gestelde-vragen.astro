@@ -2,30 +2,68 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/sections/PageHero.astro';
 import Accordion from '../components/ui/Accordion.astro';
-import ContactCta from '../components/sections/ContactCta.astro';
+import { Image } from 'astro:assets';
+import { resolveIcon } from '../lib/icons';
 import page from '../i18n/pages/veel-gestelde-vragen.json';
 
-// The original groups its questions under category headings, but the extractor
-// returns a flat list with no group association — so we render a single
-// accordion rather than repeating the same items under each heading.
-// Restoring the grouping needs the extractor to capture the category each item
-// belongs to; noted rather than faked.
+// The original splits its five questions across three accordions, each under
+// its own category heading. The extractor now carries that group with each
+// item (it anchors on the nearest preceding heading), so the grouping is real
+// rather than reconstructed — an early version repeated every question under
+// all three headings, which is why this was left flat until the data existed.
+const groups = page.accordion.reduce((acc, item) => {
+  const key = item.group ?? '';
+  (acc[key] ??= []).push(item);
+  return acc;
+}, {} as Record<string, typeof page.accordion>);
+const groupOrder = [...new Set(page.accordion.map((a) => a.group ?? ''))];
 
-// This page's closing CTA heading lives in a section-intro, not a heading
-// module, so ctaHeading() cannot find it. Passed explicitly — the point of
-// making ContactCta's title required is that this is a build error rather
-// than a silent fallback to the homepage's copy.
-const ctaTitle = page.sectionIntros.at(-1)?.title ?? 'Neem contact met ons op';
+// This page carries NO form (forms: 0 on the original) — its closing section
+// is a heading plus contact details, so the shared ContactCta, which renders a
+// form, does not belong here. Its heading also lives in a section-intro rather
+// than a heading module, which is why ctaHeading() could not find it.
+const closingTitle = page.sectionIntros.at(-1)?.title ?? 'Neem contact met ons op';
+
+// Three category tiles above the questions, each with its own icon.
+const categoryCards = page.compactCards
+  .map((c) => ({ ...c, resolved: resolveIcon(c.image) }))
+  .filter((c) => c.title);
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
   <PageHero title={page.hero.title} />
 
+  {categoryCards.length > 0 && (
+    <section class="px-6 pt-14">
+      <div class="mx-auto flex max-w-[900px] flex-wrap justify-center gap-6">
+        {categoryCards.map((card) => (
+          <div class="flex w-[260px] flex-col items-center gap-3 rounded-3xl bg-fog p-6 text-center">
+            {card.resolved && <Image src={card.resolved} alt="" width={48} height={48} />}
+            <p class="font-display text-[20px] leading-[28px] font-bold text-navy">{card.title}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
   <section class="bg-mist px-6 py-24">
-    <div class="mx-auto max-w-[900px]">
-      <Accordion items={page.accordion} />
+    <div class="mx-auto max-w-[900px] rounded-3xl bg-white px-6 py-24">
+      {groupOrder.map((name, i) => (
+        <div class:list={[i > 0 && 'mt-14']}>
+          {name && (
+            <h2 class="mb-6 font-display text-[30px] leading-[33px] font-bold text-navy">
+              {name}
+            </h2>
+          )}
+          <Accordion items={groups[name]} chrome={false} />
+        </div>
+      ))}
     </div>
   </section>
 
-  <ContactCta title={ctaTitle} intro={null} />
+  <section class="px-6 py-20 text-center">
+    <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+      {closingTitle}
+    </h2>
+  </section>
 </Base>

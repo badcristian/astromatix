@@ -122,10 +122,31 @@ const data = await page.evaluate(() => {
       body: text(c.querySelector('.feature-card__desc')),
       icon: src(c.querySelector('.feature-card__icon img')),
     })),
-    accordion: visible(document.querySelectorAll('.accordion__item')).map((a) => ({
-      question: text(a.querySelector('.accordion__header')),
-      answer: html(a.querySelector('.accordion__details')),
-    })),
+    // The FAQ splits its questions across three .accordion blocks, each under
+    // its own category heading ("Aan de slag", "Accountbeheer", "Betalingen en
+    // facturatie"). A flat .accordion__item sweep loses that association, and
+    // an early version of the rebuild papered over it by repeating every
+    // question under all three headings. Carry the group with each item.
+    //
+    // For the record, the page has 5 questions, not the 14 the original plan
+    // claimed — counted from the live DOM.
+    accordion: (() => {
+      const heads = visible(document.querySelectorAll('h2, h3'));
+      const groupFor = (el) => {
+        const y = el.getBoundingClientRect().top + window.scrollY;
+        let g = null;
+        for (const h of heads) {
+          if (h.getBoundingClientRect().top + window.scrollY <= y) g = text(h);
+          else break;
+        }
+        return g;
+      };
+      return visible(document.querySelectorAll('.accordion__item')).map((a) => ({
+        question: text(a.querySelector('.accordion__header')),
+        answer: html(a.querySelector('.accordion__details')),
+        group: groupFor(a.closest('.accordion') ?? a),
+      }));
+    })(),
     buttons: Array.from(document.querySelectorAll('a.btn'))
       .filter((b) => b.offsetWidth)
       .map((b) => ({ label: text(b), href: href(b) })),

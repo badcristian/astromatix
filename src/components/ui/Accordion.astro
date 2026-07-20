@@ -15,12 +15,21 @@ interface Props {
   items: { question: string; answer: string }[];
   /** Index of the item open on load, or null for all closed. */
   openIndex?: number | null;
+  /**
+   * Render the white rounded card around the items.
+   *
+   * The 96px vertical padding was measured on a page with ONE accordion. The
+   * FAQ actually has three (one per category), so leaving it on meant ~576px
+   * of padding where the original has 192. Groups pass chrome={false} and the
+   * page supplies a single card around all of them.
+   */
+  chrome?: boolean;
 }
 
-const { items, openIndex = null } = Astro.props;
+const { items, openIndex = null , chrome = true } = Astro.props;
 ---
 
-<div class="rounded-3xl bg-white px-6 py-24">
+<div class:list={[chrome && 'rounded-3xl bg-white px-6 py-24']}>
   {items.map((item, i) => (
     <details
       class="group border-b border-mist pb-6 [&:not(:first-child)]:pt-6"

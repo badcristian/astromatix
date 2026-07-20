@@ -13,23 +13,28 @@
   "accordion": [
     {
       "question": "Hoe begin ik met jobmatix?",
-      "answer": "<p><span>Wil je meer weten over de tool van Jobmatix, vraag dan een online demo aan. Wij laten jou zien hoe de tool werkt en hoe je dit kan toepassen voor jouw organisatie. Wil je gelijk starten? Vraag dan direct een account aan. Jouw persoonlijke Customer Succes Manager zorgt er dan voor dat je aan de slag kan.</span></p>"
+      "answer": "<p><span>Wil je meer weten over de tool van Jobmatix, vraag dan een online demo aan. Wij laten jou zien hoe de tool werkt en hoe je dit kan toepassen voor jouw organisatie. Wil je gelijk starten? Vraag dan direct een account aan. Jouw persoonlijke Customer Succes Manager zorgt er dan voor dat je aan de slag kan.</span></p>",
+      "group": "Aan de slag"
     },
     {
       "question": "Hoe plaats ik mijn vacatures in Jobmatix?",
-      "answer": "<p><span>Het plaatsen van de vacature kan met een XML feed. Een XML feed, ook wel een vacature feed genoemd, is een data lijst waarin alle vacatures in code staan. Zodra jullie systeem een nieuwe vacature in de XML feed plaatsen, wordt dit automatisch verwerkt in jullie Jobmatix account. De vacature kan handmatig of automatisch toegevoegd worden aan een campagne.</span></p>"
+      "answer": "<p><span>Het plaatsen van de vacature kan met een XML feed. Een XML feed, ook wel een vacature feed genoemd, is een data lijst waarin alle vacatures in code staan. Zodra jullie systeem een nieuwe vacature in de XML feed plaatsen, wordt dit automatisch verwerkt in jullie Jobmatix account. De vacature kan handmatig of automatisch toegevoegd worden aan een campagne.</span></p>",
+      "group": "Aan de slag"
     },
     {
       "question": "Hoeveel mediabudget heb ik nodig voor mijn vacatures?",
-      "answer": "<p>Het mediabudget wordt bepaald door het aantal vacatures, hoe lang je de vacatures wil adverteren en de functiecategorieën van de vacatures. Als we deze informatie weten, kunnen we een mediabudget bepalen om aan de slag te gaan met JobMatix!</p>"
+      "answer": "<p>Het mediabudget wordt bepaald door het aantal vacatures, hoe lang je de vacatures wil adverteren en de functiecategorieën van de vacatures. Als we deze informatie weten, kunnen we een mediabudget bepalen om aan de slag te gaan met JobMatix!</p>",
+      "group": "Accountbeheer"
     },
     {
       "question": "Hoe meet Jobmatix de sollicitaties?",
-      "answer": "<p>Door de Jobmatix meetpixel te plaatsen op de sollicitatie bedankpagina, kan onze tool de afgeronde sollicitaties meten. Met de meetpixel heb je in jouw Jobmatix account per vacature inzicht in het aantal keer dat de vacature bekeken is, het aantal sollicitaties en de kosten per sollicitatie (CPA).</p>"
+      "answer": "<p>Door de Jobmatix meetpixel te plaatsen op de sollicitatie bedankpagina, kan onze tool de afgeronde sollicitaties meten. Met de meetpixel heb je in jouw Jobmatix account per vacature inzicht in het aantal keer dat de vacature bekeken is, het aantal sollicitaties en de kosten per sollicitatie (CPA).</p>",
+      "group": "Accountbeheer"
     },
     {
       "question": "Waarom betaal ik een eenmalige opstart?",
-      "answer": "<p><span>Jobmatix verzorgt de gehele inrichting van het account en de campagnes, zodat je direct een goede start maakt. Verder nemen wij jullie organisatie in meerdere trainingen mee hoe de tool optimaal te gebruiken om maximaal resultaat te behalen</span></p>"
+      "answer": "<p><span>Jobmatix verzorgt de gehele inrichting van het account en de campagnes, zodat je direct een goede start maakt. Verder nemen wij jullie organisatie in meerdere trainingen mee hoe de tool optimaal te gebruiken om maximaal resultaat te behalen</span></p>",
+      "group": "Betalingen en facturatie"
     }
   ],
   "buttons": [
@@ -89,6 +94,7 @@
     }
   ],
   "logos": [],
+  "contentImages": [],
   "blocks": [
     {
       "heading": "Veelgestelde vragen",
