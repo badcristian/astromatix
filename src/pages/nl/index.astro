@@ -33,6 +33,7 @@ const blockImages = [productJobAdvertising, productJobboost];
       reverse={i % 2 === 0}
       reveal={i % 2 === 0 ? 'left' : 'right'}
       background={i % 2 === 0 ? 'mist' : 'white'}
+      properties={block.properties ?? []}
     />
   ))}
 
