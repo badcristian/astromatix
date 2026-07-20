@@ -5,7 +5,7 @@
 // These are the ONLY genuine article template on the site. `hs-blog-post`
 // bodies are free-form rich text, unlike klantcase/vacature/landing pages
 // which are `hs-site-page` DnD compositions of the module vocabulary we
-// already have components for (see FINDINGS.md §14).
+// already have components for (see FINDINGS.md §13).
 //
 // Body HTML is preserved rather than converted to Markdown: an HTML->MD round
 // trip is lossy on exactly the things the project rule protects (Dutch copy

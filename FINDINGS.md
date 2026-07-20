@@ -135,7 +135,7 @@ company's site. Three layers keep it out of search: `noindex` meta,
 are ever wanted, use **Workers Builds**, not a Pages project (which would
 publish to a guessable `*.pages.dev`).
 
-## 14. Only the blog posts are an "article template". The other 21 are not.
+## 13. Only the blog posts are an "article template". The other 21 are not.
 
 The plan lists three article templates — blog post, case study, vacancy. That
 is wrong, and believing it costs you a bespoke template you do not need:
@@ -151,7 +151,7 @@ is wrong, and believing it costs you a bespoke template you do not need:
 Across all 22 DnD pages it is **19 types**, nearly all of which already had
 components. Run it before writing a template for anything.
 
-## 15. Blog bodies are stored as HTML, not Markdown.
+## 14. Blog bodies are stored as HTML, not Markdown.
 
 An HTML→Markdown round trip is lossy on exactly what the project rules protect:
 Dutch copy byte-for-byte, embeds, and inline markup. `extract-articles.mjs`
@@ -165,7 +165,7 @@ Body images are rewritten to local assets at render (`src/lib/richtext.ts`).
 An unresolved image **throws at build time** rather than silently shipping a
 CDN hotlink.
 
-## 16. The listing's category and the post's URL disagree on 4 of 11.
+## 15. The listing's category and the post's URL disagree on 4 of 11.
 
 Three `/actueel/blogs/` posts are labelled *Kennis*, one `/actueel/nieuws/`
 post is labelled *Events*. Neither field is simply "right": the **label** is
@@ -179,7 +179,7 @@ looks like a duplicate of the slug without `-0`. **It is not** — it is a
 different article ("Founding Member Indeed Agency Alliance") reusing a
 misleading HubSpot slug. Compare body content, not slugs.
 
-## 17. Three more class-name traps (all §1 in kind).
+## 16. Three more class-name traps (all §1 in kind).
 
 Found while extending the extractor to the DnD pages:
 
@@ -192,7 +192,7 @@ Found while extending the extractor to the DnD pages:
 Also: the header's site-search `<form>` was inflating every page's form count
 by one. Filter on `[name=searchInput]`.
 
-## 18. Not every "form page" has a form.
+## 17. Not every "form page" has a form.
 
 `/nl/demo-emile` and `/nl/meeting-koen` embed **HubSpot Meetings** in an
 iframe — a booking scheduler, not a form. The vacature pages have no form
@@ -200,7 +200,7 @@ either; "Solliciteer direct" is an outbound link to `jobmatix.recruitee.com`,
 an external ATS. Check what a page actually posts to before building a
 `FormStub` for it.
 
-## 19. 13 of the original's pages ship no `<h1>` — not 4.
+## 18. 13 of the original's pages ship no `<h1>` — not 4.
 
 §5 recorded four, because only nine pages had been examined. Extending to the
 full set found nine more (all four `bedankt-*`, `advies-gesprek`,
@@ -212,7 +212,7 @@ Two related defects worth showing the client, both verifiable in seconds:
 (an unfilled field), and `/nl/klantcases` is titled "Recruitment marketing
 platform prijzen". We render a real title and keep their copy elsewhere.
 
-## 20. Total page height hides ordering bugs. Measure per-heading.
+## 19. Total page height hides ordering bugs. Measure per-heading.
 
 `/nl/platform` sat at **+330px** total — comfortably "spacing, not structure".
 It was neither. The logo wall was rendering ~1100px too late and the Insights
@@ -236,7 +236,7 @@ Run it before touching padding:
     node scripts/measure.mjs --viewport 768
     node scripts/measure.mjs --detail platform --viewport 390
 
-## 21. The same component stacks at different widths on different pages.
+## 20. The same component stacks at different widths on different pages.
 
 `ProductBlock` renders the alternating image+text blocks on both the homepage
 and `/nl/platform`. They look identical and behave differently, because they
@@ -254,7 +254,7 @@ defaulting to the homepage's behaviour.
 This is §7's rule biting again in a new place: **mobile is per-component, and
 "the same component" is not always the same component.**
 
-## 22. Some rebuild deltas are correct and should not be "fixed".
+## 21. Some rebuild deltas are correct and should not be "fixed".
 
 Two pages read as badly off at 390 and are behaving as intended:
 
@@ -267,7 +267,7 @@ Two pages read as badly off at 390 and are behaving as intended:
 Before chasing a delta, check whether the extra height is content the original
 hides from crawlers.
 
-## 23. Known deliberate divergences, deliberately left.
+## 22. Known deliberate divergences, deliberately left.
 
 - `quickfeat` and over-ons card icons are fallback glyphs: the theme inlines
   the SVG, so there is no URL for the extractor to fetch.
