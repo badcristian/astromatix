@@ -6,6 +6,7 @@ import FeatureCard from '../../../components/ui/FeatureCard.astro';
 import Accordion from '../../../components/ui/Accordion.astro';
 import ContactCta from '../../../components/sections/ContactCta.astro';
 import Reveal from '../../../components/ui/Reveal.astro';
+import CtaStrip from '../../../components/sections/CtaStrip.astro';
 import PricingTier from '../../../components/ui/PricingTier.astro';
 import { resolveIcon } from '../../../lib/icons';
 import page from '../../../i18n/pages/nl-oplossingen-jobboost.json';
@@ -21,6 +22,7 @@ const band = page.properties.map((p, i) => ({ icon: bandIcons[i], label: p.label
 
 
 const heroCta = page.buttons.find((b) => b.href?.includes('demo-aanvraag')) ?? null;
+const stripCta = page.buttons.find((b) => /Plan een gesprek/i.test(b.label)) ?? null;
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
@@ -60,6 +62,8 @@ const heroCta = page.buttons.find((b) => b.href?.includes('demo-aanvraag')) ?? n
       </div>
     </section>
   )}
+
+  {stripCta && <CtaStrip heading={page.headings[1]} cta={stripCta} />}
 
   <section class="bg-mist px-6 py-[60px]">
     <div class="mx-auto max-w-[1200px]">
