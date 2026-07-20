@@ -1,4 +1,47 @@
 {
+  "contactCta": {
+    "title": "Benieuwd hoe we jouw vacatures beter onder de aandacht kunnen brengen?",
+    "intro": "Laat je gegevens achter en ontdek hoe slimme job marketing voor je kan werken!",
+    "fields": [
+      {
+        "name": "company",
+        "type": "text",
+        "label": "Bedrijfsnaam",
+        "required": false
+      },
+      {
+        "name": "firstname",
+        "type": "text",
+        "label": "Voornaam*",
+        "required": true
+      },
+      {
+        "name": "lastname",
+        "type": "text",
+        "label": "Achternaam*",
+        "required": true
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "label": "Telefoonnummer*",
+        "required": true
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "E-mail*",
+        "required": true
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Bericht",
+        "required": false
+      }
+    ],
+    "submitLabel": "Versturen"
+  },
   "caseSection": {
     "title": "Samen succesvol",
     "cards": [

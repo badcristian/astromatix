@@ -1,0 +1,105 @@
+---
+// A visually faithful, deliberately inert form.
+//
+// The original embeds a HubSpot form that posts into their CRM. This renders
+// the same fields and styling but does nothing on submit — it shows a notice
+// instead, so demo traffic never pollutes the client's lead data.
+//
+// Wiring a real backend later is a change to this one file: either drop in
+// HubSpot's embed script, or POST to an Astro endpoint that forwards to their
+// Forms API.
+//
+// Measured @1440:
+//   form     800 wide
+//   input    54 tall, 12px radius, 1px #f5f5ff border, white bg,
+//            14.56px padding, 16px text
+//   pairs    388 wide each with a 24px gap
+//   textarea 800×130
+//   submit   117×52, navy, 12px radius
+
+interface Field {
+  name: string;
+  type: string;
+  label: string;
+  required: boolean;
+}
+
+interface Props {
+  fields: Field[];
+  submitLabel: string;
+}
+
+const { fields, submitLabel } = Astro.props;
+
+const inputClass =
+  'w-full rounded-[12px] border border-mist bg-white p-[14.56px] text-[16px] text-navy ' +
+  'outline-none transition-colors focus:border-navy/30';
+
+// The original pairs firstname/lastname and phone/email side by side.
+const paired = new Set(['firstname', 'lastname', 'phone', 'email']);
+const textareas = fields.filter((f) => f.type === 'textarea');
+const singles = fields.filter((f) => f.type !== 'textarea' && !paired.has(f.name));
+const pairs = fields.filter((f) => paired.has(f.name));
+---
+
+<form class="mx-auto w-full max-w-[800px]" data-form-stub novalidate>
+  {singles.map((field) => (
+    <div class="mb-6">
+      <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
+      <input
+        class={inputClass}
+        id={field.name}
+        name={field.name}
+        type={field.type}
+        style="height:54px"
+      />
+    </div>
+  ))}
+
+  <div class="mb-6 flex flex-col gap-6 md:flex-row">
+    {pairs.slice(0, 2).map((field) => (
+      <div class="md:w-[388px]">
+        <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
+        <input class={inputClass} id={field.name} name={field.name} type={field.type} style="height:54px" />
+      </div>
+    ))}
+  </div>
+
+  <div class="mb-6 flex flex-col gap-6 md:flex-row">
+    {pairs.slice(2).map((field) => (
+      <div class="md:w-[388px]">
+        <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
+        <input class={inputClass} id={field.name} name={field.name} type={field.type} style="height:54px" />
+      </div>
+    ))}
+  </div>
+
+  {textareas.map((field) => (
+    <div class="mb-6">
+      <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
+      <textarea class={inputClass} id={field.name} name={field.name} style="height:130px"></textarea>
+    </div>
+  ))}
+
+  <button
+    type="submit"
+    class="inline-flex h-[52px] items-center rounded-[12px] bg-navy px-[21.76px] text-[16px] font-medium text-white transition-opacity hover:opacity-90"
+  >
+    {submitLabel}
+  </button>
+
+  <p class="mt-4 hidden text-[16px] text-orange" data-form-notice role="status">
+    Not fully implemented yet
+  </p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-form-stub]').forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      // Intentionally inert: no backend is wired up yet, and demo submissions
+      // must not reach the client's CRM.
+      event.preventDefault();
+      form.querySelector('[data-form-notice]')?.classList.remove('hidden');
+    });
+  });
+</script>

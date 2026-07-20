@@ -139,7 +139,32 @@ const copy = await page.evaluate(() => {
       };
     });
 
+  // --- final CTA + form section ---
+  const formSec = rows[25];
+  const formEl = formSec.querySelector('form');
+  const formFields = formEl
+    ? Array.from(formEl.querySelectorAll('input:not([type=hidden]), select, textarea')).map((f) => {
+        const wrap = f.closest('.hs-form-field, .field') || f.parentElement;
+        return {
+          name: f.name,
+          type: f.type || f.tagName.toLowerCase(),
+          label: text(wrap?.querySelector('label')),
+          required: !!f.required,
+        };
+      }).filter((f) => f.type !== 'submit')
+    : [];
+
   return {
+    contactCta: {
+      title: text(formSec.querySelector('h2')),
+      intro: Array.from(formSec.querySelectorAll('p'))
+        .map((x) => text(x))
+        .filter((t) => t.length > 30)[0] ?? null,
+      fields: formFields,
+      submitLabel: text(formEl?.querySelector('input[type=submit], button[type=submit]'))
+        || formEl?.querySelector('input[type=submit]')?.value
+        || null,
+    },
     caseSection: {
       title: text(caseSec.querySelector('h2')),
       cards: caseCards,
