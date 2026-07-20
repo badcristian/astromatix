@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Measured @1440:
+//   section  1440×169, padding 40px 24px
+//   carousel 1000 wide, padding 0 48px (arrows sit in that padding)
+//   track    904 wide, 89 tall, showing six logos at a time
+//   logo     131×65, vertically centred in the 89px slide
+//
+// 18 logos on the original, presented as a loop with clone slides. Built with
+// the same lightweight translateX carousel as the testimonials rather than
+// pulling in Splide.
+
+// Astro.glob was removed; import.meta.glob is the current API.
+const modules = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/logos/*.png',
+  { eager: true },
+);
+const images = Object.keys(modules)
+  .sort()
+  .map((path) => modules[path].default);
+
+const PER_VIEW = 6;
+const pages = Math.ceil(images.length / PER_VIEW);
+---
+
+<section class="px-6 py-10">
+  <div class="relative mx-auto max-w-[1000px] px-12" data-carousel data-per-view={PER_VIEW}>
+    <button
+      type="button"
+      class="absolute top-1/2 left-0 -translate-y-1/2 text-navy transition-opacity hover:opacity-60"
+      aria-label="Vorige logo's"
+      data-prev
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 5l-7 7 7 7" />
+      </svg>
+    </button>
+
+    <div class="overflow-hidden">
+      <div class="flex transition-transform duration-300" data-track>
+        {images.map((img) => (
+          <div class="flex h-[89px] w-1/6 shrink-0 items-center justify-center">
+            {/* Explicit box: `w-auto` collapses to 0 inside a flex item with
+                no intrinsic constraint. */}
+            <Image
+              src={img}
+              alt=""
+              width={131}
+              height={65}
+              densities={[1, 2]}
+              class="h-[65px] w-[131px] object-contain"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="absolute top-1/2 right-0 -translate-y-1/2 text-navy transition-opacity hover:opacity-60"
+      aria-label="Volgende logo's"
+      data-next
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</section>
+
+<script>
+  // Page-wise logo carousel. Separate from the testimonial one because it
+  // advances by a page of six rather than a single slide.
+  document.querySelectorAll<HTMLElement>('[data-carousel][data-per-view]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]');
+    if (!track) return;
+
+    const perView = Number(root.dataset.perView) || 6;
+    const pages = Math.ceil(track.children.length / perView);
+    let page = 0;
+
+    const render = () => {
+      track.style.transform = `translateX(-${page * 100}%)`;
+    };
+
+    const go = (delta: number) => {
+      page = (page + delta + pages) % pages;
+      render();
+    };
+
+    root.querySelector('[data-prev]')?.addEventListener('click', () => go(-1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => go(1));
+  });
+</script>
