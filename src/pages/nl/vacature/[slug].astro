@@ -1,0 +1,146 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/sections/PageHero.astro';
+import Steps from '../../../components/ui/Steps.astro';
+import Button from '../../../components/ui/Button.astro';
+import ContactCta from '../../../components/sections/ContactCta.astro';
+import { Image } from 'astro:assets';
+import { resolveIcon } from '../../../lib/icons';
+
+// Three vacancies, one template. Like the klantcases these are hs-site-page
+// DnD compositions, not an article template.
+//
+// Structure, measured at 1440 (2883-3088px):
+//   hero-slider   role title + "Breda | €3.000 - €4.200 | 36-40 uur" + apply
+//   prose         the job description, ~30 paragraphs under the h1
+//   steps         the four-stage application process
+//   team-card     the recruiter, with mailto/tel
+//   img-txt       an employee quote
+//
+// "Solliciteer direct" points at jobmatix.recruitee.com — an external ATS, so
+// it stays an outbound link rather than becoming a FormStub.
+
+const pages = import.meta.glob<{ default: any }>('../../../i18n/pages/nl-vacature-*.json', {
+  eager: true,
+});
+
+export function getStaticPaths() {
+  const all = import.meta.glob<{ default: any }>('../../../i18n/pages/nl-vacature-*.json', {
+    eager: true,
+  });
+  return Object.keys(all).map((file) => {
+    const slug = file.split('/').pop()!.replace('nl-vacature-', '').replace('.json', '');
+    return { params: { slug }, props: { file } };
+  });
+}
+
+const { file } = Astro.props;
+const d = pages[file].default;
+
+const slide = d.heroSlider?.[0] ?? null;
+const applyCta = slide?.buttons?.[0] ?? d.buttons?.find((b: any) => /solliciteer/i.test(b.label));
+
+// The whole job description sits as paragraphs under the h1 rather than in a
+// module of its own, so it arrives as the first block's body.
+const description: string[] = d.blocks?.[0]?.body ?? [];
+
+// Headings the theme emits as standalone module--heading, in page order.
+const headingBlocks = (d.blocks ?? []).filter((b: any) => b.module === 'heading');
+const contactHeading = headingBlocks[0]?.heading ?? null;
+const processHeading = headingBlocks[1]?.heading ?? null;
+const closingHeading = headingBlocks.at(-1)?.heading ?? null;
+
+// The recruiter card. team-card on two pages, contact-card on the third —
+// same rendered card, different theme module (see extract-page.mjs).
+const recruiter = d.teamCards?.[0] ?? d.contactCards?.[0] ?? null;
+const portrait = resolveIcon(recruiter?.image);
+const mailto = recruiter?.links?.find((l: any) => l.href?.startsWith('mailto:'));
+const tel = recruiter?.links?.find((l: any) => l.href?.startsWith('tel:'));
+---
+
+<Base title={d.meta.title} description={d.meta.description ?? undefined}>
+  <PageHero title={slide?.title ?? d.hero?.title ?? ''} subtitle={slide?.body ?? null} />
+
+  {applyCta && (
+    <section class="px-6">
+      <div class="mx-auto max-w-[850px]">
+        <Button href={applyCta.href} label={applyCta.label} icon />
+      </div>
+    </section>
+  )}
+
+  {description.length > 0 && (
+    <section class="px-6 py-14">
+      <div class="mx-auto max-w-[850px]">
+        {description.map((para) => (
+          <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {recruiter && (
+    <section class="px-6 pb-14">
+      <div class="mx-auto max-w-[850px] rounded-3xl bg-fog p-8">
+        {contactHeading && (
+          <h2 class="mb-6 font-display text-[20px] leading-[28px] font-bold text-navy">
+            {contactHeading}
+          </h2>
+        )}
+        <div class="flex flex-wrap items-center gap-5">
+          {portrait && (
+            <Image src={portrait} alt="" width={96} height={96} class="size-24 rounded-full object-cover" />
+          )}
+          <div>
+            {recruiter.name && (
+              <p class="font-display text-[20px] leading-[28px] font-bold text-navy">
+                {recruiter.name}
+              </p>
+            )}
+            {recruiter.body && <p class="text-[14.4px] text-navy/70">{recruiter.body}</p>}
+            <p class="mt-2 flex flex-wrap gap-4 text-[14.4px]">
+              {mailto && (
+                <a href={mailto.href} class="text-orange hover:underline">
+                  {mailto.href.replace('mailto:', '')}
+                </a>
+              )}
+              {tel && (
+                <a href={tel.href} class="text-orange hover:underline">
+                  {tel.href.replace('tel:', '')}
+                </a>
+              )}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {d.steps?.length > 0 && (
+    <section class="bg-mist px-6 py-20">
+      <div class="mx-auto max-w-[1138px]">
+        {processHeading && (
+          <h2 class="mb-10 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
+            {processHeading}
+          </h2>
+        )}
+        <Steps steps={d.steps} />
+      </div>
+    </section>
+  )}
+
+  {applyCta && (
+    <section class="px-6 py-16 text-center">
+      <div class="mx-auto max-w-[850px]">
+        {closingHeading && (
+          <h2 class="mb-6 font-display text-[30px] leading-[33px] font-bold text-navy">
+            {closingHeading}
+          </h2>
+        )}
+        <Button href={applyCta.href} label={applyCta.label} icon />
+      </div>
+    </section>
+  )}
+
+  <ContactCta intro={null} />
+</Base>

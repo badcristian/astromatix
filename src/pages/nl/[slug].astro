@@ -1,0 +1,208 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import QuickFeat from '../../components/ui/QuickFeat.astro';
+import FeatureCard from '../../components/ui/FeatureCard.astro';
+import FormStub from '../../components/ui/FormStub.astro';
+import GoCard from '../../components/ui/GoCard.astro';
+import Button from '../../components/ui/Button.astro';
+import ContactCta from '../../components/sections/ContactCta.astro';
+import { Image } from 'astro:assets';
+import { resolveIcon } from '../../lib/icons';
+import { LANDING_SLUGS } from '../../lib/landing';
+
+// The 13 funnel and thank-you pages, from one data-driven template.
+//
+// They are the thinnest pages on the site and share a module vocabulary of
+// eight types, but they do NOT all share a shape: some open with a hero-slider
+// and some with a section-intro, four carry a quickfeat, two carry a booking
+// embed instead of a form, and the bedankt-* pages carry neither. So rather
+// than branch per page, this renders whichever sections the extractor found,
+// in a fixed order. Adding a fourteenth page is a data change, not a code one.
+//
+// Routing note: Astro gives static routes priority over dynamic ones, so this
+// cannot shadow contact.astro / platform.astro / over-ons.astro et al. The
+// slug list is explicit anyway — see src/lib/landing.ts.
+
+const pages = import.meta.glob<{ default: any }>('../../i18n/pages/nl-*.json', { eager: true });
+
+export function getStaticPaths() {
+  return LANDING_SLUGS.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const key = Object.keys(pages).find((p) => p.endsWith(`/nl-${slug}.json`));
+if (!key) throw new Error(`No extractor output for landing page "${slug}"`);
+const d = pages[key].default;
+
+const blocks: any[] = d.blocks ?? [];
+const intro = d.sectionIntros?.[0] ?? null;
+const slide = d.heroSlider?.[0] ?? null;
+
+// Nine of these thirteen pages ship no <h1> (FINDINGS.md §5). Take the best
+// title available and render it as one — same deliberate divergence PageHero
+// documents.
+const title =
+  slide?.title ?? intro?.title ?? blocks.find((b) => b.heading)?.heading ?? '';
+
+// bedankt-contact's <title> on the original is the literal string
+// "nl/bedankt-contact" — an unfilled field, not a title. Fall back to the
+// page's own heading rather than shipping a path as a browser tab label.
+const looksLikePath = /^\/?[a-z]+\/[a-z-]+$/i.test(d.meta.title ?? '');
+const metaTitle = looksLikePath || !d.meta.title ? `${title} — Jobmatix` : d.meta.title;
+
+// Prose: whichever block carries the most body copy, minus the one that just
+// repeats the title.
+const prose: string[] =
+  (intro?.body ? [intro.body] : []) .concat(
+    blocks
+      .filter((b) => b.heading !== title)
+      .flatMap((b) => b.body ?? []),
+  );
+
+const form = d.forms?.[0] ?? null;
+const contact = d.teamCards?.[0] ?? null;
+const portrait = resolveIcon(contact?.image);
+const featureCards = (d.featureCards ?? [])
+  .map((c: any) => ({ ...c, resolved: resolveIcon(c.icon) }))
+  .filter((c: any) => c.title);
+const logos = (d.logos ?? []).map((l: any) => ({ ...l, resolved: resolveIcon(l.src) })).filter((l: any) => l.resolved);
+
+// demo-emile and meeting-koen embed HubSpot's Meetings scheduler in an iframe
+// rather than carrying a form. We do not embed it: it is a third-party frame
+// that loads HubSpot tracking, and this is a pitch demo of a HubSpot
+// replacement. Same call as the Google Maps omission — FINDINGS.md §13.
+const usesBookingEmbed = ['demo-emile', 'meeting-koen'].includes(slug!);
+---
+
+<Base title={metaTitle} description={d.meta.description || undefined}>
+  <PageHero title={title} subtitle={slide?.body ?? null} />
+
+  {prose.length > 0 && (
+    <section class="px-6 py-12">
+      <div class="mx-auto max-w-[850px]">
+        {prose.map((para) => (
+          <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {featureCards.length > 0 && (
+    <section class="px-6 pb-12">
+      <div class="mx-auto flex max-w-[1138px] flex-wrap -mx-3">
+        {featureCards.map((card: any) => (
+          <div class="w-full px-3 pb-6 md:w-1/2 lg:w-1/3">
+            <FeatureCard
+              icon={card.resolved}
+              title={card.title}
+              body={card.body ?? ''}
+              background="white"
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {d.quickfeat?.length > 0 && (
+    <section class="bg-mist px-6 py-20">
+      <div class="mx-auto max-w-[1138px]">
+        <QuickFeat items={d.quickfeat} />
+      </div>
+    </section>
+  )}
+
+  {form && (
+    <section class="px-6 py-16">
+      <div class="mx-auto max-w-[850px]">
+        <FormStub
+          fields={form.fields
+            .filter((f: any) => f.name)
+            .map((f: any) => ({
+              name: f.name,
+              type: f.type,
+              label: f.label ?? f.placeholder ?? f.name,
+              required: f.required,
+            }))}
+          submitLabel={form.submitLabel ?? 'Verzenden'}
+        />
+      </div>
+    </section>
+  )}
+
+  {usesBookingEmbed && (
+    <section class="px-6 py-16">
+      <div class="mx-auto max-w-[850px] rounded-3xl bg-fog p-10 text-center">
+        <p class="font-display text-[20px] leading-[28px] font-bold text-navy">
+          Agenda inplannen
+        </p>
+        <p class="mt-3 text-[16px] leading-[26px] text-navy/70">
+          Not fully implemented yet — de originele pagina laadt hier HubSpot Meetings.
+        </p>
+      </div>
+    </section>
+  )}
+
+  {contact && (
+    <section class="px-6 pb-16">
+      <div class="mx-auto flex max-w-[850px] flex-wrap items-center gap-5">
+        {portrait && (
+          <Image src={portrait} alt="" width={96} height={96} class="size-24 rounded-full object-cover" />
+        )}
+        <div>
+          {contact.name && (
+            <p class="font-display text-[20px] leading-[28px] font-bold text-navy">{contact.name}</p>
+          )}
+          {contact.body && <p class="text-[14.4px] text-navy/70">{contact.body}</p>}
+          <p class="mt-2 flex flex-wrap gap-4 text-[14.4px]">
+            {(contact.links ?? [])
+              .filter((l: any) => /^(mailto|tel):/.test(l.href ?? ''))
+              .map((l: any) => (
+                <a href={l.href} class="text-orange hover:underline">
+                  {l.href.replace(/^(mailto|tel):/, '')}
+                </a>
+              ))}
+          </p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {d.goCards?.length > 0 && (
+    <section class="px-6 pb-16">
+      <div class="mx-auto flex max-w-[1138px] flex-wrap -mx-3">
+        {d.goCards.map((card: any) => (
+          <div class="w-full px-3 pb-6 md:w-1/2 lg:w-1/3">
+            <GoCard
+              title={card.title}
+              name={card.name}
+              href={card.href}
+              image={resolveIcon(card.image)}
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {logos.length > 0 && (
+    <section class="px-6 pb-20">
+      <div class="mx-auto max-w-[1138px]">
+        <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+          {logos.map((logo: any) => (
+            <Image
+              src={logo.resolved}
+              alt={logo.alt ?? ''}
+              width={120}
+              height={48}
+              class="h-12 w-auto object-contain opacity-60 grayscale"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <ContactCta intro={null} />
+</Base>

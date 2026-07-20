@@ -282,9 +282,14 @@ const data = await page.evaluate(() => {
     teamCards: Array.from(
       document.querySelectorAll('.module--team-card .content-card, .team-card'),
     ).map((c) => ({
-      name: text(c.querySelector('.content-card__title-tag, .content-card__title, h3, h4')),
-      role: text(c.querySelector('.content-card__subtitle, .content-card__role')),
-      body: text(c.querySelector('.content-card__desc, p')),
+      // team-card and contact-card use DIFFERENT inner class prefixes
+      // (.team-card__title vs .content-card__title-tag) despite rendering the
+      // same card, so both are listed rather than assumed interchangeable.
+      name: text(
+        c.querySelector('.team-card__title, .content-card__title-tag, .content-card__title, h3, h4'),
+      ),
+      role: text(c.querySelector('.team-card__subtitle, .content-card__subtitle')),
+      body: text(c.querySelector('.team-card__desc, .content-card__desc, p')),
       image: src(c.querySelector('.content-card__img img, img')),
       links: Array.from(c.querySelectorAll('a[href]')).map((a) => ({
         label: text(a) || a.querySelector('img')?.getAttribute('alt') || null,
@@ -303,8 +308,10 @@ const data = await page.evaluate(() => {
     contactCards: Array.from(
       document.querySelectorAll('.module--contact-card .content-card'),
     ).map((c) => ({
-      title: text(c.querySelector('.content-card__title-tag, .content-card__title, h3, h4')),
-      body: text(c.querySelector('.content-card__desc, p')),
+      title: text(
+        c.querySelector('.content-card__title-tag, .content-card__title, .team-card__title, h3, h4'),
+      ),
+      body: text(c.querySelector('.content-card__desc, .team-card__desc, p')),
       image: src(c.querySelector('.content-card__img img, img')),
       links: Array.from(c.querySelectorAll('a[href]')).map((a) => ({
         label: text(a) || a.querySelector('img')?.getAttribute('alt') || null,
