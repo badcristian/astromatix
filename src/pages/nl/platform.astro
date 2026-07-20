@@ -30,8 +30,12 @@ import page from '../../i18n/pages/nl-platform.json';
 //   Campaigns            1945   image left
 //   Onze campaign partners 2290 logo wall
 //   Insights             2876   image left
-//   Aan de slag met Jobmatix? 3400ish
+//   Aan de slag met Jobmatix? 3400ish  <- the CTA comes BEFORE the last block
 //   Jobmatix voordelen   3485
+//
+// That CTA-then-voordelen order is easy to get backwards, and measure.mjs
+// reports it as the same alternating signature as the logo wall bug above:
+// +749 on one heading, -603 on the next, roughly cancelling in the total.
 //
 // The <h1> is taken from hero.title, which is the original's actual heading
 // ("All-in-one Recruitment Marketing platform Ontdek de mogelijkheden"). An
@@ -70,6 +74,8 @@ const voordelen = findBlock('Jobmatix voordelen');
         reveal={block.imageRight ? 'right' : 'left'}
         background={i % 2 === 0 ? 'white' : 'mist'}
         stackUntil="md"
+      hideImageBelowMd
+        hideImageBelowMd
       />
 
       {/* The pull-quote sits between Smart automation and Campaigns. */}
@@ -107,8 +113,12 @@ const voordelen = findBlock('Jobmatix voordelen');
       reveal={block.imageRight ? 'right' : 'left'}
       background="white"
       stackUntil="md"
+      hideImageBelowMd
     />
   ))}
+
+
+  <ContactCta title={ctaHeading?.heading ?? undefined} intro={null} />
 
   {voordelen && (
     <section class="bg-mist px-6 py-20">
@@ -122,6 +132,4 @@ const voordelen = findBlock('Jobmatix voordelen');
       </div>
     </section>
   )}
-
-  <ContactCta title={ctaHeading?.heading ?? undefined} intro={null} />
 </Base>

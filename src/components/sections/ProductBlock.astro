@@ -44,19 +44,40 @@ interface Props {
    * per-component measurement FINDINGS.md §7 calls for.
    */
   stackUntil?: 'md' | 'lg';
+  /**
+   * Drop the image entirely below 768px.
+   *
+   * Not a judgement call — /nl/platform's theme sets `display: none` on the
+   * image column's `.span12` wrapper below exactly 768 (verified at 479, 480,
+   * 600, 767 vs 768). Four of its five images never render on mobile, which is
+   * why that page gets SHORTER as it narrows (4242 -> 4019 -> 3556) where a
+   * naive stack gets taller. Rendering them cost ~2000px at 390.
+   */
+  hideImageBelowMd?: boolean;
 }
 
 const {
   title, body, image, cta,
   reverse = false, reveal = 'left', background = 'white',
   stackUntil = 'lg',
+  hideImageBelowMd = false,
 } = Astro.props;
 ---
 
 {/* pb is 138, not the section's own 50: the original follows each block's
     inner row with an empty 1200×88 spacer before the section's bottom
     padding. Same pattern as the 46px spacer under the value prop. */}
-<section class:list={['px-[10px] pt-20 pb-[138px] md:px-6', background === 'mist' && 'bg-mist']}>
+{/* Vertical padding is reduced BELOW md only. The 80/138 figures were
+    measured at 1440, where the original follows each block with an empty
+    1200x88 spacer; that spacer does not survive to mobile, so carrying 218px
+    of padding down to 390 ran every block ~300px long. Restored from md up,
+    because the homepage sits at +55 there and must not be disturbed. */}
+<section
+  class:list={[
+    'px-[10px] pt-10 pb-12 md:px-6 md:pt-20 md:pb-[138px]',
+    background === 'mist' && 'bg-mist',
+  ]}
+>
   <Reveal
     variant={reveal}
     duration={1000}
@@ -67,7 +88,11 @@ const {
         : ['lg:flex-row lg:gap-20', reverse && 'lg:flex-row-reverse'],
     ]}
   >
-    <div class:list={[stackUntil === 'md' && 'md:w-1/2 md:shrink-0', 'lg:w-[600px] lg:shrink-0']}>
+    <div class:list={[
+      hideImageBelowMd && 'hidden md:block',
+      stackUntil === 'md' && 'md:w-1/2 md:shrink-0',
+      'lg:w-[600px] lg:shrink-0',
+    ]}>
       <Image
         src={image}
         alt=""

@@ -31,17 +31,20 @@ const blocks = (page.audienceBlocks ?? []).map((b) => ({ ...b, img: resolveIcon(
         variant={block.imageRight ? 'right' : 'left'}
         duration={1000}
         class:list={[
-          'mx-auto flex max-w-[1200px] flex-col gap-10 lg:flex-row lg:items-center lg:gap-20',
-          block.imageRight && 'lg:flex-row-reverse',
+          // Two-column from 768, not 1140. Measured on the original at 768:
+          // the audience image is 286x286, i.e. still a side column. Letting it
+          // go full-width there made each of the four blocks ~700px too tall.
+          'mx-auto flex max-w-[1200px] flex-col gap-10 md:flex-row md:items-center md:gap-10 lg:gap-20',
+          block.imageRight && 'md:flex-row-reverse',
         ]}
       >
         {block.img && (
-          <div class="lg:w-[510px] lg:shrink-0">
+          <div class="md:w-[286px] md:shrink-0 lg:w-[510px]">
             <Image src={block.img} alt="" width={510} densities={[1, 2]} class="w-full rounded-3xl" />
           </div>
         )}
 
-        <div class="lg:flex-1">
+        <div class="md:flex-1">
           <h2 class="font-display text-[30px] leading-[38px] font-bold text-navy">
             {block.title}
           </h2>
