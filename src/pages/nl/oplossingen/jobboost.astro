@@ -9,6 +9,7 @@ import Reveal from '../../../components/ui/Reveal.astro';
 import QuickFeat from '../../../components/ui/QuickFeat.astro';
 import CtaStrip from '../../../components/sections/CtaStrip.astro';
 import PricingTier from '../../../components/ui/PricingTier.astro';
+import { Image } from 'astro:assets';
 import { resolveIcon } from '../../../lib/icons';
 import page from '../../../i18n/pages/nl-oplossingen-jobboost.json';
 
@@ -41,6 +42,18 @@ const tiersHeading = heading('Kies jouw Jobboost!');
 const stripHeading = block('Benieuwd hoe jij jouw job marketing')?.heading ?? null;
 const faqHeading = heading('Veelgestelde vragen');
 const ctaHeading = heading('Klaar om jouw vacature');
+
+// A 588px-wide dashboard illustration sits beside the FAQ on both product
+// pages. It carries NO module class, so no module-based extractor could see it
+// and it was simply absent — worth ~650px here and ~250px on jobboost. Found
+// by contentImages, which anchors on the nearest preceding heading.
+const faqImage = (() => {
+  const hit = (page.contentImages ?? []).find(
+    (i: any) => i.afterHeading?.startsWith('Veelgestelde vragen') && i.width > 300,
+  );
+  const resolved = resolveIcon(hit?.src);
+  return resolved ? { ...hit, resolved } : null;
+})();
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
@@ -99,6 +112,17 @@ const ctaHeading = heading('Klaar om jouw vacature');
       <div class="mx-auto mt-8 max-w-[900px]">
         <Accordion items={page.accordion} />
       </div>
+      {faqImage && (
+        <div class="mx-auto mt-10 max-w-[588px]">
+          <Image
+            src={faqImage.resolved}
+            alt=""
+            width={faqImage.width}
+            height={faqImage.height}
+            class="h-auto w-full rounded-3xl"
+          />
+        </div>
+      )}
     </div>
   </section>
 

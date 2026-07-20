@@ -1,4 +1,8 @@
 ---
+// NOTE: inactive panels are hidden only from 768 up. The original lays ALL of
+// them out at every width — at 390 it exposes 27 headings where the tabbed
+// rebuild exposed 13 — so below md we stack the panels instead of tabbing.
+// That is also the more accessible default: no JS, all content reachable.
 // The original's `.module--steps`. Measured @1440:
 //   module   1200 wide, 225 tall
 //   nav      1200×51 — four 44×44 circular buttons, ~101px apart, centred
@@ -55,7 +59,7 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
         role="tabpanel"
         id={`${uid}-panel-${i}`}
         aria-labelledby={`${uid}-tab-${i}`}
-        class:list={['mx-auto max-w-[800px] text-center', i !== 0 && 'hidden']}
+        class:list={['mx-auto max-w-[800px] text-center', i !== 0 && 'md:hidden']}
         data-steps-panel={i}
       >
         {step.title && (

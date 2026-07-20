@@ -77,6 +77,44 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Djops-1.jpg",
+      "width": 384,
+      "height": 192,
+      "afterHeading": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/DHL%20afb%202%20(1).png",
+      "width": 384,
+      "height": 192,
+      "afterHeading": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Kruidvat.png",
+      "width": 384,
+      "height": 192,
+      "afterHeading": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Schiphol.png",
+      "width": 384,
+      "height": 192,
+      "afterHeading": "Kruidvat"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Jam%20werkt.png",
+      "width": 384,
+      "height": 192,
+      "afterHeading": "Kruidvat"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/faam-2.png",
+      "width": 384,
+      "height": 192,
+      "afterHeading": "Kruidvat"
+    }
+  ],
   "blocks": [
     {
       "heading": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!",

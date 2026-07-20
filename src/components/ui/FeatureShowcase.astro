@@ -1,4 +1,8 @@
 ---
+// NOTE: inactive panels are hidden only from 768 up. The original lays ALL of
+// them out at every width — at 390 it exposes 27 headings where the tabbed
+// rebuild exposed 13 — so below md we stack the panels instead of tabbing.
+// That is also the more accessible default: no JS, all content reachable.
 // The original's `.featshow` (nav-left variant). Measured @1440 on
 // /nl/oplossingen/jobadvertising:
 //   wrapper  1200 wide, 514 tall
@@ -44,7 +48,7 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
         role="tabpanel"
         id={`${uid}-panel-${i}`}
         aria-labelledby={`${uid}-tab-${i}`}
-        class:list={['mx-auto max-w-[500px]', i !== 0 && 'hidden']}
+        class:list={['mx-auto max-w-[500px]', i !== 0 && 'md:hidden']}
         data-featshow-panel={i}
       >
         <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">

@@ -13,31 +13,38 @@
   "accordion": [
     {
       "question": "Wat houdt een Jobmatix packages in?",
-      "answer": "<div id=\"dropdown-block-yui_3_17_2_1_1671119575691_155472-0\" aria-labelledby=\"button-block-yui_3_17_2_1_1671119575691_155472-0\" role=\"region\"> <div> <p>Met een Jobmatix packages kan je jouw vacature optimaal adverteren op meerdere performance jobboards. Doordat we gebruik maken van de Jobmatix programmatic tooling zorgen we voor “best of class” resultaat voor jouw budget.</p> </div> </div>"
+      "answer": "<div id=\"dropdown-block-yui_3_17_2_1_1671119575691_155472-0\" aria-labelledby=\"button-block-yui_3_17_2_1_1671119575691_155472-0\" role=\"region\"> <div> <p>Met een Jobmatix packages kan je jouw vacature optimaal adverteren op meerdere performance jobboards. Doordat we gebruik maken van de Jobmatix programmatic tooling zorgen we voor “best of class” resultaat voor jouw budget.</p> </div> </div>",
+      "group": "Veelgestelde vragen"
     },
     {
       "question": "Waarom zou ik adverteren met Jobmatix?",
-      "answer": "<p><span>Bij Jobmatix heb je de ultieme verhouding tussen mediabudget en kosten. Concreet houdt dit in dat je meer resultaat krijgt voor jouw vacature dan bij andere jobboards.</span></p>"
+      "answer": "<p><span>Bij Jobmatix heb je de ultieme verhouding tussen mediabudget en kosten. Concreet houdt dit in dat je meer resultaat krijgt voor jouw vacature dan bij andere jobboards.</span></p>",
+      "group": "Veelgestelde vragen"
     },
     {
       "question": "Hoe lang wordt mijn vacature geadverteerd?",
-      "answer": "<div id=\"dropdown-block-yui_3_17_2_1_1671119575691_155472-2\" aria-labelledby=\"button-block-yui_3_17_2_1_1671119575691_155472-2\" role=\"region\"> <div> <p>Jouw vacature adverteren wij over meerdere vacaturebanken voor maximaal 30 dagen of tot jouw media budget is verbruikt. Ook kan je jouw vacature wanneer gewenst eerder offline halen.</p> </div> </div>"
+      "answer": "<div id=\"dropdown-block-yui_3_17_2_1_1671119575691_155472-2\" aria-labelledby=\"button-block-yui_3_17_2_1_1671119575691_155472-2\" role=\"region\"> <div> <p>Jouw vacature adverteren wij over meerdere vacaturebanken voor maximaal 30 dagen of tot jouw media budget is verbruikt. Ook kan je jouw vacature wanneer gewenst eerder offline halen.</p> </div> </div>",
+      "group": "Veelgestelde vragen"
     },
     {
       "question": "Op welke Jobboards wordt er geadverteerd?",
-      "answer": "<div id=\"dropdown-block-yui_3_17_2_1_1671119575691_155472-3\" aria-labelledby=\"button-block-yui_3_17_2_1_1671119575691_155472-3\" role=\"region\"> <div> <p>De vacature wordt geadverteerd op verschillende jobboards. Denk dan aan b.v. Indeed, Talent.com, Jobrapido, Adzuna, Joblift,&nbsp; Careerjet, etc. Het aanbod van jobboards kan verschillen. Omdat we “programmatic” werken kiest de computer waar we het beste kunnen adverteren voor optimaal resultaat. We bieden dus geen plaatsingsgarantie.</p> </div> </div>"
+      "answer": "<div id=\"dropdown-block-yui_3_17_2_1_1671119575691_155472-3\" aria-labelledby=\"button-block-yui_3_17_2_1_1671119575691_155472-3\" role=\"region\"> <div> <p>De vacature wordt geadverteerd op verschillende jobboards. Denk dan aan b.v. Indeed, Talent.com, Jobrapido, Adzuna, Joblift,&nbsp; Careerjet, etc. Het aanbod van jobboards kan verschillen. Omdat we “programmatic” werken kiest de computer waar we het beste kunnen adverteren voor optimaal resultaat. We bieden dus geen plaatsingsgarantie.</p> </div> </div>",
+      "group": "Veelgestelde vragen"
     },
     {
       "question": "Wat voor resultaat kan ik verwachten?",
-      "answer": "<div id=\"dropdown-block-yui_3_17_2_1_1671119575691_155472-4\" aria-labelledby=\"button-block-yui_3_17_2_1_1671119575691_155472-4\" role=\"region\"> <div> <p>Het uiteindelijke resultaat is afhankelijk van meerdere variabelen. Denk dan aan jouw employer brand, de kwaliteit van jouw vacature tekst, locatie en tijd van het jaar. Maar vooral de schaarste van jouw vacature. Hoe groter jouw pakket hoe meer mediabudget wij hebben om mee te werken. Meer is vaak beter.</p> </div> </div>"
+      "answer": "<div id=\"dropdown-block-yui_3_17_2_1_1671119575691_155472-4\" aria-labelledby=\"button-block-yui_3_17_2_1_1671119575691_155472-4\" role=\"region\"> <div> <p>Het uiteindelijke resultaat is afhankelijk van meerdere variabelen. Denk dan aan jouw employer brand, de kwaliteit van jouw vacature tekst, locatie en tijd van het jaar. Maar vooral de schaarste van jouw vacature. Hoe groter jouw pakket hoe meer mediabudget wij hebben om mee te werken. Meer is vaak beter.</p> </div> </div>",
+      "group": "Veelgestelde vragen"
     },
     {
       "question": "Hoe werkt de booster precies?",
-      "answer": "<p><span>Wij plaatsen jouw vacature in Jobmatix en beheren jouw advertentie. Verkeer wordt gestuurd naar de vacature op jouw werkenbij website. Optioneel kan je later nog het aantal geleverde verkeer opvragen.</span></p>"
+      "answer": "<p><span>Wij plaatsen jouw vacature in Jobmatix en beheren jouw advertentie. Verkeer wordt gestuurd naar de vacature op jouw werkenbij website. Optioneel kan je later nog het aantal geleverde verkeer opvragen.</span></p>",
+      "group": "Veelgestelde vragen"
     },
     {
       "question": "Staat jouw vraag er niet tussen?",
-      "answer": "<p><span>Neem hieronder contact met ons op via het formulier, mail naar packages@jobmatix.com of bel ons op 085-3036760. Wij helpen jou graag verder.</span></p>"
+      "answer": "<p><span>Neem hieronder contact met ons op via het formulier, mail naar packages@jobmatix.com of bel ons op 085-3036760. Wij helpen jou graag verder.</span></p>",
+      "group": "Veelgestelde vragen"
     }
   ],
   "buttons": [
@@ -104,6 +111,14 @@
   ],
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/w.jpg",
+      "width": 486,
+      "height": 648,
+      "afterHeading": "Een vacature booster aanvragen"
+    }
+  ],
   "blocks": [
     {
       "heading": "De ultieme vacature booster van Jobmatix",

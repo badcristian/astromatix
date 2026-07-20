@@ -56,19 +56,23 @@
   "accordion": [
     {
       "question": "Voor wie is Job Advertising?",
-      "answer": "<p>Job Advertising is er voor iedereen die vacatures effectief en gericht onder de aandacht wil brengen bij de juiste doelgroep. Met job Advertising kun je eenvoudig je bereik vergroten, geschikte kandidaten aanspreken en je wervingsproces optimaliseren.</p> <p><strong>We kijken graag samen met je of ons platform geschikt is voor jouw organisatie. Tijdens een vrijblijvende demo kun je al je vragen stellen en zie je direct hoe het platform werkt.</strong></p>"
+      "answer": "<p>Job Advertising is er voor iedereen die vacatures effectief en gericht onder de aandacht wil brengen bij de juiste doelgroep. Met job Advertising kun je eenvoudig je bereik vergroten, geschikte kandidaten aanspreken en je wervingsproces optimaliseren.</p> <p><strong>We kijken graag samen met je of ons platform geschikt is voor jouw organisatie. Tijdens een vrijblijvende demo kun je al je vragen stellen en zie je direct hoe het platform werkt.</strong></p>",
+      "group": "Let's get your job done....in een paar stappen"
     },
     {
       "question": "Kan ik zelf in het platform?",
-      "answer": "<p>Zeker weten! Je kunt zelf data inzien, campagnes opzetten, beheren, optimaliseren én analyseren. Liever uit handen geven? Dat kan ook! Kies optioneel voor ons campagnebeheer en krijg een echte specialist aan je zijde. Die zorgt niet alleen voor de beste resultaten, maar geeft je ook handige tips.</p>"
+      "answer": "<p>Zeker weten! Je kunt zelf data inzien, campagnes opzetten, beheren, optimaliseren én analyseren. Liever uit handen geven? Dat kan ook! Kies optioneel voor ons campagnebeheer en krijg een echte specialist aan je zijde. Die zorgt niet alleen voor de beste resultaten, maar geeft je ook handige tips.</p>",
+      "group": "Let's get your job done....in een paar stappen"
     },
     {
       "question": "Hoe werkt programmatic advertising?",
-      "answer": "<p>Programmatic advertising werkt door gebruik te maken van technologie en automatisering om advertenties in real-time te plaatsen op de juiste platforms en bij de juiste doelgroepen. In plaats van handmatig adverteren via specifieke websites, wordt programmatic advertising aangedreven door data en algoritmes die beslissen waar en wanneer je advertenties het beste getoond kunnen worden.&nbsp; <span style=\"color: #e9b9ec;\"><strong><a href=\"/nl/actueel/blogs/programmatic-advertising-de-toekomst-van-job-marketing\" rel=\"noopener\" style=\"color: #e9b9ec;\">Meer leren over programmatic advertising? Lees het hier!</a></strong></span></p>"
+      "answer": "<p>Programmatic advertising werkt door gebruik te maken van technologie en automatisering om advertenties in real-time te plaatsen op de juiste platforms en bij de juiste doelgroepen. In plaats van handmatig adverteren via specifieke websites, wordt programmatic advertising aangedreven door data en algoritmes die beslissen waar en wanneer je advertenties het beste getoond kunnen worden.&nbsp; <span style=\"color: #e9b9ec;\"><strong><a href=\"/nl/actueel/blogs/programmatic-advertising-de-toekomst-van-job-marketing\" rel=\"noopener\" style=\"color: #e9b9ec;\">Meer leren over programmatic advertising? Lees het hier!</a></strong></span></p>",
+      "group": "Let's get your job done....in een paar stappen"
     },
     {
       "question": "Past Job Advertising bij mijn bedrijf?",
-      "answer": "<p><span>Laten we dat samen eens bekijken. Vul het formulier onderaan op de pagina in en ontvang vrijblijvend advies.&nbsp;</span><span></span><span>Liever gelijk bellen? Dat kan natuurlijk ook</span><a href=\"tel:0853036760\"><span>&nbsp;</span>085 3036760</a><span>&nbsp;&nbsp;</span></p>"
+      "answer": "<p><span>Laten we dat samen eens bekijken. Vul het formulier onderaan op de pagina in en ontvang vrijblijvend advies.&nbsp;</span><span></span><span>Liever gelijk bellen? Dat kan natuurlijk ook</span><a href=\"tel:0853036760\"><span>&nbsp;</span>085 3036760</a><span>&nbsp;&nbsp;</span></p>",
+      "group": "Let's get your job done....in een paar stappen"
     }
   ],
   "buttons": [
@@ -163,6 +167,14 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hubfs/4%20ai%20dashboard.png",
+      "width": 588,
+      "height": 317,
+      "afterHeading": "Veelgestelde vragen"
+    }
+  ],
   "blocks": [
     {
       "heading": "Job Advertising",

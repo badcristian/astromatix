@@ -179,6 +179,44 @@
       "alt": "NieuweJobs advertising Jobmatix"
     }
   ],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/jobmatix%20campagne%20aanmaken.webp",
+      "width": 588,
+      "height": 342,
+      "afterHeading": null
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Jobs%20import.jpg",
+      "width": 611,
+      "height": 309,
+      "afterHeading": "All-in-one Recruitment Marketing platform Ontdek de mogelijkheden"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Job%20data%20rule.jpg",
+      "width": 611,
+      "height": 281,
+      "afterHeading": "Job data"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Campaigns%3B%20instellingen.jpg",
+      "width": 611,
+      "height": 324,
+      "afterHeading": "Smart automation"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/inzicht%202..webp",
+      "width": 716,
+      "height": 477,
+      "afterHeading": "Onze campaign partners"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/GettyImages-1605085010.jpg",
+      "width": 600,
+      "height": 400,
+      "afterHeading": "Aan de slag met Jobmatix?"
+    }
+  ],
   "blocks": [
     {
       "heading": "All-in-one Recruitment Marketing platform Ontdek de mogelijkheden",

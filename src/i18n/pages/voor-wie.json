@@ -194,6 +194,32 @@
       "alt": "Kinder-2"
     }
   ],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Doelgroepen1.jpg",
+      "width": 486,
+      "height": 486,
+      "afterHeading": "Jouw succes, onze technologie"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Doelgroepen23.jpg",
+      "width": 486,
+      "height": 486,
+      "afterHeading": "Maximaal resultaat met minimale tijdsinvestering"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Doelgroepen24.jpg",
+      "width": 486,
+      "height": 486,
+      "afterHeading": "Strategische grip op grootschalige werving"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Doelgroepen25.jpg",
+      "width": 486,
+      "height": 486,
+      "afterHeading": "Versnel je time-to-hire en vergroot je marge"
+    }
+  ],
   "blocks": [
     {
       "heading": "De oplossing voor elke wervingsvraag",

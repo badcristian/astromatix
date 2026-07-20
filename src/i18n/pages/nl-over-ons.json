@@ -126,6 +126,74 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Jobmatix%20team.jpg",
+      "width": 384,
+      "height": 307,
+      "afterHeading": "Alles over Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/IMG_7370.jpg",
+      "width": 151,
+      "height": 101,
+      "afterHeading": "Van idee naar uitvoering"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/IMG_7120.jpg",
+      "width": 151,
+      "height": 101,
+      "afterHeading": "Programmatic job advertising"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/kantoor.jpg",
+      "width": 151,
+      "height": 202,
+      "afterHeading": "Programmatic job advertising"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Test.jpg",
+      "width": 151,
+      "height": 113,
+      "afterHeading": "Rebranding van JobBoost naar Jobmatix"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/IMG_7779.jpg",
+      "width": 151,
+      "height": 101,
+      "afterHeading": "Recruitment Marketing anno 2023"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/founders.jpg",
+      "width": 151,
+      "height": 101,
+      "afterHeading": "Uitbreiding directie"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Erkenningsbordje%20download.png",
+      "width": 151,
+      "height": 151,
+      "afterHeading": "Jobmatix is een erkend leerbedrijf"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Content%20oude%20website/633ae3cc8eab4e1e72a680c7_kantoor%2011%20(1).webp",
+      "width": 151,
+      "height": 126,
+      "afterHeading": "Groei naar recruitment marketing platform"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Kantoor.webp",
+      "width": 151,
+      "height": 150,
+      "afterHeading": "Verhuizing naar pand Willemstraat 11a"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Portetfotos%20vierkant/pfs6.jpg",
+      "width": 384,
+      "height": 384,
+      "afterHeading": "Maak deel uit van onze missie en sluit je aan bij het succes!"
+    }
+  ],
   "blocks": [
     {
       "heading": "Alles over Jobmatix",

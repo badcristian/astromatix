@@ -61,23 +61,28 @@
   "accordion": [
     {
       "question": "Wat kan ik precies met een jobboost doen?",
-      "answer": "<p>Met een jobboost wordt jouw vacature optimaal geadverteerd op de jobboards die het best bij jouw vacature passen. En, door de inzet van slimme programmatic technologie van Jobmatix, bereikt de vacature de juiste doelgroep en de beste resultaten.</p>"
+      "answer": "<p>Met een jobboost wordt jouw vacature optimaal geadverteerd op de jobboards die het best bij jouw vacature passen. En, door de inzet van slimme programmatic technologie van Jobmatix, bereikt de vacature de juiste doelgroep en de beste resultaten.</p>",
+      "group": "Kies jouw Jobboost!"
     },
     {
       "question": "Welke jobboards zijn er aangesloten?",
-      "answer": "<p>Met jobboost kun je eenvoudig adverteren op diverse vacaturebanken in Nederland, zoals Talent.com, Indeed, Jobrapido, Adzuna, Joblift, Careerjet en meer. Het mooie aan Jobboost is dat automatisch wordt bepaald welke jobboards het beste presteren, zodat je altijd de beste resultaten behaalt. Hierdoor hoef je zelf niet te kiezen welke jobboards worden ingezet; dat wordt voor je geregeld!</p>"
+      "answer": "<p>Met jobboost kun je eenvoudig adverteren op diverse vacaturebanken in Nederland, zoals Talent.com, Indeed, Jobrapido, Adzuna, Joblift, Careerjet en meer. Het mooie aan Jobboost is dat automatisch wordt bepaald welke jobboards het beste presteren, zodat je altijd de beste resultaten behaalt. Hierdoor hoef je zelf niet te kiezen welke jobboards worden ingezet; dat wordt voor je geregeld!</p>",
+      "group": "Kies jouw Jobboost!"
     },
     {
       "question": "Is het slim om een jobboost in te zetten?",
-      "answer": "<p>Ja, het is slim! Jobboost werkt met data en plaatst jouw vacature efficiënt, wat zorgt voor een optimale balans tussen plaatsing, budget en uiteindelijke kosten. Dit betekent dat je meer en gerichter resultaat voor jouw vacature kunt behalen.</p>"
+      "answer": "<p>Ja, het is slim! Jobboost werkt met data en plaatst jouw vacature efficiënt, wat zorgt voor een optimale balans tussen plaatsing, budget en uiteindelijke kosten. Dit betekent dat je meer en gerichter resultaat voor jouw vacature kunt behalen.</p>",
+      "group": "Kies jouw Jobboost!"
     },
     {
       "question": "Waarom is er een maximum aan jobboards per pakket?",
-      "answer": "<p>Jobboost kiest automatisch welke jobboards het best presteren voor jouw vacature. Op basis van de specifieke vacature en doelgroep bepaalt de tool hoeveel en welke jobboards nodig zijn om het beste resultaat te bereiken.&nbsp;</p>"
+      "answer": "<p>Jobboost kiest automatisch welke jobboards het best presteren voor jouw vacature. Op basis van de specifieke vacature en doelgroep bepaalt de tool hoeveel en welke jobboards nodig zijn om het beste resultaat te bereiken.&nbsp;</p>",
+      "group": "Kies jouw Jobboost!"
     },
     {
       "question": "Past een Jobboost bij mijn vacature?",
-      "answer": "<p>Weten of jouw vacature past bij Jobboost? We geven je graag vrijblijvend advies! Vul het formulier onderaan op de pagina in en dan nemen we snel contact op. Liever gelijk bellen? Dat kan natuurlijk ook<a href=\"tel:0853036760\" style=\"color: #e9b9ec; text-decoration: none;\"> 085 3036760</a> &nbsp;</p>"
+      "answer": "<p>Weten of jouw vacature past bij Jobboost? We geven je graag vrijblijvend advies! Vul het formulier onderaan op de pagina in en dan nemen we snel contact op. Liever gelijk bellen? Dat kan natuurlijk ook<a href=\"tel:0853036760\" style=\"color: #e9b9ec; text-decoration: none;\"> 085 3036760</a> &nbsp;</p>",
+      "group": "Kies jouw Jobboost!"
     }
   ],
   "buttons": [
@@ -215,6 +220,14 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Jobboost%20vragen.png",
+      "width": 588,
+      "height": 397,
+      "afterHeading": "Veelgestelde vragen"
+    }
+  ],
   "blocks": [
     {
       "heading": "Jobboost",
