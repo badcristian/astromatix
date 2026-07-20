@@ -412,7 +412,47 @@ Its images also do not share an aspect ratio (one is 151×202 where the rest are
 151×101). The original pins the width and lets height follow; forcing a 3:2
 `object-cover` crops them.
 
-## 32. Known deliberate divergences, deliberately left.
+## 32. Text parity is not visual parity. Audit them separately.
+
+`measure.mjs` anchors on heading text, so it confirms the right words in the
+right order at the right height. It is **blind** to colour, background, icon
+and width. The klantcase pages sat at **+256px with 13/13 anchors** while
+missing:
+
+- the hero background photo
+- a two-tone `<h1>` (client name 60px white, headline 42px `#e9b9ec`)
+- three inline-`<svg>` tags, rendered as plain text pills
+- three coloured section bands — everything was on white
+- a 282px client-profile **sidebar**, rendered as a full-width intro block
+- a navy pull-quote band, absent entirely
+- content widths of 1138/1200, rendered at 850
+
+`scripts/visual-audit.mjs` checks that class directly. Run **both**.
+
+Two traps in writing such a tool, both hit on the first pass:
+
+- **White is not a band.** Reporting `rgb(255,255,255)` and the original's
+  cookie-overlay black marked all 14 pages broken and buried the real findings.
+- **Measure the same thing on both sides.** "Widest non-full-bleed block"
+  compared our inner `max-w` div against the original's outer row and claimed
+  blog-post was 850 vs 1248 when both text columns are ~855. A metric that
+  measures different things on each side is worse than no metric.
+
+## 33. Fourteen pages had a hero background photo. None rendered it.
+
+Same root cause as the klantcase: the image sits on an **ancestor** row, not the
+element nearest the `<h1>`, so a one-level `closest()` returned null everywhere.
+Every hero was a flat navy band. Walking the ancestor chain surfaced klantcase,
+vacature, jobadvertising and four landing pages at once.
+
+## 34. A JSX comment cannot be the first child of `{cond && (…)}`.
+
+`{cond && ( {/* note */} <section> … )}` is two expressions where one is
+allowed, and Astro reports it as ``Expected `,` or `)` but found `class` `` —
+which points at the element, not the comment. Put the comment **above** the
+`{cond && (` line. Cost two builds in this repo before it was recognised.
+
+## 35. Known deliberate divergences, deliberately left.
 
 - `quickfeat` and over-ons card icons are fallback glyphs: the theme inlines
   the SVG, so there is no URL for the extractor to fetch.
