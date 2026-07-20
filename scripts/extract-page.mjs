@@ -115,6 +115,26 @@ const data = await page.evaluate(() => {
       }));
     })(),
 
+    // .module--pricing: three plan boxes, each with title/tag/price/features
+    // and its own CTA.
+    pricing: (() => {
+      const root = document.querySelector('.pricing');
+      if (!root) return null;
+      return Array.from(root.querySelectorAll('.pricing__box')).map((box) => ({
+        title: text(box.querySelector('.pricing__title')) || null,
+        tag: text(box.querySelector('.pricing__tag')) || null,
+        price: text(box.querySelector('.pricing__price')) || null,
+        info: text(box.querySelector('.pricing__info')) || null,
+        desc: text(box.querySelector('.pricing__desc')) || null,
+        features: Array.from(box.querySelectorAll('.pricing__feature')).map((f) => text(f)).filter(Boolean),
+        cta: (() => {
+          const a = box.querySelector('.pricing__button a, a.btn');
+          return a ? { label: text(a), href: href(a) } : null;
+        })(),
+        disclaimer: text(box.querySelector('.pricing__disclaimer')) || null,
+      }));
+    })(),
+
     // .module--steps: numbered circular nav plus a content panel.
     steps: (() => {
       const root = document.querySelector('.steps');

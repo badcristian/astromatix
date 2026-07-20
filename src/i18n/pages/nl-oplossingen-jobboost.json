@@ -115,5 +115,68 @@
     "Kies jouw Jobboost!",
     "Veelgestelde vragen",
     "Klaar om jouw vacature te laten opvallen?"
-  ]
+  ],
+  "featshow": null,
+  "pricing": [
+    {
+      "title": "Small",
+      "tag": "€399 per boost",
+      "price": "€399",
+      "info": "per boost",
+      "desc": "Boost je vacature snel en effectief op 3 jobboards en bereik direct de juiste kandidaten.",
+      "features": [
+        "Tot 3 jobboards",
+        "30 dagen extra zichtbaar",
+        "Bezoekersrapportage"
+      ],
+      "cta": {
+        "label": "Boost mijn vacature!",
+        "href": "/jobboost#Contactjobboost"
+      },
+      "disclaimer": null
+    },
+    {
+      "title": "Medium",
+      "tag": "€549 per boost",
+      "price": "€549",
+      "info": "per boost",
+      "desc": "Vergroot je bereik op 5 jobboards met een AI-geoptimaliseerde vacature advertentie voor maximale vindbaarheid.",
+      "features": [
+        "Tot 5 jobboards",
+        "30 dagen extra zichtbaar",
+        "Bezoekersrapportage",
+        "Extra mediabudget",
+        "AI-check vacaturekwaliteit",
+        "Vacature optimalisatie met AI"
+      ],
+      "cta": {
+        "label": "Boost mijn vacature!",
+        "href": "/jobboost#Contactjobboost"
+      },
+      "disclaimer": null
+    },
+    {
+      "title": "Large",
+      "tag": "€699 per boost",
+      "price": "€699",
+      "info": "per boost",
+      "desc": "Haal het beste resultaat op 7 jobboards, sociale media en AI-geoptimaliseerde vacature advertenties.",
+      "features": [
+        "Tot 7 jobboards",
+        "30 dagen extra zichtbaar",
+        "Bezoekersrapportage",
+        "Uitgebreid mediabudget",
+        "Social advertentie Meta",
+        "Vacature optimalisatie met AI",
+        "AI-check vacaturekwaliteit",
+        "Extra advertenties (A/B-test)"
+      ],
+      "cta": {
+        "label": "Boost mijn vacature!",
+        "href": "/jobboost#Contactjobboost"
+      },
+      "disclaimer": null
+    }
+  ],
+  "steps": null
 }
