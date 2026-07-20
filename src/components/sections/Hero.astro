@@ -15,8 +15,10 @@ const { titleLines, subtitleLines, cta } = home.hero;
 // overrides them to white with an inline span style. They render white.
 ---
 
-<!-- Measured bottom padding: section runs to y=712, button ends at y=525. -->
-<section class="bg-navy pt-[150px] pb-[187px] text-center text-white">
+<!-- Bottom padding ends the hero at y=625, where the FeatureBand strip begins.
+     The original overlaps that strip onto the hero instead; the rendered
+     result is identical. -->
+<section class="bg-navy pt-[150px] pb-[99px] text-center text-white">
   <div class="container-site">
     <h1 class="font-display text-[40px] leading-[60px] font-bold text-white">
       {titleLines.map((line, i) => (

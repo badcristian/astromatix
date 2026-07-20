@@ -1,0 +1,54 @@
+---
+// The original's `.properties__item` — an icon chip plus a label. It recurs
+// across the homepage (hero band in white-on-navy, and the two pricing
+// sections in navy with a smaller label), so it lives in ui/ rather than
+// inside any one section.
+//
+// Measured @1440:
+//   item   44px tall, inline-flex
+//   icon   44×44, white bg, 8px radius, navy glyph
+//   glyph  18×18, centred (13px inset)
+//   label  16px / 22.4px line-height, 7px after the icon
+//
+// Glyphs are our own equivalents of the theme's icon set, not traced copies.
+
+interface Props {
+  icon: 'download' | 'send' | 'expand' | 'arrow';
+  label: string;
+  variant?: 'light' | 'dark';
+  size?: 'default' | 'small';
+}
+
+const { icon, label, variant = 'light', size = 'default' } = Astro.props;
+
+const paths: Record<Props['icon'], string> = {
+  download: 'M12 3v11m0 0l-4-4m4 4l4-4M4 19h16',
+  send: 'M21 3L3 10.5l7 3 3 7L21 3z',
+  expand: 'M12 3v18M3 12h18M8 7l4-4 4 4M8 17l4 4 4-4M7 8l-4 4 4 4M17 8l4 4-4 4',
+  arrow: 'M4 12h15m0 0l-5-5m5 5l-5 5',
+};
+
+const labelClass = size === 'small' ? 'text-[14px] leading-[20px]' : 'text-[16px] leading-[22.4px]';
+const textColor = variant === 'light' ? 'text-white' : 'text-navy';
+---
+
+<div class="inline-flex h-11 items-center gap-[7px]">
+  <span
+    class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-white text-navy"
+  >
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d={paths[icon]} />
+    </svg>
+  </span>
+  <span class={`${labelClass} ${textColor}`}>{label}</span>
+</div>

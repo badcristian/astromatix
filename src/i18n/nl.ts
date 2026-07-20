@@ -63,6 +63,12 @@ export const home = {
     ],
     cta: { label: 'Ontdek de mogelijkheden', href: '/nl/#mogelijkheden' },
   },
+  featureBand: [
+    { icon: 'download', label: 'Alles binnen één platform' },
+    { icon: 'send', label: 'Bereik jouw kandidaten' },
+    { icon: 'expand', label: 'Automatiseer jouw job marketing' },
+    { icon: 'arrow', label: 'Werk slimmer en sneller' },
+  ] as const,
 };
 
 export const a11y = {
