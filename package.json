@@ -9,7 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "capture:original": "node scripts/capture.mjs --target original",
+    "capture:rebuild": "node scripts/capture.mjs --target rebuild",
+    "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
