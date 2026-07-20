@@ -35,7 +35,7 @@ const { title, body, image, cta, reverse = false, reveal = 'left', background = 
 {/* pb is 138, not the section's own 50: the original follows each block's
     inner row with an empty 1200×88 spacer before the section's bottom
     padding. Same pattern as the 46px spacer under the value prop. */}
-<section class:list={['px-6 pt-20 pb-[138px]', background === 'mist' && 'bg-mist']}>
+<section class:list={['px-[10px] pt-20 pb-[138px] md:px-6', background === 'mist' && 'bg-mist']}>
   <Reveal
     variant={reveal}
     duration={1000}
