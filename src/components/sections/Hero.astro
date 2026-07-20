@@ -1,0 +1,50 @@
+---
+import { home } from '../../i18n/nl';
+
+const { titleLines, subtitleLines, cta } = home.hero;
+
+// Measured from the live site @1440:
+//   section   1440×627, bg #11417a, padding 150px 0 0
+//   h1        y=235, 120px tall (2 × 60px line-height), Poppins 700 40px, white
+//             margin-bottom 24px
+//   subtitle  y=379, 16px/24px, white, margin-bottom 24px
+//   button    x=603 w=234 h=52 (centred), #ff6b00, radius 12px,
+//             padding 14.56px 21.76px, Manrope 500 16px
+//
+// Note: computed styles report the h1 and subtitle as navy — the original
+// overrides them to white with an inline span style. They render white.
+---
+
+<!-- Measured bottom padding: section runs to y=712, button ends at y=525. -->
+<section class="bg-navy pt-[150px] pb-[187px] text-center text-white">
+  <div class="container-site">
+    <h1 class="font-display text-[40px] leading-[60px] font-bold text-white">
+      {titleLines.map((line, i) => (
+        <>
+          {line}
+          {i < titleLines.length - 1 && <br />}
+        </>
+      ))}
+    </h1>
+
+    {/* The original's subtitle box measures 60px for two 24px lines — 12px
+        more than the text alone. Matched explicitly so the button below lands
+        at the same y. Worth re-checking at 390/768 in case it comes from a
+        wrap difference rather than fixed spacing. */}
+    <p class="mt-6 h-[60px] text-[16px] leading-[24px] text-white">
+      {subtitleLines.map((line, i) => (
+        <>
+          {line}
+          {i < subtitleLines.length - 1 && <br />}
+        </>
+      ))}
+    </p>
+
+    <a
+      href={cta.href}
+      class="mt-[34px] inline-block rounded-[12px] bg-orange px-[21.76px] py-[14.56px] text-[16px] font-medium text-white transition-opacity hover:opacity-90"
+    >
+      {cta.label}
+    </a>
+  </div>
+</section>

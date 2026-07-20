@@ -53,6 +53,18 @@ export const footer = {
   ],
 };
 
+export const home = {
+  hero: {
+    // The original hard-breaks the H1 into two lines with <br>.
+    titleLines: ['Hét job marketing platform', 'dat voor je werkt!'],
+    subtitleLines: [
+      'Benieuwd hoe jij jouw job marketing eenvoudig vanuit',
+      'één plek kunt beheren, automatiseren en optimaliseren?',
+    ],
+    cta: { label: 'Ontdek de mogelijkheden', href: '/nl/#mogelijkheden' },
+  },
+};
+
 export const a11y = {
   openMenu: 'Open menu',
   closeMenu: 'Sluit menu',
