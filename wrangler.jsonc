@@ -5,6 +5,12 @@
   "name": "jm-preview-d2605922f1188b06",
   "compatibility_date": "2026-07-20",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    // Astro emits /path/index.html. Without this, Cloudflare serves
+    // /nl/oplossingen/jobadvertising/ but 404s the slashless URL — which is
+    // the form people actually type and link.
+    "html_handling": "auto-trailing-slash",
+    // Serve our styled 404 rather than Cloudflare's bare one.
+    "not_found_handling": "404-page"
   }
 }
