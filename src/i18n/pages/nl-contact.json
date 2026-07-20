@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Let's get in touch",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -37,6 +38,16 @@
   "sectionIntros": [],
   "logos": [],
   "contentImages": [],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 184,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Let's get in touch"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Let's get in touch",

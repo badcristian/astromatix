@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "In slechts 3 stappen zichtbaar bij jouw doelgroep!",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -275,6 +276,113 @@
       "alt": "zw png14"
     }
   ],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider3.jpg",
+      "width": 588,
+      "height": 392,
+      "afterHeading": "Groot bereik"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Groot%20bereik.webp",
+      "width": 588,
+      "height": 351,
+      "afterHeading": "Groot bereik"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/inzicht.webp",
+      "width": 588,
+      "height": 392,
+      "afterHeading": "Kostenbesparend"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/kostenbesparend.webp",
+      "width": 588,
+      "height": 392,
+      "afterHeading": "Kostenbesparend"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Website%202023/Slider%20goed/slider3.jpg",
+      "width": 486,
+      "height": 324,
+      "afterHeading": "Kostenbesparend"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Groot%20bereik.webp",
+      "width": 384,
+      "height": 229,
+      "afterHeading": "Automation"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Groot%20bereik.webp",
+      "width": 384,
+      "height": 229,
+      "afterHeading": "Automation"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/kostenbesparend.webp",
+      "width": 588,
+      "height": 392,
+      "afterHeading": "Groot bereik"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/inzicht.webp",
+      "width": 384,
+      "height": 256,
+      "afterHeading": "Kostenbesparend"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/inzicht.webp",
+      "width": 384,
+      "height": 256,
+      "afterHeading": "Kostenbesparend"
+    }
+  ],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 222,
+      "color": "rgb(17, 29, 41)",
+      "image": null,
+      "heading": "In slechts 3 stappen zichtbaar bij jouw doelgroep!"
+    },
+    {
+      "y": 307,
+      "height": 264,
+      "color": "rgb(17, 29, 41)",
+      "image": null,
+      "heading": "Plaats je vacatures"
+    },
+    {
+      "y": 1085,
+      "height": 694,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Automation"
+    },
+    {
+      "y": 2472,
+      "height": 444,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Automation"
+    },
+    {
+      "y": 3266,
+      "height": 512,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Kostenbesparend"
+    },
+    {
+      "y": 4154,
+      "height": 91,
+      "color": "rgb(17, 29, 41)",
+      "image": null,
+      "heading": "Boek een demo, en ervaar de voordelen van Jobmatix!"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "In slechts 3 stappen zichtbaar bij jouw doelgroep!",

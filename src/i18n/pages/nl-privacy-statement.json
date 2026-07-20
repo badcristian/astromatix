@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Privacy statement",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -36,6 +37,16 @@
   "sectionIntros": [],
   "logos": [],
   "contentImages": [],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 104,
+      "color": "rgb(17, 29, 41)",
+      "image": null,
+      "heading": "Privacy statement"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Privacy statement",

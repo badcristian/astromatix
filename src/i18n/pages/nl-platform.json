@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "All-in-one Recruitment Marketing platform Ontdek de mogelijkheden",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -217,6 +218,30 @@
       "afterHeading": "Aan de slag met Jobmatix?"
     }
   ],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 462,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "All-in-one Recruitment Marketing platform Ontdek de mogelijkheden"
+    },
+    {
+      "y": 547,
+      "height": 192,
+      "color": "rgb(255, 255, 255)",
+      "image": null,
+      "heading": null
+    },
+    {
+      "y": 3247,
+      "height": 91,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Aan de slag met Jobmatix?"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "All-in-one Recruitment Marketing platform Ontdek de mogelijkheden",

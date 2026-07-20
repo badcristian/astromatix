@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Algemene voorwaarden Jobmatix",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -37,6 +38,16 @@
   "sectionIntros": [],
   "logos": [],
   "contentImages": [],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 228,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Algemene voorwaarden Jobmatix"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Algemene voorwaarden Jobmatix",

@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Plan een advies gesprek",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -143,6 +144,9 @@
       "alt": "zw png14"
     }
   ],
+  "contentImages": [],
+  "sectionBands": [],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Plan een advies gesprek",

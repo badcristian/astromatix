@@ -108,14 +108,25 @@ async function probe(url) {
       }).length;
 
       // --- content width ----------------------------------------------------
-      // Widest laid-out block that is not full-bleed: the page's content column.
-      let contentWidth = 0;
-      for (const el of main.querySelectorAll('div, section, article')) {
-        const r = el.getBoundingClientRect();
-        if (r.height < 60) continue;
-        if (r.width >= window.innerWidth - 2) continue;
-        contentWidth = Math.max(contentWidth, Math.round(r.width));
-      }
+      // The width of the column that actually holds body copy, taken as the
+      // most common width across long paragraphs.
+      //
+      // An earlier version used "widest non-full-bleed block", which is not
+      // comparable across two different DOMs: it read our inner max-w div
+      // against the original's outer row and claimed blog-post was 850 vs 1248
+      // when the two text columns are 850 and 858. Measure the same thing on
+      // both sides or the number is worse than no number.
+      const paraWidths = Array.from(main.querySelectorAll('p'))
+        .filter((e) => {
+          const r = e.getBoundingClientRect();
+          return r.height > 0 && (e.textContent || '').trim().length > 80 && !e.closest('nav, footer, header');
+        })
+        .map((e) => Math.round(e.getBoundingClientRect().width));
+      const freq = {};
+      for (const w of paraWidths) freq[w] = (freq[w] ?? 0) + 1;
+      const contentWidth = Number(
+        Object.entries(freq).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 0,
+      );
 
       // --- big imagery -------------------------------------------------------
       // Deduped by source and excluding the logo wall: it is a Splide loop, so
@@ -173,8 +184,9 @@ for (const p of pages) {
   const rIcons = r.svgIcons + r.imgIcons;
   if (oIcons - rIcons >= 3) issues.push(`${oIcons - rIcons} icons missing (orig ${oIcons}, rebuild ${rIcons})`);
 
-  if (o.contentWidth - r.contentWidth > 80)
-    issues.push(`content column ${r.contentWidth}px vs ${o.contentWidth}px`);
+  // Only meaningful when BOTH sides actually have long paragraphs to measure.
+  if (o.contentWidth && r.contentWidth && o.contentWidth - r.contentWidth > 80)
+    issues.push(`text column ${r.contentWidth}px vs ${o.contentWidth}px`);
 
   if (o.bigImages - r.bigImages >= 2)
     issues.push(`${o.bigImages - r.bigImages} large image(s) missing (orig ${o.bigImages}, rebuild ${r.bigImages})`);

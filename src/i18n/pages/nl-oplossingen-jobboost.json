@@ -6,24 +6,29 @@
   },
   "hero": {
     "title": "Jobboost",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [
     {
       "label": "Eenmalig in te zetten",
-      "icon": null
+      "icon": null,
+      "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" aria-hidden=\"true\"><g id=\"Alternate Arrow Circle Down1_layer\"><path d=\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM212 140v116h-70.9c-10.7 0-16.1 13-8.5 20.5l114.9 114.3c4.7 4.7 12.2 4.7 16.9 0l114.9-114.3c7.6-7.6 2.2-20.5-8.5-20.5H300V140c0-6.6-5.4-12-12-12h-64c-6.6 0-12 5.4-12 12z\"></path></g></svg>"
     },
     {
       "label": "Geschikt voor 1 vacature",
-      "icon": null
+      "icon": null,
+      "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" aria-hidden=\"true\"><g id=\"Suitcase2_layer\"><path d=\"M128 480h256V80c0-26.5-21.5-48-48-48H176c-26.5 0-48 21.5-48 48v400zm64-384h128v32H192V96zm320 80v256c0 26.5-21.5 48-48 48h-48V128h48c26.5 0 48 21.5 48 48zM96 480H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48h48v352z\"></path></g></svg>"
     },
     {
       "label": "3 opties om uit te kiezen",
-      "icon": null
+      "icon": null,
+      "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" aria-hidden=\"true\"><g id=\"Alternate Long Arrow Right3_layer\"><path d=\"M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z\"></path></g></svg>"
     },
     {
       "label": "30 dagen actief",
-      "icon": null
+      "icon": null,
+      "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" aria-hidden=\"true\"><g id=\"Alternate Arrows4_layer\"><path d=\"M352.201 425.775l-79.196 79.196c-9.373 9.373-24.568 9.373-33.941 0l-79.196-79.196c-15.119-15.119-4.411-40.971 16.971-40.97h51.162L228 284H127.196v51.162c0 21.382-25.851 32.09-40.971 16.971L7.029 272.937c-9.373-9.373-9.373-24.569 0-33.941L86.225 159.8c15.119-15.119 40.971-4.411 40.971 16.971V228H228V127.196h-51.23c-21.382 0-32.09-25.851-16.971-40.971l79.196-79.196c9.373-9.373 24.568-9.373 33.941 0l79.196 79.196c15.119 15.119 4.411 40.971-16.971 40.971h-51.162V228h100.804v-51.162c0-21.382 25.851-32.09 40.97-16.971l79.196 79.196c9.373 9.373 9.373 24.569 0 33.941L425.773 352.2c-15.119 15.119-40.971 4.411-40.97-16.971V284H284v100.804h51.23c21.382 0 32.09 25.851 16.971 40.971z\"></path></g></svg>"
     }
   ],
   "featureCards": [
@@ -228,6 +233,51 @@
       "afterHeading": "Veelgestelde vragen"
     }
   ],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 516,
+      "color": null,
+      "image": "https://www.jobmatix.com/hubfs/Home%20%285%29.png",
+      "heading": "Jobboost"
+    },
+    {
+      "y": 601,
+      "height": 84,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": null
+    },
+    {
+      "y": 1633,
+      "height": 828,
+      "color": "rgb(245, 245, 255)",
+      "image": null,
+      "heading": "Kies jouw Jobboost!"
+    },
+    {
+      "y": 2462,
+      "height": 150,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren en optimaliseren?"
+    },
+    {
+      "y": 2612,
+      "height": 652,
+      "color": "rgb(245, 245, 255)",
+      "image": null,
+      "heading": "Best passende jobboards"
+    },
+    {
+      "y": 4145,
+      "height": 758,
+      "color": null,
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Blue%20Modern%20Business%20Blog%20Banner%20%282%29.png",
+      "heading": "Klaar om jouw vacature te laten opvallen?"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Jobboost",

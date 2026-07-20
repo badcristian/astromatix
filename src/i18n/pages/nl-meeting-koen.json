@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Demo aanvragen bij Koen Somers",
-    "background": null
+    "background": "https://www.jobmatix.com/hubfs/vaca2.jpg",
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -176,6 +177,17 @@
       "alt": "zw png14"
     }
   ],
+  "contentImages": [],
+  "sectionBands": [
+    {
+      "y": 1491,
+      "height": 492,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Waarom Jobmatix"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Demo aanvragen bij Koen Somers",

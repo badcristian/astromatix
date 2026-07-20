@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Customer Success Manager",
-    "background": null
+    "background": "https://www.jobmatix.com/hubfs/vaca2.jpg",
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -98,6 +99,37 @@
   ],
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/1762783164564.jpeg",
+      "width": 282,
+      "height": 282,
+      "afterHeading": "Customer Success Manager"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Naamloos-1%20kopie.jpg",
+      "width": 600,
+      "height": 300,
+      "afterHeading": "Ben jij klaar voor verandering? Solliciteer dan direct"
+    }
+  ],
+  "sectionBands": [
+    {
+      "y": 2079,
+      "height": 91,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Ben jij klaar voor verandering? Solliciteer dan direct"
+    },
+    {
+      "y": 2171,
+      "height": 400,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "“Jobmatix is een fijne omgeving om te werken. Er heerst een gezellige sfeer en er is veel ruimte om je verder te ontwikkelen. Kortom een topbedrijf met fijne collega's.”"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Customer Success Manager",

@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Get the job done!",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -134,6 +135,24 @@
       "alt": "Farrow + Dutch"
     }
   ],
+  "contentImages": [],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 184,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Get the job done!"
+    },
+    {
+      "y": 1176,
+      "height": 110,
+      "color": "rgb(245, 245, 255)",
+      "image": null,
+      "heading": null
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Get the job done!",

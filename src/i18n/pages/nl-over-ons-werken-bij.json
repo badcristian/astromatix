@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Bouw mee aan succes!",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [
@@ -208,6 +209,30 @@
       "afterHeading": "Kantoormomenten"
     }
   ],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 229,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Bouw mee aan succes!"
+    },
+    {
+      "y": 972,
+      "height": 631,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Onze kernwaarden"
+    },
+    {
+      "y": 2069,
+      "height": 466,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Wat zeggen onze collega's?"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Bouw mee aan succes!",

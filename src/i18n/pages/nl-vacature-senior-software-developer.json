@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Senior Software Developer",
-    "background": null
+    "background": "https://www.jobmatix.com/hubfs/vaca2.jpg",
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -97,6 +98,31 @@
   ],
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/vaca2.jpg",
+      "width": 600,
+      "height": 300,
+      "afterHeading": "Ben jij klaar voor verandering? Solliciteer dan direct"
+    }
+  ],
+  "sectionBands": [
+    {
+      "y": 2008,
+      "height": 91,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Ben jij klaar voor verandering? Solliciteer dan direct"
+    },
+    {
+      "y": 2099,
+      "height": 400,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "“Jobmatix is een fijne omgeving om te werken. Er heerst een gezellige sfeer en er is veel ruimte om je verder te ontwikkelen. Kortom een topbedrijf met fijne collega's.”"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Senior Software Developer",

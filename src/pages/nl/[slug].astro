@@ -85,7 +85,7 @@ const usesBookingEmbed = ['demo-emile', 'meeting-koen'].includes(slug!);
 ---
 
 <Base title={metaTitle} description={d.meta.description || undefined}>
-  <PageHero title={title} subtitle={slide?.body ?? null} />
+  <PageHero title={title} subtitle={slide?.body ?? null} background={d.hero?.background} />
 
   {(introBody.length > 0 || sections.length > 0) && (
     <section class="px-6 py-12">

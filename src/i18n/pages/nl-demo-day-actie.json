@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Jobmarketing Scan",
-    "background": null
+    "background": "https://www.jobmatix.com/hubfs/vaca2.jpg",
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -148,6 +149,17 @@
       "alt": "bataviastad"
     }
   ],
+  "contentImages": [],
+  "sectionBands": [
+    {
+      "y": 1345,
+      "height": 492,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Waarom Jobmatix"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Jobmarketing Scan",

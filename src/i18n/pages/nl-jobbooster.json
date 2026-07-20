@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "De ultieme vacature booster van Jobmatix",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -119,6 +120,30 @@
       "afterHeading": "Een vacature booster aanvragen"
     }
   ],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 595,
+      "color": "rgb(17, 29, 41)",
+      "image": null,
+      "heading": "De ultieme vacature booster van Jobmatix"
+    },
+    {
+      "y": 680,
+      "height": 674,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Kies een boost pakket"
+    },
+    {
+      "y": 1354,
+      "height": 844,
+      "color": "rgb(17, 29, 41)",
+      "image": null,
+      "heading": "Een vacature booster aanvragen"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "De ultieme vacature booster van Jobmatix",

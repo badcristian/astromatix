@@ -6,20 +6,24 @@
   },
   "hero": {
     "title": "Alles over Jobmatix",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [
     {
       "label": "15+ jaar ervaring",
-      "icon": null
+      "icon": null,
+      "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 512\" aria-hidden=\"true\"><g id=\"Handshake1_layer\"><path d=\"M434.7 64h-85.9c-8 0-15.7 3-21.6 8.4l-98.3 90c-.1.1-.2.3-.3.4-16.6 15.6-16.3 40.5-2.1 56 12.7 13.9 39.4 17.6 56.1 2.7.1-.1.3-.1.4-.2l79.9-73.2c6.5-5.9 16.7-5.5 22.6 1 6 6.5 5.5 16.6-1 22.6l-26.1 23.9L504 313.8c2.9 2.4 5.5 5 7.9 7.7V128l-54.6-54.6c-5.9-6-14.1-9.4-22.6-9.4zM544 128.2v223.9c0 17.7 14.3 32 32 32h64V128.2h-96zm48 223.9c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zM0 384h64c17.7 0 32-14.3 32-32V128.2H0V384zm48-63.9c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16c0-8.9 7.2-16 16-16zm435.9 18.6L334.6 217.5l-30 27.5c-29.7 27.1-75.2 24.5-101.7-4.4-26.9-29.4-24.8-74.9 4.4-101.7L289.1 64h-83.8c-8.5 0-16.6 3.4-22.6 9.4L128 128v223.9h18.3l90.5 81.9c27.4 22.3 67.7 18.1 90-9.3l.2-.2 17.9 15.5c15.9 13 39.4 10.5 52.3-5.4l31.4-38.6 5.4 4.4c13.7 11.1 33.9 9.1 45-4.7l9.5-11.7c11.2-13.8 9.1-33.9-4.6-45.1z\"></path></g></svg>"
     },
     {
       "label": "150+ tevreden klanten",
-      "icon": null
+      "icon": null,
+      "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 512\" aria-hidden=\"true\"><g id=\"User Check2_layer\"><path d=\"M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zm323-128.4l-27.8-28.1c-4.6-4.7-12.1-4.7-16.8-.1l-104.8 104-45.5-45.8c-4.6-4.7-12.1-4.7-16.8-.1l-28.1 27.9c-4.7 4.6-4.7 12.1-.1 16.8l81.7 82.3c4.6 4.7 12.1 4.7 16.8.1l141.3-140.2c4.6-4.7 4.7-12.2.1-16.8z\"></path></g></svg>"
     },
     {
       "label": "20 gedreven professionals",
-      "icon": null
+      "icon": null,
+      "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 512\" aria-hidden=\"true\"><g id=\"Wired Network3_layer\"><path d=\"M640 264v-16c0-8.84-7.16-16-16-16H344v-40h72c17.67 0 32-14.33 32-32V32c0-17.67-14.33-32-32-32H224c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h72v40H16c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h104v40H64c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h160c17.67 0 32-14.33 32-32V352c0-17.67-14.33-32-32-32h-56v-40h304v40h-56c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h160c17.67 0 32-14.33 32-32V352c0-17.67-14.33-32-32-32h-56v-40h104c8.84 0 16-7.16 16-16zM256 128V64h128v64H256zm-64 320H96v-64h96v64zm352 0h-96v-64h96v64z\"></path></g></svg>"
     }
   ],
   "featureCards": [
@@ -194,6 +198,37 @@
       "afterHeading": "Maak deel uit van onze missie en sluit je aan bij het succes!"
     }
   ],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 184,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Alles over Jobmatix"
+    },
+    {
+      "y": 791,
+      "height": 661,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Onze kernwaarden"
+    },
+    {
+      "y": 1481,
+      "height": 2519,
+      "color": "rgb(255, 255, 255)",
+      "image": null,
+      "heading": "Ons verhaal"
+    },
+    {
+      "y": 4000,
+      "height": 91,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Maak deel uit van onze missie en sluit je aan bij het succes!"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Alles over Jobmatix",

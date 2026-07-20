@@ -55,13 +55,29 @@ const closingHeading = headingBlocks.at(-1)?.heading ?? null;
 // voor verandering?" apply CTA, which is rendered below. Appending the shared
 // strip as well duplicated that call to action and added 856px.
 const recruiter = d.teamCards?.[0] ?? d.contactCards?.[0] ?? null;
+
+// An employee testimonial closes the page on a #f8f9fb band, with a 600x300
+// photo. It is an img-txt module, which no named extractor field covers, so it
+// only shows up in `blocks` — and it was missing from the rebuild entirely.
+const testimonial = (d.blocks ?? []).find(
+  (b: any) => b.module === 'img-txt' && b.heading?.trim().startsWith('\u201c'),
+) ?? null;
+const testimonialImage = (() => {
+  const hit = (d.contentImages ?? []).find((i: any) => i.width > 400);
+  const resolved = resolveIcon(hit?.src);
+  return resolved ? { ...hit, resolved } : null;
+})();
 const portrait = resolveIcon(recruiter?.image);
 const mailto = recruiter?.links?.find((l: any) => l.href?.startsWith('mailto:'));
 const tel = recruiter?.links?.find((l: any) => l.href?.startsWith('tel:'));
 ---
 
 <Base title={d.meta.title} description={d.meta.description ?? undefined}>
-  <PageHero title={slide?.title ?? d.hero?.title ?? ''} subtitle={slide?.body ?? null} />
+  <PageHero
+    title={slide?.title ?? d.hero?.title ?? ''}
+    subtitle={slide?.body ?? null}
+    background={d.hero?.background}
+  />
 
   {applyCta && (
     <section class="px-6">
@@ -131,15 +147,37 @@ const tel = recruiter?.links?.find((l: any) => l.href?.startsWith('tel:'));
     </section>
   )}
 
+  {/* Navy on the original, not white — measured at y=2079, h=91. */}
   {applyCta && (
-    <section class="px-6 py-16 text-center">
-      <div class="mx-auto max-w-[850px]">
+    <section class="bg-navy px-6 py-8 text-center">
+      <div class="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-6">
         {closingHeading && (
-          <h2 class="mb-6 font-display text-[30px] leading-[33px] font-bold text-navy">
+          <h2 class="font-display text-[24px] leading-[32px] font-bold text-white">
             {closingHeading}
           </h2>
         )}
         <Button href={applyCta.href} label={applyCta.label} icon />
+      </div>
+    </section>
+  )}
+  {testimonial && (
+    <section class="bg-fog px-6 py-14">
+      <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10 lg:flex-row">
+        {testimonialImage && (
+          <Image
+            src={testimonialImage.resolved}
+            alt=""
+            width={testimonialImage.width}
+            height={testimonialImage.height}
+            class="h-auto w-full rounded-3xl lg:w-[600px] lg:shrink-0"
+          />
+        )}
+        <blockquote class="text-[20px] leading-[30px] text-navy">
+          {testimonial.heading}
+          {testimonial.body?.[0] && (
+            <footer class="mt-4 text-[16px] text-navy/70">{testimonial.body[0]}</footer>
+          )}
+        </blockquote>
       </div>
     </section>
   )}

@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -115,6 +116,30 @@
       "afterHeading": "Kruidvat"
     }
   ],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 192,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!"
+    },
+    {
+      "y": 1122,
+      "height": 150,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren en optimaliseren?"
+    },
+    {
+      "y": 1272,
+      "height": 674,
+      "color": "rgb(245, 245, 255)",
+      "image": null,
+      "heading": "Tevreden klanten"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!",

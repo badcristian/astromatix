@@ -1,4 +1,5 @@
 ---
+import { resolveIcon } from '../../lib/icons';
 // Interior-page hero. Measured on /nl/oplossingen/jobadvertising @1440:
 //   section 1440×552, navy, padding 100px 24px 0
 //   h1      Poppins 700, white, centred
@@ -26,14 +27,31 @@ interface Props {
   title: string;
   subtitle?: string | null;
   cta?: { label: string; href: string } | null;
+  /**
+   * Hero background photo, as a remote URL from the extractor's hero.background.
+   *
+   * Fourteen pages carry one and none of them rendered it — every hero was a
+   * flat navy band. The extractor missed them because the image sits on an
+   * ANCESTOR row rather than the element nearest the <h1>; once that was fixed
+   * the URLs appeared for klantcase, vacature, jobadvertising and four landing
+   * pages at once.
+   *
+   * Navy stays underneath as the fallback, which is also what keeps the white
+   * heading legible while the photo loads.
+   */
+  background?: string | null;
 }
 
-const { title, subtitle, cta } = Astro.props;
+const { title, subtitle, cta, background = null } = Astro.props;
+const bg = resolveIcon(background);
 ---
 
 {/* h1 sits 200px below the section top on the original (section padding
     is 100, with another 100 inside), not the 100 first assumed. */}
-<section class="bg-navy px-6 pt-[200px] pb-[60px] text-center text-white">
+<section
+  class="bg-navy bg-cover bg-center px-6 pt-[200px] pb-[60px] text-center text-white"
+  style={bg ? `background-image:url(${bg.src})` : undefined}
+>
   <div class="container-site">
     <h1 class="font-display text-[40px] leading-[52px] font-bold text-white">
       {title}

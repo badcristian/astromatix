@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Bedankt voor je aanvraag!",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -36,6 +37,24 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/open.jpg",
+      "width": 588,
+      "height": 294,
+      "afterHeading": "Bedankt voor je aanvraag!"
+    }
+  ],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 184,
+      "color": "rgb(17, 29, 41)",
+      "image": null,
+      "heading": "Bedankt voor je aanvraag!"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Bedankt voor je aanvraag!",

@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Veelgestelde vragen",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -95,6 +96,30 @@
   ],
   "logos": [],
   "contentImages": [],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 368,
+      "color": "rgb(17, 29, 41)",
+      "image": null,
+      "heading": "Veelgestelde vragen"
+    },
+    {
+      "y": 731,
+      "height": 278,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Accountbeheer"
+    },
+    {
+      "y": 1198,
+      "height": 242,
+      "color": "rgb(248, 249, 251)",
+      "image": null,
+      "heading": "Neem contact met ons op"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Veelgestelde vragen",

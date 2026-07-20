@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Webinar recruitment marketing automation",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [
@@ -34,7 +35,7 @@
     },
     {
       "label": "Ik wil een demo",
-      "href": "https://www.hubspot.com/?__hstc=90885381.c1a5c9bce61b6fb14940c9586c30fe31.1784586076618.1784586076618.1784586076618.1&__hssc=90885381.25.1784586076618&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
+      "href": "https://www.hubspot.com/?__hstc=90885381.39383cdab6a2bbac1335812515109d1b.1784590270573.1784590270573.1784590270573.1&__hssc=90885381.19.1784590270573&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
     }
   ],
   "headings": [
@@ -138,6 +139,24 @@
       "alt": "zw png14"
     }
   ],
+  "contentImages": [],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 229,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Webinar recruitment marketing automation"
+    },
+    {
+      "y": 1079,
+      "height": 91,
+      "color": "rgb(17, 65, 122)",
+      "image": null,
+      "heading": "Boek een demo, en ervaar de voordelen van Jobmatix!"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Webinar recruitment marketing automation",

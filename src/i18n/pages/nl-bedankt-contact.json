@@ -6,7 +6,8 @@
   },
   "hero": {
     "title": "Leuk dat je interesse hebt!",
-    "background": null
+    "background": null,
+    "parts": []
   },
   "properties": [],
   "featureCards": [],
@@ -35,13 +36,13 @@
       "name": "JAM werkt",
       "title": "Datadriven young professionals werven",
       "image": "https://www.jobmatix.com/hs-fs/hubfs/Slider2.jpg",
-      "href": "https://www.hubspot.com/?__hstc=90885381.c1a5c9bce61b6fb14940c9586c30fe31.1784586076618.1784586076618.1784586076618.1&__hssc=90885381.28.1784586076618&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
+      "href": "https://www.hubspot.com/?__hstc=90885381.39383cdab6a2bbac1335812515109d1b.1784590270573.1784590270573.1784590270573.1&__hssc=90885381.22.1784590270573&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
     },
     {
       "name": "Faam",
       "title": "Efficiëntieslag in recruitment marketing",
       "image": "https://www.jobmatix.com/hs-fs/hubfs/faam-1.webp",
-      "href": "https://www.hubspot.com/?__hstc=90885381.c1a5c9bce61b6fb14940c9586c30fe31.1784586076618.1784586076618.1784586076618.1&__hssc=90885381.28.1784586076618&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
+      "href": "https://www.hubspot.com/?__hstc=90885381.39383cdab6a2bbac1335812515109d1b.1784590270573.1784590270573.1784590270573.1&__hssc=90885381.22.1784590270573&__hsfp=91332fd514acb34e0dff98a5ce6ed79b"
     }
   ],
   "imageTextBlocks": [],
@@ -60,6 +61,36 @@
     }
   ],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Slider.jpg",
+      "width": 384,
+      "height": 288,
+      "afterHeading": "Samen succesvol"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Slider2.jpg",
+      "width": 384,
+      "height": 288,
+      "afterHeading": "Samen succesvol"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/faam-1.webp",
+      "width": 384,
+      "height": 288,
+      "afterHeading": "Samen succesvol"
+    }
+  ],
+  "sectionBands": [
+    {
+      "y": 85,
+      "height": 956,
+      "color": "rgb(245, 245, 255)",
+      "image": null,
+      "heading": "Leuk dat je interesse hebt!"
+    }
+  ],
+  "bandQuote": null,
   "blocks": [
     {
       "heading": "Leuk dat je interesse hebt!",
