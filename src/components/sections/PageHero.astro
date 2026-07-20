@@ -6,6 +6,21 @@
 //
 // Product and marketing pages share this; the homepage keeps its own Hero,
 // which has a different rhythm and its own CTA.
+//
+// WHY THIS ALWAYS RENDERS AN <h1>
+// Four of the original's nine pages ship no <h1> at all — jobboost, over-ons,
+// contact and klantcases open straight into an <h2>. That is an accessibility
+// failure (WCAG 1.3.1: screen-reader users navigate by heading, and there is
+// no top-level landmark to jump to) and a lost SEO signal (Google falls back
+// to <title> and body copy, but the clearest statement of what a page is about
+// is absent from its own markup).
+//
+// The fix is free: on those pages the top <h2> IS the page title in everything
+// but tag name, so promoting it changes one character of HTML and nothing
+// visually. Rendering it here means every page that uses PageHero gets exactly
+// one <h1>, and no page can regress by omission.
+//
+// Deliberate divergence from the original — see FINDINGS.md.
 
 interface Props {
   title: string;

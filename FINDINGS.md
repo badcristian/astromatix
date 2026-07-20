@@ -1,0 +1,140 @@
+# Findings & quirks
+
+Hard-won knowledge about rebuilding `jobmatix.com` (HubSpot CMS, "Act 3" theme)
+as this Astro site. Read this before working on the rebuild — several of these
+cost real time to discover, and a few of them look like bugs in *our* code until
+you know they are quirks of the original.
+
+Linked from `AGENTS.md`. Add to it when you learn something the next person
+would otherwise rediscover.
+
+---
+
+## 1. The original's own signals lie. Measure instead.
+
+Four separate times the theme's markup or computed styles pointed the wrong way:
+
+| Signal | Reality |
+|---|---|
+| Hero `h1` computes as navy | An inline `<span style>` overrides it to **white** |
+| `quote--light` / `txt--light` | Means light *theme*, not light text — it is **navy on white** |
+| `button.textContent` | Returns raw CSS: the theme injects `<style>` blocks **inside** elements |
+| Case-card subtitle | A `<p class="go-card__desc">`, not a second heading |
+
+**Rule:** trust measured geometry and screenshots. Class names and computed
+styles are evidence, not proof.
+
+## 2. Shorter than the original = missing module. Longer = spacing.
+
+This diagnostic held four times out of four and saved a lot of blind padding
+tweaks:
+
+| Page | Gap | Cause |
+|---|---|---|
+| jobadvertising / jobboost | ~780 / ~650 | `.quickfeat` module absent |
+| over-ons | -2498 | `.module--timeline` absent (2519px) |
+| voor-wie | -1344 | image half of 4 audience sections absent |
+| jobboost | -862 | a CTA strip and a `quickfeat` absent |
+
+If a page is **short**, hunt for absent content before touching padding.
+
+## 3. Absence of a known class name ≠ absence of a known pattern.
+
+The `platform` page reported zero feature cards, properties, accordions,
+pricing and quickfeat — which read as "needs a bespoke template". It does not.
+It is built from alternating image+text blocks under *different* theme classes
+(`module--image` + `module--rtext` rather than `.feature-card`), which map onto
+the same `ProductBlock` the homepage uses.
+
+## 4. `<br>` fuses words in `textContent`.
+
+`<br>` carries no whitespace, so `"oplossing" + "voor"` becomes
+`"oplossingvoor"`. Both extractors replace `<br>` with a space before reading.
+This affected **most headings on the site** and is exactly the kind of copy
+corruption a pixel diff cannot catch — the text still reflows to a plausible
+height, it is just wrong.
+
+## 5. Four of nine pages ship no `<h1>`.
+
+jobboost, over-ons, contact, klantcases open straight into an `<h2>`. We render
+one on every page via `PageHero` (documented at the point of implementation).
+Deliberate divergence: accessibility failure (WCAG 1.3.1) plus a lost SEO
+signal, fixed at zero visual cost. Worth reporting to the client — it is
+verifiable in seconds and demonstrates the audit was real.
+
+## 6. The listing pages are invisible to search engines.
+
+`/nl/actueel/blogs`, `/nieuws`, `/kennis` and `/events` are **byte-identical**
+(115,751 bytes each): one page whose cards are rendered client-side by List.js
+into an empty `<div>`. Non-JS crawlers see nothing. Rendering them at build
+time in Astro fixes a live SEO defect — this is the strongest single argument
+for the rebuild.
+
+## 7. Mobile scales body copy but not most headings.
+
+Root font-size is **14px below 1140px, 16px above**. But it is not uniform:
+
+- body copy is root-relative and scales
+- most headings are **fixed px** (section `h2` 30px, card titles 20px at every viewport)
+- the CTA strip's `h2` *does* scale (28 → 23.94)
+
+A blanket rem conversion therefore **overshoots** — it was tried, made 768
+worse (+55 → -605), and was reverted. Mobile needs per-component measurement,
+not a global rule.
+
+## 8. Fractional values do not round the same way.
+
+Copying the original's fractional CSS produces off-by-one errors: a 14.56px
+button padding rounds to 53px here but 52 there; an 8.96px margin truncates to
+a 32px offset where the original computes 33. **Pin the measured result, not
+the input value.** Three separate 1px errors compounded down the homepage until
+each was fixed at source.
+
+## 9. Cookiebot is injected by JS and ruins screenshots.
+
+It is absent from scraped HTML (so grepping finds nothing) but renders a modal
+with a full-page dimming underlay. `capture.mjs` blocks it at the network layer
+— more deterministic than clicking accept, which would fire the tracking
+scripts consent unlocks. Blocking it also cut capture time ~8×.
+
+## 10. Playwright `clip` without `fullPage` is clamped to the viewport.
+
+This silently truncated every capture to viewport height while the logs
+happily reported the correct measured height. `capture.mjs` now reads the PNG
+IHDR after writing and shouts `TRUNCATED` on mismatch.
+
+**Rule:** verify the artefact, not the intent.
+
+## 11. `astro preview` masks a real deploy bug.
+
+Astro emits `/path/index.html`. Cloudflare would serve `/nl/platform/` but
+404 the slashless `/nl/platform`, which is the form people type. `astro preview`
+resolves both happily, so this only appears against the real edge. Fixed with
+`assets.html_handling: "auto-trailing-slash"` in `wrangler.jsonc`.
+
+Also: **wait for propagation before verifying a deploy.** Checking ~4s after
+`wrangler deploy` produced two false 404 alarms.
+
+## 12. Deploys are manual.
+
+`git push` does nothing. GitHub is source control only; there is no Pages
+project. The live site changes only when someone runs `npx wrangler deploy`,
+which uploads `dist/` to a Worker whose name *is* its unguessable subdomain.
+
+That unguessability is deliberate — this is a private pitch demo of another
+company's site. Three layers keep it out of search: `noindex` meta,
+`X-Robots-Tag` via `public/_headers`, and `robots.txt`. If git-triggered deploys
+are ever wanted, use **Workers Builds**, not a Pages project (which would
+publish to a guessable `*.pages.dev`).
+
+## 13. Known gaps, deliberately left.
+
+- `quickfeat` and over-ons card icons are fallback glyphs: the theme inlines
+  the SVG, so there is no URL for the extractor to fetch.
+- The FAQ page's category grouping is dropped — the extractor returns a flat
+  list with no group association. Dropped rather than faked; an early version
+  repeated every question under all three headings.
+- Third-party icon artwork is **not** traced out of the theme. We draw
+  equivalents.
+- `/nl/contact` omits the original's Google Maps iframe (third-party embed with
+  tracking, no value in a pitch).

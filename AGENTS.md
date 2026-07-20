@@ -3,7 +3,12 @@
 Pixel-accurate rebuild of `jobmatix.com` (HubSpot CMS) as a static Astro 7 + Tailwind 4 site.
 This is a **cold-pitch demo** — if the prospect likes it, they keep this code and deploy it themselves.
 
-Full plan and research findings: `~/.claude/plans/nested-petting-volcano.md`
+**Read [FINDINGS.md](./FINDINGS.md) first.** It records the original site's
+quirks and the decisions taken because of them — several look like bugs in our
+code until you know otherwise, and a few cost hours to rediscover. Add to it
+when you learn something the next person would otherwise hit again.
+
+Full plan and initial research: `~/.claude/plans/nested-petting-volcano.md`
 
 ## Development
 
