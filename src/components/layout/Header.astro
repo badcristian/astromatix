@@ -24,7 +24,7 @@ import { nav, cta, a11y } from '../../i18n/nl';
           {item.href ? (
             <a
               href={item.href}
-              class="flex items-center gap-1 text-[20px] text-navy transition-opacity hover:opacity-70"
+              class="flex items-center gap-1 text-[20px] leading-[28px] text-navy transition-opacity hover:opacity-70"
             >
               {item.label}
               {item.children && <span class="chevron" aria-hidden="true" />}
@@ -32,7 +32,7 @@ import { nav, cta, a11y } from '../../i18n/nl';
           ) : (
             <button
               type="button"
-              class="flex cursor-default items-center gap-1 text-[20px] text-navy transition-opacity hover:opacity-70"
+              class="flex cursor-default items-center gap-1 text-[20px] leading-[28px] text-navy transition-opacity hover:opacity-70"
               aria-expanded="false"
             >
               {item.label}

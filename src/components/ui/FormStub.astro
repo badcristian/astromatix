@@ -12,6 +12,7 @@
 // Measured @1440:
 //   form     800 wide
 //   input    54 tall, 12px radius, 1px #f5f5ff border, white bg,
+//            plus shadow rgba(17,65,122,0.05) 0 8px 16px
 //            14.56px padding, 16px text
 //   pairs    388 wide each with a 24px gap
 //   textarea 800×130
@@ -31,9 +32,21 @@ interface Props {
 
 const { fields, submitLabel } = Astro.props;
 
-const inputClass =
-  'w-full rounded-[12px] border border-mist bg-white p-[14.56px] text-[16px] text-navy ' +
-  'outline-none transition-colors focus:border-navy/30';
+// Measured on the original: 12px radius plus a soft navy shadow,
+// TWO stacked shadows: rgba(17,65,122,0.05) at 0 8px 16px and again at
+// 0 4px 8px. We had the radius right and no shadow at all,
+// which is why the forms read flatter than the original's.
+//
+// A first pass set these to 999px pills — that came from probing the FIRST
+// <input> on the page, which is a HIDDEN field with different styling. Filter
+// to a laid-out element before reading computed style (FINDINGS.md §1).
+const fieldChrome =
+  'border border-mist bg-white text-[16px] text-navy outline-none ' +
+  'shadow-[0_8px_16px_0_rgba(17,65,122,0.05),0_4px_8px_0_rgba(17,65,122,0.05)] ' +
+  'transition-colors focus:border-navy/30';
+
+const inputClass = `w-full rounded-[12px] p-[14.56px] ${fieldChrome}`;
+const textareaClass = `w-full rounded-[12px] p-[14.56px] ${fieldChrome}`;
 
 // The original pairs firstname/lastname and phone/email side by side.
 const paired = new Set(['firstname', 'lastname', 'phone', 'email']);
@@ -77,7 +90,7 @@ const pairs = fields.filter((f) => paired.has(f.name));
   {textareas.map((field) => (
     <div class="mb-6">
       <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
-      <textarea class={inputClass} id={field.name} name={field.name} style="height:130px"></textarea>
+      <textarea class={textareaClass} id={field.name} name={field.name} style="height:130px"></textarea>
     </div>
   ))}
 

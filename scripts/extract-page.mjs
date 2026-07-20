@@ -514,6 +514,28 @@ const data = await page.evaluate(() => {
       return null;
     })(),
 
+    // Tables. /nl/algemene-voorwaarden carries two SLA priority matrices
+    // ("Impact / Urgentie", "Prioriteit / Reactietijd / Oplostijd") and the
+    // blocks walker only collects <p> and <li>, so both were dropped silently
+    // — the copy that survived read as a list of orphaned cell values.
+    // Anchored to the nearest preceding heading, like contentImages.
+    tables: (() => {
+      const main = document.querySelector('main') ?? document.body;
+      const heads = visible(main.querySelectorAll('h1, h2, h3, h4'));
+      return Array.from(main.querySelectorAll('table')).map((t) => {
+        const y = t.getBoundingClientRect().top + window.scrollY;
+        let anchorText = null;
+        for (const h of heads) {
+          if (h.getBoundingClientRect().top + window.scrollY <= y) anchorText = text(h);
+          else break;
+        }
+        const rows = Array.from(t.querySelectorAll('tr')).map((r) =>
+          Array.from(r.children).map((c) => text(c)),
+        );
+        return { afterHeading: anchorText, rows };
+      });
+    })(),
+
     // The page's own prose, in document order.
     //
     // The `heading` and `rtext` modules carry the actual body copy — a case

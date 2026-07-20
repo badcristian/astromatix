@@ -48,6 +48,67 @@
     }
   ],
   "bandQuote": null,
+  "tables": [
+    {
+      "afterHeading": "Artikel A.6 – Incidenten en prioriteit",
+      "rows": [
+        [
+          "Impact ↓ / Urgentie →",
+          "Hoog (H)",
+          "Middel (M)",
+          "Laag (L)"
+        ],
+        [
+          "Hoog (H)",
+          "1",
+          "2",
+          "3"
+        ],
+        [
+          "Middel (M)",
+          "2",
+          "3",
+          "4"
+        ],
+        [
+          "Laag (L)",
+          "3",
+          "4",
+          "4"
+        ]
+      ]
+    },
+    {
+      "afterHeading": "Artikel A.6 – Incidenten en prioriteit",
+      "rows": [
+        [
+          "Prioriteit",
+          "Reactietijd",
+          "Oplostijd"
+        ],
+        [
+          "1 (Kritiek)",
+          "< 1 uur",
+          "binnen 4-8 uur"
+        ],
+        [
+          "2 (Hoog)",
+          "< 2 uur",
+          "binnen 8-24 uur"
+        ],
+        [
+          "3 (Gemiddeld)",
+          "< 4 uur",
+          "binnen 2-3 werkdagen"
+        ],
+        [
+          "4 (Laag)",
+          "< 8 uur",
+          "binnen 5 werkdagen"
+        ]
+      ]
+    }
+  ],
   "blocks": [
     {
       "heading": "Algemene voorwaarden Jobmatix",

@@ -61,10 +61,19 @@ const metaTitle = looksLikePath || !d.meta.title ? `${title} — Jobmatix` : d.m
 // dropped headings like "Plan een demo en ontdek wat ons platform voor jouw
 // bedrijf kan betekenen" — copy loss a pixel diff would never catch, because
 // the page still reflowed to a plausible height.
+// Drop the title's own HEADING (PageHero already renders it) but KEEP its
+// body. Filtering the whole block discarded all eleven paragraphs of
+// /nl/privacy-statement, which shipped as a page with a heading and nothing
+// else — and no measurement caught it, because the heading was present and
+// correct.
 const sections = blocks
-  .filter((b) => b.heading !== title)
   .filter((b) => b.heading || b.body?.length)
-  .map((b) => ({ heading: b.heading as string | null, level: b.level, body: b.body ?? [] }));
+  .map((b) => ({
+    heading: b.heading === title ? null : (b.heading as string | null),
+    level: b.level,
+    body: b.body ?? [],
+  }))
+  .filter((b) => b.heading || b.body.length);
 
 // section-intro carries its own lead paragraph outside the block outline.
 const introBody = intro?.body ? [intro.body] : [];
@@ -82,6 +91,15 @@ const logos = (d.logos ?? []).map((l: any) => ({ ...l, resolved: resolveIcon(l.s
 // that loads HubSpot tracking, and this is a pitch demo of a HubSpot
 // replacement. Same call as the Google Maps omission — FINDINGS.md §22.
 const usesBookingEmbed = ['demo-emile', 'meeting-koen'].includes(slug!);
+
+// The long-form legal pages set their text column to 1200 on the original, not
+// the 850 the funnel pages use. Measured: 1200px across 144 paragraphs.
+const wide = ['privacy-statement', 'algemene-voorwaarden'].includes(slug!);
+const colClass = wide ? 'mx-auto max-w-[1200px]' : 'mx-auto max-w-[850px]';
+
+// Tables anchored to the heading they follow.
+const tablesFor = (heading: string | null) =>
+  (d.tables ?? []).filter((t: any) => (t.afterHeading ?? null) === heading);
 ---
 
 <Base title={metaTitle} description={d.meta.description || undefined}>
@@ -89,7 +107,7 @@ const usesBookingEmbed = ['demo-emile', 'meeting-koen'].includes(slug!);
 
   {(introBody.length > 0 || sections.length > 0) && (
     <section class="px-6 py-12">
-      <div class="mx-auto max-w-[850px]">
+      <div class:list={[colClass]}>
         {introBody.map((para) => (
           <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
         ))}
@@ -102,6 +120,27 @@ const usesBookingEmbed = ['demo-emile', 'meeting-koen'].includes(slug!);
             )}
             {s.body.map((para) => (
               <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+            ))}
+            {tablesFor(s.heading).map((table: any) => (
+              <div class="mb-8 overflow-x-auto">
+                <table class="w-auto border-collapse text-[16px] text-navy">
+                  <tbody>
+                    {table.rows.map((row: string[], ri: number) => (
+                      <tr>
+                        {row.map((cell) =>
+                          ri === 0 ? (
+                            <th class="border border-navy/15 bg-mist px-4 py-2 text-left font-bold">
+                              {cell}
+                            </th>
+                          ) : (
+                            <td class="border border-navy/15 px-4 py-2">{cell}</td>
+                          ),
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             ))}
           </>
         ))}
