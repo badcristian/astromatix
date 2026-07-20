@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/ui/Button.astro';
+import { notFound } from '../i18n/nl';
+---
+
+<Base title={`${notFound.title} — Jobmatix`}>
+  <section class="bg-navy px-6 py-[150px] text-center text-white">
+    <div class="container-site">
+      <p class="font-display text-[80px] leading-none font-bold text-white/30">404</p>
+      <h1 class="mt-6 font-display text-[40px] leading-[60px] font-bold text-white">
+        {notFound.title}
+      </h1>
+      <p class="mt-6 text-[16px] leading-[24px] text-white">{notFound.body}</p>
+
+      <div class="mt-[34px] flex flex-wrap justify-center gap-4">
+        <Button href={notFound.cta.href} label={notFound.cta.label} height={52} />
+        <a
+          href={notFound.secondary.href}
+          class="inline-flex h-[52px] items-center rounded-[12px] border border-white/30 px-[21.76px] text-[16px] font-medium text-white transition-opacity hover:opacity-80"
+        >
+          {notFound.secondary.label}
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

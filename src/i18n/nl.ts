@@ -71,6 +71,13 @@ export const home = {
   ] as const,
 };
 
+export const notFound = {
+  title: 'Deze pagina bestaat niet',
+  body: 'De pagina die je zoekt is verplaatst of bestaat niet meer.',
+  cta: { label: 'Naar de homepage', href: '/nl/' },
+  secondary: { label: 'Neem contact op', href: '/nl/contact' },
+};
+
 export const a11y = {
   openMenu: 'Open menu',
   closeMenu: 'Sluit menu',

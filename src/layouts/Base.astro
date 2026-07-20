@@ -1,7 +1,14 @@
 ---
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
+import faviconSrc from '../assets/favicon.png';
+
+// The source is 4667x4667; generate the sizes browsers actually ask for
+// rather than shipping a 98KB PNG to every tab.
+const favicon32 = await getImage({ src: faviconSrc, width: 32, height: 32, format: 'png' });
+const favicon180 = await getImage({ src: faviconSrc, width: 180, height: 180, format: 'png' });
 
 interface Props {
   title: string;
@@ -16,8 +23,8 @@ const { title, description } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href={favicon32.src} />
+    <link rel="apple-touch-icon" sizes="180x180" href={favicon180.src} />
 
     {/*
       Private pitch demo — must never be indexed.
