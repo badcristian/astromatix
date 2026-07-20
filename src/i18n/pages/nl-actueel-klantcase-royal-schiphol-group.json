@@ -95,6 +95,38 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/1Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Vliegensvlug 1.000 vacatures invullen"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/2Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Vliegensvlug 1.000 vacatures invullen"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/3Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Vliegensvlug 1.000 vacatures invullen"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Schiphol%20afb.%202.png",
+      "width": 792,
+      "height": 396,
+      "afterHeading": "Royal Schiphol Group"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Schiphol%20(1).png",
+      "width": 1200,
+      "height": 400,
+      "afterHeading": "Resultaat"
+    }
+  ],
   "blocks": [
     {
       "heading": "Royal Schiphol Group Aanvliegroute naar succesvolle werving",

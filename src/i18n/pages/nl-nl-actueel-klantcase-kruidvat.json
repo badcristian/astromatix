@@ -95,6 +95,38 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/5Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Steeds verrassend, altijd voordelig!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/1Tekengebied%201-2.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Steeds verrassend, altijd voordelig!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/12Tekengebied%201-2.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Steeds verrassend, altijd voordelig!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Kruidvat%20afb.%202%20(1).png",
+      "width": 792,
+      "height": 396,
+      "afterHeading": "Kruidvat"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Kruidvat%20.png",
+      "width": 1200,
+      "height": 400,
+      "afterHeading": "Resultaat"
+    }
+  ],
   "blocks": [
     {
       "heading": "Kruidvat De juiste kandidaten via het juiste kanaal",

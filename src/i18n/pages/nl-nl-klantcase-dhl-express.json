@@ -100,6 +100,38 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/1Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Efficiënt werven in een snel veranderende markt"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/112Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Efficiënt werven in een snel veranderende markt"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/12Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Efficiënt werven in een snel veranderende markt"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/DHL%20afb%202.png",
+      "width": 792,
+      "height": 396,
+      "afterHeading": "DHL Express"
+    },
+    {
+      "src": "https://www.jobmatix.com/hubfs/dhl%20.png",
+      "width": 1200,
+      "height": 400,
+      "afterHeading": "Resultaat"
+    }
+  ],
   "blocks": [
     {
       "heading": "DHL Express De juiste kandidaten voor de business leveren",

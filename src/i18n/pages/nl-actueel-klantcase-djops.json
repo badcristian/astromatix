@@ -66,6 +66,38 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/51Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Doen waar jij goed in bent!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/5Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Doen waar jij goed in bent!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/54Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Doen waar jij goed in bent!"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/2Jobmatix%202.jpg",
+      "width": 792,
+      "height": 527,
+      "afterHeading": "Over Djops"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/1Jobmatix%201.jpg",
+      "width": 588,
+      "height": 391,
+      "afterHeading": "Het resultaat: verdubbeling van plaatsingen"
+    }
+  ],
   "blocks": [
     {
       "heading": "Djops Uitzendgroep",

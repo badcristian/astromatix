@@ -379,6 +379,43 @@ const data = await page.evaluate(() => {
       return out;
     })(),
 
+    // Full-width content images that belong to the page body rather than to a
+    // component we already extract.
+    //
+    // The klantcases carry five of these (three 200x200 sector tiles plus two
+    // wide photos) and NONE of them sits inside a module the other extractors
+    // look at — `img.closest('[class*="module--"]')` returns null for every
+    // one. They were simply absent from the rebuild, which is most of why
+    // every case study measured ~750px short.
+    //
+    // Anchored to the nearest preceding visible heading rather than to an
+    // index, so a template places them by content. Positional addressing is
+    // exactly what rotted in the heading lookups.
+    contentImages: (() => {
+      const main = document.querySelector('main') ?? document.body;
+      const heads = visible(main.querySelectorAll('h1, h2, h3, h4'));
+      const out = [];
+      for (const img of main.querySelectorAll('img')) {
+        const r = img.getBoundingClientRect();
+        if (r.width < 120 || r.height < 80) continue;          // icons, logos
+        if (img.closest('nav, footer, header, .logos')) continue;
+        const y = r.top + window.scrollY;
+        // Nearest heading above this image.
+        let anchorText = null;
+        for (const h of heads) {
+          if (h.getBoundingClientRect().top + window.scrollY <= y) anchorText = text(h);
+          else break;
+        }
+        out.push({
+          src: src(img),
+          width: Math.round(r.width),
+          height: Math.round(r.height),
+          afterHeading: anchorText,
+        });
+      }
+      return out;
+    })(),
+
     // The page's own prose, in document order.
     //
     // The `heading` and `rtext` modules carry the actual body copy — a case

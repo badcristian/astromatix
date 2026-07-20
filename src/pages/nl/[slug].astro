@@ -6,12 +6,10 @@ import FeatureCard from '../../components/ui/FeatureCard.astro';
 import FormStub from '../../components/ui/FormStub.astro';
 import GoCard from '../../components/ui/GoCard.astro';
 import Button from '../../components/ui/Button.astro';
-import ContactCta from '../../components/sections/ContactCta.astro';
 import LogoWall from '../../components/sections/LogoWall.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../lib/icons';
 import { LANDING_SLUGS } from '../../lib/landing';
-import { ctaHeading } from '../../lib/cta';
 
 // The 13 funnel and thank-you pages, from one data-driven template.
 //
@@ -25,6 +23,11 @@ import { ctaHeading } from '../../lib/cta';
 // Routing note: Astro gives static routes priority over dynamic ones, so this
 // cannot shadow contact.astro / platform.astro / over-ons.astro et al. The
 // slug list is explicit anyway — see src/lib/landing.ts.
+//
+// NO ContactCta HERE. These pages ARE the call to action — each one already
+// carries its own form (or a booking embed, or go-cards). Appending the shared
+// strip gave /nl/demo-aanvragen TWO forms where the original has one, repeated
+// its heading verbatim in both places, and added 856px to a 1670px page.
 
 const pages = import.meta.glob<{ default: any }>('../../i18n/pages/nl-*.json', { eager: true });
 
@@ -210,6 +213,4 @@ const usesBookingEmbed = ['demo-emile', 'meeting-koen'].includes(slug!);
     every landing page — reuse the shared component instead.
   */}
   {logos.length > 0 && <LogoWall />}
-
-  <ContactCta title={ctaHeading(d, slug)} intro={null} />
 </Base>

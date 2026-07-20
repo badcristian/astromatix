@@ -95,6 +95,32 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/3Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Jong talent werven met marketing automation"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/123412Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Jong talent werven met marketing automation"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/312Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Jong talent werven met marketing automation"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Ontwerp%20zonder%20titel%20(2).gif",
+      "width": 792,
+      "height": 549,
+      "afterHeading": "JAM Werkt"
+    }
+  ],
   "blocks": [
     {
       "heading": "JAM Werkt Young professionals, data driven werven",

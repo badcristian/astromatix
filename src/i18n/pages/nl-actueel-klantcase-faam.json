@@ -95,6 +95,38 @@
   "heroSlider": null,
   "sectionIntros": [],
   "logos": [],
+  "contentImages": [
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/1234Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Lange termijn succes dankzij marketing automation"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/112Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Lange termijn succes dankzij marketing automation"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/12341Tekengebied%201.png",
+      "width": 200,
+      "height": 200,
+      "afterHeading": "Lange termijn succes dankzij marketing automation"
+    },
+    {
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/faam%20afb.%202.png",
+      "width": 792,
+      "height": 396,
+      "afterHeading": "Faam"
+    },
+    {
+      "src": "https://www.jobmatix.com/hubfs/Faam%20.png",
+      "width": 1200,
+      "height": 400,
+      "afterHeading": "Resultaat"
+    }
+  ],
   "blocks": [
     {
       "heading": "Faam Efficiëntieslag in recruitment marketing",

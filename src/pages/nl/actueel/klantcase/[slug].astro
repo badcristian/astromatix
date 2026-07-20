@@ -33,6 +33,15 @@ export function getStaticPaths() {
 
 const { entry } = Astro.props;
 const c = caseData(entry);
+
+// Content images, grouped by the heading they appear under. The three square
+// sector tiles share one anchor and sit side by side; the wide photos are one
+// per anchor and run full width.
+const imagesFor = (headingText: string | null | undefined) =>
+  c.images
+    .filter((i) => (i.afterHeading ?? null) === (headingText ?? null))
+    .map((i) => ({ ...i, resolved: resolveIcon(i.src) }))
+    .filter((i) => i.resolved);
 ---
 
 <Base title={c.meta.title} description={c.meta.description ?? undefined}>
@@ -59,6 +68,23 @@ const c = caseData(entry);
     </section>
   )}
 
+
+{imagesFor(c.intro?.title).length > 0 && (
+  <section class="px-6 pb-10">
+    <div class="mx-auto flex max-w-[850px] flex-wrap items-center justify-center gap-6">
+      {imagesFor(c.intro?.title).map((img) => (
+        <Image
+          src={img.resolved!}
+          alt=""
+          width={img.width}
+          height={img.height}
+          class:list={[img.width > 400 ? 'w-full rounded-3xl' : 'w-[200px]']}
+        />
+      ))}
+    </div>
+  </section>
+)}
+
   {c.lead && (
     <section class="px-6 pb-8">
       <div class="mx-auto max-w-[850px]">
@@ -72,6 +98,23 @@ const c = caseData(entry);
     </section>
   )}
 
+
+{imagesFor(c.lead?.heading).length > 0 && (
+  <section class="px-6 pb-10">
+    <div class="mx-auto flex max-w-[850px] flex-wrap items-center justify-center gap-6">
+      {imagesFor(c.lead?.heading).map((img) => (
+        <Image
+          src={img.resolved!}
+          alt=""
+          width={img.width}
+          height={img.height}
+          class:list={[img.width > 400 ? 'w-full rounded-3xl' : 'w-[200px]']}
+        />
+      ))}
+    </div>
+  </section>
+)}
+
   {c.narrative.map((section) => (
     <section class="px-6 pb-14">
       <div class="mx-auto max-w-[850px]">
@@ -80,6 +123,15 @@ const c = caseData(entry);
         </h2>
         {section.body.map((para) => (
           <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+        {imagesFor(section.heading).map((img) => (
+          <Image
+            src={img.resolved!}
+            alt=""
+            width={img.width}
+            height={img.height}
+            class="mt-8 w-full rounded-3xl"
+          />
         ))}
       </div>
     </section>

@@ -67,6 +67,12 @@ export function caseData(entry: Klantcase) {
     narrative,
     quickfeat: d.quickfeat ?? [],
     contacts: d.compactCards ?? [],
+    // Five per case study, none of them inside a module the other extractors
+    // look at, so they were simply absent — most of the ~750px shortfall.
+    // Anchored to the heading they follow rather than to an index.
+    images: (d.contentImages ?? []) as {
+      src: string; width: number; height: number; afterHeading: string | null;
+    }[],
     ctaTitle: cta?.heading ?? null,
     ctaIntro: cta?.body?.[0] ?? null,
   };
