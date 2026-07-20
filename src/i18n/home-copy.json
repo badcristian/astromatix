@@ -1,4 +1,37 @@
 {
+  "caseSection": {
+    "title": "Samen succesvol",
+    "cards": [
+      {
+        "name": "Schiphol",
+        "title": "Vliegensvlug 1.000 vacatures invullen",
+        "image": "https://www.jobmatix.com/hs-fs/hubfs/Slider.jpg",
+        "href": "/nl/actueel/klantcase/royal-schiphol-group"
+      },
+      {
+        "name": "JAM werkt",
+        "title": "Datadriven young professionals werven",
+        "image": "https://www.jobmatix.com/hs-fs/hubfs/Slider2.jpg",
+        "href": "/nl/actueel/klantcase/jam-werkt"
+      },
+      {
+        "name": "Faam",
+        "title": "Efficiëntieslag in recruitment marketing",
+        "image": "https://www.jobmatix.com/hs-fs/hubfs/faam-1.webp",
+        "href": "/nl/actueel/klantcase/faam"
+      }
+    ],
+    "testimonials": [
+      {
+        "quote": "Snel, makkelijk en converterend! Al onze vacatures staan automatisch op verschillende relevante jobboards. De geautomatiseerde campagnes en bestede budgetten worden gemakkelijk door onszelf beheerd. Met succes: Jobmatix heeft een stabiele positie in ons overzicht van succesvolle bronnen veroverd!",
+        "author": ""
+      },
+      {
+        "quote": "Het recruitment marketing platform van Jobmatix speelt een essentiële rol in ons wervingsproces. Onze vacatures worden snel op veel jobboards geadverteerd en Jobmatix denkt actief mee over het optimaliseren van onze campagnes en het efficiënt verdelen van onze budgetten. Een mooie samenwerking die ons succesvol maakt!",
+        "author": ""
+      }
+    ]
+  },
   "statsBand": [
     {
       "title": "15+ jaar ervaring",

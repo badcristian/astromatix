@@ -107,7 +107,35 @@ const copy = await page.evaluate(() => {
       };
     });
 
+  // --- case section: heading, three case cards, testimonial carousel ---
+  const caseSec = rows[20];
+  const caseCards = Array.from(rows[22].querySelectorAll('[class*="col"]'))
+    .filter((c) => c.querySelector('img') && c.getBoundingClientRect().width < 500)
+    .map((c) => {
+      const img = c.querySelector('img');
+      const link = c.querySelector('a');
+      return {
+        // The subtitle is a <p class="go-card__desc">, not a second heading.
+        name: text(c.querySelector('.go-card__title')),
+        title: text(c.querySelector('.go-card__desc')),
+        image: img ? img.getAttribute('src').split('?')[0] : null,
+        href: link?.getAttribute('href')?.replace('https://www.jobmatix.com', '') ?? null,
+      };
+    });
+
+  const slides = Array.from(rows[23].querySelectorAll('.splide__slide'))
+    .filter((s) => !s.className.includes('clone'))
+    .map((s) => {
+      const cite = s.querySelector('cite, .quote__author, footer, small');
+      return { quote: text(s.querySelector('.quote__text, blockquote, p')), author: text(cite) };
+    });
+
   return {
+    caseSection: {
+      title: text(caseSec.querySelector('h2')),
+      cards: caseCards,
+      testimonials: slides,
+    },
     statsBand: statsCards,
     productBlocks: [readBlock(13), readBlock(16)],
     ctaStrip: {
