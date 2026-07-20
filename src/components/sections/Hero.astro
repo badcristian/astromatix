@@ -18,7 +18,7 @@ const { titleLines, subtitleLines, cta } = home.hero;
 <!-- Bottom padding ends the hero at y=625, where the FeatureBand strip begins.
      The original overlaps that strip onto the hero instead; the rendered
      result is identical. -->
-<section class="bg-navy pt-[150px] pb-[99px] text-center text-white">
+<section class="bg-navy pt-[150px] pb-[100px] text-center text-white">
   <div class="container-site">
     <h1 class="font-display text-[40px] leading-[60px] font-bold text-white">
       {titleLines.map((line, i) => (
@@ -42,9 +42,12 @@ const { titleLines, subtitleLines, cta } = home.hero;
       ))}
     </p>
 
+    {/* Height pinned to 52px rather than derived from the original's 14.56px
+        vertical padding — that rounds up to 53 here and the extra pixel then
+        offsets every section below it. */}
     <a
       href={cta.href}
-      class="mt-[34px] inline-block rounded-[12px] bg-orange px-[21.76px] py-[14.56px] text-[16px] font-medium text-white transition-opacity hover:opacity-90"
+      class="mt-[34px] inline-flex h-[52px] items-center rounded-[12px] bg-orange px-[21.76px] text-[16px] font-medium text-white transition-opacity hover:opacity-90"
     >
       {cta.label}
     </a>

@@ -27,7 +27,9 @@ const { icon, title, body } = Astro.props;
   class="mb-6 rounded-3xl bg-white/5 p-6 text-center shadow-[0_16px_32px_0_rgba(17,65,122,0.05)]"
 >
   <div class="mx-[18px] max-w-[300px]">
-    <div class="mt-[8.96px] mb-6 flex justify-center">
+    {/* 9px, not the original's 8.96 — the fraction truncates to a 32px offset
+        from the card top here, where the original computes 33. */}
+    <div class="mt-[9px] mb-6 flex justify-center">
       <span class="inline-flex size-[58px] items-center justify-center rounded-[10px] bg-mist">
         <Image src={icon} alt="" width={29} densities={[1, 2]} />
       </span>

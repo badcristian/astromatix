@@ -21,7 +21,9 @@ const { valueProp } = copy;
 const icons = [iconCentraliseren, iconAutomatiseren2, iconAutomatiseren];
 ---
 
-<section class="px-6 pt-20">
+{/* 79px, not 80: the original's section overlaps the feature band above it by
+    1px, and our sections are strictly sequential. */}
+<section class="px-6 pt-[79px]">
   <div class="mx-auto max-w-[1200px]">
     <div class="mx-auto max-w-[1050px] text-center">
       <h2
