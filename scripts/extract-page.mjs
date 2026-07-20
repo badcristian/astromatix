@@ -104,18 +104,51 @@ const data = await page.evaluate(() => {
       // fix it deliberately rather than inherit the defect.
       hasH1: !!h1,
     },
-    hero: {
-      title: text(h1) || text(document.querySelector('h2')),
-      background: (() => {
-        const el = h1?.closest('.row-fluid-wrapper');
-        const bg = el ? getComputedStyle(el).backgroundImage : 'none';
-        const m = bg.match(/url\("([^"]+)"\)/);
-        return m ? m[1].split('?')[0] : null;
-      })(),
-    },
+    hero: (() => {
+      // The background image sits on an ANCESTOR row, not the one closest to
+      // the h1 — walking only one level up returned null on every klantcase and
+      // lost the hero photo entirely.
+      let background = null;
+      for (let el = h1; el && !background; el = el.parentElement) {
+        const m = getComputedStyle(el).backgroundImage.match(/url\("([^"]+)"\)/);
+        if (m) background = m[1].split('?')[0];
+      }
+
+      // Klantcase heroes put TWO differently-styled spans inside one <h1>:
+      // the client name large and white, then the case headline smaller and
+      // lilac. Flattening to a single string lost both the split and the
+      // colours — the rebuild rendered one uniform line.
+      const parts = h1
+        ? Array.from(h1.children)
+            .filter((n) => text(n))
+            .map((n) => {
+              const cs = getComputedStyle(n);
+              return {
+                text: text(n),
+                fontSize: cs.fontSize,
+                lineHeight: cs.lineHeight,
+                color: cs.color,
+              };
+            })
+        : [];
+
+      return {
+        title: text(h1) || text(document.querySelector('h2')),
+        background,
+        parts: parts.length > 1 ? parts : [],
+      };
+    })(),
     properties: visible(document.querySelectorAll('.properties__item')).map((p) => ({
       label: text(p.querySelector('.properties__text')) || text(p),
       icon: src(p.querySelector('img')),
+      // The theme inlines these as <svg>, so there is no URL to fetch and
+      // `icon` is always null on the klantcases. Record the markup so the
+      // rebuild can draw the real glyph instead of a fallback tick.
+      iconSvg: (() => {
+        const svg = p.querySelector('svg');
+        if (!svg) return null;
+        return svg.outerHTML.replace(/\s+/g, ' ').slice(0, 2000);
+      })(),
     })),
     featureCards: visible(document.querySelectorAll('.feature-card')).map((c) => ({
       title: text(c.querySelector('.feature-card__title')),
@@ -435,6 +468,50 @@ const data = await page.evaluate(() => {
         });
       }
       return out;
+    })(),
+
+    // Section backgrounds, in document order.
+    //
+    // The klantcases alternate mist / fog / navy bands, and the rebuild
+    // rendered everything on white. Recorded as resolved colours rather than
+    // class names because the theme expresses them as
+    // `linear-gradient(rgb(...), rgb(...))` on a wrapper row, which no class
+    // name reveals.
+    sectionBands: (() => {
+      const main = document.querySelector('main') ?? document.body;
+      const out = [];
+      for (const row of main.querySelectorAll('.row-fluid-wrapper.row-depth-1')) {
+        const r = row.getBoundingClientRect();
+        if (r.height < 40 || Math.round(r.width) < 1000) continue;
+        const cs = getComputedStyle(row);
+        const flat = cs.backgroundImage.match(/linear-gradient\((rgb\([^)]+\)), \1\)/);
+        const img = cs.backgroundImage.match(/url\("([^"]+)"\)/);
+        const head = row.querySelector('h1, h2, h3, h4');
+        if (!flat && !img) continue;
+        out.push({
+          y: Math.round(r.top + window.scrollY),
+          height: Math.round(r.height),
+          color: flat ? flat[1] : null,
+          image: img ? img[1].split('?')[0] : null,
+          heading: text(head) || null,
+        });
+      }
+      return out;
+    })(),
+
+    // The pull-quote that sits on the navy band above the contact card.
+    bandQuote: (() => {
+      const main = document.querySelector('main') ?? document.body;
+      for (const row of main.querySelectorAll('.row-fluid-wrapper.row-depth-1')) {
+        const cs = getComputedStyle(row);
+        if (!cs.backgroundImage.includes('17, 65, 122')) continue;
+        const el = Array.from(row.querySelectorAll('p, div')).find((n) => {
+          const t = text(n);
+          return t.startsWith('\u201c') || t.startsWith('"');
+        });
+        if (el) return { text: text(el), color: getComputedStyle(el).color };
+      }
+      return null;
     })(),
 
     // The page's own prose, in document order.

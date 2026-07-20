@@ -1,33 +1,35 @@
 ---
 import Base from '../../../../layouts/Base.astro';
-import PageHero from '../../../../components/sections/PageHero.astro';
 import QuickFeat from '../../../../components/ui/QuickFeat.astro';
 import ContactCta from '../../../../components/sections/ContactCta.astro';
+import Figures from '../../../../components/ui/Figures.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../../../lib/icons';
-import Figures from '../../../../components/ui/Figures.astro';
-import Narrative from '../../../../components/ui/Narrative.astro';
 import { KLANTCASES, caseData } from '../../../../lib/klantcases';
 
 // Six customer stories, one template.
 //
-// The plan called these an "article template"; they are not. Every one is an
-// `hs-site-page` DnD composition of modules we already had components for
-// (FINDINGS.md §13), and probe-modules.mjs shows all six use the identical
-// seven: properties, feature-card, heading, rtext, quickfeat, compact-card,
-// form. They differ only in content, so they are data, not templates.
+// STRUCTURE, measured on /nl/actueel/klantcase/royal-schiphol-group at 1440.
+// An earlier version of this file reproduced the COPY correctly and almost
+// none of the layout — no hero photo, one uniform heading instead of two
+// styled halves, text pills instead of icon tags, every band on white, and the
+// client card rendered as a full-width intro block instead of a sidebar.
 //
-// Structure, measured at 1440 (page heights 4376-5036):
-//   hero            h1 + three properties tags (sector, type, reach)
-//   client intro    feature-card: who the customer is
-//   narrative       Uitdaging / Oplossing / Resultaat, each h2 + prose
-//   quickfeat       six how-we-did-it items (djops ships none)
-//   contact         compact-card: the account manager
-//   cta             form
+//   y=  85  h=348  hero, full-bleed background photo, text column 588 wide
+//                  h1 = client name 60px white + headline 42px #e9b9ec
+//   y= 433  h= 64  properties band on #f8f9fb, three inline-SVG tags, navy
+//   y= 497  h=153  section heading 1138 wide + intro paragraph, centred
+//   y= 650  h=360  three 384x270 tiles
+//   y=1011  h=814  UITDAGING on #f5f5ff — two columns:
+//                    left  792  prose + a 792x396 photo
+//                    right 282  white feature-card (the client profile)
+//   y=1824  h=610  OPLOSSING 1200 wide + quickfeat
+//   y=2434  h=682  RESULTAAT on #f8f9fb + a 1200x400 photo
+//   y=3116  h=166  navy band: the pull-quote
+//   y=3282  h=153  navy band: the contact compact-card, 384 wide
+//   y=3435  h=769  "Get the job done" + form, 1200 wide
 //
-// Uitdaging/Oplossing/Resultaat carry NO module wrapper on the original, so
-// they are found by walking the heading outline rather than by class — see the
-// `blocks` extractor in scripts/extract-page.mjs.
+// Content widths are 1138/1200, not the 850 this template used throughout.
 
 export function getStaticPaths() {
   return KLANTCASES.map((c) => ({ params: { slug: c.slug }, props: { entry: c } }));
@@ -36,47 +38,70 @@ export function getStaticPaths() {
 const { entry } = Astro.props;
 const c = caseData(entry);
 
-// Content images, grouped by the heading they appear under. The three square
-// sector tiles share one anchor and sit side by side; the wide photos are one
-// per anchor and run full width.
+const heroBg = resolveIcon(c.heroBackground);
 const imagesFor = (headingText: string | null | undefined) =>
   c.images
     .filter((i) => (i.afterHeading ?? null) === (headingText ?? null))
     .map((i) => ({ ...i, resolved: resolveIcon(i.src) }))
     .filter((i) => i.resolved);
+
+// The client-profile card is a SIDEBAR beside Uitdaging, not a lead section.
+const profile = c.intro;
+const uitdaging = c.narrative.find((n) => n.heading === 'Uitdaging') ?? null;
+const oplossing = c.narrative.find((n) => n.heading === 'Oplossing') ?? null;
+const resultaat = c.narrative.find((n) => n.heading === 'Resultaat') ?? null;
 ---
 
 <Base title={c.meta.title} description={c.meta.description ?? undefined}>
-  <PageHero title={c.title} />
+  {/* --- hero: full-bleed photo, two-tone heading ------------------------- */}
+  <section
+    class="relative bg-navy bg-cover bg-center px-6"
+    style={heroBg ? `background-image:url(${heroBg.src})` : undefined}
+  >
+    <div class="mx-auto flex min-h-[348px] max-w-[1200px] items-center">
+      <h1 class="max-w-[588px] font-display font-bold">
+        {c.heroParts.length > 0 ? (
+          c.heroParts.map((part) => (
+            <span
+              class="block"
+              style={`font-size:${part.fontSize};line-height:${part.fontSize};color:${part.color}`}
+            >
+              {part.text}
+            </span>
+          ))
+        ) : (
+          <span class="block text-[60px] leading-[60px] text-white">{c.title}</span>
+        )}
+      </h1>
+    </div>
+  </section>
 
+  {/* --- properties band -------------------------------------------------- */}
   {c.tags.length > 0 && (
-    <section class="px-6">
-      <div class="mx-auto flex max-w-[1138px] flex-wrap gap-3">
+    <section class="bg-fog px-6 py-5">
+      <div class="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-x-12 gap-y-3">
         {c.tags.map((tag) => (
-          <span class="rounded-full bg-mist px-5 py-2 text-[14.4px] text-navy">{tag}</span>
+          <span class="flex items-center gap-3 text-[16px] text-navy">
+            {tag.iconSvg && (
+              // Build-time markup we extracted ourselves, not user input.
+              <span class="inline-block size-6 shrink-0 [&>svg]:size-6 [&>svg]:fill-current" set:html={tag.iconSvg} />
+            )}
+            {tag.label}
+          </span>
         ))}
       </div>
     </section>
   )}
 
-  {/*
-    SECTION ORDER IS INTERLEAVED AND NOT THE OBVIOUS ONE.
-
-    The original runs: lead -> Uitdaging -> the client intro card -> Oplossing
-    -> quickfeat -> Resultaat. An earlier version rendered the intro card first
-    and the quickfeat last, which reads naturally and is wrong. At 1440 the net
-    was only +256 because the errors cancelled; at 390 measure.mjs showed the
-    giveaway alternating steps (-2346, +1941, -2077).
-  */}
-
+  {/* --- lead: centred heading + intro ------------------------------------ */}
   {c.lead && (
-    <section class="px-6 pb-8">
-      <div class="mx-auto max-w-[850px]">
+    <section class="px-6 pt-[50px]">
+      <div class="mx-auto max-w-[1138px] text-center">
         <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
           {c.lead.heading}
         </h2>
         {c.lead.body.map((para) => (
-          <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+          <p class="mx-auto mt-4 max-w-[900px] text-[16px] leading-[26px] text-navy">{para}</p>
         ))}
       </div>
     </section>
@@ -84,58 +109,117 @@ const imagesFor = (headingText: string | null | undefined) =>
 
   <Figures images={imagesFor(c.lead?.heading)} />
 
-  {c.narrative[0] && <Narrative section={c.narrative[0]} images={imagesFor(c.narrative[0].heading)} />}
+  {/* --- Uitdaging: prose + photo left, client profile card right ---------- */}
+  {uitdaging && (
+    <section class="bg-mist px-6 py-[50px]">
+      <div class="mx-auto flex max-w-[1200px] flex-col gap-8 lg:flex-row lg:items-start lg:gap-[42px]">
+        <div class="lg:w-[792px] lg:shrink-0">
+          <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+            {uitdaging.heading}
+          </h2>
+          {uitdaging.body.map((para) => (
+            <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+          ))}
+          {imagesFor(profile?.title).map((img) => (
+            <Image
+              src={img.resolved!}
+              alt=""
+              width={img.width}
+              height={img.height}
+              class="mt-8 h-auto w-full rounded-3xl"
+            />
+          ))}
+        </div>
 
-  {c.intro && (
-    <section class="px-6 py-10">
-      <div class="mx-auto max-w-[850px] rounded-3xl bg-fog p-8">
+        {profile && (
+          <aside class="rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] lg:w-[282px] lg:shrink-0">
+            <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
+              {profile.title}
+            </h3>
+            <p class="mt-3 text-[14.4px] leading-[20.16px] text-navy">{profile.body}</p>
+          </aside>
+        )}
+      </div>
+    </section>
+  )}
+
+  {/* --- Oplossing + quickfeat -------------------------------------------- */}
+  {oplossing && (
+    <section class="px-6 py-[50px]">
+      <div class="mx-auto max-w-[1200px]">
         <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
-          {c.intro.title}
+          {oplossing.heading}
         </h2>
-        <p class="mt-4 text-[16px] leading-[26px] text-navy">{c.intro.body}</p>
+        {oplossing.body.map((para) => (
+          <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+        {c.quickfeat.length > 0 && (
+          <div class="mt-10">
+            <QuickFeat items={c.quickfeat} />
+          </div>
+        )}
       </div>
     </section>
   )}
 
-  <Figures images={imagesFor(c.intro?.title)} />
-
-  {c.narrative[1] && <Narrative section={c.narrative[1]} images={imagesFor(c.narrative[1].heading)} />}
-
-  {c.quickfeat.length > 0 && (
-    <section class="bg-mist px-6 py-20">
-      <div class="mx-auto max-w-[1138px]">
-        <QuickFeat items={c.quickfeat} />
+  {/* --- Resultaat -------------------------------------------------------- */}
+  {resultaat && (
+    <section class="bg-fog px-6 py-[50px]">
+      <div class="mx-auto max-w-[1200px]">
+        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+          {resultaat.heading}
+        </h2>
+        {resultaat.body.map((para) => (
+          <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        ))}
+        {imagesFor(resultaat.heading).map((img) => (
+          <Image
+            src={img.resolved!}
+            alt=""
+            width={img.width}
+            height={img.height}
+            class="mt-8 h-auto w-full rounded-3xl"
+          />
+        ))}
       </div>
     </section>
   )}
 
-  {c.narrative[2] && <Narrative section={c.narrative[2]} images={imagesFor(c.narrative[2].heading)} />}
-
-  {c.contacts.length > 0 && (
-    <section class="px-6 py-16">
-      <div class="mx-auto flex max-w-[850px] flex-wrap gap-8">
-        {c.contacts.map((person) => {
-          const portrait = resolveIcon(person.image);
-          return (
-            <div class="flex items-center gap-5">
-              {portrait && (
-                <Image
-                  src={portrait}
-                  alt=""
-                  width={96}
-                  height={96}
-                  class="size-24 rounded-full object-cover"
-                />
-              )}
-              <div>
-                <p class="font-display text-[20px] leading-[28px] font-bold text-navy">
-                  {person.title}
-                </p>
-                {person.body && <p class="text-[14.4px] text-navy/70">{person.body}</p>}
-              </div>
-            </div>
-          );
-        })}
+  {/* --- navy band: pull-quote, then the contact card ---------------------- */}
+  {(c.bandQuote || c.contacts.length > 0) && (
+    <section class="bg-navy px-6 py-10">
+      <div class="mx-auto max-w-[1200px]">
+        {c.bandQuote && (
+          <blockquote class="mx-auto max-w-[900px] text-center text-[20px] leading-[30px] text-white">
+            {c.bandQuote.text}
+          </blockquote>
+        )}
+        {c.contacts.length > 0 && (
+          <div class="mt-8 flex flex-wrap justify-center gap-8">
+            {c.contacts.map((person) => {
+              const portrait = resolveIcon(person.image);
+              return (
+                <div class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5">
+                  {portrait && (
+                    <Image
+                      src={portrait}
+                      alt=""
+                      width={96}
+                      height={96}
+                      class="size-24 shrink-0 rounded-full object-cover"
+                    />
+                  )}
+                  <div>
+                    <p class="font-display text-[20px] leading-[28px] font-bold text-navy">
+                      {person.title}
+                    </p>
+                    {person.body && <p class="text-[14.4px] text-navy/70">{person.body}</p>}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   )}

@@ -61,7 +61,15 @@ export function caseData(entry: Klantcase) {
   return {
     meta: d.meta,
     title: d.hero?.title ?? entry.slug,
-    tags: (d.properties ?? []).map((p: any) => p.label).filter(Boolean),
+    // The <h1> holds two differently-styled spans: the client name large and
+    // white, the case headline smaller and lilac. Flattening them to one line
+    // lost both the split and the colours.
+    heroParts: (d.hero?.parts ?? []) as { text: string; fontSize: string; color: string }[],
+    heroBackground: (d.hero?.background ?? null) as string | null,
+    // Each tag carries an inline SVG glyph, not an <img>, so there is no URL
+    // to fetch — the markup itself is the asset.
+    tags: (d.properties ?? []).map((p: any) => ({ label: p.label, iconSvg: p.iconSvg })),
+    bandQuote: (d.bandQuote ?? null) as { text: string } | null,
     intro: intro?.title ? { title: intro.title, body: intro.body ?? '' } : null,
     lead: lead ? { heading: lead.heading as string, body: (lead.body ?? []) as string[] } : null,
     narrative,
