@@ -345,7 +345,43 @@ rather than dropped, and that was most of a ~750px shortfall on all six pages.
 `contentImages` picks up any `main` image over 120×80 and anchors it to the
 nearest preceding visible heading, so templates place it by content.
 
-## 27. Known deliberate divergences, deliberately left.
+## 27. `/nl/platform` hides four of its five images below 768.
+
+Its theme sets `display: none` on the image column's `.span12` wrapper under
+exactly 768 (checked at 479, 480, 600, 767 vs 768). That is why the page gets
+**shorter** as it narrows — 4242 → 4019 → 3556 — where a naive stack gets
+taller.
+
+The trap: those images report `0x0`, `complete=false`, `naturalWidth=0`, which
+reads exactly like lazy-loading that never fired. It is the reverse — they
+never load *because* the container is hidden. Walk the ancestor chain's
+computed `display` before concluding a mobile image is a loading bug.
+
+## 28. Responsive behaviour is per-page, and the breakpoints are 768 and 1140.
+
+Three components needed three different answers, all measured on the original:
+
+| Component | Behaviour |
+|---|---|
+| `ProductBlock` on the homepage | stacks below **1140** (image is 720px in a 720px row at 768) |
+| `ProductBlock` on platform | stays two-column to **768**, image hidden below it |
+| voor-wie audience blocks | stay two-column to **768** (image is 286×286 there) |
+
+There is no site-wide rule to find. Measure the component on the page you are
+fixing.
+
+## 29. Padding measured at 1440 does not scale down.
+
+`ProductBlock` carried 218px of vertical padding at every width. The 80/138
+figures came from 1440, where the original follows each block with an empty
+1200×88 spacer — and that spacer does not survive to mobile. Carrying it to 390
+ran every block ~300px long.
+
+Reduced **below `md` only**: the homepage measures +55 at 768 and any change
+there makes it worse. When a fix helps one viewport, re-measure the other two
+before keeping it.
+
+## 30. Known deliberate divergences, deliberately left.
 
 - `quickfeat` and over-ons card icons are fallback glyphs: the theme inlines
   the SVG, so there is no URL for the extractor to fetch.
