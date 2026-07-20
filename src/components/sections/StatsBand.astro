@@ -1,0 +1,41 @@
+---
+import FeatureCard from '../ui/FeatureCard.astro';
+import copy from '../../i18n/home-copy.json';
+import statErvaring from '../../assets/stat-ervaring.png';
+import statVacatures from '../../assets/stat-vacatures.png';
+import statSollicitaties from '../../assets/stat-sollicitaties.png';
+import statGebruikers from '../../assets/stat-gebruikers.png';
+
+// Measured @1440:
+//   section  y=2904 1440×532, bg mist, padding 50px 24px
+//   card row starts 50px into the section, four s3 columns of 291
+//            (1164 total, centred), each with 12px side padding
+//   card     267 wide, 310 tall, SOLID white, 24px radius, 24px padding,
+//            body 219 wide with no side inset — the same .feature-card as the
+//            value prop, differing only in background, width and inset
+//   48px of trailing space below the card row
+
+const icons = [statErvaring, statVacatures, statSollicitaties, statGebruikers];
+---
+
+<section class="bg-mist px-6 py-[50px]">
+  <div class="mx-auto max-w-[1164px] pt-[50px] pb-12">
+    {/* No negative margin here: the 1164 container is the exact width of the
+        four 291px columns, so -mx-3 would widen the row to 1188 and give
+        297px columns — enough to change where the body text wraps. */}
+    <div class="flex flex-wrap justify-center">
+      {copy.statsBand.map((stat, i) => (
+        <div class="w-full px-3 sm:w-1/2 lg:w-1/4">
+          <FeatureCard
+            icon={icons[i]}
+            title={stat.title}
+            body={stat.body}
+            background="white"
+            bodyInset={0}
+            as="h3"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -95,7 +95,20 @@ const copy = await page.evaluate(() => {
     };
   };
 
+  // --- stats band: four feature cards, same component as the value prop ---
+  const statsCards = Array.from(rows[19].querySelectorAll('.col'))
+    .filter((c) => c.getBoundingClientRect().height > 300)
+    .map((c) => {
+      const img = c.querySelector('.feature-card__icon img');
+      return {
+        title: text(c.querySelector('.feature-card__title')),
+        body: text(c.querySelector('.feature-card__desc')),
+        icon: img ? img.getAttribute('src').split('?')[0] : null,
+      };
+    });
+
   return {
+    statsBand: statsCards,
     productBlocks: [readBlock(13), readBlock(16)],
     ctaStrip: {
       heading: text(stripHeading),

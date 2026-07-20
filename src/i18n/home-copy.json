@@ -1,4 +1,26 @@
 {
+  "statsBand": [
+    {
+      "title": "15+ jaar ervaring",
+      "body": "We hebben inmiddels ruim 15 jaar ervaring op het gebied van recruitment en job marketing.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/expert%20.png"
+    },
+    {
+      "title": "2.000.000+ vacatures",
+      "body": "Zoveel vacatures worden er momenteel jaarlijks via ons platform geadverteerd.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%203%20jobboost%20blauw.png"
+    },
+    {
+      "title": "900.000+ sollicitaties",
+      "body": "Per jaar zorgen de vacature campagnes voor meer dan 900.000 sollicitaties.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/sollicitatie%20.png"
+    },
+    {
+      "title": "150+ tevreden gebruikers",
+      "body": "Maandelijks gebruiken meer dan 150 klanten ons platform voor hun job marketing!",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/First%20eerste%20.png"
+    }
+  ],
   "productBlocks": [
     {
       "title": "Job Advertising",

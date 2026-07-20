@@ -14,19 +14,38 @@ import type { ImageMetadata } from 'astro';
 // Everything is centred. The 24px rhythm between every element is what drives
 // the card's 327px height — worth preserving rather than eyeballing gaps.
 
+// The stats band reuses this card with a solid white background, a narrower
+// body, and no side inset — hence the props.
+
 interface Props {
   icon: ImageMetadata;
   title: string;
   body: string;
+  /** translucent = value prop (white/5); white = stats band. */
+  background?: 'translucent' | 'white';
+  /** Horizontal inset on the inner body. 18px on the value prop, 0 on stats. */
+  bodyInset?: number;
+  /** Heading level — h4 on the value prop, h3 on the stats band. */
+  as?: 'h3' | 'h4';
 }
 
-const { icon, title, body } = Astro.props;
+const {
+  icon,
+  title,
+  body,
+  background = 'translucent',
+  bodyInset = 18,
+  as: Heading = 'h4',
+} = Astro.props;
 ---
 
 <div
-  class="mb-6 rounded-3xl bg-white/5 p-6 text-center shadow-[0_16px_32px_0_rgba(17,65,122,0.05)]"
+  class:list={[
+    'mb-6 rounded-3xl p-6 text-center shadow-[0_16px_32px_0_rgba(17,65,122,0.05)]',
+    background === 'white' ? 'bg-white' : 'bg-white/5',
+  ]}
 >
-  <div class="mx-[18px] max-w-[300px]">
+  <div style={`margin-inline:${bodyInset}px`}>
     {/* 9px, not the original's 8.96 — the fraction truncates to a 32px offset
         from the card top here, where the original computes 33. */}
     <div class="mt-[9px] mb-6 flex justify-center">
@@ -35,9 +54,9 @@ const { icon, title, body } = Astro.props;
       </span>
     </div>
 
-    <h4 class="mb-6 font-display text-[20px] leading-[28px] font-bold text-navy">
+    <Heading class="mb-6 font-display text-[20px] leading-[28px] font-bold text-navy">
       {title}
-    </h4>
+    </Heading>
 
     <p class="mb-6 text-[16px] leading-[22.4px] text-navy">
       {body}
