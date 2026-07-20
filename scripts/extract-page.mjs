@@ -115,6 +115,49 @@ const data = await page.evaluate(() => {
       }));
     })(),
 
+    // .module--timeline: alternating items around a centre bar.
+    timeline: (() => {
+      const items = Array.from(document.querySelectorAll('.timeline__item'));
+      if (!items.length) return null;
+      return items.map((it) => {
+        const textEl = it.querySelector('.timeline__text');
+        const heading = textEl?.querySelector('h2, h3, h4, strong, b');
+        return {
+          badge: text(it.querySelector('.timeline__badge')) || null,
+          title: text(heading) || null,
+          body: (() => {
+            const paras = Array.from(textEl?.querySelectorAll('p') ?? []).map((x) => text(x)).filter(Boolean);
+            return paras.find((t) => t !== text(heading)) ?? null;
+          })(),
+          image: src(it.querySelector('.timeline__img img')),
+        };
+      });
+    })(),
+
+    // Audience sections: an image-box beside a properties list (voor-wie).
+    audienceBlocks: (() => {
+      const rows = Array.from(document.querySelectorAll('.row-fluid-wrapper.row-depth-1')).filter(
+        (r) =>
+          r.querySelector('.module--image-box') &&
+          r.querySelector('.module--properties') &&
+          r.getBoundingClientRect().height > 300,
+      );
+      if (!rows.length) return null;
+      return rows.map((r) => {
+        const img = Array.from(r.querySelectorAll('img')).find((i) => i.getBoundingClientRect().width > 100);
+        const rect = img?.getBoundingClientRect();
+        return {
+          title: text(r.querySelector('h2, h3')),
+          body: Array.from(r.querySelectorAll('p')).map((x) => text(x)).filter((t) => t.length > 30)[0] ?? null,
+          image: src(img),
+          imageRight: rect ? rect.left > window.innerWidth / 2 : false,
+          properties: Array.from(r.querySelectorAll('.properties__item')).map((pi) => ({
+            label: text(pi.querySelector('.properties__text')) || text(pi),
+          })),
+        };
+      });
+    })(),
+
     // .go-card grids (customer cases, listings).
     goCards: (() => {
       const cards = Array.from(document.querySelectorAll('.go-card'));

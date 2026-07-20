@@ -5,6 +5,7 @@ import FeatureBand from '../../components/sections/FeatureBand.astro';
 import FeatureCard from '../../components/ui/FeatureCard.astro';
 import ContactCta from '../../components/sections/ContactCta.astro';
 import Reveal from '../../components/ui/Reveal.astro';
+import Timeline from '../../components/ui/Timeline.astro';
 import { resolveIcon } from '../../lib/icons';
 import page from '../../i18n/pages/nl-over-ons.json';
 
@@ -31,6 +32,17 @@ const band = page.properties.map((p, i) => ({ icon: bandIcons[i % 4], label: p.l
       </Reveal>
     </div>
   </section>
+
+  {page.timeline && (
+    <section class="bg-mist px-6 py-[50px]">
+      <div class="mx-auto max-w-[1200px]">
+        <h2 class="mb-10 text-center font-display text-[30px] leading-[38px] font-bold text-navy">
+          {page.headings[2] ?? 'Ons verhaal'}
+        </h2>
+        <Timeline items={page.timeline} />
+      </div>
+    </section>
+  )}
 
   <ContactCta intro={null} />
 </Base>

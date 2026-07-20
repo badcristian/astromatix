@@ -74,6 +74,78 @@
     "De technologische motor achter jouw klantadvies"
   ],
   "featshow": null,
+  "timeline": null,
+  "audienceBlocks": [
+    {
+      "title": "Maximaal resultaat met minimale tijdsinvestering",
+      "body": "Je hebt geen fulltime recruitment-afdeling, maar je hebt wél die ene cruciale nieuwe collega nodig. Jobmatix fungeert als jouw 'digitale recruiter'. Wij nemen het complexe werk van jobboards, biedingen en teksten schrijven uit handen. Zo concurreer je moeiteloos met de grote spelers op de arbeidsmarkt, terwijl jij je gewoon op je bedrijfsvoering kunt storten.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Doelgroepen1.jpg",
+      "imageRight": false,
+      "properties": [
+        {
+          "label": "Gebruiksgemak"
+        },
+        {
+          "label": "Snelheid"
+        },
+        {
+          "label": "Resultaat"
+        }
+      ]
+    },
+    {
+      "title": "Strategische grip op grootschalige werving",
+      "body": "Voor de corporate recruiter is overzicht heilig. Hoe behoud je de controle over je employer brand en je budget als je op tientallen locaties tegelijk werft? Jobmatix biedt de structuur die je nodig hebt. Wij centraliseren je recruitment advertising en automatiseren de uitvoering, zodat jouw team de handen vrij heeft voor strategisch talentmanagement en interne verantwoording.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Doelgroepen23.jpg",
+      "imageRight": true,
+      "properties": [
+        {
+          "label": "Schaalbaar"
+        },
+        {
+          "label": "Compliance"
+        },
+        {
+          "label": "Controle"
+        }
+      ]
+    },
+    {
+      "title": "Versnel je time-to-hire en vergroot je marge",
+      "body": "In de wereld van uitzenden en detacheren is snelheid alles. De kandidaat die jij vandaag niet spreekt, zit morgen bij de concurrent. Jobmatix geeft je die voorsprong. Onze algoritmes zorgen dat jouw vacatures altijd bovenaan staan op het juiste moment tegen de laagste kosten. Wij optimaliseren je bereik terwijl jij de matches maakt.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Doelgroepen24.jpg",
+      "imageRight": false,
+      "properties": [
+        {
+          "label": "Conversie"
+        },
+        {
+          "label": "Snelheid"
+        },
+        {
+          "label": "Marktaandeel"
+        }
+      ]
+    },
+    {
+      "title": "De technologische motor achter jouw klantadvies",
+      "body": "Als mediabureau wil je je klanten de beste ROI bieden en je eigen operatie schaalbaar maken. Jobmatix biedt de white-label kracht en data-insights die jouw bureau nodig heeft om te excelleren. Gebruik onze programmatic advertising platform om campagnes voor je volledige portfolio te automatiseren en onderbouw je succes met rapportages die er echt toe doen.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Doelgroepen25.jpg",
+      "imageRight": true,
+      "properties": [
+        {
+          "label": "Efficiëntie"
+        },
+        {
+          "label": "Datagedreven"
+        },
+        {
+          "label": "Partnerships"
+        }
+      ]
+    }
+  ],
+  "goCards": null,
   "imageTextBlocks": [],
   "quote": null,
   "quickfeat": null,
