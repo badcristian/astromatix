@@ -9,6 +9,7 @@ import Timeline from '../../components/ui/Timeline.astro';
 import { resolveIcon } from '../../lib/icons';
 import page from '../../i18n/pages/nl-over-ons.json';
 import { ctaHeading } from '../../lib/cta';
+import { bandFor, heroBand } from '../../lib/bands';
 
 // No <h1> on the original — rendered here deliberately.
 const bandIcons = ['download', 'expand', 'send', 'arrow'] as const;
@@ -44,9 +45,9 @@ const heroBlock = block('Alles over Jobmatix');
       </Reveal>
     </div>
   </section>
-
+    {/* fog (#f8f9fb) on the original, not mist. */}
   {page.timeline && (
-    <section class="bg-mist px-6 py-[50px]">
+    <section class="px-6 py-[50px]" style={`background-color:${bandFor(page, 'Onze kernwaarden') ?? '#f8f9fb'}`}>
       <div class="mx-auto max-w-[1200px]">
         <h2 class="mb-10 text-center font-display text-[30px] leading-[38px] font-bold text-navy">
           {heading('Ons verhaal') ?? 'Ons verhaal'}
@@ -56,5 +57,5 @@ const heroBlock = block('Alles over Jobmatix');
     </section>
   )}
 
-  <ContactCta title={ctaHeading(page, "over-ons")} intro={null} />
+  <ContactCta title={ctaHeading(page, "over-ons")} intro={null} band={bandFor(page, "Maak deel uit")} />
 </Base>

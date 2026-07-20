@@ -5,6 +5,7 @@ import Accordion from '../components/ui/Accordion.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../lib/icons';
 import page from '../i18n/pages/veel-gestelde-vragen.json';
+import { bandFor, heroBand } from '../lib/bands';
 
 // The original splits its five questions across three accordions, each under
 // its own category heading. The extractor now carries that group with each
@@ -31,7 +32,7 @@ const categoryCards = page.compactCards
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={page.hero.title} />
+  <PageHero title={page.hero.title} band={heroBand(page)} />
 
   {categoryCards.length > 0 && (
     <section class="px-6 pt-14">
@@ -46,7 +47,7 @@ const categoryCards = page.compactCards
     </section>
   )}
 
-  <section class="bg-mist px-6 py-24">
+  <section class="px-6 py-24" style={`background-color:${bandFor(page, "Accountbeheer") ?? "#f8f9fb"}`}>
     <div class="mx-auto max-w-[900px] rounded-3xl bg-white px-6 py-24">
       {groupOrder.map((name, i) => (
         <div class:list={[i > 0 && 'mt-14']}>

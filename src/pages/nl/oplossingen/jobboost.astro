@@ -12,6 +12,7 @@ import PricingTier from '../../../components/ui/PricingTier.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../../lib/icons';
 import page from '../../../i18n/pages/nl-oplossingen-jobboost.json';
+import { bandFor, heroBand } from '../../../lib/bands';
 
 
 // Shares jobadvertising's shape but without the featshow and steps modules.
@@ -126,5 +127,5 @@ const faqImage = (() => {
     </div>
   </section>
 
-  <ContactCta title={ctaHeading!} intro={null} />
+  <ContactCta title={ctaHeading!} intro={null} band={bandFor(page, "Klaar om jouw")} />
 </Base>

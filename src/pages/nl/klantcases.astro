@@ -7,6 +7,7 @@ import Reveal from '../../components/ui/Reveal.astro';
 import { resolveIcon } from '../../lib/icons';
 import page from '../../i18n/pages/nl-klantcases.json';
 import { ctaHeading } from '../../lib/cta';
+import { bandFor, heroBand } from '../../lib/bands';
 
 // The original ships no <h1> here (as on jobboost, over-ons and contact).
 // We render one — three of five marketing pages share that defect, so it is
@@ -56,5 +57,5 @@ const cleanHref = (href: string | null | undefined) =>
     </div>
   </section>
 
-  <ContactCta title={ctaTitle} intro={null} />
+  <ContactCta title={ctaTitle} intro={null} band={bandFor(page, "Benieuwd hoe jij")} />
 </Base>

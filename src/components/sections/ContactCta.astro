@@ -13,18 +13,38 @@ import copy from '../../i18n/home-copy.json';
 interface Props {
   title: string;
   intro?: string | null;
+  /**
+   * Band colour, from the page's own extracted sectionBands.
+   *
+   * NOT constant across the site: navy on /nl/over-ons, mist on /nl/actueel,
+   * fog on the FAQ. Defaults to mist, which is what the homepage uses.
+   */
+  band?: string | null;
 }
-const { title, intro = null } = Astro.props;
+const { title, intro = null, band = null } = Astro.props;
+
+// Navy bands need light text; the light bands keep navy text.
+const onDark = !!band && /rgb\(\s*17,\s*(65|29)/.test(band);
 ---
 
-<section class="bg-mist px-6 py-24">
+<section
+  class="bg-mist px-6 py-24"
+  style={band ? `background-color:${band}` : undefined}
+>
   <div class="mx-auto max-w-[800px]">
     <div class="mx-auto max-w-[650px] text-center">
-      <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+      <h2
+        class:list={[
+          'font-display text-[30px] leading-[33px] font-bold',
+          onDark ? 'text-white' : 'text-navy',
+        ]}
+      >
         {title}
       </h2>
       {intro && (
-        <p class="mt-6 text-[16px] leading-[22.4px] text-navy">{intro}</p>
+        <p class:list={['mt-6 text-[16px] leading-[22.4px]', onDark ? 'text-white' : 'text-navy']}>
+          {intro}
+        </p>
       )}
     </div>
 

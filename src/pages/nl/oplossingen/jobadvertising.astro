@@ -13,6 +13,7 @@ import Steps from '../../../components/ui/Steps.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../../lib/icons';
 import page from '../../../i18n/pages/nl-oplossingen-jobadvertising.json';
+import { bandFor, heroBand } from '../../../lib/bands';
 
 // Section map measured on the original @1440 (page height 4890):
 //   hero        y=85   h=552  navy, padding 100/24/0
@@ -144,5 +145,5 @@ const faqImage = (() => {
     </div>
   </section>
 
-  <ContactCta title={ctaHeading!} intro={null} />
+  <ContactCta title={ctaHeading!} intro={null} band={bandFor(page, "Klaar om jouw")} />
 </Base>

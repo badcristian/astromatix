@@ -17,6 +17,8 @@ const blocks = (page.audienceBlocks ?? []).map((b) => ({ ...b, img: resolveIcon(
 // No ContactCta on this page. The original /voor-wie carries no form and no
 // closing CTA section at all — it ends at the fourth audience block. Appending
 // the shared strip added a form the page does not have.
+
+const audienceBand = page.sectionBands?.[0]?.color ?? null;
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
@@ -24,9 +26,14 @@ const blocks = (page.audienceBlocks ?? []).map((b) => ({ ...b, img: resolveIcon(
     title={page.hero.title}
     subtitle={page.headings.find((h) => h.startsWith('De oplossing voor elke')) ?? null}
   />
-
+    {/* The alternating band is rgb(250,250,250) on the original — neither
+        mist (#f5f5ff) nor fog (#f8f9fb). Read from the page's own data rather
+        than guessed at from the two colours the rest of the site uses. */}
   {blocks.map((block, i) => (
-    <section class:list={['px-6 py-[75px]', i % 2 === 1 && 'bg-mist']}>
+    <section
+      class="px-6 py-[75px]"
+      style={i % 2 === 1 ? `background-color:${audienceBand ?? '#fafafa'}` : undefined}
+    >
       <Reveal
         variant={block.imageRight ? 'right' : 'left'}
         duration={1000}

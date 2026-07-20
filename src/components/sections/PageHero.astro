@@ -40,9 +40,16 @@ interface Props {
    * heading legible while the photo loads.
    */
   background?: string | null;
+  /**
+   * Band colour behind the hero, as a resolved CSS colour from the extractor.
+   *
+   * Navy on most pages but INK (#111d29) on /veel-gestelde-vragen — hard-coding
+   * bg-navy shipped the wrong colour there. See src/lib/bands.ts.
+   */
+  band?: string | null;
 }
 
-const { title, subtitle, cta, background = null } = Astro.props;
+const { title, subtitle, cta, background = null, band = null } = Astro.props;
 const bg = resolveIcon(background);
 ---
 
@@ -50,7 +57,10 @@ const bg = resolveIcon(background);
     is 100, with another 100 inside), not the 100 first assumed. */}
 <section
   class="bg-navy bg-cover bg-center px-6 pt-[200px] pb-[60px] text-center text-white"
-  style={bg ? `background-image:url(${bg.src})` : undefined}
+  style={[
+    band ? `background-color:${band}` : '',
+    bg ? `background-image:url(${bg.src})` : '',
+  ].filter(Boolean).join(';') || undefined}
 >
   <div class="container-site">
     <h1 class="font-display text-[40px] leading-[52px] font-bold text-white">
