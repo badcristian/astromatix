@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Content images pulled out of a page body by the contentImages extractor.
+//
+// Square tiles (the klantcases' sector marks) sit in a row at a fixed 200px;
+// wide photos run the full column. Height is never forced — these images do
+// not share an aspect ratio and the original lets it follow the width.
+interface Props {
+  images: { resolved?: ImageMetadata; width: number; height: number }[];
+}
+const { images } = Astro.props;
+---
+
+{images.length > 0 && (
+  <section class="px-6 pb-10">
+    <div class="mx-auto flex max-w-[850px] flex-wrap items-center justify-center gap-6">
+      {images.map((img) => (
+        <Image
+          src={img.resolved!}
+          alt=""
+          width={img.width}
+          height={img.height}
+          class:list={[
+            'h-auto rounded-3xl',
+            img.width > 400 ? 'w-full' : 'w-[130px] sm:w-[200px]',
+          ]}
+        />
+      ))}
+    </div>
+  </section>
+)}

@@ -5,6 +5,8 @@ import QuickFeat from '../../../../components/ui/QuickFeat.astro';
 import ContactCta from '../../../../components/sections/ContactCta.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../../../lib/icons';
+import Figures from '../../../../components/ui/Figures.astro';
+import Narrative from '../../../../components/ui/Narrative.astro';
 import { KLANTCASES, caseData } from '../../../../lib/klantcases';
 
 // Six customer stories, one template.
@@ -57,33 +59,15 @@ const imagesFor = (headingText: string | null | undefined) =>
     </section>
   )}
 
-  {c.intro && (
-    <section class="px-6 py-16">
-      <div class="mx-auto max-w-[850px] rounded-3xl bg-fog p-8">
-        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
-          {c.intro.title}
-        </h2>
-        <p class="mt-4 text-[16px] leading-[26px] text-navy">{c.intro.body}</p>
-      </div>
-    </section>
-  )}
+  {/*
+    SECTION ORDER IS INTERLEAVED AND NOT THE OBVIOUS ONE.
 
-
-{imagesFor(c.intro?.title).length > 0 && (
-  <section class="px-6 pb-10">
-    <div class="mx-auto flex max-w-[850px] flex-wrap items-center justify-center gap-6">
-      {imagesFor(c.intro?.title).map((img) => (
-        <Image
-          src={img.resolved!}
-          alt=""
-          width={img.width}
-          height={img.height}
-          class:list={[img.width > 400 ? 'w-full rounded-3xl' : 'w-[200px]']}
-        />
-      ))}
-    </div>
-  </section>
-)}
+    The original runs: lead -> Uitdaging -> the client intro card -> Oplossing
+    -> quickfeat -> Resultaat. An earlier version rendered the intro card first
+    and the quickfeat last, which reads naturally and is wrong. At 1440 the net
+    was only +256 because the errors cancelled; at 390 measure.mjs showed the
+    giveaway alternating steps (-2346, +1941, -2077).
+  */}
 
   {c.lead && (
     <section class="px-6 pb-8">
@@ -98,44 +82,24 @@ const imagesFor = (headingText: string | null | undefined) =>
     </section>
   )}
 
+  <Figures images={imagesFor(c.lead?.heading)} />
 
-{imagesFor(c.lead?.heading).length > 0 && (
-  <section class="px-6 pb-10">
-    <div class="mx-auto flex max-w-[850px] flex-wrap items-center justify-center gap-6">
-      {imagesFor(c.lead?.heading).map((img) => (
-        <Image
-          src={img.resolved!}
-          alt=""
-          width={img.width}
-          height={img.height}
-          class:list={[img.width > 400 ? 'w-full rounded-3xl' : 'w-[200px]']}
-        />
-      ))}
-    </div>
-  </section>
-)}
+  {c.narrative[0] && <Narrative section={c.narrative[0]} images={imagesFor(c.narrative[0].heading)} />}
 
-  {c.narrative.map((section) => (
-    <section class="px-6 pb-14">
-      <div class="mx-auto max-w-[850px]">
+  {c.intro && (
+    <section class="px-6 py-10">
+      <div class="mx-auto max-w-[850px] rounded-3xl bg-fog p-8">
         <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
-          {section.heading}
+          {c.intro.title}
         </h2>
-        {section.body.map((para) => (
-          <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
-        ))}
-        {imagesFor(section.heading).map((img) => (
-          <Image
-            src={img.resolved!}
-            alt=""
-            width={img.width}
-            height={img.height}
-            class="mt-8 w-full rounded-3xl"
-          />
-        ))}
+        <p class="mt-4 text-[16px] leading-[26px] text-navy">{c.intro.body}</p>
       </div>
     </section>
-  ))}
+  )}
+
+  <Figures images={imagesFor(c.intro?.title)} />
+
+  {c.narrative[1] && <Narrative section={c.narrative[1]} images={imagesFor(c.narrative[1].heading)} />}
 
   {c.quickfeat.length > 0 && (
     <section class="bg-mist px-6 py-20">
@@ -144,6 +108,8 @@ const imagesFor = (headingText: string | null | undefined) =>
       </div>
     </section>
   )}
+
+  {c.narrative[2] && <Narrative section={c.narrative[2]} images={imagesFor(c.narrative[2].heading)} />}
 
   {c.contacts.length > 0 && (
     <section class="px-6 py-16">

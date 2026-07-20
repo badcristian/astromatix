@@ -26,7 +26,18 @@ const { image, name, title, href } = Astro.props;
   href={href}
   class="mb-6 block overflow-hidden rounded-3xl bg-fog transition-opacity hover:opacity-90"
 >
-  <Image src={image} alt="" width={363} height={272} densities={[1, 2]} class="w-full object-cover" />
+  {/* 2:1, at every viewport. Measured on the original: 384x192 at 1440,
+      224x112 at 768, 342x171 at 390 — the ratio never changes. The previous
+      363x272 was 4:3 and ran each card ~85px tall, which on /nl/klantcases is
+      six cards' worth. */}
+  <Image
+    src={image}
+    alt=""
+    width={384}
+    height={192}
+    densities={[1, 2]}
+    class="aspect-[2/1] w-full object-cover"
+  />
 
   <div class="flex items-center justify-between p-6">
     <div class="w-[245px]">

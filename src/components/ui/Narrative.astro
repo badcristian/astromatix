@@ -1,0 +1,24 @@
+---
+import Figures from './Figures.astro';
+import type { ImageMetadata } from 'astro';
+
+// One Uitdaging / Oplossing / Resultaat block of a case study, with any
+// content images that anchor to its heading.
+interface Props {
+  section: { heading: string; body: string[] };
+  images: { resolved?: ImageMetadata; width: number; height: number }[];
+}
+const { section, images } = Astro.props;
+---
+
+<section class="px-6 pb-14">
+  <div class="mx-auto max-w-[850px]">
+    <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+      {section.heading}
+    </h2>
+    {section.body.map((para) => (
+      <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+    ))}
+  </div>
+</section>
+<Figures images={images} />
