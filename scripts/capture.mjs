@@ -122,21 +122,33 @@ async function forceLazyLoad(page) {
  * screenshot that follows is viewport-height, not fullPage — these capture a
  * transient UI state, not the whole document.
  *
- * `viewports` restricts a state to widths where it exists at all (the mobile
- * menu has no desktop equivalent).
+ * Trigger selectors differ per target: the original is HubSpot theme markup
+ * (.mnav__open, .splide__arrow--next), the rebuild uses semantic data-*
+ * attributes. `sel()` resolves the right one. The *result* selectors
+ * (body.mnav-active, .header--sticky-active) are deliberately identical in
+ * both, because the rebuild mirrors those state class names.
+ *
+ * `viewports` restricts a state to widths where it exists (the mobile menu has
+ * no desktop equivalent). `skipFor` skips a state on a target where the
+ * component does not exist yet, so a not-yet-built carousel reports as skipped
+ * rather than as a 30s timeout.
  */
+const sel = (map) => map[target] ?? map.original;
+
 const STATES = {
   'menu-open': {
     viewports: ['390'],
     async apply(page) {
-      await page.click('.mnav__open');
-      // .mnav__open does NOT toggle — closing requires .mnav__close. Clicking
-      // it twice leaves the menu open and silently corrupts later captures.
+      await page.click(sel({ original: '.mnav__open', rebuild: '[data-menu-open]' }));
+      // The open control does NOT toggle — closing requires a separate close
+      // control. Clicking it twice leaves the menu open and silently corrupts
+      // later captures. The rebuild mirrors this behaviour.
       await page.waitForSelector('body.mnav-active', { timeout: 5_000 });
       await page.waitForTimeout(500);
     },
   },
   'accordion-open': {
+    skipFor: ['rebuild'], // accordion component not built yet
     async apply(page) {
       await page.click('.accordion__header');
       await page.waitForSelector('.accordion__item--expanded', { timeout: 5_000 });
@@ -146,6 +158,8 @@ const STATES = {
   'nav-stuck': {
     viewports: ['1440'],
     async apply(page) {
+      // Needs a page tall enough to scroll. While the rebuild is still a
+      // placeholder shell this will time out — that is accurate, not a bug.
       await page.evaluate(() => window.scrollTo(0, 600));
       await page.waitForSelector('.header--sticky-active', { timeout: 5_000 });
       await page.waitForTimeout(400);
@@ -154,15 +168,17 @@ const STATES = {
   'hover-cta': {
     viewports: ['1440'],
     async apply(page) {
-      // The header renders three button sets (__static / __sticky / __overlap)
-      // and hides all but one, so a bare `.btn--fill` matches a hidden node and
-      // hover waits forever on actionability. `:visible` picks the live one.
-      await page.hover('.btn--fill:visible');
+      // On the original the header renders three button sets (__static /
+      // __sticky / __overlap) and hides all but one, so a bare `.btn--fill`
+      // matches a hidden node and hover waits forever on actionability.
+      // `:visible` picks the live one.
+      await page.hover(sel({ original: '.btn--fill:visible', rebuild: '[data-cta]:visible' }));
       await page.waitForTimeout(400);
     },
   },
   'slider-2': {
     viewports: ['1440'],
+    skipFor: ['rebuild'], // carousel not built yet
     async apply(page) {
       await page.click('.splide__arrow--next');
       await page.waitForTimeout(800);
@@ -170,6 +186,7 @@ const STATES = {
   },
   'slider-3': {
     viewports: ['1440'],
+    skipFor: ['rebuild'], // carousel not built yet
     async apply(page) {
       await page.click('.splide__arrow--next');
       await page.waitForTimeout(800);
@@ -248,6 +265,10 @@ async function capture(context, { slug, path: urlPath, wide, states }) {
         continue;
       }
       if (state.viewports && !state.viewports.includes(vp.label)) continue;
+      if (state.skipFor?.includes(target)) {
+        console.log(`   – ${slug} @${vp.label} [${name}] skipped (not built for ${target})`);
+        continue;
+      }
 
       let statePage;
       try {

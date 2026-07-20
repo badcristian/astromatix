@@ -1,0 +1,173 @@
+---
+import { Image } from 'astro:assets';
+import logoNavy from '../../assets/logo-jobmatix-navy.png';
+import { nav, cta, a11y } from '../../i18n/nl';
+
+// Measured from the live site @1440:
+//   header height 85px, white bg, logo 180×39, nav links Manrope 20/400 navy,
+//   CTA lilac #dc93e1, radius 10px, Manrope 500 18px, padding 14px 18px.
+---
+
+<header
+  class="site-header sticky top-0 z-50 w-full bg-white"
+  data-header
+>
+  <div class="container-site flex h-[85px] items-center justify-between gap-6">
+    <a href="/nl/" aria-label={a11y.home} class="shrink-0">
+      <Image src={logoNavy} alt="Jobmatix" width={180} densities={[1, 2]} />
+    </a>
+
+    <!-- desktop nav -->
+    <nav class="hidden items-center gap-8 lg:flex" aria-label="Hoofdmenu">
+      {nav.map((item) => (
+        <div class="group relative">
+          {item.href ? (
+            <a
+              href={item.href}
+              class="flex items-center gap-1 text-[20px] text-navy transition-opacity hover:opacity-70"
+            >
+              {item.label}
+              {item.children && <span class="chevron" aria-hidden="true" />}
+            </a>
+          ) : (
+            <button
+              type="button"
+              class="flex cursor-default items-center gap-1 text-[20px] text-navy transition-opacity hover:opacity-70"
+              aria-expanded="false"
+            >
+              {item.label}
+              <span class="chevron" aria-hidden="true" />
+            </button>
+          )}
+
+          {item.children && (
+            <div
+              class="invisible absolute left-0 top-full min-w-[220px] rounded-xl bg-white py-2 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100"
+            >
+              {item.children.map((child) => (
+                <a
+                  href={child.href}
+                  class="block px-5 py-2 text-[18px] text-navy hover:bg-mist"
+                >
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <!-- Search trigger: 20×20 navy icon, sits ~58px before the CTA on the
+           original, separated by a hairline divider. The search overlay itself
+           is HubSpot-backed (/hs-search-results) and is out of scope, so this
+           is presentational for now. -->
+      <button
+        type="button"
+        class="hidden text-navy transition-opacity hover:opacity-70 lg:block"
+        aria-label={a11y.openSearch}
+        data-search-open
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+          <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <span class="hidden h-6 w-px bg-navy/20 lg:block" aria-hidden="true"></span>
+
+      <a
+        href={cta.href}
+        data-cta
+        class="hidden rounded-[10px] bg-lilac px-[18px] py-[14px] text-[18px] font-medium text-white transition-opacity hover:opacity-90 lg:inline-block"
+      >
+        {cta.label}
+      </a>
+
+      <!-- mobile menu trigger -->
+      <button
+        type="button"
+        class="lg:hidden"
+        aria-label={a11y.openMenu}
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        data-menu-open
+      >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile nav panel -->
+<div
+  id="mobile-nav"
+  class="fixed inset-0 z-[60] hidden bg-white lg:hidden"
+  data-mobile-nav
+>
+  <div class="flex h-[85px] items-center justify-end px-6">
+    <button type="button" aria-label={a11y.closeMenu} data-menu-close>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+
+  <nav class="px-6" aria-label="Mobiel menu">
+    {nav.map((item) => (
+      <div class="border-b border-navy/10">
+        <a
+          href={item.href ?? '#'}
+          class="block py-4 text-[18px] text-navy"
+        >
+          {item.label}
+        </a>
+      </div>
+    ))}
+
+    <a
+      href={cta.href}
+      class="mt-8 inline-block rounded-[10px] bg-orange px-6 py-4 text-[18px] text-white"
+    >
+      {cta.label}
+    </a>
+  </nav>
+</div>
+
+<style>
+  .chevron {
+    width: 0.6em;
+    height: 0.6em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-0.15em);
+  }
+</style>
+
+<script>
+  // Deliberately mirrors the original's behaviour: the open control does NOT
+  // toggle — there is a separate close control.
+  const panel = document.querySelector<HTMLElement>('[data-mobile-nav]');
+  const openBtn = document.querySelector<HTMLElement>('[data-menu-open]');
+  const closeBtn = document.querySelector<HTMLElement>('[data-menu-close]');
+
+  const setOpen = (open: boolean) => {
+    panel?.classList.toggle('hidden', !open);
+    document.body.classList.toggle('mnav-active', open);
+    openBtn?.setAttribute('aria-expanded', String(open));
+  };
+
+  openBtn?.addEventListener('click', () => setOpen(true));
+  closeBtn?.addEventListener('click', () => setOpen(false));
+
+  // Sticky state class, matching the original's .header--sticky-active.
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const onScroll = () => {
+    header?.classList.toggle('header--sticky-active', window.scrollY > 66);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

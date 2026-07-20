@@ -1,1 +1,63 @@
 @import "tailwindcss";
+
+/* Self-hosted, no third-party font requests. The original loads these through
+   HubSpot's Google-Fonts proxy. */
+@import "@fontsource-variable/manrope";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/700.css";
+
+/* Design tokens.
+   The original site has NO CSS custom properties — tokens are baked into
+   per-instance generated CSS across ~45 module stylesheets. Everything below
+   was measured from computed styles on the live site, not read off a summary.
+
+   Colour usage counts (visible elements, homepage @1440):
+     #11417a  1425   navy — headings, body text, icons, footer bg
+     #ffffff    98
+     #111d29    48   ink — dark sections
+     #ff6b00    22   orange — the dominant CTA/accent
+     #f5f5ff    22   mist — light section backgrounds
+     #f8f9fb     3   fog — subtle alternate section background
+     #dc93e1     1   lilac — desktop header button only
+
+   Orange and lilac are BOTH CTA colours in different contexts (mobile menu
+   button is orange, desktop header button is lilac). Do not collapse them.
+
+   Jost is declared in the original theme but has ZERO computed uses. Dropped. */
+@theme {
+  --color-navy: #11417a;
+  --color-ink: #111d29;
+  --color-orange: #ff6b00;
+  --color-lilac: #dc93e1;
+  --color-mist: #f5f5ff;
+  --color-fog: #f8f9fb;
+
+  /* Manrope is the body face (752 uses), Poppins is display (29 uses). */
+  --font-sans: "Manrope Variable", Manrope, ui-sans-serif, system-ui, sans-serif;
+  --font-display: Poppins, ui-sans-serif, system-ui, sans-serif;
+
+  /* Mirrors the original's 479 / 767 / 1139 breakpoints. */
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1140px;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-navy);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+}
+
+/* Measured: header inner is 1248px wide at a 1440 viewport, 24px side padding. */
+@utility container-site {
+  width: 100%;
+  max-width: 1248px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}

@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import logoWhite from '../../assets/logo-jobmatix-white.png';
+import { footer } from '../../i18n/nl';
+
+// Measured from the live site @1440:
+//   footer__section--main  384px tall, padding 96px 0, bg navy #11417a
+//   footer__center         192px content, CENTRED stack (not columns)
+//   footer__nav             52px row of horizontal links
+//   logo rendered at 98px wide, Manrope throughout
+const year = new Date().getFullYear();
+
+const socialPaths: Record<string, string> = {
+  LinkedIn:
+    'M19 3A2 2 0 0121 5v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.34 18V10.4H6v7.6h2.34zM7.17 9.32a1.36 1.36 0 100-2.72 1.36 1.36 0 000 2.72zM18 18v-4.17c0-2.24-1.2-3.28-2.79-3.28-1.29 0-1.86.71-2.18 1.2V10.4h-2.34V18h2.34v-4.24c0-1.12.21-2.2 1.6-2.2 1.37 0 1.39 1.28 1.39 2.27V18H18z',
+  Instagram:
+    'M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.8 3.8 0 01-1.38-.9 3.8 3.8 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.68a4.16 4.16 0 100 8.32 4.16 4.16 0 000-8.32zm0 6.86a2.7 2.7 0 110-5.4 2.7 2.7 0 010 5.4zm5.3-7.02a.97.97 0 11-1.94 0 .97.97 0 011.94 0z',
+  Facebook:
+    'M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.77-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0022 12z',
+};
+---
+
+<footer class="bg-navy py-24 text-white">
+  <div class="container-site flex flex-col items-center gap-5 text-center">
+    <a href="/nl/" aria-label="Jobmatix">
+      <Image src={logoWhite} alt="Jobmatix" width={98} densities={[1, 2]} />
+    </a>
+
+    <nav
+      class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2"
+      aria-label="Footer"
+    >
+      {footer.links.map((link) => (
+        <a
+          href={link.href}
+          class="text-[16px] text-white/90 transition-opacity hover:opacity-70"
+          {...(link.external ? { rel: 'noopener', target: '_blank' } : {})}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex gap-4">
+      {footer.socials.map((social) => (
+        <a
+          href={social.href}
+          aria-label={social.label}
+          rel="noopener"
+          target="_blank"
+          class="transition-opacity hover:opacity-70"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d={socialPaths[social.label]} />
+          </svg>
+        </a>
+      ))}
+    </div>
+
+    {/* The original separates the two legal links with a literal pipe. */}
+    <div class="flex flex-wrap items-center justify-center gap-3 text-[16px] text-white/90">
+      {footer.legal.map((link, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true">|</span>}
+          <a href={link.href} class="transition-opacity hover:opacity-70">
+            {link.label}
+          </a>
+        </>
+      ))}
+    </div>
+
+    <p class="text-[16px] text-white/90">Copyright &copy; {year} -</p>
+  </div>
+</footer>
