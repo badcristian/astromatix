@@ -310,7 +310,42 @@ Known remaining difference of this kind: `PageHero` renders the hero subtitle
 as a `<p>` where the original uses an `<h2>`. The copy is identical; the
 document outline differs by one level.
 
-## 24. Known deliberate divergences, deliberately left.
+## 24. A shared "CTA strip" does not belong on every page.
+
+`ContactCta` renders a heading plus a form. Four page families do not want it,
+and appending it cost height AND correctness:
+
+| Page | What the original actually has |
+|---|---|
+| landing / bedankt | already carries its own form — we shipped **two** |
+| blog post | ends at the body; no CTA at all |
+| vacature | its own "Ben jij klaar voor verandering?" apply CTA |
+| voor-wie, FAQ | **no form on the page at all** |
+
+Check `forms:` in the extractor output before adding it. `/nl/demo-aanvragen`
+went 2986 → 2130 purely by removing a form the page already had.
+
+## 25. Component padding measured on one instance breaks on three.
+
+`Accordion` carried the white card's `py-24` **inside** itself. That was right
+when the FAQ rendered a single accordion. Once the category grouping was
+restored it rendered three, applying 96px of vertical padding three times —
+~576px where the original has 192.
+
+Padding that belongs to a *section* must live on the section. If a component
+can appear more than once on a page, its chrome is the caller's business.
+
+## 26. Not every image lives in a module.
+
+The klantcases carry five content images — three square sector tiles and two
+wide photos — and `img.closest('[class*="module--"]')` returns **null** for
+every one. No module-based extractor could see them, so they were absent
+rather than dropped, and that was most of a ~750px shortfall on all six pages.
+
+`contentImages` picks up any `main` image over 120×80 and anchors it to the
+nearest preceding visible heading, so templates place it by content.
+
+## 27. Known deliberate divergences, deliberately left.
 
 - `quickfeat` and over-ons card icons are fallback glyphs: the theme inlines
   the SVG, so there is no URL for the extractor to fetch.
