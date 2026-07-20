@@ -1,0 +1,46 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# build output
+dist/
+.astro/
+.output/
+
+# cloudflare / wrangler
+.wrangler/
+.dev.vars
+
+# scraped reference material + screenshots
+# large, and holds a full copy of the original site — not for handoff
+reference/
+
+# playwright
+test-results/
+playwright-report/
+blob-report/
+/playwright/.cache/
+
+# unrelated pre-existing statusline/usage cache — not ours
+status-cache.json
+
+# env
+.env
+.env.production
+.env.local
+*.local
+
+# editor / OS
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
