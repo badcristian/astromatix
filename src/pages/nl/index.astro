@@ -4,6 +4,12 @@ import Hero from '../../components/sections/Hero.astro';
 import FeatureBand from '../../components/sections/FeatureBand.astro';
 import ValueProp from '../../components/sections/ValueProp.astro';
 import CtaStrip from '../../components/sections/CtaStrip.astro';
+import ProductBlock from '../../components/sections/ProductBlock.astro';
+import copy from '../../i18n/home-copy.json';
+import productJobAdvertising from '../../assets/product-jobadvertising.png';
+import productJobboost from '../../assets/product-jobboost.png';
+
+const blockImages = [productJobAdvertising, productJobboost];
 ---
 
 <Base title="Jobmatix">
@@ -11,6 +17,18 @@ import CtaStrip from '../../components/sections/CtaStrip.astro';
   <FeatureBand />
   <ValueProp />
   <CtaStrip />
-  {/* Remaining sections: product blocks, stats, logo wall, case slider,
-      CTA band. */}
+
+  {copy.productBlocks.map((block, i) => (
+    <ProductBlock
+      title={block.title}
+      body={block.body}
+      image={blockImages[i]}
+      cta={block.cta}
+      {/* Block 1 puts the image on the RIGHT, block 2 on the left. */}
+      reverse={i % 2 === 0}
+      background={i % 2 === 0 ? 'mist' : 'white'}
+    />
+  ))}
+
+  {/* Remaining sections: stats band, case slider, logo wall, final CTA + form. */}
 </Base>

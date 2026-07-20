@@ -73,7 +73,30 @@ const copy = await page.evaluate(() => {
   const stripHeading = stripRow.querySelector('h2, h3, h4');
   const stripBtn = Array.from(stripRow.querySelectorAll('a.btn')).find((b) => b.offsetWidth);
 
+  // --- product blocks (image one side, text the other, sides alternating) ---
+  const readBlock = (innerIdx) => {
+    const inner = rows[innerIdx];
+    const h = inner.querySelector('h2, h3');
+    const body = Array.from(inner.querySelectorAll('p')).find(
+      (p) => text(p).length > 40,
+    );
+    const img = Array.from(inner.querySelectorAll('img')).find(
+      (i) => i.getBoundingClientRect().width > 100,
+    );
+    const btn = Array.from(inner.querySelectorAll('a.btn')).find((b) => b.offsetWidth);
+    return {
+      title: text(h),
+      body: text(body),
+      image: img ? img.getAttribute('src').split('?')[0] : null,
+      cta: {
+        label: text(btn),
+        href: btn?.getAttribute('href')?.replace('https://www.jobmatix.com', '') ?? null,
+      },
+    };
+  };
+
   return {
+    productBlocks: [readBlock(13), readBlock(16)],
     ctaStrip: {
       heading: text(stripHeading),
       cta: {

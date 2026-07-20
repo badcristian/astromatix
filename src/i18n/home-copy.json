@@ -1,4 +1,24 @@
 {
+  "productBlocks": [
+    {
+      "title": "Job Advertising",
+      "body": "Dit is dé alles-in-één oplossing om jouw vacatures te adverteren en optimaliseren. Jouw vacatures worden automatisch geplaatst en geadverteerd op de best passende jobboards en socials, zodat je altijd de juiste doelgroep bereikt. Daarnaast kun je vacatureteksten eenvoudig door AI laten checken en verbeteren, slim adverteren en jouw job marketing continu efficiënter en effectiever maken.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/3%20dashboard%20rechts_-1.png",
+      "cta": {
+        "label": "Alles over Job Advertising",
+        "href": "/nl/oplossingen/jobadvertising"
+      }
+    },
+    {
+      "title": "Jobboost",
+      "body": "Met een Jobboost wordt jouw vacature optimaal geadverteerd op de jobboards die het beste bij de vacature passen. En, door de inzet van slimme programmatic technologie bereikt de vacature de juiste doelgroep en het beste resultaat.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Jobboost%20doelgroep.png",
+      "cta": {
+        "label": "Boost jouw vacature!",
+        "href": "/nl/oplossingen/jobboost"
+      }
+    }
+  ],
   "ctaStrip": {
     "heading": "Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren en optimaliseren?",
     "cta": {
