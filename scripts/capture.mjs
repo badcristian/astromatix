@@ -11,7 +11,7 @@
 // polluted with noise and the whole loop is worthless.
 
 import { chromium } from 'playwright';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, open } from 'node:fs/promises';
 import path from 'node:path';
 import { PAGES, VIEWPORTS, WIDE_VIEWPORT, ORIGIN_BASE } from './pages.mjs';
 
@@ -196,6 +196,24 @@ const STATES = {
   },
 };
 
+/**
+ * Read dimensions straight out of the PNG IHDR chunk (bytes 16..24).
+ *
+ * This exists because a screenshot bug is invisible in logs: the script can
+ * report a correctly *measured* height while writing a truncated file. Verify
+ * the artefact, not the intent.
+ */
+async function pngSize(file) {
+  const fh = await open(file, 'r');
+  try {
+    const buf = Buffer.alloc(24);
+    await fh.read(buf, 0, 24, 0);
+    return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+  } finally {
+    await fh.close();
+  }
+}
+
 /** Open a page, block consent scripts, navigate, and settle it. */
 async function preparePage(context, url, vp, slug) {
   const page = await context.newPage();
@@ -230,15 +248,31 @@ async function capture(context, { slug, path: urlPath, wide, states }) {
       page = prepared.page;
       const { stats } = prepared;
 
-      // Clip to exact viewport width instead of fullPage. fullPage widens the
-      // canvas to scrollWidth, so any horizontal overflow changes the image
-      // dimensions — and odiff reports a dimension mismatch as `layout-diff`,
-      // which would mask every real difference on the page.
+      // fullPage AND clip, together.
+      //   fullPage alone widens the canvas to scrollWidth, so horizontal
+      //     overflow changes image dimensions and odiff reports a layout-diff
+      //     that masks every real difference on the page.
+      //   clip alone is CLAMPED TO THE VIEWPORT — it silently truncates every
+      //     capture to viewport height. (This bit once; the log printed the
+      //     measured height while the PNG on disk was 900px.)
+      // Both together: full scrollable height, pinned to exact viewport width.
+      const file = path.join(dir, `${vp.label}.png`);
       await page.screenshot({
-        path: path.join(dir, `${vp.label}.png`),
+        path: file,
         animations: 'disabled',
+        fullPage: true,
         clip: { x: 0, y: 0, width: vp.width, height: stats.fullHeight },
       });
+
+      // Assert what actually landed on disk.
+      const written = await pngSize(file);
+      if (written.width !== vp.width || written.height !== Math.round(stats.fullHeight)) {
+        console.error(
+          `      ! TRUNCATED: ${slug} @${vp.label} measured ` +
+            `${vp.width}×${Math.round(stats.fullHeight)} but wrote ` +
+            `${written.width}×${written.height}`,
+        );
+      }
 
       const notes = [];
       if (stats.broken) notes.push(`${stats.broken} BROKEN img`);
