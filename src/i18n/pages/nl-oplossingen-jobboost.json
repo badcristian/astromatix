@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "title": "Boost jouw vacature & bereik jouw doelgroep!",
+    "description": "Met een jobboost wordt jouw vacature optimaal geadverteerd op de meest passende jobboards. En dankzij de slimme programmatic technologie van Jobmatix bereik je de juiste doelgroep voor de beste resultaten. ",
+    "hasH1": false
+  },
+  "hero": {
+    "title": "Jobboost",
+    "background": null
+  },
+  "properties": [
+    {
+      "label": "Eenmalig in te zetten",
+      "icon": null
+    },
+    {
+      "label": "Geschikt voor 1 vacature",
+      "icon": null
+    },
+    {
+      "label": "3 opties om uit te kiezen",
+      "icon": null
+    },
+    {
+      "label": "30 dagen actief",
+      "icon": null
+    }
+  ],
+  "featureCards": [
+    {
+      "title": "Kies en activeer de Jobboost voor jouw vacature",
+      "body": "",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%201%20jobboost%20(1).png"
+    },
+    {
+      "title": "De beste jobboards worden automatisch geselecteerd",
+      "body": "",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%202%20jobboost%20blauw.png"
+    },
+    {
+      "title": "Jouw vacature advertentie wordt actief met extra boost",
+      "body": "",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%203%20jobboost%20blauw.png"
+    },
+    {
+      "title": "30 dagen extra boost voor jouw gekozen vacature",
+      "body": "",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%204%20jobboost%20blauw.png"
+    },
+    {
+      "title": "Word extra zichtbaar bij jouw kandidaten",
+      "body": "",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%205%20jobboost%20blauw.png"
+    },
+    {
+      "title": "Vergroot het bereik van jouw vacature bij de juiste doelgroep",
+      "body": "",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%206%20jobboost%20blauw.png"
+    }
+  ],
+  "accordion": [
+    {
+      "question": "Wat kan ik precies met een jobboost doen?",
+      "answer": "<p>Met een jobboost wordt jouw vacature optimaal geadverteerd op de jobboards die het best bij jouw vacature passen. En, door de inzet van slimme programmatic technologie van Jobmatix, bereikt de vacature de juiste doelgroep en de beste resultaten.</p>"
+    },
+    {
+      "question": "Welke jobboards zijn er aangesloten?",
+      "answer": "<p>Met jobboost kun je eenvoudig adverteren op diverse vacaturebanken in Nederland, zoals Talent.com, Indeed, Jobrapido, Adzuna, Joblift, Careerjet en meer. Het mooie aan Jobboost is dat automatisch wordt bepaald welke jobboards het beste presteren, zodat je altijd de beste resultaten behaalt. Hierdoor hoef je zelf niet te kiezen welke jobboards worden ingezet; dat wordt voor je geregeld!</p>"
+    },
+    {
+      "question": "Is het slim om een jobboost in te zetten?",
+      "answer": "<p>Ja, het is slim! Jobboost werkt met data en plaatst jouw vacature efficiënt, wat zorgt voor een optimale balans tussen plaatsing, budget en uiteindelijke kosten. Dit betekent dat je meer en gerichter resultaat voor jouw vacature kunt behalen.</p>"
+    },
+    {
+      "question": "Waarom is er een maximum aan jobboards per pakket?",
+      "answer": "<p>Jobboost kiest automatisch welke jobboards het best presteren voor jouw vacature. Op basis van de specifieke vacature en doelgroep bepaalt de tool hoeveel en welke jobboards nodig zijn om het beste resultaat te bereiken.&nbsp;</p>"
+    },
+    {
+      "question": "Past een Jobboost bij mijn vacature?",
+      "answer": "<p>Weten of jouw vacature past bij Jobboost? We geven je graag vrijblijvend advies! Vul het formulier onderaan op de pagina in en dan nemen we snel contact op. Liever gelijk bellen? Dat kan natuurlijk ook<a href=\"tel:0853036760\" style=\"color: #e9b9ec; text-decoration: none;\"> 085 3036760</a> &nbsp;</p>"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    },
+    {
+      "label": "Kies jouw boost!",
+      "href": "/nl/platform-suite/jobboost#Prijzenjobboost"
+    },
+    {
+      "label": "Boost mijn vacature!",
+      "href": "/jobboost#Contactjobboost"
+    },
+    {
+      "label": "Boost mijn vacature!",
+      "href": "/jobboost#Contactjobboost"
+    },
+    {
+      "label": "Boost mijn vacature!",
+      "href": "/jobboost#Contactjobboost"
+    },
+    {
+      "label": "Plan een gesprek!",
+      "href": "/nl/demo-aanvragen"
+    }
+  ],
+  "headings": [
+    "Jobboost",
+    "Boost jouw vacature en vergroot de zichtbaarheid!",
+    "Kies jouw Jobboost en bereik jouw kandidaten",
+    "Jobboost",
+    "Boost jouw vacature en vergroot de zichtbaarheid!",
+    "Kies jouw Jobboost!",
+    "Veelgestelde vragen",
+    "Klaar om jouw vacature te laten opvallen?"
+  ]
+}

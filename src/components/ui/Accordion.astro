@@ -1,0 +1,48 @@
+---
+// The original's `.accordion`. Measured @1440 on /nl/oplossingen/jobadvertising:
+//   wrapper  white, 24px radius, padding 96px 24px
+//   item     1px #f5f5ff bottom border, 24px bottom padding
+//   header   40px tall, flex space-between, pointer cursor
+//   title    Manrope 400 16px/22.4px navy
+//   details  16px/22.4px navy
+//   chevron  40×40 navy
+//
+// Built on <details>/<summary> so it works without JavaScript and is keyboard
+// and screen-reader accessible by default — the original wires this up with a
+// click handler on a plain div, which is neither.
+
+interface Props {
+  items: { question: string; answer: string }[];
+  /** Index of the item open on load, or null for all closed. */
+  openIndex?: number | null;
+}
+
+const { items, openIndex = null } = Astro.props;
+---
+
+<div class="rounded-3xl bg-white px-6 py-24">
+  {items.map((item, i) => (
+    <details
+      class="group border-b border-mist pb-6 [&:not(:first-child)]:pt-6"
+      open={i === openIndex}
+    >
+      <summary
+        class="flex cursor-pointer list-none items-center justify-between gap-4 text-[16px] leading-[22.4px] text-navy marker:hidden [&::-webkit-details-marker]:hidden"
+      >
+        {item.question}
+        <span
+          class="grid size-10 shrink-0 place-items-center text-navy transition-transform group-open:rotate-180"
+          aria-hidden="true"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </summary>
+
+      <div class="mt-3 text-[16px] leading-[22.4px] text-navy">
+        <Fragment set:html={item.answer} />
+      </div>
+    </details>
+  ))}
+</div>

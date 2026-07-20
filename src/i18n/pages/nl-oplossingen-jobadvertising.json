@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "De beste alles-in-een oplossing voor jouw job marketing!",
+    "description": "Dé complete oplossing voor slimme job marketing: automatisch adverteren op de beste kanalen, AI-ondersteunde tekstoptimalisatie, efficiënter werken, betere resultaten en nog veel meer. ",
+    "hasH1": true
+  },
+  "hero": {
+    "title": "Job Advertising",
+    "background": null
+  },
+  "properties": [
+    {
+      "label": "Abonnement",
+      "icon": null
+    },
+    {
+      "label": "Voor meerdere vacatures",
+      "icon": null
+    },
+    {
+      "label": "1 plek voor al jouw job marketing",
+      "icon": null
+    },
+    {
+      "label": "Programmatic advertising",
+      "icon": null
+    }
+  ],
+  "featureCards": [
+    {
+      "title": "Job marketing via 1 platform",
+      "body": "Vacatures adverteren, teksten optimaliseren, jobboards en meer",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/centraliseren.png"
+    },
+    {
+      "title": "Adverteer jouw vacatures",
+      "body": "Op de beste jobboards, socials en andere kanalen",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%203%20jobboost%20blauw.png"
+    },
+    {
+      "title": "Bereik jouw doelgroep",
+      "body": "Door slim gebruik te maken van programmatic advertising",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%206%20jobboost%20blauw.png"
+    },
+    {
+      "title": "Slim aan de slag",
+      "body": "Gebruik ons slimme en geautomatiseerde platform en bespaar tijd en budget",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%202%20jobboost%20blauw.png"
+    },
+    {
+      "title": "Leer van data",
+      "body": "Optimaliseer vacatures & campagnes voor de beste resultaten",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/overzicht%20.png"
+    }
+  ],
+  "accordion": [
+    {
+      "question": "Voor wie is Job Advertising?",
+      "answer": "<p>Job Advertising is er voor iedereen die vacatures effectief en gericht onder de aandacht wil brengen bij de juiste doelgroep. Met job Advertising kun je eenvoudig je bereik vergroten, geschikte kandidaten aanspreken en je wervingsproces optimaliseren.</p> <p><strong>We kijken graag samen met je of ons platform geschikt is voor jouw organisatie. Tijdens een vrijblijvende demo kun je al je vragen stellen en zie je direct hoe het platform werkt.</strong></p>"
+    },
+    {
+      "question": "Kan ik zelf in het platform?",
+      "answer": "<p>Zeker weten! Je kunt zelf data inzien, campagnes opzetten, beheren, optimaliseren én analyseren. Liever uit handen geven? Dat kan ook! Kies optioneel voor ons campagnebeheer en krijg een echte specialist aan je zijde. Die zorgt niet alleen voor de beste resultaten, maar geeft je ook handige tips.</p>"
+    },
+    {
+      "question": "Hoe werkt programmatic advertising?",
+      "answer": "<p>Programmatic advertising werkt door gebruik te maken van technologie en automatisering om advertenties in real-time te plaatsen op de juiste platforms en bij de juiste doelgroepen. In plaats van handmatig adverteren via specifieke websites, wordt programmatic advertising aangedreven door data en algoritmes die beslissen waar en wanneer je advertenties het beste getoond kunnen worden.&nbsp; <span style=\"color: #e9b9ec;\"><strong><a href=\"/nl/actueel/blogs/programmatic-advertising-de-toekomst-van-job-marketing\" rel=\"noopener\" style=\"color: #e9b9ec;\">Meer leren over programmatic advertising? Lees het hier!</a></strong></span></p>"
+    },
+    {
+      "question": "Past Job Advertising bij mijn bedrijf?",
+      "answer": "<p><span>Laten we dat samen eens bekijken. Vul het formulier onderaan op de pagina in en ontvang vrijblijvend advies.&nbsp;</span><span></span><span>Liever gelijk bellen? Dat kan natuurlijk ook</span><a href=\"tel:0853036760\"><span>&nbsp;</span>085 3036760</a><span>&nbsp;&nbsp;</span></p>"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    },
+    {
+      "label": "Alles ontdekken!",
+      "href": "/nl/platform-suite/jobadvertising#voordelen"
+    },
+    {
+      "label": "Plan een gesprek!",
+      "href": "/nl/demo-aanvragen"
+    }
+  ],
+  "headings": [
+    "De beste alles-in-een oplossingvoor jouw job marketing!",
+    "Job Advertising",
+    "De beste alles-in-een oplossing voor jouw job marketing!",
+    "Bereik altijd de juiste kandidatenmet jouw vacatures",
+    "Alles-in-één oplossing",
+    "Slim adverteren",
+    "Data inzicht",
+    "Meta advertenties",
+    "AI Assistent",
+    "De beste tools voor jouw job marketing",
+    "Let's get your job done....in een paar stappen",
+    "Veelgestelde vragen",
+    "Klaar om jouw vacatures te laten opvallen?"
+  ]
+}
