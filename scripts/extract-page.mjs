@@ -115,6 +115,45 @@ const data = await page.evaluate(() => {
       }));
     })(),
 
+    // Alternating image + text blocks (module--image beside module--rtext).
+    // The platform page is built almost entirely from these; they map onto the
+    // same ProductBlock component the homepage uses.
+    imageTextBlocks: (() => {
+      const rows = Array.from(document.querySelectorAll('.row-fluid-wrapper.row-depth-1'));
+      const blocks = rows.filter((r) => {
+        const b = r.getBoundingClientRect();
+        return (
+          b.height > 200 &&
+          r.querySelector('.module--image') &&
+          r.querySelector('.module--rtext') &&
+          r.querySelector('h2')
+        );
+      });
+      return blocks.map((r) => {
+        const img = Array.from(r.querySelectorAll('img')).find(
+          (i) => i.getBoundingClientRect().width > 120,
+        );
+        const rect = img?.getBoundingClientRect();
+        return {
+          title: text(r.querySelector('h2')),
+          body: Array.from(r.querySelectorAll('p')).map((x) => text(x)).filter((t) => t.length > 30)[0] ?? null,
+          image: src(img),
+          // which side the image sits on, so the rebuild can alternate correctly
+          imageRight: rect ? rect.left > window.innerWidth / 2 : false,
+        };
+      });
+    })(),
+
+    // Single pull-quote (module--quote), distinct from the homepage carousel.
+    quote: (() => {
+      const q = document.querySelector('.module--quote');
+      if (!q) return null;
+      return {
+        text: text(q.querySelector('blockquote, .quote__quote')) || null,
+        author: text(q.querySelector('.compact-card, cite')) || null,
+      };
+    })(),
+
     // .quickfeat: icon-beside-text grid, three across.
     quickfeat: (() => {
       const items = Array.from(document.querySelectorAll('.quickfeat__item'));

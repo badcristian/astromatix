@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "title": "Automate your recruitment marketing met ons platform.",
+    "description": "Ontdek de kracht van ons recruitment marketing platform. Verhoog je zichtbaarheid en vind het beste talent voor jouw organisatie. Betaalbare prijzen, maximale resultaten. Probeer het nu!",
+    "hasH1": true
+  },
+  "hero": {
+    "title": "All-in-one Recruitment Marketing platform Ontdek de mogelijkheden",
+    "background": null
+  },
+  "properties": [],
+  "featureCards": [],
+  "accordion": [],
+  "buttons": [
+    {
+      "label": "Demo aanvragen",
+      "href": "/nl/demo-aanvraag"
+    },
+    {
+      "label": "Ik wil een demo",
+      "href": "/nl/demo-aanvragen"
+    }
+  ],
+  "headings": [
+    "Job data",
+    "Smart automation",
+    "Campaigns",
+    "Onze campaign partners",
+    "Insights",
+    "Jobmatix voordelen"
+  ],
+  "featshow": null,
+  "imageTextBlocks": [
+    {
+      "title": "Job data",
+      "body": "Vacatures worden automatisch geladen, verrijkt en geclassificeerd. AI, Machine Learning en internationale data standaarden zorgen ervoor dat vacatures automatisch aan alle eisen van online kanalen voldoen. Optimaal gemak bij het publiceren van vacatures.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Jobs%20import.jpg",
+      "imageRight": false
+    },
+    {
+      "title": "Smart automation",
+      "body": "Stel automatisch regels in om vacatureteksten en vacaturevelden te verrijken en te optimaliseren. Maak eenvoudig regels aan wanneer vacatures wel of niet geadverteerd moeten worden. Stop automatisch het adverteren op vacatures als een bepaald aantal sollicitaties zijn behaald of als vacatures slecht presteren. Allemaal regels die je eenvoudig zelf aanmaakt.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Job%20data%20rule.jpg",
+      "imageRight": true
+    },
+    {
+      "title": "Campaigns",
+      "body": "Zet in slechts enkele stappen meerdere vacature feeds en type campagnes op. Promoot vacatures eenvoudig op Indeed, LinkedIn, jobboards en vele andere online kanalen. Campagnes op de performance based jobboards worden automatisch beheerd, afgestemd op de strategie, doelstellingen en resultaten. Het kiezen van jobboards en direct contact met de jobboards is niet meer nodig.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Campaigns%3B%20instellingen.jpg",
+      "imageRight": false
+    },
+    {
+      "title": "Insights",
+      "body": "Met je eigen Jobmatix performance dashboard, heb je direct inzicht in de resultaten, waaronder bezoekersaantallen, sollicitaties, uitgegeven budget en kosten per sollicitatie en meer. Optimaliseer jouw vacatures op basis van deze inzichten en versterk je recruitment marketing strategie.",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/inzicht%202..webp",
+      "imageRight": false
+    }
+  ],
+  "quote": {
+    "text": "“Jobmatix helpt ons om onze vacatures efficiënter op de juiste manier op jobboards te adverteren. De samenwerking met Jobmatix heeft dan ook geleid tot een aanzienlijke toename van het aantal reacties op onze vacatures”",
+    "author": "Lotte van den Dries Hornbach"
+  },
+  "quickfeat": null,
+  "pricing": null,
+  "steps": null
+}

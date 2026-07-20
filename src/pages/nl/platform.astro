@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import ProductBlock from '../../components/sections/ProductBlock.astro';
+import LogoWall from '../../components/sections/LogoWall.astro';
+import ContactCta from '../../components/sections/ContactCta.astro';
+import { resolveIcon } from '../../lib/icons';
+import page from '../../i18n/pages/nl-platform.json';
+
+// The platform page shares none of the product pages' primitives — no feature
+// cards, properties, accordion, pricing or quickfeat. It is built almost
+// entirely from alternating image+text blocks, which map onto the same
+// ProductBlock the homepage uses, plus a single pull-quote and a logo wall.
+//
+// Section map measured on the original @1440 (page height 4243):
+//   hero        y=85   h=462  navy, padding 60/24, text beside an image
+//   Job data    y=739  h=390  image left
+//   Smart auto  y=1129 h=361  image right
+//   quote       y=1489 h=347  single pull-quote, not the homepage carousel
+//   Campaigns   y=1837 h=404  image left
+//   partners    y=2241 h=469  logo carousel
+//
+// The extractor's hero.title fuses the h1 with a button label, so the title is
+// taken from the page <title> instead.
+const heroTitle = page.meta.title.split('|')[0].trim();
+const heroCta = page.buttons.find((b) => /demo/i.test(b.label)) ?? null;
+
+const blocks = page.imageTextBlocks
+  .map((b) => ({ ...b, resolved: resolveIcon(b.image) }))
+  .filter((b) => b.resolved);
+---
+
+<Base title={page.meta.title} description={page.meta.description ?? undefined}>
+  <PageHero title={heroTitle} subtitle={page.headings[0] ?? null} cta={heroCta} />
+
+  {blocks.map((block, i) => (
+    <ProductBlock
+      title={block.title}
+      body={block.body ?? ''}
+      image={block.resolved!}
+      cta={heroCta ?? { label: '', href: '#' }}
+      reverse={block.imageRight}
+      reveal={block.imageRight ? 'right' : 'left'}
+      background={i % 2 === 0 ? 'white' : 'mist'}
+    />
+  ))}
+
+  {page.quote?.text && (
+    <section class="bg-mist px-6 py-24">
+      <figure class="mx-auto max-w-[850px] text-center">
+        <blockquote class="text-[20px] leading-[30px] text-navy">
+          {page.quote.text}
+        </blockquote>
+        {page.quote.author && (
+          <figcaption class="mt-6 font-display text-[16px] font-bold text-navy">
+            {page.quote.author}
+          </figcaption>
+        )}
+      </figure>
+    </section>
+  )}
+
+  <section class="px-6 pt-[50px]">
+    <h2 class="mb-8 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
+      {page.headings[3] ?? 'Onze campaign partners'}
+    </h2>
+  </section>
+  <LogoWall />
+
+  <ContactCta title={page.headings[5] ?? undefined} intro={null} />
+</Base>
