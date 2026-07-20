@@ -6,6 +6,7 @@ import FeatureCard from '../../../components/ui/FeatureCard.astro';
 import Accordion from '../../../components/ui/Accordion.astro';
 import ContactCta from '../../../components/sections/ContactCta.astro';
 import Reveal from '../../../components/ui/Reveal.astro';
+import QuickFeat from '../../../components/ui/QuickFeat.astro';
 import CtaStrip from '../../../components/sections/CtaStrip.astro';
 import PricingTier from '../../../components/ui/PricingTier.astro';
 import { resolveIcon } from '../../../lib/icons';
@@ -59,6 +60,14 @@ const stripCta = page.buttons.find((b) => /Plan een gesprek/i.test(b.label)) ?? 
             </div>
           ))}
         </Reveal>
+      </div>
+    </section>
+  )}
+
+  {page.quickfeat && (
+    <section class="bg-mist px-6 py-24">
+      <div class="mx-auto max-w-[1138px]">
+        <QuickFeat items={page.quickfeat} />
       </div>
     </section>
   )}

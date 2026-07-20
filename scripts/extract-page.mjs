@@ -115,6 +115,17 @@ const data = await page.evaluate(() => {
       }));
     })(),
 
+    // .quickfeat: icon-beside-text grid, three across.
+    quickfeat: (() => {
+      const items = Array.from(document.querySelectorAll('.quickfeat__item'));
+      if (!items.length) return null;
+      return items.map((it) => ({
+        title: text(it.querySelector('.quickfeat__title')) || null,
+        body: text(it.querySelector('.quickfeat__desc')) || null,
+        icon: src(it.querySelector('img')),
+      }));
+    })(),
+
     // .module--pricing: three plan boxes, each with title/tag/price/features
     // and its own CTA.
     pricing: (() => {

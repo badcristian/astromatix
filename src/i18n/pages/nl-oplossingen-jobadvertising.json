@@ -127,6 +127,34 @@
       "image": null
     }
   ],
+  "quickfeat": [
+    {
+      "title": "Alles-in-één platform",
+      "body": "Geen gedoe meer met wisselen tussen verschillende systemen of eindeloos veel contracten met verschillende jobboards. Met Job Advertising centraliseer je al je job marketing, bundel je data en heb je één partij om mee samen te werken. Efficiënt, simpel en krachtig – alles wat je nodig hebt, binnen één platform.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/centraliseren.png"
+    },
+    {
+      "title": "Slim adverteren",
+      "body": "Door het inzetten van programmatic advertising maak je jouw job marketing slimmer en efficiënter. Jouw vacature-advertenties worden automatisch geplaatst op de beste kanalen, gericht op de juiste doelgroep. Ons platform optimaliseert het gebruik van je advertentiebudget, zodat jouw vacatures altijd opvallen bij de meest geschikte kandidaten.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%203%20jobboost%20blauw.png"
+    },
+    {
+      "title": "Data insights",
+      "body": "Bekijk direct in jouw dashboard de data van je vacaturecampagnes. Krijg inzicht in klikken, sollicitaties, budgetten en ontdek welke jobboards het beste voor je hebben gepresteerd.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/overzicht%20.png"
+    },
+    {
+      "title": "AI Assistent",
+      "body": "Onze AI-assistent maakt job marketing simpel en effectief. In een paar klikken controleer je of je vacatureteksten klaar zijn voor jobboards. Je tekst krijgt een check en een score op belangrijke punten zoals vindbaarheid, juiste zoekwoorden, inclusiviteit en meer. Daarnaast helpt de assistent bij het schrijven en herschrijven van teksten, specifiek geoptimaliseerd voor jobboards.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/expert%20.png"
+    },
+    {
+      "title": "Social job-ads",
+      "body": "Via ons platform adverteer je jouw vacature in no-time op Facebook en Instagram. En dankzij de integratie met je eigen Meta-account weet je zeker dat je het promoot vanuit je eigen merk.",
+      "icon": "https://www.jobmatix.com/hs-fs/hubfs/automatiseren.png"
+    }
+  ],
+  "pricing": null,
   "steps": [
     {
       "label": "stap 1",

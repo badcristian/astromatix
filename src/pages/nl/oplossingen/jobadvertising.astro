@@ -7,6 +7,7 @@ import Accordion from '../../../components/ui/Accordion.astro';
 import CtaStrip from '../../../components/sections/CtaStrip.astro';
 import ContactCta from '../../../components/sections/ContactCta.astro';
 import Reveal from '../../../components/ui/Reveal.astro';
+import QuickFeat from '../../../components/ui/QuickFeat.astro';
 import FeatureShowcase from '../../../components/ui/FeatureShowcase.astro';
 import Steps from '../../../components/ui/Steps.astro';
 import { resolveIcon } from '../../../lib/icons';
@@ -69,6 +70,14 @@ const stripCta = page.buttons.find((b) => b.href?.includes('demo-aanvragen')) ??
         {page.headings[11]}
       </h2>
       <Steps steps={page.steps} />
+    </section>
+  )}
+
+  {page.quickfeat && (
+    <section class="bg-mist px-6 py-24">
+      <div class="mx-auto max-w-[1138px]">
+        <QuickFeat items={page.quickfeat} />
+      </div>
     </section>
   )}
 

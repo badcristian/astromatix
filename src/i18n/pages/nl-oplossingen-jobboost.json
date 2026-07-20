@@ -117,6 +117,33 @@
     "Klaar om jouw vacature te laten opvallen?"
   ],
   "featshow": null,
+  "quickfeat": [
+    {
+      "title": "Best passende jobboards",
+      "body": "Ons platform zoekt automatisch de beste jobboards uit die bij jouw vacature passen. We sturen die slim aan voor het beste bereik, tot het maximale aantal. Werkt een jobboard niet zoals gehoopt? Dan voegen we een extra, passend jobboard toe!",
+      "icon": null
+    },
+    {
+      "title": "Extra media budget",
+      "body": "Zet extra budget in voor jouw vacature-advertentie. Hierdoor wordt je boost veel effectiever en bereik je in dezelfde periode meer kandidaten.",
+      "icon": null
+    },
+    {
+      "title": "AI check & optimalisatie",
+      "body": "Elk jobboard heeft zijn eigen regels. Onze AI checkt jouw vacature en geeft een score: hoe hoger, hoe beter vindbaar. Lage score? Dan helpt de AI je tekst te verbeteren voor meer zichtbaarheid!",
+      "icon": null
+    },
+    {
+      "title": "Social advertentie",
+      "body": "Met deze optie bereik je ook kandidaten die niet actief op jobboards zoeken, maar wel op Facebook en Instagram zitten. Zo vergroot je de zichtbaarheid en bereik je meer potentiële kandidaten.",
+      "icon": null
+    },
+    {
+      "title": "A/B tekst test",
+      "body": "Met onze AI-assistent zet je in een handomdraai een extra job ad op voor een A/B-test. We adverteren met twee varianten tegelijk en sturen automatisch aan op de versie die het beste presteert.",
+      "icon": null
+    }
+  ],
   "pricing": [
     {
       "title": "Small",
