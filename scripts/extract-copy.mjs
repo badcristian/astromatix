@@ -38,6 +38,9 @@ const copy = await page.evaluate(() => {
     if (!el) return '';
     const clone = el.cloneNode(true);
     clone.querySelectorAll('style, script').forEach((n) => n.remove());
+    // <br> carries no whitespace, so textContent fuses the words either side
+    // of it. Replace with a space before reading.
+    clone.querySelectorAll('br').forEach((n) => n.replaceWith(' '));
     return clean(clone.textContent);
   };
 

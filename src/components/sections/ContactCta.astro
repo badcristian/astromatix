@@ -7,22 +7,31 @@ import copy from '../../i18n/home-copy.json';
 //   h2       650 wide, centred, Poppins 700 30px/33px
 //   intro    650 wide, 16px/22.4px
 //   form     800 wide, centred
-const { contactCta } = copy;
+interface Props {
+  title?: string;
+  intro?: string | null;
+}
+const {
+  title = copy.contactCta.title,
+  intro = copy.contactCta.intro,
+} = Astro.props;
 ---
 
 <section class="bg-mist px-6 py-24">
   <div class="mx-auto max-w-[800px]">
     <div class="mx-auto max-w-[650px] text-center">
       <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
-        {contactCta.title}
+        {title}
       </h2>
-      {contactCta.intro && (
-        <p class="mt-6 text-[16px] leading-[22.4px] text-navy">{contactCta.intro}</p>
+      {intro && (
+        <p class="mt-6 text-[16px] leading-[22.4px] text-navy">{intro}</p>
       )}
     </div>
 
     <div class="mt-11">
-      <FormStub fields={contactCta.fields} submitLabel={contactCta.submitLabel} />
+      {/* Field set is identical across pages on the original, so it stays
+          sourced from the homepage extraction rather than duplicated. */}
+      <FormStub fields={copy.contactCta.fields} submitLabel={copy.contactCta.submitLabel} />
     </div>
   </div>
 </section>

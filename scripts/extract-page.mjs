@@ -46,6 +46,10 @@ const data = await page.evaluate(() => {
     if (!el) return '';
     const c = el.cloneNode(true);
     c.querySelectorAll('style, script').forEach((n) => n.remove());
+    // <br> carries no whitespace, so textContent fuses the words either side
+    // of it ("oplossing" + "voor" -> "oplossingvoor"). Replace with a space
+    // before reading. This affects most headings on the site.
+    c.querySelectorAll('br').forEach((n) => n.replaceWith(' '));
     return (c.textContent || '').replace(/\s+/g, ' ').trim();
   };
   const html = (el) => {

@@ -1,0 +1,40 @@
+---
+// Interior-page hero. Measured on /nl/oplossingen/jobadvertising @1440:
+//   section 1440×552, navy, padding 100px 24px 0
+//   h1      Poppins 700, white, centred
+//   sub     centred beneath it
+//
+// Product and marketing pages share this; the homepage keeps its own Hero,
+// which has a different rhythm and its own CTA.
+
+interface Props {
+  title: string;
+  subtitle?: string | null;
+  cta?: { label: string; href: string } | null;
+}
+
+const { title, subtitle, cta } = Astro.props;
+---
+
+<section class="bg-navy px-6 pt-[100px] pb-[60px] text-center text-white">
+  <div class="container-site">
+    <h1 class="font-display text-[40px] leading-[52px] font-bold text-white">
+      {title}
+    </h1>
+
+    {subtitle && (
+      <p class="mx-auto mt-6 max-w-[760px] text-[16px] leading-[24px] text-white">
+        {subtitle}
+      </p>
+    )}
+
+    {cta && (
+      <a
+        href={cta.href}
+        class="mt-8 inline-flex h-[52px] items-center rounded-[12px] bg-orange px-[21.76px] text-[16px] font-medium text-white transition-opacity hover:opacity-90"
+      >
+        {cta.label}
+      </a>
+    )}
+  </div>
+</section>

@@ -3,6 +3,12 @@ import PropertyItem from '../ui/PropertyItem.astro';
 import Reveal from '../ui/Reveal.astro';
 import { home } from '../../i18n/nl';
 
+interface Props {
+  items?: { icon: string; label: string }[];
+}
+// Defaults to the homepage band; product pages pass their own four items.
+const { items = home.featureBand } = Astro.props;
+
 // Measured @1440:
 //   band       1440×88, padding 10px 24px
 //   background rgba(255,255,255,0.1) over the hero's navy — the original does
@@ -20,12 +26,12 @@ import { home } from '../../i18n/nl';
     {/* Inner row is 68px on the original — items are 44px, vertically centred
         with 12px above and below. 10px padding either side makes the strip 88. */}
     <div class="flex h-[68px] flex-wrap items-center justify-center">
-      {home.featureBand.map((item, i) => (
+      {items.map((item, i) => (
         <div
           class:list={[
             // Each item carries ~25px of trailing space on the original,
             // except the last. Without it the whole row measures ~75px narrow.
-            i < home.featureBand.length - 1 && 'pr-[25px]',
+            i < items.length - 1 && 'pr-[25px]',
             i > 0 && 'border-l border-white/20 pl-[14px] ml-[14px]',
           ]}
         >
