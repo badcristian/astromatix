@@ -27,9 +27,30 @@ interface Props {
   /** Scroll-reveal direction: block 1 slides left, block 2 right. */
   reveal?: 'left' | 'right';
   background?: 'mist' | 'white';
+  /**
+   * Width at which the image and text stop being side-by-side.
+   *
+   * NOT a style preference — the original genuinely differs by page, because
+   * these blocks come from two different theme modules (FINDINGS.md §3):
+   *
+   *   'lg'  homepage (module--img-txt). Stacks below 1140. Measured at 768:
+   *         the image is 720px wide in a 720px row, i.e. already full width.
+   *   'md'  platform (module--image + module--rtext). Stays two-column down to
+   *         the theme's 767 breakpoint. Measured at 768: the image is 348px
+   *         wide in a 768px viewport, i.e. still a half column.
+   *
+   * Setting this globally to 'md' fixed /nl/platform (+2509 -> +1295 at 768)
+   * and broke the homepage by 832px in the other direction. Exactly the
+   * per-component measurement FINDINGS.md §7 calls for.
+   */
+  stackUntil?: 'md' | 'lg';
 }
 
-const { title, body, image, cta, reverse = false, reveal = 'left', background = 'white' } = Astro.props;
+const {
+  title, body, image, cta,
+  reverse = false, reveal = 'left', background = 'white',
+  stackUntil = 'lg',
+} = Astro.props;
 ---
 
 {/* pb is 138, not the section's own 50: the original follows each block's
@@ -40,11 +61,13 @@ const { title, body, image, cta, reverse = false, reveal = 'left', background = 
     variant={reveal}
     duration={1000}
     class:list={[
-      'mx-auto flex max-w-[1200px] flex-col gap-10 lg:flex-row lg:gap-20',
-      reverse && 'lg:flex-row-reverse',
+      'mx-auto flex max-w-[1200px] flex-col gap-10',
+      stackUntil === 'md'
+        ? ['md:flex-row md:gap-10 lg:gap-20', reverse && 'md:flex-row-reverse']
+        : ['lg:flex-row lg:gap-20', reverse && 'lg:flex-row-reverse'],
     ]}
   >
-    <div class="lg:w-[600px] lg:shrink-0">
+    <div class:list={[stackUntil === 'md' && 'md:w-1/2 md:shrink-0', 'lg:w-[600px] lg:shrink-0']}>
       <Image
         src={image}
         alt=""
@@ -57,7 +80,7 @@ const { title, body, image, cta, reverse = false, reveal = 'left', background = 
     {/* top-px: centring an odd remainder (43.5px in block 1, 70.5 in block 2)
         rounds down here and up on the original. Nudged rather than pinned so
         it stays correct if the copy reflows. */}
-    <div class="lg:relative lg:top-px lg:w-[520px] lg:self-center">
+    <div class:list={[stackUntil === 'md' && 'md:w-1/2 md:self-center', 'lg:relative lg:top-px lg:w-[520px] lg:self-center']}>
       <h2 class="font-display text-[30px] leading-[52.5px] font-bold text-navy">
         {title}
       </h2>

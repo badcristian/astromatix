@@ -212,7 +212,62 @@ Two related defects worth showing the client, both verifiable in seconds:
 (an unfilled field), and `/nl/klantcases` is titled "Recruitment marketing
 platform prijzen". We render a real title and keep their copy elsewhere.
 
-## 20. Known deliberate divergences, deliberately left.
+## 20. Total page height hides ordering bugs. Measure per-heading.
+
+`/nl/platform` sat at **+330px** total — comfortably "spacing, not structure".
+It was neither. The logo wall was rendering ~1100px too late and the Insights
+block ~1450px too early, and the two errors cancelled.
+
+`scripts/measure.mjs` exists for this. It anchors on heading **text**, not DOM
+structure — the rebuild's markup is nothing like the original's, but the copy
+is byte-identical by project rule, so headings are a landmark present in both
+trees at the same logical point. It reports:
+
+- `drift` — cumulative y difference at that anchor
+- `step`  — how much drift opened up *since the previous anchor*
+
+A big `step` is the section to fix. A big `drift` with `step` near zero is
+inherited from above and needs no work. Unmatched anchors are reported
+separately, and those are content gaps rather than spacing.
+
+Run it before touching padding:
+
+    npm run preview                       # it needs the rebuild served
+    node scripts/measure.mjs --viewport 768
+    node scripts/measure.mjs --detail platform --viewport 390
+
+## 21. The same component stacks at different widths on different pages.
+
+`ProductBlock` renders the alternating image+text blocks on both the homepage
+and `/nl/platform`. They look identical and behave differently, because they
+come from two different theme modules (§3):
+
+| Page | Theme module | Two-column down to | Image @768 |
+|---|---|---|---|
+| homepage | `module--img-txt` | 1140 | 720px in a 720px row (stacked) |
+| platform | `module--image` + `module--rtext` | 767 | 348px in a 768px viewport |
+
+Setting the breakpoint globally to `md` fixed platform (+2509 → +1295 at 768)
+and broke the homepage by 832px the other way. It is now a `stackUntil` prop,
+defaulting to the homepage's behaviour.
+
+This is §7's rule biting again in a new place: **mobile is per-component, and
+"the same component" is not always the same component.**
+
+## 22. Some rebuild deltas are correct and should not be "fixed".
+
+Two pages read as badly off at 390 and are behaving as intended:
+
+- `/nl/actueel` **+3375** — we render all 14 cards; the original paginates to 9
+  via List.js. At 390 the cards stack, so five extra cards is ~3000px. This is
+  the SEO improvement (§6), not a regression.
+- `/nl/klantcases` **+1450** — same shape, six case cards rendered at build
+  time.
+
+Before chasing a delta, check whether the extra height is content the original
+hides from crawlers.
+
+## 23. Known deliberate divergences, deliberately left.
 
 - `quickfeat` and over-ons card icons are fallback glyphs: the theme inlines
   the SVG, so there is no URL for the extractor to fetch.
