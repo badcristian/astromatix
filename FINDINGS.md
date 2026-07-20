@@ -267,7 +267,50 @@ Two pages read as badly off at 390 and are behaving as intended:
 Before chasing a delta, check whether the extra height is content the original
 hides from crawlers.
 
-## 22. Known deliberate divergences, deliberately left.
+## 22. The theme leaves hidden modules in the DOM. Do not extract them.
+
+`/nl/oplossingen/jobadvertising` ships a `module--quickfeat` that computes to
+**height 0** — an unpublished or switched-off section. Its five items are
+near-misses for the copy in the *visible* featshow beside it:
+
+| Hidden quickfeat (not shown) | Visible featshow (real copy) |
+|---|---|
+| Alles-in-één platform | Alles-in-één oplossing |
+| Data insights | Data inzicht |
+| Social job-ads | Meta advertenties |
+
+The rebuild rendered the hidden set, so the page read as if we had paraphrased
+the Dutch — the single worst thing this project can do. We had not; we had
+rendered a section the original hides.
+
+`extract-page.mjs` now filters every collection through `shown()`
+(`getBoundingClientRect().height > 0`). Carousel slides scrolled out of view
+still have height, so they survive; genuinely hidden modules do not.
+
+**Corollary: heading lists shorten when the extractor gets stricter.** This
+filter took jobadvertising from 13 visible h2s to 10 and jobboost from 8 to 6,
+and both templates were reading `page.headings[10]`, `[12]`, `[13]`. A stale
+index does not fail loudly — it renders another section's sentence, or nothing.
+Both pages now look headings up **by their opening words**. Prefer that
+anywhere content is addressed positionally.
+
+## 23. "Missing from the rebuild" is not always missing.
+
+A tabbed module hides its inactive panels, so a visibility-filtered comparison
+reports seven headings as absent from `/nl/oplossingen/jobadvertising` that are
+in fact in the HTML, crawlable, one click away. `measure.mjs` now separates
+`MISSING IN REBUILD` from `in closed tab` and only counts the former.
+
+The reliable test for copy fidelity is **presence in the page text**, not
+presence in the rendered heading outline:
+
+    curl -s <url> | sed -E 's/<[^>]+>/ /g' | grep -F 'Data inzicht'
+
+Known remaining difference of this kind: `PageHero` renders the hero subtitle
+as a `<p>` where the original uses an `<h2>`. The copy is identical; the
+document outline differs by one level.
+
+## 24. Known deliberate divergences, deliberately left.
 
 - `quickfeat` and over-ons card icons are fallback glyphs: the theme inlines
   the SVG, so there is no URL for the extractor to fetch.

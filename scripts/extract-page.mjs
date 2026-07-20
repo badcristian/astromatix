@@ -74,6 +74,21 @@ const data = await page.evaluate(() => {
     c.querySelectorAll('style, script').forEach((n) => n.remove());
     return c.innerHTML.replace(/\s+/g, ' ').trim();
   };
+  // Is this element actually rendered?
+  //
+  // The theme leaves whole modules in the DOM with no box — unpublished or
+  // switched-off sections. /nl/oplossingen/jobadvertising ships a hidden
+  // `module--quickfeat` whose five items ("Alles-in-één platform", "Data
+  // insights", "Social job-ads") are near-misses for the copy in the VISIBLE
+  // featshow beside it ("Alles-in-één oplossing", "Data inzicht", "Meta
+  // advertenties"). Extracting both makes it look like the rebuild paraphrased
+  // the original, when it had actually rendered a section the original hides.
+  //
+  // Anything with a zero-height box is not on the page. Carousel slides that
+  // are merely scrolled out of view still have height, so they survive this.
+  const shown = (el) => !!el && el.getBoundingClientRect().height > 0;
+  const visible = (list) => Array.from(list).filter(shown);
+
   const src = (el) => (el ? el.getAttribute('src')?.split('?')[0] ?? null : null);
   const href = (el) =>
     el?.getAttribute('href')?.replace('https://www.jobmatix.com', '') ?? null;
@@ -98,23 +113,24 @@ const data = await page.evaluate(() => {
         return m ? m[1].split('?')[0] : null;
       })(),
     },
-    properties: Array.from(document.querySelectorAll('.properties__item')).map((p) => ({
+    properties: visible(document.querySelectorAll('.properties__item')).map((p) => ({
       label: text(p.querySelector('.properties__text')) || text(p),
       icon: src(p.querySelector('img')),
     })),
-    featureCards: Array.from(document.querySelectorAll('.feature-card')).map((c) => ({
+    featureCards: visible(document.querySelectorAll('.feature-card')).map((c) => ({
       title: text(c.querySelector('.feature-card__title')),
       body: text(c.querySelector('.feature-card__desc')),
       icon: src(c.querySelector('.feature-card__icon img')),
     })),
-    accordion: Array.from(document.querySelectorAll('.accordion__item')).map((a) => ({
+    accordion: visible(document.querySelectorAll('.accordion__item')).map((a) => ({
       question: text(a.querySelector('.accordion__header')),
       answer: html(a.querySelector('.accordion__details')),
     })),
     buttons: Array.from(document.querySelectorAll('a.btn'))
       .filter((b) => b.offsetWidth)
       .map((b) => ({ label: text(b), href: href(b) })),
-    headings: Array.from(document.querySelectorAll('h2')).map((h) => text(h)).filter(Boolean),
+    // Visible h2s only — a hidden module's heading is not copy this page shows.
+    headings: visible(document.querySelectorAll('h2')).map((h) => text(h)).filter(Boolean),
 
     // .module--featshow: a <ul> of nav entries on the left, matching
     // .featshow__item panels on the right. Note the first entry is a real tab,
@@ -227,7 +243,10 @@ const data = await page.evaluate(() => {
 
     // .quickfeat: icon-beside-text grid, three across.
     quickfeat: (() => {
-      const items = Array.from(document.querySelectorAll('.quickfeat__item'));
+      // Visible items only. jobadvertising ships a hidden quickfeat (its root
+      // computes to height 0) whose copy near-misses the visible featshow next
+      // to it — see `shown` above.
+      const items = visible(document.querySelectorAll('.quickfeat__item'));
       if (!items.length) return null;
       return items.map((it) => ({
         title: text(it.querySelector('.quickfeat__title')) || null,
@@ -279,7 +298,7 @@ const data = await page.evaluate(() => {
     // recruiter — but BOTH render their innards as `.content-card`, not as a
     // class matching the module name. Another instance of FINDINGS.md §1:
     // select on the module wrapper, read the element the theme actually emits.
-    teamCards: Array.from(
+    teamCards: visible(
       document.querySelectorAll('.module--team-card .content-card, .team-card'),
     ).map((c) => ({
       // team-card and contact-card use DIFFERENT inner class prefixes
@@ -299,13 +318,13 @@ const data = await page.evaluate(() => {
 
     // The klantcase result tiles ("+42% sollicitaties"). Distinct from
     // feature-card: a compact-card leads with the figure, not an icon.
-    compactCards: Array.from(document.querySelectorAll('.compact-card')).map((c) => ({
+    compactCards: visible(document.querySelectorAll('.compact-card')).map((c) => ({
       title: text(c.querySelector('.compact-card__title, h3, h4')),
       body: text(c.querySelector('.compact-card__desc, p')),
       image: src(c.querySelector('img')),
     })),
 
-    contactCards: Array.from(
+    contactCards: visible(
       document.querySelectorAll('.module--contact-card .content-card'),
     ).map((c) => ({
       title: text(
@@ -339,7 +358,7 @@ const data = await page.evaluate(() => {
       return slides.length ? slides.map(read) : [read(root)];
     })(),
 
-    sectionIntros: Array.from(document.querySelectorAll('.section-intro')).map((s) => ({
+    sectionIntros: visible(document.querySelectorAll('.section-intro')).map((s) => ({
       title: text(s.querySelector('h1, h2, h3')),
       body: text(s.querySelector('p')),
     })),
@@ -376,7 +395,7 @@ const data = await page.evaluate(() => {
     // or null, so a template can tell page prose from a card title.
     blocks: (() => {
       const main = document.querySelector('main') ?? document.body;
-      const heads = Array.from(main.querySelectorAll('h1, h2, h3, h4'));
+      const heads = visible(main.querySelectorAll('h1, h2, h3, h4'));
       const modOf = (el) => {
         const m = el.closest('[class*="module--"]');
         if (!m) return null;

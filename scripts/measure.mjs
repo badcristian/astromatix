@@ -88,6 +88,7 @@ async function probe(url) {
           .toLowerCase();
 
       const anchors = [];
+      const offscreen = [];
       for (const h of document.querySelectorAll('h1, h2, h3, h4')) {
         if (h.closest('nav, footer, header')) continue;
         const c = h.cloneNode(true);
@@ -96,12 +97,20 @@ async function probe(url) {
         const text = norm(c.textContent);
         if (!text) continue;
         const rect = h.getBoundingClientRect();
-        if (!rect.height) continue; // hidden (the theme ships 3 header variants)
+        // Zero-height means not laid out. That covers two very different
+        // cases, and conflating them sends you hunting for copy that is
+        // already there: the theme ships three header variants and hides two
+        // (genuinely absent), but tabbed modules also hide their inactive
+        // panels (present, crawlable, just not the open tab). Record both so
+        // the report can tell "we never rendered this" from "it is in a
+        // closed tab".
+        if (!rect.height) { offscreen.push(text); continue; }
         anchors.push({ text, y: Math.round(rect.top + window.scrollY) });
       }
       return {
         height: Math.round(document.documentElement.scrollHeight),
         anchors,
+        offscreen,
       };
     });
   } catch (err) {
@@ -146,17 +155,23 @@ for (const p of pages) {
   const extra = [...rMap.keys()].filter((k) => !oMap.has(k));
 
   const delta = rebuild.height - orig.height;
-  rows.push({ slug: p.slug, delta, orig: orig.height, rebuild: rebuild.height, matched: matched.length, missing, extra });
+  const hidden = new Set(rebuild.offscreen ?? []);
+  const trulyMissing = missing.filter((k) => !hidden.has(k.replace(/#\d+$/, '')));
+  rows.push({
+    slug: p.slug, delta, orig: orig.height, rebuild: rebuild.height,
+    matched: matched.length, missing: trulyMissing, extra,
+  });
 
   const flag = Math.abs(delta) < 40 ? '  ' : delta > 0 ? '++' : '--';
   console.log(
     `${flag} ${p.slug.padEnd(16)} ${String(orig.height).padStart(6)} -> ${String(rebuild.height).padStart(6)}` +
       `  ${(delta > 0 ? '+' : '') + delta}`.padEnd(9) +
       `anchors ${matched.length}/${oMap.size}` +
-      (missing.length ? `  MISSING ${missing.length}` : ''),
+      (trulyMissing.length ? `  MISSING ${trulyMissing.length}` : '') +
+      (missing.length - trulyMissing.length ? `  (${missing.length - trulyMissing.length} in closed tabs)` : ''),
   );
 
-  if (detail || missing.length) {
+  if (detail || trulyMissing.length) {
     let prev = 0;
     for (const k of matched) {
       const drift = rMap.get(k) - oMap.get(k);
@@ -172,7 +187,13 @@ for (const p of pages) {
         );
       }
     }
-    for (const k of missing) console.log(`     MISSING IN REBUILD: ${k.replace(/#1$/, '').slice(0, 60)}`);
+    const hiddenInRebuild = new Set((rebuild.offscreen ?? []).map((t) => t));
+    for (const k of missing) {
+      const text = k.replace(/#\d+$/, '');
+      // Present in a closed tab panel is not the same as absent.
+      const tag = hiddenInRebuild.has(text) ? 'in closed tab' : 'MISSING IN REBUILD';
+      console.log(`     ${tag}: ${text.slice(0, 60)}`);
+    }
     for (const k of extra.slice(0, 5)) console.log(`     only in rebuild:   ${k.replace(/#1$/, '').slice(0, 60)}`);
   }
 }

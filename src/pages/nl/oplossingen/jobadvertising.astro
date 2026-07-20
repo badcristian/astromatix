@@ -21,9 +21,17 @@ import page from '../../../i18n/pages/nl-oplossingen-jobadvertising.json';
 //   faq         y=2968 h=704  mist, four accordion items
 //   contact     y=3672 h=834  form
 //
-// Two sections are not built yet — "Alles-in-één oplossing" (a tabbed module)
-// and "Let's get your job done" (a steps module). Neither primitive exists in
-// the component library, so they are the next real work on this page.
+// HEADINGS ARE LOOKED UP BY CONTENT, NOT INDEX.
+//
+// This file used to read page.headings[3], [10], [12], [13]. Those indices
+// silently rot: the extractor gained a visibility filter (it was picking up a
+// HIDDEN quickfeat module whose copy near-misses the visible featshow — "Data
+// insights" vs the original's "Data inzicht"), the heading list shortened from
+// 13 to 10, and every index below pointed at the wrong string or at undefined.
+//
+// A wrong index does not fail loudly; it renders someone else's sentence, or
+// nothing. Looking headings up by their opening words means a miss is
+// obvious and the intent is readable. See FINDINGS.md on hidden modules.
 
 // The properties band needs icon keys; the original serves per-item images,
 // which we map onto our own glyph set.
@@ -31,19 +39,34 @@ const bandIcons = ['download', 'expand', 'send', 'arrow'] as const;
 const band = page.properties.map((p, i) => ({ icon: bandIcons[i], label: p.label }));
 
 
+/** The page's own heading that starts with `prefix`, or null. */
+const heading = (prefix: string) =>
+  page.headings.find((h) => h.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
+
+/** Same, but across all heading levels — some of these are h3/h4. */
+const block = (prefix: string) =>
+  page.blocks?.find((b: any) => b.heading?.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
+
+const heroSubtitle = heading('De beste alles-in-een oplossing');
+const cardsHeading = heading('Bereik altijd de juiste kandidaten');
+const stripHeading = block('Benieuwd hoe jij jouw job marketing')?.heading ?? null;
+const stepsHeading = heading("Let's get your job done");
+const faqHeading = heading('Veelgestelde vragen');
+const ctaHeading = heading('Klaar om jouw vacatures');
+
 const heroCta = page.buttons.find((b) => b.href?.includes('demo-aanvraag')) ?? null;
 const stripCta = page.buttons.find((b) => b.href?.includes('demo-aanvragen')) ?? null;
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={page.hero.title} subtitle={page.headings[0]} cta={heroCta} />
+  <PageHero title={page.hero.title} subtitle={heroSubtitle} cta={heroCta} />
 
   <FeatureBand items={band} />
 
   <section class="px-6 pt-[70px] pb-[20px]">
     <div class="mx-auto max-w-[1200px]">
       <h2 class="mx-auto max-w-[1050px] text-center font-display text-[30px] leading-[52.5px] font-bold text-navy">
-        {page.headings[3]}
+        {cardsHeading}
       </h2>
 
       <Reveal variant="zoom" duration={1000} class="mt-11 flex flex-wrap justify-center -mx-3">
@@ -62,12 +85,12 @@ const stripCta = page.buttons.find((b) => b.href?.includes('demo-aanvragen')) ??
     </section>
   )}
 
-  {stripCta && <CtaStrip heading={page.headings[10]} cta={stripCta} />}
+  {stripCta && stripHeading && <CtaStrip heading={stripHeading} cta={stripCta} />}
 
   {page.steps && (
     <section class="px-6 py-10">
       <h2 class="mb-10 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
-        {page.headings[11]}
+        {stepsHeading}
       </h2>
       <Steps steps={page.steps} />
     </section>
@@ -84,7 +107,7 @@ const stripCta = page.buttons.find((b) => b.href?.includes('demo-aanvragen')) ??
   <section class="bg-mist px-6 py-[60px]">
     <div class="mx-auto max-w-[1200px]">
       <h2 class="text-center font-display text-[30px] leading-[33px] font-bold text-navy">
-        {page.headings[12]}
+        {faqHeading}
       </h2>
       <div class="mx-auto mt-8 max-w-[900px]">
         <Accordion items={page.accordion} />
@@ -92,5 +115,5 @@ const stripCta = page.buttons.find((b) => b.href?.includes('demo-aanvragen')) ??
     </div>
   </section>
 
-  <ContactCta title={page.headings[13] ?? page.headings[12]} intro={null} />
+  <ContactCta title={ctaHeading!} intro={null} />
 </Base>

@@ -24,17 +24,34 @@ const band = page.properties.map((p, i) => ({ icon: bandIcons[i], label: p.label
 
 const heroCta = page.buttons.find((b) => b.href?.includes('demo-aanvraag')) ?? null;
 const stripCta = page.buttons.find((b) => /Plan een gesprek/i.test(b.label)) ?? null;
+
+// Headings by content, not index — see the note in jobadvertising.astro. The
+// extractor's visibility filter shortened this page's heading list from 8 to 6
+// and every index below shifted, which is invisible at build time: a wrong
+// index renders another section's sentence, and an out-of-range one renders
+// nothing at all.
+const heading = (prefix: string) =>
+  page.headings.find((h) => h.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
+const block = (prefix: string) =>
+  page.blocks?.find((b: any) => b.heading?.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
+
+const heroSubtitle = heading('Boost jouw vacature');
+const chooseHeading = heading('Kies jouw Jobboost en bereik');
+const tiersHeading = heading('Kies jouw Jobboost!');
+const stripHeading = block('Benieuwd hoe jij jouw job marketing')?.heading ?? null;
+const faqHeading = heading('Veelgestelde vragen');
+const ctaHeading = heading('Klaar om jouw vacature');
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={page.hero.title} subtitle={page.headings[1]} cta={heroCta} />
+  <PageHero title={page.hero.title} subtitle={heroSubtitle} cta={heroCta} />
 
   <FeatureBand items={band} />
 
   <section class="px-6 pt-[70px] pb-[20px]">
     <div class="mx-auto max-w-[1200px]">
       <h2 class="mx-auto max-w-[1050px] text-center font-display text-[30px] leading-[52.5px] font-bold text-navy">
-        {page.headings[2]}
+        {chooseHeading}
       </h2>
 
       <Reveal variant="zoom" duration={1000} class="mt-11 flex flex-wrap justify-center -mx-3">
@@ -51,7 +68,7 @@ const stripCta = page.buttons.find((b) => /Plan een gesprek/i.test(b.label)) ?? 
     <section class="px-6 py-[70px]">
       <div class="mx-auto max-w-[1200px]">
         <h2 class="text-center font-display text-[30px] leading-[33px] font-bold text-navy">
-          {page.headings[5]}
+          {tiersHeading}
         </h2>
         <Reveal variant="zoom" duration={1000} class="mt-11 flex flex-wrap justify-center -mx-3">
           {page.pricing.map((tier) => (
@@ -72,12 +89,12 @@ const stripCta = page.buttons.find((b) => /Plan een gesprek/i.test(b.label)) ?? 
     </section>
   )}
 
-  {stripCta && <CtaStrip heading={page.headings[1]} cta={stripCta} />}
+  {stripCta && stripHeading && <CtaStrip heading={stripHeading} cta={stripCta} />}
 
   <section class="bg-mist px-6 py-[60px]">
     <div class="mx-auto max-w-[1200px]">
       <h2 class="text-center font-display text-[30px] leading-[33px] font-bold text-navy">
-        {page.headings[6]}
+        {faqHeading}
       </h2>
       <div class="mx-auto mt-8 max-w-[900px]">
         <Accordion items={page.accordion} />
@@ -85,5 +102,5 @@ const stripCta = page.buttons.find((b) => /Plan een gesprek/i.test(b.label)) ?? 
     </div>
   </section>
 
-  <ContactCta title={page.headings[7]} intro={null} />
+  <ContactCta title={ctaHeading!} intro={null} />
 </Base>

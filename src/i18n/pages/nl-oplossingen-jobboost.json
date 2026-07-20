@@ -110,8 +110,6 @@
     "Jobboost",
     "Boost jouw vacature en vergroot de zichtbaarheid!",
     "Kies jouw Jobboost en bereik jouw kandidaten",
-    "Jobboost",
-    "Boost jouw vacature en vergroot de zichtbaarheid!",
     "Kies jouw Jobboost!",
     "Veelgestelde vragen",
     "Klaar om jouw vacature te laten opvallen?"
@@ -272,18 +270,6 @@
       "heading": "Vergroot het bereik van jouw vacature bij de juiste doelgroep",
       "level": 3,
       "module": "feature-card",
-      "body": []
-    },
-    {
-      "heading": "Jobboost",
-      "level": 2,
-      "module": null,
-      "body": []
-    },
-    {
-      "heading": "Boost jouw vacature en vergroot de zichtbaarheid!",
-      "level": 2,
-      "module": null,
       "body": []
     },
     {
