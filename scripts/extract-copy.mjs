@@ -126,8 +126,17 @@ const copy = await page.evaluate(() => {
   const slides = Array.from(rows[23].querySelectorAll('.splide__slide'))
     .filter((s) => !s.className.includes('clone'))
     .map((s) => {
-      const cite = s.querySelector('cite, .quote__author, footer, small');
-      return { quote: text(s.querySelector('.quote__text, blockquote, p')), author: text(cite) };
+      const card = s.querySelector('.compact-card');
+      const avatar = card?.querySelector('img');
+      const lines = Array.from(card?.querySelectorAll('*') ?? [])
+        .filter((e) => e.children.length === 0 && text(e))
+        .map(text);
+      return {
+        quote: text(s.querySelector('blockquote')),
+        author: lines[0] ?? null,
+        company: lines[1] ?? null,
+        avatar: avatar ? avatar.getAttribute('src').split('?')[0] : null,
+      };
     });
 
   return {

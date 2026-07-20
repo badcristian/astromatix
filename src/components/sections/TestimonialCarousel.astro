@@ -1,0 +1,140 @@
+---
+import { Image } from 'astro:assets';
+import copy from '../../i18n/home-copy.json';
+import avatarEdwin from '../../assets/avatar-edwin-van-der-sande.jpeg';
+import avatarErik from '../../assets/avatar-1718265980075.jpeg';
+
+// Measured @1440:
+//   row        y=3986 x=151 w=1138 h=420
+//   carousel   x=295 w=850, padding 0 48px (arrows live in that padding)
+//   track      754 wide
+//   slide      754×330, padding 0 24px 48px, centred
+//   quote icon 58×58 white circle, navy glyph, subtle shadow
+//   quote      706 wide, 16px/22.4px navy
+//   card       305×69 white, 16px radius, padding 12.32 35.52 12.32 17.76
+//   arrows     24×24 navy chevrons at the carousel edges
+//   dots       2, below the track
+//
+// Despite the original's `quote--light` / `txt--light` class names this is
+// navy text on white — "light" means light theme, not light text.
+//
+// Implemented with a small translateX carousel rather than Splide: the only
+// behaviour needed is prev/next plus dots, and it avoids a runtime dependency
+// in a site being handed over.
+
+const avatars = [avatarEdwin, avatarErik];
+const { testimonials } = copy.caseSection;
+---
+
+<section class="px-6 pb-[50px]">
+  <div class="mx-auto max-w-[1138px]">
+    <div class="relative mx-auto max-w-[850px] px-12" data-carousel>
+      <button
+        type="button"
+        class="absolute top-1/2 left-0 -translate-y-1/2 text-navy transition-opacity hover:opacity-60"
+        aria-label="Vorige"
+        data-prev
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 5l-7 7 7 7" />
+        </svg>
+      </button>
+
+      <div class="overflow-hidden">
+        <div class="flex transition-transform duration-300" data-track>
+          {testimonials.map((t, i) => (
+            <figure class="w-full shrink-0 px-6 pb-12 text-center">
+              <div class="flex justify-center">
+                <span class="flex size-[58px] items-center justify-center rounded-full bg-white text-navy shadow-[0_16px_32px_0_rgba(17,65,122,0.05)]">
+                  <svg width="29" height="29" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M7.5 6C5 6 3 8 3 10.5S5 15 7.5 15c.3 0 .6 0 .9-.1-.5 1.6-1.9 2.8-3.6 3.1v2c3.9-.5 6.8-3.8 6.8-7.8V10.5C11.6 8 9.9 6 7.5 6zm10 0C15 6 13 8 13 10.5s2 4.5 4.5 4.5c.3 0 .6 0 .9-.1-.5 1.6-1.9 2.8-3.6 3.1v2c3.9-.5 6.8-3.8 6.8-7.8V10.5C21.6 8 19.9 6 17.5 6z" />
+                  </svg>
+                </span>
+              </div>
+
+              <blockquote class="mx-auto mt-[29px] max-w-[706px] text-[16px] leading-[22.4px] text-navy">
+                {t.quote}
+              </blockquote>
+
+              <figcaption class="mt-[24px] flex justify-center">
+                {/* 37px gap, measured: the card totals 305 wide, and
+                    17.76 + 44 + gap + text + 35.52 only reaches that at 37. */}
+                <div class="flex items-center gap-[37px] rounded-2xl bg-white py-[12.32px] pr-[35.52px] pl-[17.76px] shadow-[0_16px_32px_0_rgba(17,65,122,0.08)]">
+                  <Image
+                    src={avatars[i]}
+                    alt=""
+                    width={44}
+                    height={44}
+                    densities={[1, 2]}
+                    class="size-11 shrink-0 rounded-full object-cover"
+                  />
+                  <div class="text-left">
+                    <p class="font-display text-[16px] leading-[22px] font-bold text-navy">{t.author}</p>
+                    <p class="text-[16px] leading-[22px] text-navy">{t.company}</p>
+                  </div>
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="absolute top-1/2 right-0 -translate-y-1/2 text-navy transition-opacity hover:opacity-60"
+        aria-label="Volgende"
+        data-next
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <div class="mt-2 flex justify-center gap-2" data-dots>
+        {testimonials.map((_, i) => (
+          <button
+            type="button"
+            class="size-[10px] rounded-full bg-navy/20 transition-colors data-[active]:bg-navy"
+            aria-label={`Ga naar slide ${i + 1}`}
+            data-dot={i}
+            data-active={i === 0 ? '' : undefined}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]');
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-dot]'));
+    const count = track?.children.length ?? 0;
+    if (!track || count === 0) return;
+
+    let index = 0;
+
+    const render = () => {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => {
+        if (i === index) dot.setAttribute('data-active', '');
+        else dot.removeAttribute('data-active');
+      });
+    };
+
+    // Wraps in both directions, matching the original's loop mode.
+    const go = (delta: number) => {
+      index = (index + delta + count) % count;
+      render();
+    };
+
+    root.querySelector('[data-prev]')?.addEventListener('click', () => go(-1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => go(1));
+    dots.forEach((dot, i) =>
+      dot.addEventListener('click', () => {
+        index = i;
+        render();
+      }),
+    );
+  });
+</script>

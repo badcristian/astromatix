@@ -6,6 +6,7 @@ import ValueProp from '../../components/sections/ValueProp.astro';
 import CtaStrip from '../../components/sections/CtaStrip.astro';
 import ProductBlock from '../../components/sections/ProductBlock.astro';
 import CaseSection from '../../components/sections/CaseSection.astro';
+import TestimonialCarousel from '../../components/sections/TestimonialCarousel.astro';
 import StatsBand from '../../components/sections/StatsBand.astro';
 import copy from '../../i18n/home-copy.json';
 import productJobAdvertising from '../../assets/product-jobadvertising.png';
@@ -36,5 +37,7 @@ const blockImages = [productJobAdvertising, productJobboost];
 
   <CaseSection />
 
-  {/* Remaining: testimonial carousel, logo wall, final CTA + form. */}
+  <TestimonialCarousel />
+
+  {/* Remaining: logo wall, final CTA + form. */}
 </Base>
