@@ -1,0 +1,6 @@
+# Cloudflare Workers static-assets headers.
+# Belt-and-braces with the robots.txt and the per-page noindex meta tag:
+# an indexed copy of the original site's content would compete with the
+# prospect's own pages in search results.
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive

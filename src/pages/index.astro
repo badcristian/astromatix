@@ -1,17 +1,18 @@
 ---
-
+import Base from '../layouts/Base.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title="jobmatix-astro — deploy check">
+  <main class="mx-auto flex min-h-screen max-w-2xl flex-col justify-center gap-4 p-8">
+    <p class="text-sm font-medium tracking-wide text-orange-600 uppercase">
+      Deploy check
+    </p>
+    <h1 class="text-4xl font-bold text-slate-900">
+      Astro 7 + Tailwind 4
+    </h1>
+    <p class="text-slate-600">
+      Placeholder page confirming the build and Cloudflare Workers deploy path.
+      Replaced once the rebuild starts.
+    </p>
+  </main>
+</Base>

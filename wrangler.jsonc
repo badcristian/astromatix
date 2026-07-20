@@ -1,0 +1,10 @@
+{
+  // Unguessable subdomain — this is a private pitch demo, not a public site.
+  // Deployed URL: https://jm-preview-d2605922f1188b06.<account>.workers.dev
+  // Do not link this anywhere. See public/_headers and public/robots.txt.
+  "name": "jm-preview-d2605922f1188b06",
+  "compatibility_date": "2026-07-20",
+  "assets": {
+    "directory": "./dist"
+  }
+}
