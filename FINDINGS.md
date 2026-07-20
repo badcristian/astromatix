@@ -115,6 +115,14 @@ resolves both happily, so this only appears against the real edge. Fixed with
 Also: **wait for propagation before verifying a deploy.** Checking ~4s after
 `wrangler deploy` produced two false 404 alarms.
 
+And **verify with `curl -L`.** Once `/nl/actueel` became both a page and a
+directory (it now has `/blogs`, `/nieuws`, `/kennis`, `/events`, `/klantcase/*`
+beneath it), `auto-trailing-slash` started answering the slashless form with a
+**307** to `/nl/actueel/`. That is correct behaviour, but a bare `curl -o
+/dev/null -w '%{http_code}'` reports it as a non-200 and reads like a
+regression. It is the third time on this project that a verification harness,
+not the site, was the thing that was wrong.
+
 ## 12. Deploys are manual.
 
 `git push` does nothing. GitHub is source control only; there is no Pages
