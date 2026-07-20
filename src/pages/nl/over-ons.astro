@@ -13,16 +13,27 @@ import { ctaHeading } from '../../lib/cta';
 // No <h1> on the original — rendered here deliberately.
 const bandIcons = ['download', 'expand', 'send', 'arrow'] as const;
 const band = page.properties.map((p, i) => ({ icon: bandIcons[i % 4], label: p.label }));
+
+// Headings by content, not index — see jobadvertising.astro. The hero SUBTITLE was reading headings[2], which is the
+// "Ons verhaal" section heading further down the page — the same string then
+// rendered twice. The hero's real supporting copy is the body under its own
+// heading.
+const heading = (prefix: string) =>
+  page.headings.find((h) => h.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
+const block = (prefix: string) =>
+  page.blocks?.find((b: any) => b.heading?.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
+
+const heroBlock = block('Alles over Jobmatix');
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={page.headings[0] ?? 'Over ons'} subtitle={page.headings[2] ?? null} />
+  <PageHero title={heroBlock?.heading ?? 'Over ons'} subtitle={heroBlock?.body?.[0] ?? null} />
   {band.length > 0 && <FeatureBand items={band} />}
 
   <section class="px-6 py-24">
     <div class="mx-auto max-w-[1200px]">
       <h2 class="text-center font-display text-[30px] leading-[33px] font-bold text-navy">
-        {page.headings[1] ?? ''}
+        {heading('Onze kernwaarden') ?? ''}
       </h2>
       <Reveal variant="zoom" duration={1000} class="mt-11 flex flex-wrap justify-center -mx-3">
         {page.featureCards.map((card) => (
@@ -38,7 +49,7 @@ const band = page.properties.map((p, i) => ({ icon: bandIcons[i % 4], label: p.l
     <section class="bg-mist px-6 py-[50px]">
       <div class="mx-auto max-w-[1200px]">
         <h2 class="mb-10 text-center font-display text-[30px] leading-[38px] font-bold text-navy">
-          {page.headings[2] ?? 'Ons verhaal'}
+          {heading('Ons verhaal') ?? 'Ons verhaal'}
         </h2>
         <Timeline items={page.timeline} />
       </div>

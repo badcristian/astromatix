@@ -7,9 +7,19 @@ import page from '../../i18n/pages/nl-contact.json';
 // Contact is essentially hero + form; the original also embeds a Google Maps
 // iframe, which is deliberately omitted from the demo (third-party embed,
 // no value in a pitch, and it would load tracking).
+
+// Headings by content, not index — see jobadvertising.astro. headings[1] was used BOTH as the hero subtitle and as
+// the CTA title, so "Hoe kunnen we je helpen?" rendered twice. On the original
+// it appears once, over the form.
+const heading = (prefix: string) =>
+  page.headings.find((h) => h.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
+const block = (prefix: string) =>
+  page.blocks?.find((b: any) => b.heading?.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
+
+const ctaBlock = block('Hoe kunnen we je helpen');
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={page.headings[0] ?? 'Contact'} subtitle={page.headings[1] ?? null} />
-  <ContactCta title={page.headings[1] ?? undefined} intro={null} />
+  <PageHero title={heading("Let's get in touch") ?? 'Contact'} subtitle={null} />
+  <ContactCta title={ctaBlock?.heading ?? 'Hoe kunnen we je helpen?'} intro={ctaBlock?.body?.[0] ?? null} />
 </Base>

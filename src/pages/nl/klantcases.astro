@@ -11,7 +11,18 @@ import { ctaHeading } from '../../lib/cta';
 // The original ships no <h1> here (as on jobboost, over-ons and contact).
 // We render one — three of five marketing pages share that defect, so it is
 // systemic on their site and worth raising as a finding rather than copying.
-const heroTitle = page.headings[0]?.split('Bekijk')[0].trim() || 'Klantcases';
+// The original fuses the hero's title and its supporting line into one <h2>
+// separated by a <br>, which the extractor flattens to a single string (see
+// FINDINGS.md on <br> fusing words). Split it back into both halves — the
+// subtitle used to read headings[1], which is the LOGO WALL's heading further
+// down ("Tevreden klanten").
+const heroRaw = page.headings.find((h) => h.startsWith('Samen succesvol')) ?? '';
+const [heroTitle, heroSubtitle] = (() => {
+  const i = heroRaw.indexOf('Bekijk');
+  return i > 0
+    ? [heroRaw.slice(0, i).trim(), heroRaw.slice(i).trim()]
+    : [heroRaw || 'Klantcases', null];
+})();
 const cards = (page.goCards ?? []).map((c) => ({ ...c, img: resolveIcon(c.image) }));
 
 // The LAST heading module here is "Tevreden klanten", which titles the logo
@@ -23,7 +34,7 @@ const ctaTitle =
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={heroTitle} subtitle={page.headings[1] ?? null} />
+  <PageHero title={heroTitle} subtitle={heroSubtitle} />
 
   <section class="px-6 py-24">
     <div class="mx-auto max-w-[1138px]">

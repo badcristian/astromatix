@@ -20,7 +20,10 @@ const blocks = (page.audienceBlocks ?? []).map((b) => ({ ...b, img: resolveIcon(
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={page.hero.title} subtitle={page.headings[0] ?? null} />
+  <PageHero
+    title={page.hero.title}
+    subtitle={page.headings.find((h) => h.startsWith('De oplossing voor elke')) ?? null}
+  />
 
   {blocks.map((block, i) => (
     <section class:list={['px-6 py-[75px]', i % 2 === 1 && 'bg-mist']}>
