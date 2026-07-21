@@ -44,7 +44,7 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
       <div class="relative z-10 flex flex-col items-center gap-1">
         {step.label && (
           <span
-            class="rounded-full px-3 py-1 text-[13.12px] font-medium whitespace-nowrap transition-colors data-[on]:bg-navy data-[on]:text-white"
+            class="rounded-full px-3 py-1 text-[13.12px] font-medium whitespace-nowrap opacity-0 transition data-[on]:bg-navy data-[on]:text-white data-[on]:opacity-100"
             data-steps-label={i}
             data-on={i === 0 ? '' : undefined}
             aria-hidden="true"

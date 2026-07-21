@@ -109,18 +109,8 @@ const faqImage = (() => {
 
   {stripCta && stripHeading && <CtaStrip heading={stripHeading} cta={stripCta} />}
 
-  {/* A centred rich-text section heading between the CTA strip and the steps.
-      The extractor missed it (it is a bare rtext block, not a named module), so
-      it is written out byte-for-byte from the original rather than read from
-      page data. */}
-  <section class="px-6 pt-[70px]">
-    <h2 class="mx-auto max-w-[1050px] text-center font-display text-[30px] leading-[52.5px] font-bold text-navy">
-      De beste tools voor jouw job marketing
-    </h2>
-  </section>
-
   {page.steps && (
-    <section class="px-6 pb-10">
+    <section class="px-6 py-10">
       <h2 class="mb-10 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
         {stepsHeading}
       </h2>
