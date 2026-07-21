@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import Base from '../../../../layouts/Base.astro';
 import { localiseBodyImages } from '../../../../lib/richtext';
 import { tagHref } from '../../../../lib/tags';
+import SlideInCta from '../../../../components/ui/SlideInCta.astro';
+import popupDashboard from '../../../../assets/popup-dashboard-inside.png';
 
 // The 11 HubSpot blog posts — the only genuine article template on the site.
 // Routes are generated from each entry's stored `path` so they match the live
@@ -30,6 +32,10 @@ const a = entry.data;
 const body = localiseBodyImages(a.bodyHtml, a.slug);
 
 const backHref = `/nl/actueel/${a.category.toLowerCase()}`;
+
+// The programmatic-advertising post carries the original's scroll-triggered
+// slide-in pop-up (a HubSpot "web interactive"). It's page-specific.
+const hasSlideInCta = a.slug === 'programmatic-advertising-de-toekomst-van-job-marketing';
 
 // No ContactCta here. Blog posts on the original end at the body — the whole
 // page is 1144px, and appending the shared 856px CTA strip made the rebuild
@@ -82,6 +88,16 @@ const backHref = `/nl/actueel/${a.category.toLowerCase()}`;
       </div>
     </div>
   </article>
+
+  {hasSlideInCta && (
+    <SlideInCta
+      image={popupDashboard}
+      title="Meer bereik, minder gedoe!"
+      subtitle="Ontdek hoe programmatic advertising voor je kan werken..."
+      buttonLabel="Plan jouw gesprek!"
+      buttonHref="/nl/demo-aanvragen"
+    />
+  )}
 </Base>
 
 <style>

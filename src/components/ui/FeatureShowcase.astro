@@ -42,7 +42,7 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
             id={`${uid}-tab-${i}`}
             aria-controls={`${uid}-panel-${i}`}
             aria-selected={i === 0 ? 'true' : 'false'}
-            class="w-full text-left font-display text-[22px] leading-[28px] font-bold text-navy transition-colors aria-selected:text-[#5478f7] lg:text-[28px] lg:leading-[35px]"
+            class="w-full text-left font-display text-[22px] leading-[28px] font-bold text-navy lg:text-[28px] lg:leading-[35px]"
             data-featshow-tab={i}
           >
             {item.title}
