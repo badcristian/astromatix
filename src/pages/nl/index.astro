@@ -13,11 +13,13 @@ import StatsBand from '../../components/sections/StatsBand.astro';
 import copy from '../../i18n/home-copy.json';
 import productJobAdvertising from '../../assets/product-jobadvertising.png';
 import productJobboost from '../../assets/product-jobboost.png';
-import productMultiposter from '../../assets/product-multiposter.png';
 
-// Three alternating product blocks on the original: Job Advertising, Jobboost,
-// Multiposter (image right / left / right). The Multiposter block was missing.
-const blockImages = [productJobAdvertising, productJobboost, productMultiposter];
+// TWO alternating product blocks: Job Advertising (image right) and Jobboost
+// (image left). The LIVE original also has a "Multiposter" block in its HTML
+// but hides it at every width (both instances render 0×0), so it is NOT shown
+// to users — we don't render it either. (An earlier heading-parity check
+// flagged it as "missing" because it counts hidden headings in the markup.)
+const blockImages = [productJobAdvertising, productJobboost];
 ---
 
 <Base

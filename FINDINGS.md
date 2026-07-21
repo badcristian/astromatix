@@ -512,3 +512,18 @@ default is now "indexable". `src/lib/seo.ts` keeps only `SITE`; the noindex meta
 the `X-Robots-Tag` header and the `robots.txt` Disallow are removed. If the demo
 phase needs privacy, use access-restriction (Cloudflare Access / an unguessable
 host), not `noindex`.
+
+## 39. The live original HIDES the Multiposter product block (heading-parity trap).
+
+The homepage's third product block, "Multiposter", exists in the original's
+static HTML but is rendered **0×0 / display:none at every width** (two variants,
+both hidden) — users never see it; the live site shows only Job Advertising and
+Jobboost. A heading-parity check (finding #36's method: compare h1–h3 text of
+the original's markup vs ours) flagged "multiposter" as a component we were
+missing, because it counts headings present in the MARKUP regardless of CSS
+visibility. We briefly added a visible Multiposter block on that basis; it was
+removed once the live rendering was checked. Lesson: heading/DOM presence is not
+the same as being displayed — verify visibility (getBoundingClientRect / a
+screenshot), not just that the node exists in the HTML, before treating a
+"missing" component as real. Same caution applies to any component behind a
+responsive `display:none`.
