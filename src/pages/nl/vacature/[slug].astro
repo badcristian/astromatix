@@ -1,23 +1,22 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import PageHero from '../../../components/sections/PageHero.astro';
-import Steps from '../../../components/ui/Steps.astro';
 import Button from '../../../components/ui/Button.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../../lib/icons';
+import { parseJobBody } from '../../../lib/prose';
 
-// Three vacancies, one template. Like the klantcases these are hs-site-page
-// DnD compositions, not an article template.
-//
-// Structure, measured at 1440 (2883-3088px):
-//   hero-slider   role title + "Breda | €3.000 - €4.200 | 36-40 uur" + apply
-//   prose         the job description, ~30 paragraphs under the h1
-//   steps         the four-stage application process
-//   team-card     the recruiter, with mailto/tel
-//   img-txt       an employee quote
+// Three vacancies, one template — a TWO-COLUMN vacancy page, matching the
+// original:
+//   hero      inset image band (24px white gutter) + navy overlay, role title +
+//             "Breda | €… | 36-40 uur" + intro + "Solliciteer direct" on it
+//   body      LEFT: the description (bold section headings + bulleted lists);
+//             RIGHT sidebar: the recruiter card ("Vragen over deze vacature?")
+//             and "Ons sollicitatieproces" as an icon stepper
+//   closing   navy "Ben jij klaar voor verandering?" apply strip
+//   quote     employee testimonial on a fog band
 //
 // "Solliciteer direct" points at jobmatix.recruitee.com — an external ATS, so
-// it stays an outbound link rather than becoming a FormStub.
+// it stays an outbound link rather than a FormStub.
 
 const pages = import.meta.glob<{ default: any }>('../../../i18n/pages/nl-vacature-*.json', {
   eager: true,
@@ -37,149 +36,178 @@ const { file } = Astro.props;
 const d = pages[file].default;
 
 const slide = d.heroSlider?.[0] ?? null;
-const applyCta = slide?.buttons?.[0] ?? d.buttons?.find((b: any) => /solliciteer/i.test(b.label));
+const applyCta = slide?.buttons?.[0] ?? d.buttons?.find((b: any) => /solliciteer/i.test(b.label)) ?? null;
+const heroImg = resolveIcon(d.hero?.background);
 
-// The job description usually sits as paragraphs under the h1, arriving as the
-// first block's body. But some vacancies split it: the senior-software-developer
-// role keeps only a 2-line intro in the hero block and puts the real 23-para
-// description under a following "Wat ga ik doen?" heading. Gather every block up
-// to the first structural section (recruiter card / process / CTA / testimonial)
-// so none of the description is dropped.
-const STRUCTURAL = new Set(['heading', 'steps', 'img-txt', 'contact-card', 'team-card', 'form']);
-const descBlocks: any[] = [];
-for (let i = 0; i < (d.blocks?.length ?? 0); i++) {
+// Block 0's body: [0] meta ("Breda | …"), [1] the hero intro, [2…] body copy.
+const block0Body: string[] = d.blocks?.[0]?.body ?? [];
+const metaLine = slide?.body ?? block0Body[0] ?? null;
+const heroIntro = block0Body[1] ?? null;
+
+// The description is block 0's remaining copy, plus any following blocks that
+// carry NO structural module — senior-software-developer keeps its 23-paragraph
+// description in a separate "Wat ga ik doen?" block, not inline in block 0.
+const descLines: string[] = block0Body.slice(2);
+for (let i = 1; i < (d.blocks?.length ?? 0); i++) {
   const b = d.blocks[i];
-  if (i > 0 && STRUCTURAL.has(b.module)) break;
-  descBlocks.push(b);
+  if (b.module) break;
+  if (b.heading) descLines.push(b.heading);
+  descLines.push(...(b.body ?? []));
 }
+const bodyPieces = parseJobBody(descLines);
 
-// Headings the theme emits as standalone module--heading, in page order.
+// Recruiter card — contact-card on this page, team-card on others.
+const recruiter = d.contactCards?.[0] ?? d.teamCards?.[0] ?? null;
+const recruiterImg = resolveIcon(recruiter?.image);
+const tel = recruiter?.links?.find((l: any) => l.href?.startsWith('tel:')) ?? null;
+const mailto = recruiter?.links?.find((l: any) => l.href?.startsWith('mailto:')) ?? null;
+// The card body carries the button label appended — strip it for the text line.
+const recruiterText = (recruiter?.body ?? '').replace(/\s*Solliciteer direct\s*$/i, '').trim();
+
+const steps = (d.steps ?? []).filter((s: any) => s.title);
+
+// A distinct glyph per process step (phone → chat → checklist → briefcase),
+// matching the original's icon row.
+const STEP_ICONS = [
+  'M6.6 3H4.2a1 1 0 0 0-1 1.1c.3 3 1.5 5.8 3.4 8 1.9 2.2 4.4 3.7 7.2 4.5a1 1 0 0 0 1.2-.8l.5-2.3a1 1 0 0 0-.6-1.1l-2.5-1a1 1 0 0 0-1.1.25l-.8.9a10.5 10.5 0 0 1-3.8-3.8l.9-.8a1 1 0 0 0 .25-1.1l-1-2.5A1 1 0 0 0 6.6 3z',
+  'M4 4h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H9l-4 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z',
+  'M9 6h11M9 12h11M9 18h11M4 6h.5M4 12h.5M4 18h.5',
+  'M7 8V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8h3zm2 0h6V6H9v2z',
+];
+
+// Closing apply strip + testimonial.
 const headingBlocks = (d.blocks ?? []).filter((b: any) => b.module === 'heading');
-const contactHeading = headingBlocks[0]?.heading ?? null;
-const processHeading = headingBlocks[1]?.heading ?? null;
 const closingHeading = headingBlocks.at(-1)?.heading ?? null;
-
-// The recruiter card. team-card on two pages, contact-card on the third —
-// same rendered card, different theme module (see extract-page.mjs).
-// No ContactCta on this page: the vacancy ends with its own "Ben jij klaar
-// voor verandering?" apply CTA, which is rendered below. Appending the shared
-// strip as well duplicated that call to action and added 856px.
-const recruiter = d.teamCards?.[0] ?? d.contactCards?.[0] ?? null;
-
-// An employee testimonial closes the page on a #f8f9fb band, with a 600x300
-// photo. It is an img-txt module, which no named extractor field covers, so it
-// only shows up in `blocks` — and it was missing from the rebuild entirely.
 const testimonial = (d.blocks ?? []).find(
-  (b: any) => b.module === 'img-txt' && b.heading?.trim().startsWith('\u201c'),
+  (b: any) => b.module === 'img-txt' && b.heading?.trim().startsWith('“'),
 ) ?? null;
 const testimonialImage = (() => {
   const hit = (d.contentImages ?? []).find((i: any) => i.width > 400);
-  const resolved = resolveIcon(hit?.src);
-  return resolved ? { ...hit, resolved } : null;
+  const r = resolveIcon(hit?.src);
+  return r ? { ...hit, resolved: r } : null;
 })();
-const portrait = resolveIcon(recruiter?.image);
-const mailto = recruiter?.links?.find((l: any) => l.href?.startsWith('mailto:'));
-const tel = recruiter?.links?.find((l: any) => l.href?.startsWith('tel:'));
 ---
 
 <Base title={d.meta.title} description={d.meta.description ?? undefined}>
-  <PageHero
-    title={slide?.title ?? d.hero?.title ?? ''}
-    subtitle={slide?.body ?? null}
-    background={d.hero?.background}
-  />
-
-  {applyCta && (
-    <section class="px-6">
-      <div class="mx-auto max-w-[850px]">
-        <Button href={applyCta.href} label={applyCta.label} icon />
-      </div>
-    </section>
-  )}
-
-  {descBlocks.some((b) => (b.body?.length ?? 0) > 0) && (
-    <section class="px-6 py-14">
-      <div class="mx-auto max-w-[850px]">
-        {descBlocks.map((b, i) => (
-          <>
-            {/* Block 0's heading is the role title, already in the hero. */}
-            {i > 0 && b.heading && (
-              <h2 class="mt-8 mb-4 font-display text-[24px] leading-[30px] font-bold text-navy first:mt-0">
-                {b.heading}
-              </h2>
-            )}
-            {(b.body ?? []).map((para: string) => (
-              <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
-            ))}
-          </>
-        ))}
-      </div>
-    </section>
-  )}
-
-  {recruiter && (
-    <section class="px-6 pb-14">
-      <div class="mx-auto max-w-[850px] rounded-3xl bg-fog p-8">
-        {contactHeading && (
-          <h2 class="mb-6 font-display text-[20px] leading-[28px] font-bold text-navy">
-            {contactHeading}
-          </h2>
+  {/* Hero: inset image band (24px white gutter) with a navy overlay. */}
+  <section class="px-6 pt-8">
+    <div
+      class="relative overflow-hidden bg-navy bg-cover bg-center px-6 py-[90px] text-center text-white"
+      style={heroImg ? `background-image:url(${heroImg.src})` : undefined}
+    >
+      <div class="absolute inset-0 bg-navy/60" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-[900px]">
+        <h1 class="font-display text-[40px] leading-[48px] font-bold text-white">
+          {slide?.title ?? d.hero?.title ?? ''}
+        </h1>
+        {metaLine && <p class="mt-4 text-[16px] leading-[24px] text-white/90">{metaLine}</p>}
+        {heroIntro && (
+          <p class="mx-auto mt-4 max-w-[760px] text-[16px] leading-[24px] text-white">{heroIntro}</p>
         )}
-        <div class="flex flex-wrap items-center gap-5">
-          {portrait && (
-            <Image src={portrait} alt="" width={96} height={96} class="size-24 rounded-full object-cover" />
-          )}
-          <div>
-            {recruiter.name && (
-              <p class="font-display text-[20px] leading-[28px] font-bold text-navy">
-                {recruiter.name}
-              </p>
-            )}
-            {recruiter.body && <p class="text-[14.4px] text-navy/70">{recruiter.body}</p>}
-            <p class="mt-2 flex flex-wrap gap-4 text-[14.4px]">
-              {mailto && (
-                <a href={mailto.href} class="text-orange hover:underline">
-                  {mailto.href.replace('mailto:', '')}
-                </a>
-              )}
-              {tel && (
-                <a href={tel.href} class="text-orange hover:underline">
-                  {tel.href.replace('tel:', '')}
-                </a>
-              )}
-            </p>
+        {applyCta && (
+          <div class="mt-8 flex justify-center">
+            <Button href={applyCta.href} label={applyCta.label} height={48} />
           </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  {d.steps?.length > 0 && (
-    <section class="bg-mist px-6 py-20">
-      <div class="mx-auto max-w-[1138px]">
-        {processHeading && (
-          <h2 class="mb-10 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
-            {processHeading}
-          </h2>
         )}
-        <Steps steps={d.steps} />
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
-  {/* Navy on the original, not white — measured at y=2079, h=91. */}
-  {applyCta && (
+  {/* Two-column body: description LEFT, sticky sidebar RIGHT. */}
+  <section class="px-6 py-14">
+    <div class="mx-auto flex max-w-[1200px] flex-col gap-10 lg:flex-row lg:items-start lg:gap-12">
+      <div class="lg:flex-1">
+        {bodyPieces.map((piece) =>
+          piece.kind === 'h' ? (
+            <h2 class="mt-8 mb-3 font-display text-[20px] leading-[28px] font-bold text-navy first:mt-0">
+              {piece.text}
+            </h2>
+          ) : piece.kind === 'ul' ? (
+            <ul class="mb-4 ml-6 list-disc space-y-1 text-[16px] leading-[26px] text-navy">
+              {piece.items.map((it) => <li>{it}</li>)}
+            </ul>
+          ) : (
+            <p class="mb-4 text-[16px] leading-[26px] text-navy">{piece.text}</p>
+          ),
+        )}
+      </div>
+
+      <aside class="flex flex-col gap-10 lg:w-[320px] lg:shrink-0">
+        {/* Recruiter card. */}
+        {recruiter && (
+          <div class="rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05)]">
+            {recruiterImg && (
+              <Image src={recruiterImg} alt="" width={272} height={180} class="h-[180px] w-full rounded-2xl object-cover" />
+            )}
+            {recruiter.title && (
+              <h3 class="mt-5 font-display text-[20px] leading-[26px] font-bold text-navy">{recruiter.title}</h3>
+            )}
+            {recruiterText && <p class="mt-3 text-[16px] leading-[22px] text-navy">{recruiterText}</p>}
+            <div class="mt-3 flex gap-3 text-orange">
+              {tel && (
+                <a href={tel.href} aria-label="Bellen" class="transition-opacity hover:opacity-70">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3H4.2a1 1 0 0 0-1 1.1c.3 3 1.5 5.8 3.4 8 1.9 2.2 4.4 3.7 7.2 4.5a1 1 0 0 0 1.2-.8l.5-2.3a1 1 0 0 0-.6-1.1l-2.5-1a1 1 0 0 0-1.1.25l-.8.9a10.5 10.5 0 0 1-3.8-3.8l.9-.8a1 1 0 0 0 .25-1.1l-1-2.5A1 1 0 0 0 6.6 3z" /></svg>
+                </a>
+              )}
+              {mailto && (
+                <a href={mailto.href} aria-label="E-mail" class="transition-opacity hover:opacity-70">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+                </a>
+              )}
+            </div>
+            {applyCta && (
+              <div class="mt-5">
+                <Button href={applyCta.href} label={applyCta.label} height={48} class="w-full justify-center" />
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Ons sollicitatieproces — icon stepper. */}
+        {steps.length > 0 && (
+          <div data-proces>
+            <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">Ons sollicitatieproces</h3>
+            <div class="mt-5 flex items-center gap-3" role="tablist">
+              {steps.map((step: any, i: number) => (
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={i === 0 ? 'true' : 'false'}
+                  aria-label={step.title}
+                  class="grid size-11 shrink-0 place-items-center rounded-full border border-navy/20 text-navy transition-colors aria-selected:border-navy aria-selected:bg-navy aria-selected:text-white"
+                  data-proces-tab={i}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d={STEP_ICONS[i % STEP_ICONS.length]} />
+                  </svg>
+                </button>
+              ))}
+            </div>
+            <div class="mt-6">
+              {steps.map((step: any, i: number) => (
+                <div class="proces-panel" data-proces-panel={i} data-active={i === 0 ? '' : undefined}>
+                  <h4 class="font-display text-[20px] leading-[28px] font-bold text-navy">{step.title}</h4>
+                  {step.body && <p class="mt-3 text-[16px] leading-[24px] text-navy">{step.body}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </aside>
+    </div>
+  </section>
+
+  {/* Closing apply strip. */}
+  {applyCta && closingHeading && (
     <section class="bg-navy px-6 py-8 text-center">
       <div class="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-6">
-        {closingHeading && (
-          <h2 class="font-display text-[24px] leading-[32px] font-bold text-white">
-            {closingHeading}
-          </h2>
-        )}
+        <h2 class="font-display text-[24px] leading-[32px] font-bold text-white">{closingHeading}</h2>
         <Button href={applyCta.href} label={applyCta.label} icon />
       </div>
     </section>
   )}
+
+  {/* Employee testimonial. */}
   {testimonial && (
     <section class="bg-fog px-6 py-14">
       <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10 lg:flex-row">
@@ -202,3 +230,20 @@ const tel = recruiter?.links?.find((l: any) => l.href?.startsWith('tel:'));
     </section>
   )}
 </Base>
+
+<style>
+  .proces-panel { display: none; }
+  .proces-panel[data-active] { display: block; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-proces]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLElement>('[data-proces-tab]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-proces-panel]'));
+    const select = (index: number) => {
+      tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === index)));
+      panels.forEach((p, i) => (i === index ? p.setAttribute('data-active', '') : p.removeAttribute('data-active')));
+    };
+    tabs.forEach((tab, i) => tab.addEventListener('click', () => select(i)));
+  });
+</script>
