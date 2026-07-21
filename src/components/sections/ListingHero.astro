@@ -1,0 +1,70 @@
+---
+import listing from '../../i18n/pages/listing.json';
+
+// The /nl/actueel hero: a navy band with the heading, tagline, AND the category
+// filter buttons inside it. Shorter than the shared PageHero (the heading sits
+// ~70px below the header on the original, not 200), and the filters are navy
+// pill BUTTONS that grow slightly on hover — not the bordered outline chips the
+// listing used to render on the fog band below.
+//
+// The buttons are real links (each category is a genuine URL), so filtering
+// works with no JS; ArticleListing's script upgrades them to instant in-page
+// filtering. It queries `[data-filter]` globally, so the buttons live here
+// while the cards live in ArticleListing.
+
+interface Props {
+  title: string;
+  subtitle?: string | null;
+  /** null on the hub (Alles active); a category name on a category page. */
+  activeCategory?: string | null;
+}
+
+const { title, subtitle = null, activeCategory = null } = Astro.props;
+
+// The original orders the filters Nieuws, Kennis, Blogs, Events — not the
+// alphabetical order the extractor stores. Preserve that; append anything not
+// in the list so a new category never silently disappears.
+const ORDER = ['Nieuws', 'Kennis', 'Blogs', 'Events'];
+const categories = [...listing.categories].sort(
+  (a, b) => (ORDER.indexOf(a) + 1 || 99) - (ORDER.indexOf(b) + 1 || 99),
+);
+
+const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
+
+// Blue pill buttons on the navy hero. A plain navy fill would be invisible
+// against the navy background, so inactive chips use a lighter blue; the active
+// one is filled white. Both grow slightly on hover, as on the original.
+const chip =
+  'rounded-[12px] bg-[#1e5aa8] px-[21.76px] py-3 text-[16px] font-medium text-white ' +
+  'transition-transform hover:scale-105 ' +
+  'aria-[current=page]:bg-white aria-[current=page]:text-navy';
+---
+
+<section class="bg-navy px-6 pt-[70px] pb-10 text-center text-white">
+  <div class="container-site">
+    <h1 class="font-display text-[40px] leading-[48px] font-bold text-white">{title}</h1>
+    {subtitle && (
+      <p class="mx-auto mt-3 max-w-[760px] text-[16px] leading-[24px] text-white/90">{subtitle}</p>
+    )}
+
+    <div
+      class="mt-8 flex flex-wrap justify-center gap-3"
+      role="group"
+      aria-label="Filter op categorie"
+    >
+      <a href="/nl/actueel" class={chip} aria-current={activeCategory === null ? 'page' : undefined} data-filter="*">
+        Alles
+      </a>
+      {categories.map((cat) => (
+        <a
+          href={hrefFor(cat)}
+          class={chip}
+          aria-current={activeCategory === cat ? 'page' : undefined}
+          data-filter={cat}
+        >
+          {cat}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
