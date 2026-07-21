@@ -76,75 +76,18 @@ const slides = reviews
 )}
 
 <script>
-  import { autoplay } from '../../lib/carousel';
+  import { pagedCarousel } from '../../lib/carousel';
 
-  document.querySelectorAll<HTMLElement>('[data-review-carousel]').forEach((root) => {
-    const track = root.querySelector<HTMLElement>('[data-track]');
-    const dotsWrap = root.querySelector<HTMLElement>('[data-review-dots]');
-    if (!track) return;
-
-    const slides = Array.from(track.children) as HTMLElement[];
-    const count = slides.length;
-    if (count === 0) return;
-
-    const prev = root.querySelector<HTMLButtonElement>('[data-prev]');
-    const next = root.querySelector<HTMLButtonElement>('[data-next]');
-
-    // 3 cards above 1140, 1 below (Splide breakpoints 1139 / 767 → perPage 1).
-    const perView = () => (window.innerWidth >= 1140 ? 3 : 1);
-    const maxIndex = () => Math.max(0, count - perView());
-    const pitch = () =>
-      count > 1
-        ? slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left
-        : slides[0].getBoundingClientRect().width;
-
-    let index = 0;
-    let dots: HTMLButtonElement[] = [];
-
-    const buildDots = () => {
-      if (!dotsWrap) return;
-      const pv = perView();
-      const pages = Math.ceil(count / pv);
-      dotsWrap.replaceChildren();
-      dots = [];
-      for (let p = 0; p < pages; p++) {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.setAttribute('aria-label', `Ga naar ${p + 1}`);
-        dot.className = 'size-2 rounded-full bg-navy/20 transition-colors data-[active]:bg-navy';
-        dot.addEventListener('click', () => {
-          index = Math.min(p * pv, maxIndex());
-          render();
-          player?.reset();
-        });
-        dotsWrap.appendChild(dot);
-        dots.push(dot);
-      }
-    };
-
-    const render = () => {
-      index = Math.min(index, maxIndex());
-      track.style.transform = `translateX(-${index * pitch()}px)`;
-      const page = Math.floor(index / perView());
-      dots.forEach((d, i) => (i === page ? d.setAttribute('data-active', '') : d.removeAttribute('data-active')));
-    };
-
-    const go = (delta: number) => {
-      const span = maxIndex() + 1;
-      index = (index + delta + span) % span;
-      render();
-    };
-
-    const player = autoplay(root, () => go(1), 8000);
-    prev?.addEventListener('click', () => { go(-1); player.reset(); });
-    next?.addEventListener('click', () => { go(1); player.reset(); });
-
-    let lastPv = perView();
-    buildDots();
-    render();
-    window.addEventListener('resize', () => {
-      if (perView() !== lastPv) { lastPv = perView(); index = 0; buildDots(); }
-      render();
-    });
-  });
+  document.querySelectorAll<HTMLElement>('[data-review-carousel]').forEach((root) =>
+    pagedCarousel(root, {
+      track: '[data-track]',
+      dots: '[data-review-dots]',
+      prev: '[data-prev]',
+      next: '[data-next]',
+      // 3 cards above 1140, 1 below (Splide breakpoints 1139 / 767 → perPage 1).
+      breakpoint: 1140,
+      interval: 8000,
+      dotClass: 'size-2 rounded-full bg-navy/20 transition-colors data-[active]:bg-navy',
+    }),
+  );
 </script>

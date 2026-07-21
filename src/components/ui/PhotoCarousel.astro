@@ -69,87 +69,17 @@ const { images } = Astro.props;
 </div>
 
 <script>
-  import { autoplay } from '../../lib/carousel';
+  import { pagedCarousel } from '../../lib/carousel';
 
-  document.querySelectorAll<HTMLElement>('[data-pcar]').forEach((root) => {
-    const track = root.querySelector<HTMLElement>('[data-pcar-track]');
-    const dotsWrap = root.querySelector<HTMLElement>('[data-pcar-dots]');
-    if (!track) return;
-
-    const slides = Array.from(track.children) as HTMLElement[];
-    const count = slides.length;
-    if (count === 0) return;
-
-    const prev = root.querySelector<HTMLButtonElement>('[data-pcar-prev]');
-    const next = root.querySelector<HTMLButtonElement>('[data-pcar-next]');
-
-    // 3 photos above the 768 breakpoint, 1 below (splide--sm-1).
-    const perView = () => (window.innerWidth >= 768 ? 3 : 1);
-    const maxIndex = () => Math.max(0, count - perView());
-    // Pixel pitch (slide width + the 24px flex gap) — read live so resize works.
-    const pitch = () =>
-      count > 1
-        ? slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left
-        : slides[0].getBoundingClientRect().width;
-
-    let index = 0;
-    let dots: HTMLButtonElement[] = [];
-
-    const buildDots = () => {
-      if (!dotsWrap) return;
-      const pv = perView();
-      const pages = Math.ceil(count / pv);
-      dotsWrap.replaceChildren();
-      dots = [];
-      for (let p = 0; p < pages; p++) {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.setAttribute('aria-label', `Ga naar ${p + 1}`);
-        dot.className =
-          'size-[10px] rounded-full bg-navy/20 transition-colors data-[active]:bg-navy';
-        dot.addEventListener('click', () => {
-          index = Math.min(p * pv, maxIndex());
-          render();
-          player?.reset();
-        });
-        dotsWrap.appendChild(dot);
-        dots.push(dot);
-      }
-    };
-
-    const render = () => {
-      index = Math.min(index, maxIndex());
-      track.style.transform = `translateX(-${index * pitch()}px)`;
-      const page = Math.floor(index / perView());
-      dots.forEach((d, i) => {
-        if (i === page) d.setAttribute('data-active', '');
-        else d.removeAttribute('data-active');
-      });
-    };
-
-    // type:loop — the arrows wrap and are never disabled.
-    const go = (delta: number) => {
-      const span = maxIndex() + 1;
-      index = (index + delta + span) % span;
-      render();
-    };
-
-    const player = autoplay(root, () => go(1));
-    prev?.addEventListener('click', () => { go(-1); player.reset(); });
-    next?.addEventListener('click', () => { go(1); player.reset(); });
-
-    let lastPv = perView();
-    buildDots();
-    render();
-
-    window.addEventListener('resize', () => {
-      const pv = perView();
-      if (pv !== lastPv) {
-        lastPv = pv;
-        index = 0;
-        buildDots();
-      }
-      render();
-    });
-  });
+  document.querySelectorAll<HTMLElement>('[data-pcar]').forEach((root) =>
+    pagedCarousel(root, {
+      track: '[data-pcar-track]',
+      dots: '[data-pcar-dots]',
+      prev: '[data-pcar-prev]',
+      next: '[data-pcar-next]',
+      // 3 photos above the 768 breakpoint, 1 below (splide--sm-1).
+      breakpoint: 768,
+      dotClass: 'size-[10px] rounded-full bg-navy/20 transition-colors data-[active]:bg-navy',
+    }),
+  );
 </script>

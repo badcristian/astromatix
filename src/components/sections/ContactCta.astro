@@ -1,5 +1,6 @@
 ---
 import FormStub from '../ui/FormStub.astro';
+import type { Field } from '../../lib/forms';
 import copy from '../../i18n/home-copy.json';
 
 // Measured @1440:
@@ -27,7 +28,7 @@ interface Props {
    * with their own form shape pass it — jobboost adds a "Welke boost past bij
    * jou?" checkbox group (Small / Medium / Large) the generic form lacks.
    */
-  fields?: any[];
+  fields?: Field[];
   submitLabel?: string;
   /**
    * Optional sub-heading (h3) between the title and intro. The listing pages'
@@ -43,7 +44,7 @@ const {
   intro = null,
   band = null,
   id,
-  fields = copy.contactCta.fields,
+  fields = copy.contactCta.fields as Field[],
   submitLabel = copy.contactCta.submitLabel,
   subheading = null,
   wide = false,
