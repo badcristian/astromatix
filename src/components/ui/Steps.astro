@@ -33,12 +33,20 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
 <div class="mx-auto max-w-[1200px]" data-steps>
-  <div class="flex items-center justify-center gap-[57px]" role="tablist">
+  {/* A thin navy line runs behind the row, connecting the numbers; each
+      number's circle sits on top of it. The "stap N" caption is a navy PILL
+      shown only above the ACTIVE number (aria-selected drives it) — on the
+      original the inactive steps show no pill. */}
+  <div class="relative mx-auto flex max-w-[720px] items-start justify-between" role="tablist">
+    <div class="absolute top-[calc(1.375rem+28px)] right-[22px] left-[22px] -z-0 h-px bg-navy/20" aria-hidden="true"></div>
+
     {steps.map((step, i) => (
-      <div class="flex flex-col items-center gap-1">
+      <div class="relative z-10 flex flex-col items-center gap-1">
         {step.label && (
           <span
-            class="text-[13.12px] font-medium whitespace-nowrap text-orange"
+            class="rounded-full px-3 py-1 text-[13.12px] font-medium whitespace-nowrap transition-colors data-[on]:bg-navy data-[on]:text-white"
+            data-steps-label={i}
+            data-on={i === 0 ? '' : undefined}
             aria-hidden="true"
           >
             {step.label}
@@ -50,7 +58,7 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
           id={`${uid}-tab-${i}`}
           aria-controls={`${uid}-panel-${i}`}
           aria-selected={i === 0 ? 'true' : 'false'}
-          class="grid size-11 place-items-center rounded-full border border-navy text-[21.76px] font-medium text-navy transition-colors aria-selected:bg-navy aria-selected:text-white"
+          class="grid size-11 place-items-center rounded-full border border-navy bg-white text-[21.76px] font-medium text-navy transition-colors aria-selected:bg-navy aria-selected:text-white"
           data-steps-tab={i}
         >
           {step.number ?? i + 1}
@@ -87,8 +95,13 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
     const tabs = Array.from(root.querySelectorAll<HTMLElement>('[data-steps-tab]'));
     const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-steps-panel]'));
 
+    const labels = Array.from(root.querySelectorAll<HTMLElement>('[data-steps-label]'));
     const select = (index: number) => {
       tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === index)));
+      labels.forEach((l, i) => {
+        if (i === index) l.setAttribute('data-on', '');
+        else l.removeAttribute('data-on');
+      });
       panels.forEach((p, i) => {
         if (i === index) p.setAttribute('data-active', '');
         else p.removeAttribute('data-active');

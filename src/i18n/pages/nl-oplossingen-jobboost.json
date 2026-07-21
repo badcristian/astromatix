@@ -6,7 +6,7 @@
   },
   "hero": {
     "title": "Jobboost",
-    "background": null,
+    "background": "https://www.jobmatix.com/hubfs/Home%20%285%29.png",
     "parts": []
   },
   "properties": [
@@ -278,6 +278,8 @@
     }
   ],
   "bandQuote": null,
+  "richBody": null,
+  "tables": [],
   "blocks": [
     {
       "heading": "Jobboost",

@@ -204,6 +204,8 @@
     }
   ],
   "bandQuote": null,
+  "richBody": null,
+  "tables": [],
   "blocks": [
     {
       "heading": "Job Advertising",

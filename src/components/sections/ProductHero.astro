@@ -31,6 +31,12 @@ interface Props {
    * default — jobadvertising's subtitle is ordinary body text below the h1.
    */
   subtitleInHeading?: boolean;
+  /**
+   * Place the image as a bottom-centre CSS background behind the text rather
+   * than as a side column. jobboost's hero does this (background-position
+   * 50% 100%); platform and jobadvertising put the image on the right.
+   */
+  imageAsBackdrop?: boolean;
 }
 
 const {
@@ -42,13 +48,23 @@ const {
   imageHeight = 342,
   theme = 'dark',
   subtitleInHeading = false,
+  imageAsBackdrop = false,
 } = Astro.props;
 
 const dark = theme === 'dark';
+const backdrop = imageAsBackdrop && image;
 ---
 
-<section class:list={[dark ? 'bg-navy' : 'bg-white', 'px-6 pt-[100px] pb-[60px]']}>
-  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10 lg:flex-row lg:gap-20">
+<section
+  class:list={[dark ? 'bg-navy' : 'bg-white', 'px-6 pt-[100px]', backdrop ? 'pb-0' : 'pb-[60px]']}
+  style={backdrop ? `background-image:url(${image!.src});background-position:50% 100%;background-size:auto;background-repeat:no-repeat` : undefined}
+>
+  <div
+    class:list={[
+      'mx-auto flex max-w-[1200px] gap-10',
+      backdrop ? 'min-h-[397px] flex-col' : 'flex-col items-center lg:flex-row lg:gap-20',
+    ]}
+  >
     <div class="lg:flex-1">
       <h1
         class:list={[
@@ -76,7 +92,7 @@ const dark = theme === 'dark';
       )}
     </div>
 
-    {image && (
+    {image && !backdrop && (
       <Image
         src={image}
         alt=""

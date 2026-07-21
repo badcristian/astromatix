@@ -6,6 +6,13 @@ import { nav, cta, a11y } from '../../i18n/nl';
 // Measured from the live site @1440:
 //   header height 85px, white bg, logo 180×39, nav links Manrope 20/400 navy,
 //   CTA lilac #dc93e1, radius 10px, Manrope 500 18px, padding 14px 18px.
+
+// Current-page highlight. On the original, the nav entry for the page you are
+// on — including a dropdown child like Jobboost or Job Advertising under
+// Oplossingen — shows a small leading dot, a faint mist background and bolder
+// text. Match by pathname, tolerant of trailing slashes.
+const here = Astro.url.pathname.replace(/\/$/, '');
+const isCurrent = (href?: string) => !!href && here === href.replace(/\/$/, '');
 ---
 
 <header
@@ -24,7 +31,8 @@ import { nav, cta, a11y } from '../../i18n/nl';
           {item.href ? (
             <a
               href={item.href}
-              class="flex items-center gap-1 text-[20px] leading-[28px] text-navy transition-opacity hover:opacity-70"
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+              class="flex items-center gap-1 text-[20px] leading-[28px] text-navy transition-opacity hover:opacity-70 aria-[current=page]:font-bold"
             >
               {item.label}
               {item.children && <span class="chevron" aria-hidden="true" />}
@@ -47,8 +55,13 @@ import { nav, cta, a11y } from '../../i18n/nl';
               {item.children.map((child) => (
                 <a
                   href={child.href}
-                  class="block px-5 py-2 text-[18px] text-navy hover:bg-mist"
+                  aria-current={isCurrent(child.href) ? 'page' : undefined}
+                  class="group/link flex items-center gap-2 px-5 py-2 text-[18px] text-navy hover:bg-mist aria-[current=page]:bg-mist aria-[current=page]:font-bold"
                 >
+                  <span
+                    class="size-1.5 shrink-0 rounded-full bg-navy opacity-0 group-aria-[current=page]/link:opacity-100"
+                    aria-hidden="true"
+                  ></span>
                   {child.label}
                 </a>
               ))}

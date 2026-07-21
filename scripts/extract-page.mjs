@@ -105,21 +105,33 @@ const data = await page.evaluate(() => {
       hasH1: !!h1,
     },
     hero: (() => {
-      // The background image sits on an ANCESTOR row, not the one closest to
-      // the h1 — walking only one level up returned null on every klantcase and
-      // lost the hero photo entirely.
+      // jobboost ships no <h1>, so anchor on the first heading of any level —
+      // otherwise the whole hero probe (background AND parts) silently no-ops.
+      const heroEl = h1 || document.querySelector('h2');
+
+      // The background image sits on an ANCESTOR row, not the one closest to the
+      // heading — walking one level up returned null on every klantcase. And on
+      // jobboost it is a `.section-bg` layer DESCENDANT of the hero row rather
+      // than an ancestor, so scan both directions.
       let background = null;
-      for (let el = h1; el && !background; el = el.parentElement) {
+      for (let el = heroEl; el && !background; el = el.parentElement) {
         const m = getComputedStyle(el).backgroundImage.match(/url\("([^"]+)"\)/);
         if (m) background = m[1].split('?')[0];
+        // Once we reach the full-width hero row, look inside it too.
+        if (!background && el.getBoundingClientRect && el.getBoundingClientRect().width >= 1000) {
+          for (const child of el.querySelectorAll('*')) {
+            const cm = getComputedStyle(child).backgroundImage.match(/url\("([^"]+)"\)/);
+            if (cm) { background = cm[1].split('?')[0]; break; }
+          }
+        }
       }
 
       // Klantcase heroes put TWO differently-styled spans inside one <h1>:
       // the client name large and white, then the case headline smaller and
       // lilac. Flattening to a single string lost both the split and the
       // colours — the rebuild rendered one uniform line.
-      const parts = h1
-        ? Array.from(h1.children)
+      const parts = heroEl
+        ? Array.from(heroEl.children)
             .filter((n) => text(n))
             .map((n) => {
               const cs = getComputedStyle(n);
@@ -133,7 +145,7 @@ const data = await page.evaluate(() => {
         : [];
 
       return {
-        title: text(h1) || text(document.querySelector('h2')),
+        title: text(heroEl),
         background,
         parts: parts.length > 1 ? parts : [],
       };

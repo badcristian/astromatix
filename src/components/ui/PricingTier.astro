@@ -21,9 +21,14 @@ interface Props {
 }
 
 const { title, tag, price, info, desc, features, cta, disclaimer } = Astro.props;
+
+// The original CTA href is "/jobboost#Contactjobboost" — a cross-page link on
+// their site. On our page the button should scroll to the form at the bottom,
+// so keep only the #anchor and point it at the CTA form's id.
+const ctaHref = (cta?.href ?? '#').replace(/^[^#]*/, '') || '#';
 ---
 
-<div class="flex h-full flex-col rounded-3xl bg-white px-9 pt-6 pb-10">
+<div class="flex h-full flex-col rounded-3xl bg-white px-9 pt-6 pb-10 shadow-[0_32px_64px_0_rgba(17,65,122,0.05),0_16px_32px_0_rgba(17,65,122,0.05)]">
   {title && (
     <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">{title}</h3>
   )}
@@ -66,7 +71,7 @@ const { title, tag, price, info, desc, features, cta, disclaimer } = Astro.props
   {/* mt-auto keeps the CTA on the baseline across tiers of unequal length. */}
   {cta && (
     <div class="mt-auto pt-8">
-      <Button href={cta.href} label={cta.label} height={52} class="w-full justify-center" />
+      <Button href={ctaHref} label={cta.label} height={52} variant="navy" class="w-full justify-center" />
     </div>
   )}
 

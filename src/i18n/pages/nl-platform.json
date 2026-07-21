@@ -6,7 +6,7 @@
   },
   "hero": {
     "title": "All-in-one Recruitment Marketing platform Ontdek de mogelijkheden",
-    "background": null,
+    "background": "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2311417a' d='M3.603 4.146a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .707 0l3-3a.5.5 0 1 0-.707-.708L6.957 6.793 4.31 4.146a.5.5 0 0 0-.707 0'/%3E%3C/svg%3E",
     "parts": []
   },
   "properties": [],
@@ -242,6 +242,8 @@
     }
   ],
   "bandQuote": null,
+  "richBody": null,
+  "tables": [],
   "blocks": [
     {
       "heading": "All-in-one Recruitment Marketing platform Ontdek de mogelijkheden",

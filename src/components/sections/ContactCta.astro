@@ -20,15 +20,18 @@ interface Props {
    * fog on the FAQ. Defaults to mist, which is what the homepage uses.
    */
   band?: string | null;
+  /** Anchor id, so in-page CTAs (jobboost's pricing buttons) can scroll here. */
+  id?: string;
 }
-const { title, intro = null, band = null } = Astro.props;
+const { title, intro = null, band = null, id } = Astro.props;
 
 // Navy bands need light text; the light bands keep navy text.
 const onDark = !!band && /rgb\(\s*17,\s*(65|29)/.test(band);
 ---
 
 <section
-  class="bg-mist px-6 py-24"
+  id={id}
+  class="scroll-mt-24 bg-mist px-6 py-24"
   style={band ? `background-color:${band}` : undefined}
 >
   <div class="mx-auto max-w-[800px]">
