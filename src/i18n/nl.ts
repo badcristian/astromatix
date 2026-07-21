@@ -93,6 +93,7 @@ export const a11y = {
 // so the panel reads identically: placeholder "Doorzoek onze website", the
 // zero-state, and the load-more label.
 export const search = {
+  label: 'Zoeken',
   placeholder: 'Doorzoek onze website',
   empty: 'Sorry, geen resultaten gevonden.',
   more: 'Meer resultaten',

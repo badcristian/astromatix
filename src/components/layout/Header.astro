@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import logoNavy from '../../assets/logo-jobmatix-navy.png';
-import { nav, cta, a11y } from '../../i18n/nl';
+import { nav, cta, a11y, search } from '../../i18n/nl';
 
 // Measured from the live site @1440:
 //   header height 85px, white bg, logo 180×39, nav links Manrope 20/400 navy,
@@ -160,6 +160,21 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
   </div>
 
   <nav class="px-6" aria-label="Mobiel menu">
+    {/* Search opens the same SearchPanel (mounted in Base) as the desktop
+        magnifier — the magnifier itself is desktop-only, so mobile gets this
+        row. Opening search closes this menu (see SearchPanel's open()). */}
+    <button
+      type="button"
+      class="flex w-full items-center gap-3 border-b border-navy/10 py-4 text-left text-[18px] text-navy"
+      data-search-open
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+        <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      {search.label}
+    </button>
+
     {nav.map((item) => (
       <div class="border-b border-navy/10">
         <a

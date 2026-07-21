@@ -123,6 +123,11 @@ import { search as t, a11y } from '../../i18n/nl';
 
     function open() {
       lastFocused = document.activeElement;
+      // Mobile search lives inside the hamburger menu — close it first so the
+      // search panel isn't stacked over an open menu.
+      document.body.classList.remove('mnav-active');
+      document.querySelector('[data-mobile-nav]')?.classList.add('hidden');
+      document.querySelector('[data-menu-open]')?.setAttribute('aria-expanded', 'false');
       overlay!.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
       loadPagefind();
