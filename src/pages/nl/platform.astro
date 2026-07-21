@@ -4,6 +4,7 @@ import PageHero from '../../components/sections/PageHero.astro';
 import ProductBlock from '../../components/sections/ProductBlock.astro';
 import LogoWall from '../../components/sections/LogoWall.astro';
 import ContactCta from '../../components/sections/ContactCta.astro';
+import { Image } from 'astro:assets';
 import { resolveIcon } from '../../lib/icons';
 import page from '../../i18n/pages/nl-platform.json';
 
@@ -57,6 +58,16 @@ const findBlock = (heading: string) =>
   page.blocks?.find((b: any) => b.heading?.startsWith(heading)) ?? null;
 const partnersHeading = findBlock('Onze campaign partners');
 const ctaHeading = findBlock('Aan de slag met Jobmatix');
+
+// The "Jobmatix voordelen" block carries a 600x400 photo on the original,
+// anchored under the "Aan de slag" heading. It was rendered text-only.
+const voordelenImage = (() => {
+  const hit = (page.contentImages ?? []).find(
+    (i: any) => i.afterHeading?.startsWith('Aan de slag') && i.width > 400,
+  );
+  const resolved = resolveIcon(hit?.src);
+  return resolved ? { ...hit, resolved } : null;
+})();
 const voordelen = findBlock('Jobmatix voordelen');
 ---
 
@@ -74,7 +85,6 @@ const voordelen = findBlock('Jobmatix voordelen');
         reveal={block.imageRight ? 'right' : 'left'}
         background={i % 2 === 0 ? 'white' : 'mist'}
         stackUntil="md"
-      hideImageBelowMd
         hideImageBelowMd
       />
 
@@ -122,13 +132,24 @@ const voordelen = findBlock('Jobmatix voordelen');
 
   {voordelen && (
     <section class="bg-mist px-6 py-20">
-      <div class="mx-auto max-w-[850px]">
-        <h2 class="mb-6 font-display text-[30px] leading-[33px] font-bold text-navy">
-          {voordelen.heading}
-        </h2>
-        {voordelen.body.map((para: string) => (
-          <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
-        ))}
+      <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10 lg:flex-row lg:gap-20">
+        <div class="lg:flex-1">
+          <h2 class="mb-6 font-display text-[30px] leading-[33px] font-bold text-navy">
+            {voordelen.heading}
+          </h2>
+          {voordelen.body.map((para: string) => (
+            <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+          ))}
+        </div>
+        {voordelenImage && (
+          <Image
+            src={voordelenImage.resolved}
+            alt=""
+            width={voordelenImage.width}
+            height={voordelenImage.height}
+            class="h-auto w-full rounded-3xl lg:w-[600px] lg:shrink-0"
+          />
+        )}
       </div>
     </section>
   )}

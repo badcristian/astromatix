@@ -92,16 +92,21 @@ const {
     variant={reveal}
     duration={1000}
     class:list={[
-      'mx-auto flex max-w-[1200px] flex-col gap-10',
+      'mx-auto flex flex-col gap-10',
+      // Platform's blocks measure 611/611 — a ~1242 content area, not 1200 —
+      // so it gets a wider frame and a small gap; the homepage keeps 1200.
       stackUntil === 'md'
-        ? ['md:flex-row md:gap-10 lg:gap-20', reverse && 'md:flex-row-reverse']
-        : ['lg:flex-row lg:gap-20', reverse && 'lg:flex-row-reverse'],
+        ? ['max-w-[1242px] md:flex-row md:gap-5', reverse && 'md:flex-row-reverse']
+        : ['max-w-[1200px] lg:flex-row lg:gap-20', reverse && 'lg:flex-row-reverse'],
     ]}
   >
+    {/* Platform (stackUntil='md') is an EQUAL 50/50 split — measured 611/611
+        on the original — where the homepage is a fixed 600 image beside a 520
+        text column. Keeping the homepage's narrow text on platform read 520 vs
+        611. */}
     <div class:list={[
       hideImageBelowMd && 'hidden md:block',
-      stackUntil === 'md' && 'md:w-1/2 md:shrink-0',
-      'lg:w-[600px] lg:shrink-0',
+      stackUntil === 'md' ? 'md:w-1/2' : 'lg:w-[600px] lg:shrink-0',
     ]}>
       <Image
         src={image}
@@ -115,7 +120,10 @@ const {
     {/* top-px: centring an odd remainder (43.5px in block 1, 70.5 in block 2)
         rounds down here and up on the original. Nudged rather than pinned so
         it stays correct if the copy reflows. */}
-    <div class:list={[stackUntil === 'md' && 'md:w-1/2 md:self-center', 'lg:relative lg:top-px lg:w-[520px] lg:self-center']}>
+    <div class:list={[
+      'lg:relative lg:top-px lg:self-center',
+      stackUntil === 'md' ? 'md:w-1/2 md:self-center' : 'lg:w-[520px]',
+    ]}>
       <h2 class="font-display text-[30px] leading-[52.5px] font-bold text-navy">
         {title}
       </h2>
