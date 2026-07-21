@@ -23,8 +23,9 @@ interface Props {
   icon?: ImageMetadata;
   title: string;
   body: string;
-  /** translucent = value prop (white/5); white = stats band. */
-  background?: 'translucent' | 'white';
+  /** translucent = value prop (white/5); white = stats band; navy = over-ons
+   * "Onze kernwaarden" cards (navy fill, white text). */
+  background?: 'translucent' | 'white' | 'navy';
   /** Horizontal inset on the inner body. 18px on the value prop, 0 on stats. */
   bodyInset?: number;
   /** Heading level — h4 on the value prop, h3 on the stats band. */
@@ -39,6 +40,9 @@ const {
   bodyInset = 18,
   as: Heading = 'h4',
 } = Astro.props;
+
+const navy = background === 'navy';
+const textColor = navy ? 'text-white' : 'text-navy';
 ---
 
 <div
@@ -47,14 +51,14 @@ const {
     // shorter label ("sollicitaties") makes its card shorter than a card whose
     // label wraps to more lines ("tevreden gebruikers").
     'mb-6 h-full rounded-3xl p-6 text-center shadow-[0_16px_32px_0_rgba(17,65,122,0.05)]',
-    background === 'white' ? 'bg-white' : 'bg-white/5',
+    navy ? 'bg-navy' : background === 'white' ? 'bg-white' : 'bg-white/5',
   ]}
 >
   <div style={`margin-inline:${bodyInset}px`}>
     {/* 9px, not the original's 8.96 — the fraction truncates to a 32px offset
         from the card top here, where the original computes 33. */}
     <div class="mt-[9px] mb-6 flex justify-center">
-      <span class="inline-flex size-[58px] items-center justify-center rounded-[10px] bg-mist text-navy">
+      <span class:list={['inline-flex size-[58px] items-center justify-center rounded-[10px]', navy ? 'bg-white/15 text-white' : 'bg-mist text-navy']}>
         {icon ? (
           <Image src={icon} alt="" width={29} densities={[1, 2]} />
         ) : (
@@ -66,11 +70,11 @@ const {
       </span>
     </div>
 
-    <Heading class="mb-6 font-display text-[20px] leading-[28px] font-bold text-navy">
+    <Heading class:list={['mb-6 font-display text-[20px] leading-[28px] font-bold', textColor]}>
       {title}
     </Heading>
 
-    <p class="mb-6 text-[16px] leading-[22.4px] text-navy">
+    <p class:list={['mb-6 text-[16px] leading-[22.4px]', textColor]}>
       {body}
     </p>
   </div>

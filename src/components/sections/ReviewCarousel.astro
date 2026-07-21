@@ -2,10 +2,12 @@
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../lib/icons';
 
-// The klantcases "Tevreden klanten" `.module--review` carousel: customer
-// reviews, one per slide — avatar, quote, name, company — with prev/next
-// arrows and pagination dots. A small translateX carousel rather than Splide,
-// matching TestimonialCarousel, to avoid a runtime dependency.
+// The klantcases "Tevreden klanten" `.module--review` carousel. Read from the
+// live Splide: type loop, perPage 3 (→ 1 at/below 1139), perMove 1, gap 24,
+// autoplay 8s. Each slide is a WHITE CARD (337×354, 24px radius, soft navy
+// shadow, 24px padding): the quote on top, then an 80px round avatar beside the
+// name (500) and company. Left-aligned. A lightweight translateX carousel
+// rather than Splide, matching PhotoCarousel.
 
 interface Props {
   reviews: {
@@ -24,10 +26,10 @@ const slides = reviews
 
 {slides.length > 0 && (
   <section class="px-6 pb-16">
-    <div class="relative mx-auto max-w-[850px] px-12" data-review-carousel>
+    <div class="relative mx-auto max-w-[1104px] px-12" data-review-carousel>
       <button
         type="button"
-        class="absolute top-1/2 left-0 -translate-y-1/2 text-navy transition-opacity hover:opacity-60"
+        class="absolute top-1/2 left-0 z-10 -translate-y-1/2 text-navy transition-opacity hover:opacity-60"
         aria-label="Vorige"
         data-prev
       >
@@ -37,29 +39,29 @@ const slides = reviews
       </button>
 
       <div class="overflow-hidden">
-        <div class="flex transition-transform duration-300" data-track>
+        <div class="flex items-stretch gap-6 transition-transform duration-[450ms] ease-out" data-track>
           {slides.map((r) => (
-            <figure class="w-full shrink-0 px-6 text-center">
-              {r.img && (
-                <Image src={r.img} alt="" width={80} height={80} class="mx-auto size-20 rounded-full object-cover" />
-              )}
-              <blockquote class="mx-auto mt-6 max-w-[706px] text-[16px] leading-[22.4px] text-navy">
-                {r.quote}
-              </blockquote>
-              {r.name && (
-                <figcaption class="mt-4 font-display text-[16px] font-bold text-navy">
-                  {r.name}
-                  {r.company && <span class="block font-body font-normal text-navy/60">{r.company}</span>}
-                </figcaption>
-              )}
-            </figure>
+            <div class="w-full shrink-0 lg:w-[calc((100%-48px)/3)]">
+              <div class="flex h-full flex-col rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05),0_8px_16px_0_rgba(17,65,122,0.05)]">
+                <p class="text-[14.4px] leading-[20.16px] text-navy">{r.quote}</p>
+                <div class="mt-auto flex items-center gap-4 pt-6">
+                  {r.img && (
+                    <Image src={r.img} alt="" width={80} height={80} densities={[1, 2]} class="size-20 shrink-0 rounded-full object-cover" />
+                  )}
+                  <div>
+                    {r.name && <p class="text-[14.4px] leading-[20px] font-medium text-navy">{r.name}</p>}
+                    {r.company && <p class="text-[14.4px] leading-[20px] text-navy">{r.company}</p>}
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
 
       <button
         type="button"
-        class="absolute top-1/2 right-0 -translate-y-1/2 text-navy transition-opacity hover:opacity-60"
+        class="absolute top-1/2 right-0 z-10 -translate-y-1/2 text-navy transition-opacity hover:opacity-60"
         aria-label="Volgende"
         data-next
       >
@@ -68,17 +70,7 @@ const slides = reviews
         </svg>
       </button>
 
-      <div class="mt-6 flex justify-center gap-2" data-dots>
-        {slides.map((_, i) => (
-          <button
-            type="button"
-            class="size-2 rounded-full bg-navy/20 transition-colors aria-[current=true]:bg-navy"
-            aria-label={`Review ${i + 1}`}
-            aria-current={i === 0 ? 'true' : 'false'}
-            data-dot={i}
-          />
-        ))}
-      </div>
+      <div class="mt-8 flex justify-center gap-2" data-review-dots></div>
     </div>
   </section>
 )}
@@ -88,19 +80,71 @@ const slides = reviews
 
   document.querySelectorAll<HTMLElement>('[data-review-carousel]').forEach((root) => {
     const track = root.querySelector<HTMLElement>('[data-track]');
-    const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-dot]'));
-    const count = dots.length;
-    let index = 0;
+    const dotsWrap = root.querySelector<HTMLElement>('[data-review-dots]');
+    if (!track) return;
 
-    const go = (next: number) => {
-      index = (next + count) % count;
-      if (track) track.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach((d, i) => d.setAttribute('aria-current', String(i === index)));
+    const slides = Array.from(track.children) as HTMLElement[];
+    const count = slides.length;
+    if (count === 0) return;
+
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-next]');
+
+    // 3 cards above 1140, 1 below (Splide breakpoints 1139 / 767 → perPage 1).
+    const perView = () => (window.innerWidth >= 1140 ? 3 : 1);
+    const maxIndex = () => Math.max(0, count - perView());
+    const pitch = () =>
+      count > 1
+        ? slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left
+        : slides[0].getBoundingClientRect().width;
+
+    let index = 0;
+    let dots: HTMLButtonElement[] = [];
+
+    const buildDots = () => {
+      if (!dotsWrap) return;
+      const pv = perView();
+      const pages = Math.ceil(count / pv);
+      dotsWrap.replaceChildren();
+      dots = [];
+      for (let p = 0; p < pages; p++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Ga naar ${p + 1}`);
+        dot.className = 'size-2 rounded-full bg-navy/20 transition-colors data-[active]:bg-navy';
+        dot.addEventListener('click', () => {
+          index = Math.min(p * pv, maxIndex());
+          render();
+          player?.reset();
+        });
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      }
     };
 
-    const player = autoplay(root, () => go(index + 1));
-    root.querySelector('[data-prev]')?.addEventListener('click', () => { go(index - 1); player.reset(); });
-    root.querySelector('[data-next]')?.addEventListener('click', () => { go(index + 1); player.reset(); });
-    dots.forEach((dot, i) => dot.addEventListener('click', () => { go(i); player.reset(); }));
+    const render = () => {
+      index = Math.min(index, maxIndex());
+      track.style.transform = `translateX(-${index * pitch()}px)`;
+      const page = Math.floor(index / perView());
+      dots.forEach((d, i) => (i === page ? d.setAttribute('data-active', '') : d.removeAttribute('data-active')));
+    };
+
+    const go = (delta: number) => {
+      const span = maxIndex() + 1;
+      index = (index + delta + span) % span;
+      render();
+    };
+
+    const player = autoplay(root, () => go(1), 8000);
+    prev?.addEventListener('click', () => { go(-1); player.reset(); });
+    next?.addEventListener('click', () => { go(1); player.reset(); });
+
+    let lastPv = perView();
+    buildDots();
+    render();
+    window.addEventListener('resize', () => {
+      if (perView() !== lastPv) { lastPv = perView(); index = 0; buildDots(); }
+      render();
+    });
   });
 </script>

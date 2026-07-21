@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/sections/PageHero.astro';
+import CompactHero from '../../components/sections/CompactHero.astro';
 import FormStub from '../../components/ui/FormStub.astro';
 import { Image } from 'astro:assets';
 import contactMap from '../../assets/contact-map.png';
@@ -49,7 +49,7 @@ const contactFields = [
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={heading("Let's get in touch") ?? 'Contact'} subtitle={null} />
+  <CompactHero title={heading("Let's get in touch") ?? 'Contact'} />
 
   <section class="px-6 py-16">
     <div class="mx-auto grid max-w-[1200px] gap-12 lg:grid-cols-[1fr_360px]">

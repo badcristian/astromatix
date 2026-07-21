@@ -45,7 +45,7 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
     {/* Fonts scale with the viewport so a long client name ("Djops
         Uitzendgroep") does not overflow the right edge on mobile, while the
         original desktop sizes are the clamp ceiling. */}
-    <h1 class="max-w-[588px] font-display font-bold break-words">
+    <h1 class="max-w-[760px] font-display font-bold break-words">
       {c.heroParts.length > 0 ? (
         c.heroParts.map((part) => (
           <span
@@ -85,16 +85,19 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
     const portrait = resolveIcon(item.image);
     const CardInner = (
       <>
+        {/* Compact card measured on the original: 384x69, 44px avatar, name
+            16/500, role 14.4/400, 16px radius, 12/18 padding — NOT the 96px
+            avatar + 20px bold we had, which ran it ~2x too tall. */}
         {portrait && (
-          <Image src={portrait} alt="" width={96} height={96} class="size-24 shrink-0 rounded-full object-cover" />
+          <Image src={portrait} alt="" width={44} height={44} densities={[1, 2]} class="size-11 shrink-0 rounded-full object-cover" />
         )}
         <div class="min-w-0 flex-1">
-          <p class="font-display text-[20px] leading-[28px] font-bold text-navy">{item.title}</p>
-          {item.body && <p class="text-[14.4px] text-navy/70">{item.body}</p>}
+          <p class="text-[16px] leading-[22px] font-medium text-navy">{item.title}</p>
+          {item.body && <p class="text-[14.4px] leading-[20px] text-navy">{item.body}</p>}
         </div>
         {/* The card links to the person's LinkedIn, with a trailing arrow. */}
         {item.link && (
-          <svg class="size-6 shrink-0 text-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="size-5 shrink-0 text-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>
         )}
@@ -112,12 +115,12 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
                 href={item.link}
                 rel="noopener"
                 target="_blank"
-                class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5 text-left shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] transition-transform hover:scale-[1.02]"
+                class="flex w-full max-w-[384px] items-center gap-4 rounded-2xl bg-white py-3 pr-[18px] pl-[18px] text-left shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] transition-transform hover:scale-[1.02]"
               >
                 {CardInner}
               </a>
             ) : (
-              <div class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5 text-left">
+              <div class="flex w-full max-w-[384px] items-center gap-4 rounded-2xl bg-white py-3 pr-[18px] pl-[18px] text-left shadow-[0_16px_32px_0_rgba(17,65,122,0.05)]">
                 {CardInner}
               </div>
             )}

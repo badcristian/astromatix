@@ -91,15 +91,22 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
             {card.img && (
               <Image src={card.img} alt="" width={363} height={272} class="h-[272px] w-full object-cover" />
             )}
+            {/* Order per the original: category, title, DATE, excerpt, then a
+                bottom button — "Meer informatie" for the external news links,
+                "Lees verder" for the internal articles. It's a styled span, not
+                a nested <a>, since the whole card is already the link. */}
             <div class="flex flex-1 flex-col p-6">
-              <p class="text-[14.4px] text-orange">{card.category}</p>
+              <p class="text-[14.4px] uppercase text-orange">{card.category}</p>
               <h2 class="mt-2 font-display text-[20px] leading-[28px] font-bold text-navy">
                 {card.title}
               </h2>
-              <p class="mt-2 text-[14.4px] leading-[20.16px] text-navy">{card.excerpt}</p>
-              <time class="mt-auto pt-4 text-[14.4px] text-navy/60" datetime={card.date}>
+              <time class="mt-3 block text-[14.4px] text-navy/60" datetime={card.date}>
                 {card.date}
               </time>
+              <p class="mt-3 text-[14.4px] leading-[20.16px] text-navy">{card.excerpt}</p>
+              <span class="mt-6 inline-flex h-10 w-fit items-center rounded-[10px] border-2 border-mist px-[13px] text-[16px] text-navy">
+                {card.external ? 'Meer informatie' : 'Lees verder'}
+              </span>
             </div>
           </a>
         </article>

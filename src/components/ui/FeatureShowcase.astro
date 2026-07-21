@@ -30,7 +30,9 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
 {/* nav 480 + card 720 = the 1200 row exactly, so lg:gap-0 (the original has
     no gap between them; the nav's own 480→370 inset is the visual gutter). */}
 <div class="mx-auto flex max-w-[1200px] flex-col gap-8 lg:flex-row lg:gap-0" data-featshow>
-  <div class="lg:w-[480px] lg:shrink-0">
+  {/* The nav column stretches to the card's height (flex-row default); center
+      the labels within it, matching the original (nav centre = card centre). */}
+  <div class="lg:flex lg:w-[480px] lg:shrink-0 lg:flex-col lg:justify-center">
     <ul class="mx-auto flex max-w-[370px] flex-col gap-4" role="tablist">
       {items.map((item, i) => (
         <li>

@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/sections/PageHero.astro';
+import CompactHero from '../../components/sections/CompactHero.astro';
 import FeatureCard from '../../components/ui/FeatureCard.astro';
 import CtaStrip from '../../components/sections/CtaStrip.astro';
 import Reveal from '../../components/ui/Reveal.astro';
@@ -70,8 +70,8 @@ const quoteImage = (() => {
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  {/* Hero: navy band, title only. */}
-  <PageHero title={heroBlock?.heading ?? 'Over ons'} subtitle={null} />
+  {/* Hero: short navy banner (184px), title only. */}
+  <CompactHero title={heroBlock?.heading ?? 'Over ons'} />
 
   {/* Intro: text + stats LEFT, team photo RIGHT. */}
   <section class="px-6 py-16">
@@ -127,7 +127,7 @@ const quoteImage = (() => {
       <Reveal variant="zoom" duration={1000} class="mt-11 flex flex-wrap justify-center -mx-3">
         {page.featureCards.map((card) => (
           <div class="w-full px-3 md:w-1/2 lg:w-1/3">
-            <FeatureCard icon={resolveIcon(card.icon)} title={card.title} body={card.body} />
+            <FeatureCard icon={resolveIcon(card.icon)} title={card.title} body={card.body} background="navy" />
           </div>
         ))}
       </Reveal>

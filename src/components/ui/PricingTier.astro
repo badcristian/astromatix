@@ -33,8 +33,9 @@ const ctaHref = (cta?.href ?? '#').replace(/^[^#]*/, '') || '#';
     <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">{title}</h3>
   )}
 
+  {/* The price is big — 59px Manrope bold on the original (not 40px Poppins). */}
   {price && (
-    <p class="mt-4 font-display text-[40px] leading-[48px] font-bold text-navy">{price}</p>
+    <p class="mt-4 text-[59px] leading-[59px] font-bold text-navy">{price}</p>
   )}
 
   {tag && tag !== price && (
