@@ -134,5 +134,10 @@ export function caseData(entry: Klantcase) {
     render,
     ctaTitle: cta?.heading ?? null,
     ctaIntro: cta?.body?.[0] ?? null,
+    // The page's OWN closing form — the klantcases require the message field
+    // ("Jouw bericht *") and use their own labels, unlike the generic home
+    // form the shared ContactCta falls back to.
+    formFields: (d.forms?.[0]?.fields ?? null) as any[] | null,
+    formSubmitLabel: (d.forms?.[0]?.submitLabel ?? null) as string | null,
   };
 }

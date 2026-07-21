@@ -163,5 +163,10 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
     );
   })}
 
-  <ContactCta title={c.ctaTitle ?? undefined} intro={c.ctaIntro} />
+  <ContactCta
+    title={c.ctaTitle ?? undefined}
+    intro={c.ctaIntro}
+    fields={c.formFields ?? undefined}
+    submitLabel={c.formSubmitLabel ?? undefined}
+  />
 </Base>

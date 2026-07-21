@@ -66,12 +66,24 @@ const fieldChrome =
 const inputClass = `w-full rounded-[12px] p-[14.56px] ${fieldChrome}`;
 const textareaClass = `w-full rounded-[12px] p-[14.56px] ${fieldChrome}`;
 
+// The reCAPTCHA response is a hidden textarea the widget fills; not a real
+// field, and we do not embed the third-party widget (out of scope, like the
+// HubSpot Meetings embeds).
+const real = fields.filter((f) => f.name && f.name !== 'g-recaptcha-response');
+
 // The original pairs firstname/lastname and phone/email side by side.
 const paired = new Set(['firstname', 'lastname', 'phone', 'email']);
 const isChoice = (f: Field) => f.type === 'checkbox' || f.type === 'radio';
-const textareas = fields.filter((f) => f.type === 'textarea');
-const singles = fields.filter((f) => f.type !== 'textarea' && !paired.has(f.name) && !isChoice(f));
-const pairs = fields.filter((f) => paired.has(f.name));
+const textareas = real.filter((f) => f.type === 'textarea');
+const singles = real.filter((f) => f.type !== 'textarea' && !paired.has(f.name) && !isChoice(f));
+const pairs = real.filter((f) => paired.has(f.name));
+
+// Per-field error, shown on submit when a required field is empty — a navy
+// pill beneath the field, exactly as the original ("Vul dit verplichte veld
+// in."). Rendered for every field; the script reveals only the invalid ones.
+const FIELD_ERROR = 'Vul dit verplichte veld in.';
+const errorClass =
+  'form-error mt-1 hidden w-fit rounded-[6px] bg-navy px-2 py-1 text-[13px] leading-tight text-white';
 ---
 
 <form class="mx-auto w-full max-w-[800px]" data-form-stub novalidate>
@@ -83,8 +95,10 @@ const pairs = fields.filter((f) => paired.has(f.name));
         id={field.name}
         name={field.name}
         type={field.type}
+        required={field.required}
         style="height:54px"
       />
+      <span class={errorClass} data-error>{FIELD_ERROR}</span>
     </div>
   ))}
 
@@ -92,7 +106,8 @@ const pairs = fields.filter((f) => paired.has(f.name));
     {pairs.slice(0, 2).map((field) => (
       <div class="md:w-[388px]">
         <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
-        <input class={inputClass} id={field.name} name={field.name} type={field.type} style="height:54px" />
+        <input class={inputClass} id={field.name} name={field.name} type={field.type} required={field.required} style="height:54px" />
+        <span class={errorClass} data-error>{FIELD_ERROR}</span>
       </div>
     ))}
   </div>
@@ -101,7 +116,8 @@ const pairs = fields.filter((f) => paired.has(f.name));
     {pairs.slice(2).map((field) => (
       <div class="md:w-[388px]">
         <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
-        <input class={inputClass} id={field.name} name={field.name} type={field.type} style="height:54px" />
+        <input class={inputClass} id={field.name} name={field.name} type={field.type} required={field.required} style="height:54px" />
+        <span class={errorClass} data-error>{FIELD_ERROR}</span>
       </div>
     ))}
   </div>
@@ -132,9 +148,16 @@ const pairs = fields.filter((f) => paired.has(f.name));
   {textareas.map((field) => (
     <div class="mb-6">
       <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
-      <textarea class={textareaClass} id={field.name} name={field.name} style="height:130px"></textarea>
+      <textarea class={textareaClass} id={field.name} name={field.name} required={field.required} style="height:130px"></textarea>
+      <span class={errorClass} data-error>{FIELD_ERROR}</span>
     </div>
   ))}
+
+  {/* Summary error above the submit — "Vul alle verplichte velden in." — shown
+      when any required field is empty, exactly as the original. */}
+  <p class="mb-4 hidden text-[16px] font-bold text-navy" data-form-summary role="alert">
+    Vul alle verplichte velden in.
+  </p>
 
   <button
     type="submit"
@@ -150,11 +173,40 @@ const pairs = fields.filter((f) => paired.has(f.name));
 
 <script>
   document.querySelectorAll<HTMLFormElement>('[data-form-stub]').forEach((form) => {
+    const notice = form.querySelector<HTMLElement>('[data-form-notice]');
+    const summary = form.querySelector<HTMLElement>('[data-form-summary]');
+
+    // Show the per-field error beside an input when it is a required field left
+    // empty; hide it once filled. Returns whether the field is valid.
+    const check = (el: HTMLInputElement | HTMLTextAreaElement) => {
+      const ok = !el.required || el.value.trim() !== '';
+      const error = el.parentElement?.querySelector('[data-error]');
+      error?.classList.toggle('hidden', ok);
+      return ok;
+    };
+
+    const fields = Array.from(
+      form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea'),
+    );
+
+    // Once a field has been flagged, re-validate it as the user types so the
+    // error clears the moment it is fixed.
+    fields.forEach((el) =>
+      el.addEventListener('input', () => {
+        if (!el.parentElement?.querySelector('[data-error]')?.classList.contains('hidden')) check(el);
+      }),
+    );
+
     form.addEventListener('submit', (event) => {
-      // Intentionally inert: no backend is wired up yet, and demo submissions
-      // must not reach the client's CRM.
+      // Deliberately inert: no backend is wired up, and demo submissions must
+      // not reach the client's CRM. But the ORIGINAL validates first and only
+      // proceeds when the form is complete, so mirror that — show the field and
+      // summary errors while anything required is empty, and only surface the
+      // "not implemented" notice once everything is valid.
       event.preventDefault();
-      form.querySelector('[data-form-notice]')?.classList.remove('hidden');
+      const valid = fields.map(check).every(Boolean);
+      summary?.classList.toggle('hidden', valid);
+      notice?.classList.toggle('hidden', !valid);
     });
   });
 </script>
