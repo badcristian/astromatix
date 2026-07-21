@@ -60,9 +60,10 @@ const onDark = !!band && /rgb\(\s*17,\s*(65|29)/.test(band);
   style={band ? `background-color:${band}` : undefined}
 >
   <div class:list={['mx-auto', wide ? 'max-w-[1200px]' : 'max-w-[800px]']}>
-    {/* Intro spans the form column (~800), not a narrower 650 — measured at
-        822 on /nl/contact. */}
-    <div class="mx-auto max-w-[800px] text-center">
+    {/* Non-wide: intro spans the ~800 form column, centred (measured 822 on
+        /nl/contact). Wide (klantcases' "Get the job done"): the title + intro
+        are LEFT-aligned across the full 1200 width, as the original renders them. */}
+    <div class:list={[wide ? 'text-left' : 'mx-auto max-w-[800px] text-center']}>
       <h2
         class:list={[
           'font-display text-[30px] leading-[33px] font-bold',

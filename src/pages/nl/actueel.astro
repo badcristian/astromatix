@@ -60,17 +60,20 @@ const newsletterFields = (page.forms?.[0]?.fields ?? []).map((f: any) => ({
         </div>
 
         <div class="lg:flex-1">
-          <h3 class="font-display text-[24px] leading-[32px] font-bold text-navy">
+          {/* The original sets this as a 20px/400 Poppins line, not a bold heading. */}
+          <h3 class="font-display text-[20px] leading-[26.6px] font-normal text-navy">
             Get the job done &amp; ontvang laatste nieuwtjes rechtstreeks in je inbox!
           </h3>
           <p class="mt-3 text-[16px] leading-[26px] text-navy">
             {helpBlock?.body?.[1] ?? 'Schrijf je in voor onze nieuwsbrief'}
           </p>
           <div class="mt-6">
+            {/* Voornaam over E-mail — single column, as the original stacks them. */}
             <FormStub
               fields={newsletterFields}
               submitLabel={page.forms?.[0]?.submitLabel ?? 'Schrijf me in'}
               submitColor="orange"
+              singleColumn
             />
           </div>
         </div>

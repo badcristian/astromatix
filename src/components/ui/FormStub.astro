@@ -34,9 +34,15 @@ interface Props {
   submitColor?: 'navy' | 'orange';
   /** Wider form (1200) with paired fields splitting the row — the klantcases. */
   wide?: boolean;
+  /**
+   * Stack every field in a single column instead of pairing firstname/email etc.
+   * side by side — the actueel newsletter (Voornaam over E-mail) needs this while
+   * keeping the styled (not raw) inputs.
+   */
+  singleColumn?: boolean;
 }
 
-const { fields, submitLabel, variant = 'styled', submitColor = 'navy', wide = false } = Astro.props;
+const { fields, submitLabel, variant = 'styled', submitColor = 'navy', wide = false, singleColumn = false } = Astro.props;
 const raw = variant === 'raw';
 const pairClass = wide ? 'md:flex-1' : 'md:w-[388px]';
 const submitBg = submitColor === 'orange' ? 'bg-orange' : 'bg-navy';
@@ -81,15 +87,16 @@ const inputStyle = raw ? 'height:44px' : 'height:54px';
 // HubSpot Meetings embeds).
 const real = fields.filter((f) => f.name && f.name !== 'g-recaptcha-response');
 
-// The original pairs firstname/lastname and phone/email side by side.
+// The original pairs firstname/lastname and phone/email side by side — unless
+// this is the raw funnel form or an explicitly single-column form (newsletter).
 const paired = new Set(['firstname', 'lastname', 'phone', 'email']);
+const stacked = raw || singleColumn;
 const isChoice = (f: Field) => f.type === 'checkbox' || f.type === 'radio';
 const textareas = real.filter((f) => f.type === 'textarea');
-// The raw funnel form is a single column — no firstname/lastname pairing.
 const singles = real.filter(
-  (f) => f.type !== 'textarea' && !isChoice(f) && (raw || !paired.has(f.name)),
+  (f) => f.type !== 'textarea' && !isChoice(f) && (stacked || !paired.has(f.name)),
 );
-const pairs = raw ? [] : real.filter((f) => paired.has(f.name));
+const pairs = stacked ? [] : real.filter((f) => paired.has(f.name));
 
 // Per-field error, shown on submit when a required field is empty — a navy
 // pill beneath the field, exactly as the original ("Vul dit verplichte veld

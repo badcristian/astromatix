@@ -25,6 +25,8 @@ interface OrderBlock {
   type: 'heading' | 'image' | 'featureCard' | 'quickfeat' | 'compactCard';
   module?: string;
   heading?: string;
+  /** 'center' on the narrative sections the original centres; absent = left. */
+  align?: string;
   /** heading/lead: an array of lines. compactCard/featureCard: a single string. */
   body?: string[] | string;
   y?: number;
@@ -78,6 +80,8 @@ interface Section {
   card: { title: string; body: string } | null;
   quickfeat: unknown[];
   lead: boolean;
+  /** Text alignment the original gives this section — varies per page/section. */
+  align: 'center' | 'left';
   y: number;
 }
 
@@ -241,6 +245,7 @@ function buildRenderList(
         card: null,
         quickfeat: [],
         lead: isLead,
+        align: b.align === 'center' ? 'center' : 'left',
         y: b.y ?? 0,
       };
 

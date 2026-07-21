@@ -296,7 +296,8 @@
       "body": [
         "Jobmatix biedt Kruidvat één centraal platform waarmee het team niet alleen de juiste kandidaten bereikt, maar ook tijd bespaart."
       ],
-      "y": 2159
+      "y": 2159,
+      "align": "center"
     },
     {
       "type": "quickfeat",
@@ -341,7 +342,8 @@
       "body": [
         "Als een van de eerste gebruikers van Jobmatix heeft Kruidvat niet alleen de groei van het platform meegemaakt, maar ook de voordelen ervan ervaren. Het platform biedt een duidelijke toegevoegde waarde, vooral als het gaat om tijdbesparing voor de recruitmentafdeling. Sinds er dit jaar een toegewijde Customer Success Manager vanuit Jobmatix betrokken is, krijgt Kruidvat ook meer inzicht in vacaturetitels. Hierdoor worden vacatures geoptimaliseerd voor een betere aansluiting bij de doelgroep."
       ],
-      "y": 2878
+      "y": 2878,
+      "align": "center"
     },
     {
       "type": "image",

@@ -288,7 +288,8 @@
       "body": [
         "Een gebruiksvriendelijk all-in-one platform, waarmee iedereen binnen Faam kan werken."
       ],
-      "y": 1834
+      "y": 1834,
+      "align": "center"
     },
     {
       "type": "quickfeat",
@@ -335,7 +336,8 @@
         "“De interface is heel gebruiksvriendelijk, waardoor iedereen er makkelijk mee kan werken. Bovendien houden de adviezen van het Jobmatix teams ons scherp. Soms komen we er bijvoorbeeld achter dat een bepaald type vacature een eigen campagne verdient. Samen gaan we voor de ideale balans tussen Cost Per Applicant (CPA) en Cost Per Click (CPC).”",
         "“Sinds we samenwerken met Jobmatix hebben we aanzienlijk meer sollicitanten mogen spreken. Ik adviseer iedereen: onderschat de kracht van jobmarketing en jobboards niet. Het zijn hele waardevolle kanalen die zorgen voor meer naamsbekendheid. Jobmatix is een belangrijke stakeholder voor het realiseren van onze ambities.”"
       ],
-      "y": 2516
+      "y": 2516,
+      "align": "center"
     },
     {
       "type": "image",

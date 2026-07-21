@@ -165,6 +165,12 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
   const sideImage = !item.card && images.length === 1 && (images[0].x ?? 0) > 700 ? images[0] : null;
   const belowImages = sideImage ? [] : images;
 
+  // Whether this section is centred is authored per page/section on the original
+  // and carried on the data (item.align) — "Oplossing" is centred everywhere,
+  // "Resultaat" is centred on some pages and left on others. Card / side-image
+  // sections stay left (two-column) regardless.
+  const centered = item.align === 'center' && !item.card && !sideImage;
+
   if (item.lead) {
     const lead = item.parts[0];
     // djops closes its lead with a metric row: three ~200px "coin" images, each
@@ -229,6 +235,7 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
         class:list={[
           'mx-auto max-w-[1200px]',
           (item.card || sideImage) && 'flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-[42px]',
+          centered && 'text-center',
         ]}
       >
         <div class:list={[item.card && 'lg:w-[792px] lg:shrink-0', sideImage && 'lg:flex-1']}>
@@ -238,7 +245,7 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
                 {part.heading}
               </h2>
               {part.body.map((para) => (
-                <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+                <p class:list={['mt-4 text-[16px] leading-[26px] text-navy', centered && 'mx-auto max-w-[900px]']}>{para}</p>
               ))}
             </>
           ))}
@@ -250,7 +257,8 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
             ),
           )}
           {item.quickfeat.length > 0 && (
-            <div class="mt-10">
+            // The quickfeat grid stays left-aligned even inside a centred section.
+            <div class:list={['mt-10', centered && 'text-left']}>
               <QuickFeat items={item.quickfeat} columns={2} />
             </div>
           )}

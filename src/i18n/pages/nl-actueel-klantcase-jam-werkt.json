@@ -288,7 +288,8 @@
       "body": [
         "Met hun datagedreven aanpak werft JAM maandelijks zo’n 800 sollicitanten."
       ],
-      "y": 1945
+      "y": 1945,
+      "align": "center"
     },
     {
       "type": "quickfeat",

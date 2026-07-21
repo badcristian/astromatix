@@ -321,7 +321,8 @@
       "body": [
         "Het Jobmatix platform is voor DHL Express de weg naar flexibele jobboard marketing."
       ],
-      "y": 2120
+      "y": 2120,
+      "align": "center"
     },
     {
       "type": "quickfeat",
@@ -368,7 +369,8 @@
         "“Samen met de Customer Succes Manager van Jobmatix zijn we continu bezig met optimalisaties. We hebben bijvoorbeeld veel A/B testen gedaan. Onze CPA’s zijn relatief laag voor de branche en onze conversiepercentages relatief hoog. Bovendien hebben we veel minder advertentiebudget nodig dan voorheen. De resultaten zijn gewoon heel goed.”",
         "“Het Jobmatix platform is een belangrijk onderdeel van onze recruitmentstrategie. We bereiken nu veel meer sollicitanten, met aanzienlijk minder advertentiebudget.”"
       ],
-      "y": 2778
+      "y": 2778,
+      "align": "center"
     },
     {
       "type": "image",
