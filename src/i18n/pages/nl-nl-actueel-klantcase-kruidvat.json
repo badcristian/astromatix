@@ -192,6 +192,8 @@
     "text": "\"Met duizenden vacatures per jaar is jobmarketing voor ons essentieel. Dankzij onze samenwerking met Jobmatix kunnen we via één tool zichtbaar zijn op meerdere jobboards, waardoor we flexibel kunnen inspelen op de wervingsbehoeften van onze organisatie. Daarnaast is de samenwerking zeer prettig en worden we uitstekend begeleid in het optimaliseren van onze campagnes.\"",
     "color": "rgb(17, 65, 122)"
   },
+  "richBody": "<h2>Uitdaging</h2> <p>Voor bijbanen heeft Kruidvat onder andere duo-solliciteren of ‘solliciteren met je bestie’ en andere succesvolle recruitment marketingcampagnes. Voor functies zoals teamleider, assistent-filiaalmanager en filiaalmanager zet Kruidvat in op alle lagen binnen arbeidsmarktcommunicatie, waaronder job marketing via jobboards. In job marketing zijn jobboards essentieel onderdeel van de strategie. Vooral wanneer meer gerichte zichtbaarheid onder de doelgroep nodig is.</p> <p>Met jaarlijks duizenden vacatures is het handmatig plaatsen, beheren en analyseren van job marketing campagnes een tijdrovende klus. Het recruitment-team van Kruidvat werkt bovendien niet alleen voor Kruidvat, maar ook voor andere merken binnen AS Watson Health &amp; Beauty Benelux. Efficiëntie is dus cruciaal.</p>",
+  "tables": [],
   "blocks": [
     {
       "heading": "Kruidvat De juiste kandidaten via het juiste kanaal",
@@ -298,42 +300,54 @@
           "type": "text",
           "label": "Voornaam*",
           "placeholder": "Voornaam",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "lastname",
           "type": "text",
           "label": "Achternaam*",
           "placeholder": "Achternaam",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "email",
           "type": "email",
           "label": "e-mail*",
           "placeholder": "Email",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "phone",
           "type": "tel",
           "label": "Telefoonnummer*",
           "placeholder": "Telefoonnummer",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "message",
           "type": "textarea",
           "label": "Jouw bericht *",
           "placeholder": "Jouw bericht",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "g-recaptcha-response",
           "type": "textarea",
           "label": null,
           "placeholder": null,
-          "required": false
+          "required": false,
+          "option": null,
+          "group": null
         }
       ]
     }

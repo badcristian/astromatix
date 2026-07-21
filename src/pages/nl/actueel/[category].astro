@@ -33,6 +33,6 @@ const count = listing.items.filter((i) => i.category === category).length;
     subtitle="Ontdek wat er speelt in de wereld van job marketing!"
     activeCategory={category}
   />
-  <ArticleListing activeCategory={category} showFilters={false} />
+  <ArticleListing activeCategory={category} />
   <ContactCta title={ctaHeading(hub, 'actueel-category')} intro={null} />
 </Base>

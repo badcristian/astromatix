@@ -38,12 +38,29 @@ export function caseData(entry: Klantcase) {
 
   const blocks: any[] = d.blocks ?? [];
 
-  // The narrative headings carry no module wrapper on the original — that is
-  // how we identify them, and why `module: null` is the filter rather than a
-  // class name.
-  const narrative = NARRATIVE.map((name) =>
-    blocks.find((b) => b.heading?.trim() === name && b.module === null),
-  ).filter(Boolean) as { heading: string; body: string[] }[];
+  // The narrative sections. On faam they are exactly "Uitdaging" / "Oplossing"
+  // / "Resultaat", but djops titles them "Uitdaging: van handwerk naar
+  // inzicht", "De oplossing: …", "Het resultaat: …", "Toekomstvisie" — so an
+  // exact match dropped every djops section. They are the module-less headings
+  // that carry body copy (the hero title and the lead/CTA headings sit in
+  // rtext/heading modules), taken in document order.
+  // Band colour per section, from the extracted sectionBands (matched on the
+  // heading it sits under). null → plain white. So each narrative section wears
+  // the exact colour the original gives it, faam and djops alike.
+  const bandColor = (heading: string): string | null => {
+    const bands: any[] = d.sectionBands ?? [];
+    const hit = bands.find((b) => b.heading && heading.startsWith(b.heading));
+    const c = hit?.color ?? null;
+    return c && c.replace(/\s/g, '') !== 'rgb(255,255,255)' ? c : null;
+  };
+
+  const narrative = blocks
+    .filter((b) => b.module === null && b.heading && (b.body?.length ?? 0) > 0)
+    .map((b) => ({
+      heading: b.heading as string,
+      body: (b.body ?? []) as string[],
+      band: bandColor(b.heading as string),
+    }));
 
   const intro = d.featureCards?.[0] ?? null;
 

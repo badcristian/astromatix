@@ -34,6 +34,13 @@ interface Props {
 const { activeCategory = null, showFilters = true } = Astro.props;
 
 const { items, categories } = listing;
+
+// The original orders the filters Nieuws, Kennis, Blogs, Events — not the
+// alphabetical order the extractor stores.
+const ORDER = ['Nieuws', 'Kennis', 'Blogs', 'Events'];
+const orderedCategories = [...categories].sort(
+  (a, b) => (ORDER.indexOf(a) + 1 || 99) - (ORDER.indexOf(b) + 1 || 99),
+);
 const visible = activeCategory ? items.filter((i) => i.category === activeCategory) : items;
 const cards = visible.map((item) => ({ ...item, img: resolveIcon(item.image) }));
 
@@ -47,22 +54,23 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
     {showFilters && (
       <div class="mb-10 flex flex-wrap gap-3" role="group" aria-label="Filter op categorie">
         {/*
-          Real links, not buttons: each category is a genuine URL on both the
-          original and here, so the filter works without JS and is crawlable.
-          The click handler below upgrades it to instant client-side filtering.
+          Navy filled pill BUTTONS that grow slightly on hover, on the fog band
+          — exactly as the original. Real links (each category is a genuine URL)
+          so filtering works with no JS; the script below upgrades it to instant
+          in-page filtering. The active filter is filled white with navy text.
         */}
         <a
           href="/nl/actueel"
-          class="rounded-full border border-navy px-5 py-2 text-[16px] text-navy transition-colors aria-[current=page]:bg-navy aria-[current=page]:text-white"
+          class="rounded-[12px] bg-navy px-[21.76px] py-3 text-[16px] font-medium text-white ring-1 ring-navy transition-transform hover:scale-105 aria-[current=page]:bg-white aria-[current=page]:text-navy"
           aria-current={activeCategory === null ? 'page' : undefined}
           data-filter="*"
         >
           Alles
         </a>
-        {categories.map((cat) => (
+        {orderedCategories.map((cat) => (
           <a
             href={hrefFor(cat)}
-            class="rounded-full border border-navy px-5 py-2 text-[16px] text-navy transition-colors aria-[current=page]:bg-navy aria-[current=page]:text-white"
+            class="rounded-[12px] bg-navy px-[21.76px] py-3 text-[16px] font-medium text-white ring-1 ring-navy transition-transform hover:scale-105 aria-[current=page]:bg-white aria-[current=page]:text-navy"
             aria-current={activeCategory === cat ? 'page' : undefined}
             data-filter={cat}
           >

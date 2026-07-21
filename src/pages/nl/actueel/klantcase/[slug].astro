@@ -45,11 +45,17 @@ const imagesFor = (headingText: string | null | undefined) =>
     .map((i) => ({ ...i, resolved: resolveIcon(i.src) }))
     .filter((i) => i.resolved);
 
-// The client-profile card is a SIDEBAR beside Uitdaging, not a lead section.
+// The client-profile card is a SIDEBAR beside the first narrative section, not
+// a lead section of its own.
 const profile = c.intro;
-const uitdaging = c.narrative.find((n) => n.heading === 'Uitdaging') ?? null;
-const oplossing = c.narrative.find((n) => n.heading === 'Oplossing') ?? null;
-const resultaat = c.narrative.find((n) => n.heading === 'Resultaat') ?? null;
+
+// Render every narrative section in document order — faam has three
+// (Uitdaging / Oplossing / Resultaat), djops has four with longer titles
+// ("Uitdaging: van handwerk naar inzicht", "De oplossing: …", "Het resultaat:
+// …", "Toekomstvisie"). The quickfeat, when present, follows the "oplossing"
+// section (faam); the profile sidebar sits beside the first.
+const sections = c.narrative;
+const oplossingIdx = sections.findIndex((s) => /oplossing/i.test(s.heading));
 ---
 
 <Base title={c.meta.title} description={c.meta.description ?? undefined}>
@@ -109,29 +115,42 @@ const resultaat = c.narrative.find((n) => n.heading === 'Resultaat') ?? null;
 
   <Figures images={imagesFor(c.lead?.heading)} />
 
-  {/* --- Uitdaging: prose + photo left, client profile card right ---------- */}
-  {uitdaging && (
-    <section class="bg-mist px-6 py-[50px]">
-      <div class="mx-auto flex max-w-[1200px] flex-col gap-8 lg:flex-row lg:items-start lg:gap-[42px]">
-        <div class="lg:w-[792px] lg:shrink-0">
+  {/* --- narrative sections, in order ------------------------------------- */}
+  {sections.map((section, i) => (
+    <section class="px-6 py-[50px]" style={section.band ? `background-color:${section.band}` : undefined}>
+      <div
+        class:list={[
+          'mx-auto max-w-[1200px]',
+          i === 0 && profile && 'flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-[42px]',
+        ]}
+      >
+        <div class:list={[i === 0 && profile && 'lg:w-[792px] lg:shrink-0']}>
           <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
-            {uitdaging.heading}
+            {section.heading}
           </h2>
-          {uitdaging.body.map((para) => (
+          {section.body.map((para) => (
             <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
           ))}
-          {imagesFor(profile?.title).map((img) => (
-            <Image
-              src={img.resolved!}
-              alt=""
-              width={img.width}
-              height={img.height}
-              class="mt-8 h-auto w-full rounded-3xl"
-            />
+
+          {/* Images anchored to this section (and, on the first, to the profile
+              card's own heading — the wide photo sits in that column). */}
+          {imagesFor(section.heading).map((img) => (
+            <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="mt-8 h-auto w-full rounded-3xl" />
           ))}
+          {i === 0 && imagesFor(profile?.title).map((img) => (
+            <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="mt-8 h-auto w-full rounded-3xl" />
+          ))}
+
+          {/* The quickfeat grid follows the "oplossing" section. */}
+          {i === oplossingIdx && c.quickfeat.length > 0 && (
+            <div class="mt-10">
+              <QuickFeat items={c.quickfeat} columns={2} />
+            </div>
+          )}
         </div>
 
-        {profile && (
+        {/* Client-profile sidebar, beside the first section only. */}
+        {i === 0 && profile && (
           <aside class="rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] lg:w-[282px] lg:shrink-0">
             <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
               {profile.title}
@@ -141,49 +160,7 @@ const resultaat = c.narrative.find((n) => n.heading === 'Resultaat') ?? null;
         )}
       </div>
     </section>
-  )}
-
-  {/* --- Oplossing + quickfeat -------------------------------------------- */}
-  {oplossing && (
-    <section class="px-6 py-[50px]">
-      <div class="mx-auto max-w-[1200px]">
-        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
-          {oplossing.heading}
-        </h2>
-        {oplossing.body.map((para) => (
-          <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
-        ))}
-        {c.quickfeat.length > 0 && (
-          <div class="mt-10">
-            <QuickFeat items={c.quickfeat} columns={2} />
-          </div>
-        )}
-      </div>
-    </section>
-  )}
-
-  {/* --- Resultaat -------------------------------------------------------- */}
-  {resultaat && (
-    <section class="bg-fog px-6 py-[50px]">
-      <div class="mx-auto max-w-[1200px]">
-        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
-          {resultaat.heading}
-        </h2>
-        {resultaat.body.map((para) => (
-          <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
-        ))}
-        {imagesFor(resultaat.heading).map((img) => (
-          <Image
-            src={img.resolved!}
-            alt=""
-            width={img.width}
-            height={img.height}
-            class="mt-8 h-auto w-full rounded-3xl"
-          />
-        ))}
-      </div>
-    </section>
-  )}
+  ))}
 
   {/* --- navy band: pull-quote, then the contact card ---------------------- */}
   {(c.bandQuote || c.contacts.length > 0) && (

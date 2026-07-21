@@ -7,12 +7,33 @@ import { nav, cta, a11y } from '../../i18n/nl';
 //   header height 85px, white bg, logo 180×39, nav links Manrope 20/400 navy,
 //   CTA lilac #dc93e1, radius 10px, Manrope 500 18px, padding 14px 18px.
 
-// Current-page highlight. On the original, the nav entry for the page you are
-// on — including a dropdown child like Jobboost or Job Advertising under
-// Oplossingen — shows a small leading dot, a faint mist background and bolder
-// text. Match by pathname, tolerant of trailing slashes.
+// Current-page highlight. On the original, the nav entry for the SECTION you
+// are in stays marked active on its sub-pages too — a klantcase detail
+// (/nl/actueel/klantcase/djops) keeps Klantcases lit, a blog post keeps
+// Actueel lit. So match on section, not just the exact URL.
 const here = Astro.url.pathname.replace(/\/$/, '');
-const isCurrent = (href?: string) => !!href && here === href.replace(/\/$/, '');
+
+// Sub-path → the nav href whose section it belongs to. Order matters: the
+// klantcase rule (paths may be /nl/actueel/klantcase/… or the doubled
+// /nl/nl/…/klantcase/…) must win over the broader /nl/actueel rule.
+const SECTIONS: [RegExp, string][] = [
+  [/klantcase/, '/nl/klantcases'],
+  [/^\/nl\/actueel/, '/nl/actueel'],
+  [/^\/nl\/oplossingen/, '/nl/oplossingen/jobadvertising'], // dropdown parent
+  [/^\/nl\/over-ons/, '/nl/over-ons'],
+];
+const section = SECTIONS.find(([re]) => re.test(here))?.[1] ?? null;
+
+const isCurrent = (href?: string) => {
+  if (!href) return false;
+  const h = href.replace(/\/$/, '');
+  return here === h || section === h;
+};
+
+// A parent dropdown (Oplossingen) has no href of its own; light it when the
+// current section is one of its children.
+const dropdownActive = (children?: { href: string }[]) =>
+  !!children?.some((c) => isCurrent(c.href));
 ---
 
 <header
@@ -40,7 +61,8 @@ const isCurrent = (href?: string) => !!href && here === href.replace(/\/$/, '');
           ) : (
             <button
               type="button"
-              class="flex cursor-default items-center gap-1 text-[20px] leading-[28px] text-navy transition-opacity hover:opacity-70"
+              aria-current={dropdownActive(item.children) ? 'page' : undefined}
+              class="nav-top flex cursor-default items-center gap-1 text-[20px] leading-[28px] text-navy transition-opacity hover:opacity-70 aria-[current=page]:font-bold"
               aria-expanded="false"
             >
               {item.label}

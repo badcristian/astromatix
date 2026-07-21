@@ -20,7 +20,7 @@ const helpBody = page.blocks.find((b: any) => b.heading === 'We helpen je graag'
     title={page.blocks[0]?.heading ?? 'Kennis & Updates'}
     subtitle="Ontdek wat er speelt in de wereld van job marketing!"
   />
-  <ArticleListing showFilters={false} />
+  <ArticleListing />
   <ContactCta
     title={ctaHeading(page, 'actueel')}
     intro={helpBody}

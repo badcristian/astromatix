@@ -192,6 +192,8 @@
     "text": "“Sinds we samenwerken met Jobmatix hebben we aanzienlijk meer sollicitanten mogen spreken. Ik adviseer iedereen: onderschat de kracht van jobmarketing en jobboards niet. Het zijn hele waardevolle kanalen die zorgen voor meer naamsbekendheid. Jobmatix is een belangrijke stakeholder voor het realiseren van onze ambities.”",
     "color": "rgb(17, 65, 122)"
   },
+  "richBody": "<h2>Uitdaging</h2> <p>Uitzendbureau Faam biedt honderden (mbo-)vacatures in techniek, productie, logistiek, groen en bouw. De collega’s binnen Faam kennen deze vakgebieden op hun duimpje én zijn sterk in contentmarketing. Faam werkt samen met de klant aan krachtige foto’s, video’s en teksten. De vacatures adverteren zij vervolgens via verschillende kanalen, zoals jobboards. Wanneer je dit handmatig aanpakt, is het een tijdrovende klus: van het afzonderlijk contracteren van elke jobboard tot het voortdurend monitoren van iedere campagne.</p> <p>Met de ambitie om van een regionale naar een landelijke speler uit te groeien, was het voor Faam tijd om een efficiëntieslag in recruitment marketing te slaan. Zo kwam de samenwerking met Jobmatix tot stand.</p>",
+  "tables": [],
   "blocks": [
     {
       "heading": "Faam Efficiëntieslag in recruitment marketing",
@@ -298,42 +300,54 @@
           "type": "text",
           "label": "Voornaam*",
           "placeholder": "Voornaam",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "lastname",
           "type": "text",
           "label": "Achternaam*",
           "placeholder": "Achternaam",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "email",
           "type": "email",
           "label": "e-mail*",
           "placeholder": "Email",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "phone",
           "type": "tel",
           "label": "Telefoonnummer*",
           "placeholder": "Telefoonnummer",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "message",
           "type": "textarea",
           "label": "Jouw bericht *",
           "placeholder": "Jouw bericht",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "g-recaptcha-response",
           "type": "textarea",
           "label": null,
           "placeholder": null,
-          "required": false
+          "required": false,
+          "option": null,
+          "group": null
         }
       ]
     }

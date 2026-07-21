@@ -150,6 +150,8 @@
     "text": "\"De focus ligt nu echt op kwaliteit. Jobmatix helpt ons om het proces te verbeteren en inzicht te krijgen, zodat wij ons kunnen focussen op het menselijke aspect: het persoonlijke contact met de kandidaat.\" Doris Appeldoorn Teamleider Recruitment Doris Appeldoorn",
     "color": "rgb(17, 65, 122)"
   },
+  "richBody": "<h3>Het resultaat: verdubbeling van plaatsingen</h3> <p>Sinds de implementatie van Jobmatix en de focus op datagedreven werken, heeft Djops indrukwekkende resultaten geboekt. Waar de organisatie voorheen onvoldoende grip had op KPI's zoals CPA (Cost Per Applicant) en conversie, sturen ze nu wekelijks op realistische cijfers.</p> <p>Naast het inzicht in de cijfers is ook de kwaliteit van het wervingsproces aantoonbaar sterk verbeterd. 90% van de sollicitaties komt nu direct digitaal bij Djops binnen via de geautomatiseerde flow van Jobmatix. Dit stelt de recruiters in staat om zich te focussen op wat echt telt: persoonlijke aandacht voor de kandidaat. Elke sollicitatie kan hierdoor op dezelfde dag worden opgevolgd. Dat maakt Djops een actieve en sterke partner voor werkzoekenden.</p> <p>&nbsp;</p> <h3>Toekomstvisie</h3> <p>De samenwerking tussen Djops en Jobmatix blijft zich ontwikkelen. Door continu te evalueren en nieuwe features met elkaar te testen, blijft Djops als wervingsspecialist vooroplopen in de regio. Verbeterde AI-toepassingen en nieuwe kanalen zoals Werkzoeken.nl spelen hierbij een grote rol.</p> <p>&nbsp;</p>",
+  "tables": [],
   "blocks": [
     {
       "heading": "Djops Uitzendgroep",
@@ -238,42 +240,54 @@
           "type": "text",
           "label": "Voornaam*",
           "placeholder": "Voornaam",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "lastname",
           "type": "text",
           "label": "Achternaam*",
           "placeholder": "Achternaam",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "email",
           "type": "email",
           "label": "e-mail*",
           "placeholder": "Email",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "phone",
           "type": "tel",
           "label": "Telefoonnummer*",
           "placeholder": "Telefoonnummer",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "message",
           "type": "textarea",
           "label": "Jouw bericht *",
           "placeholder": "Jouw bericht",
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "g-recaptcha-response",
           "type": "textarea",
           "label": null,
           "placeholder": null,
-          "required": false
+          "required": false,
+          "option": null,
+          "group": null
         }
       ]
     }
