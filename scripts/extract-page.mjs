@@ -511,6 +511,38 @@ const data = await page.evaluate(() => {
       return out;
     })(),
 
+    // The `.module--review` testimonial carousel (klantcases "Tevreden
+    // klanten"): review text + person + company + avatar, one per slide.
+    reviews: (() => {
+      const root = document.querySelector('.review, [class*="review"]');
+      if (!root) return [];
+      const slides = Array.from(
+        root.querySelectorAll('.splide__slide, .review__item, [class*="review__slide"]'),
+      ).filter((s) => !s.classList.contains('splide__slide--clone') && s.querySelector('img'));
+      const seen = new Set();
+      const out = [];
+      for (const s of slides) {
+        const img = s.querySelector('img');
+        const key = img?.getAttribute('src')?.split('?')[0] ?? text(s);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        // The longest text is the quote; the two short lines are name + company.
+        const lines = Array.from(s.querySelectorAll('p, h3, h4, span, div'))
+          .filter((n) => n.children.length === 0)
+          .map((n) => text(n))
+          .filter(Boolean);
+        const quote = lines.slice().sort((a, b) => b.length - a.length)[0] ?? null;
+        const shorts = lines.filter((l) => l !== quote && l.length < 60);
+        out.push({
+          quote,
+          name: shorts[0] ?? null,
+          company: shorts[1] ?? null,
+          avatar: src(img),
+        });
+      }
+      return out;
+    })(),
+
     // The pull-quote that sits on the navy band above the contact card.
     bandQuote: (() => {
       const main = document.querySelector('main') ?? document.body;

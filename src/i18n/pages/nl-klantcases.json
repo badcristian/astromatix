@@ -6,8 +6,21 @@
   },
   "hero": {
     "title": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!",
-    "background": null,
-    "parts": []
+    "background": "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2311417a' d='M3.603 4.146a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .707 0l3-3a.5.5 0 1 0-.707-.708L6.957 6.793 4.31 4.146a.5.5 0 0 0-.707 0'/%3E%3C/svg%3E",
+    "parts": [
+      {
+        "text": "Samen succesvol",
+        "fontSize": "40px",
+        "lineHeight": "44px",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "Bekijk onze klantcases en ontdek het succes van samenwerken!",
+        "fontSize": "40px",
+        "lineHeight": "44px",
+        "color": "rgb(17, 65, 122)"
+      }
+    ]
   },
   "properties": [],
   "featureCards": [],
@@ -139,7 +152,198 @@
       "heading": "Tevreden klanten"
     }
   ],
+  "reviews": [
+    {
+      "quote": "Snel, makkelijk en converterend! Al onze vacatures staan automatisch op verschillende relevante jobboards. De geautomatiseerde campagnes en bestede budgetten worden gemakkelijk door onszelf beheerd. Met succes: Jobmatix heeft een stabiele positie in ons overzicht van succesvolle bronnen veroverd!",
+      "name": "Edwin van der Sande",
+      "company": "Technical Valley",
+      "avatar": "https://www.jobmatix.com/hs-fs/hubfs/Edwin%20van%20der%20Sande.jpeg"
+    },
+    {
+      "quote": "Vroeger plaatsten we vacatures handmatig op jobboards, wat veel tijd kostte en weinig controle gaf over ons mediabudget. Met Jobmatix's recruitment marketing platform worden vacatures automatisch verspreid, waardoor we tijd besparen en gemakkelijk budgetten en wervingscampagnes beheren. Als we er niet uitkomen staat support direct voor ons klaar. Kortom, een prettige samenwerking.",
+      "name": "Thatiana Rodrigues Palitos",
+      "company": "Status Pro",
+      "avatar": "https://www.jobmatix.com/hs-fs/hubfs/Thati.png"
+    },
+    {
+      "quote": "Vroeger was het handmatig vacatures plaatsen op verschillende jobboards een tijdrovende klus. Dankzij Jobmatix worden alle vacatures automatisch verspreid, wat tot fantastische resultaten heeft geleid. NewRoadz en TopCareerz bespaart met deze samenwerking zo'n 50% op haar uitgaven voor jobboard marketing en we behalen een hoger conversieratio.",
+      "name": "Marijn Gerrits",
+      "company": "NewRoadz & TopCareerz",
+      "avatar": "https://www.jobmatix.com/hs-fs/hubfs/Marijn.jpeg"
+    },
+    {
+      "quote": "De dienstverlening van Jobmatix draagt bij aan een efficient jobboard marketing proces en sneller kunnen invullen van onze vacatures. Daarbij biedt het platform mij een helder overzicht en een breed palet aan data, op basis waarvan ik het proces gemakkelijk kan monitoren en waar nodig bijsturen.",
+      "name": "Frank Roodenrijs",
+      "company": "CPM Benelux Fieldmarketing",
+      "avatar": "https://www.jobmatix.com/hs-fs/hubfs/Frank%20Roodenrijs.jpeg"
+    },
+    {
+      "quote": "Jobmatix helpt ons om onze vacatures efficiënter op de juiste jobboards te plaatsen. De samenwerking met Jobmatix heeft dan ook geleid tot een aanzienlijke toename van het aantal reacties op onze vacatures. Daar zijn wij erg blij mee. Onze samenwerking met Jobmatix is zeer positief!",
+      "name": "Lotte van den Dries",
+      "company": "Hornbach",
+      "avatar": "https://www.jobmatix.com/hs-fs/hubfs/lotte.jpeg"
+    },
+    {
+      "quote": "In 2021 zijn we een partnerschap aangegaan met Jobmatix. Met slechts een paar klikken draaien wij meerdere campagnes en beheren wij deze vanaf 1 plek. Met behulp van Jobmatix kunnen we campagnes beter sturen op resultaten en efficiënter organiseren. Het bespaart ons gewoon veel werk.",
+      "name": "Vincent​ Annema",
+      "company": "EN HR solutions",
+      "avatar": "https://www.jobmatix.com/hs-fs/hubfs/Vincent.png"
+    },
+    {
+      "quote": "Sinds de integratie met het recruitment marketing platform van Jobmatix, hebben we een duidelijke verbetering van onze online zichtbaarheid als werkgever waargenomen. Dit heeft geleid tot aanzienlijk verhoogde belangstelling van sollicitanten. Het opzetten van wervingscampagnes verloopt nu zeer efficiënt, waarbij we zelf in control zijn via het overzichtelijke online dashboard.",
+      "name": "Elske de Kok- van Herk",
+      "company": "KUBUS B.V.",
+      "avatar": "https://www.jobmatix.com/hs-fs/hubfs/kubus.webp"
+    },
+    {
+      "quote": "Het recruitment marketing platform van Jobmatix speelt een essentiële rol in ons wervingsproces. Onze vacatures worden snel op veel jobboards geadverteerd en Jobmatix denkt actief mee over het optimaliseren van onze campagnes en het efficiënt verdelen van onze budgetten. Een mooie samenwerking die ons succesvol maakt!",
+      "name": "Erik van de Snepscheut",
+      "company": "JAM",
+      "avatar": "https://www.jobmatix.com/hs-fs/hubfs/8%20(2).png"
+    },
+    {
+      "quote": "Wij zijn erg tevreden over de gebruiksvriendelijkheid van het Jobmatix dashboard en we ervaren de communicatie met de Jobmatix specialisten als prettig.",
+      "name": "Jan Schenkels",
+      "company": "Rvdb",
+      "avatar": "https://www.jobmatix.com/hs-fs/hubfs/1632906192646.jpeg"
+    }
+  ],
   "bandQuote": null,
+  "order": [
+    {
+      "type": "heading",
+      "heading": "Samen succesvol Bekijk onze klantcases en ontdek het succes van samenwerken!",
+      "level": 2,
+      "module": null,
+      "body": [],
+      "y": 135
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Djops-1.jpg",
+      "width": 384,
+      "height": 192,
+      "x": 120,
+      "y": 377
+    },
+    {
+      "type": "heading",
+      "heading": "Djops Uitzendgroep",
+      "level": 4,
+      "module": "go-card",
+      "body": [
+        "Van onderbuikgevoel naar data gedreven aanpak"
+      ],
+      "y": 593
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/DHL%20afb%202%20(1).png",
+      "width": 384,
+      "height": 192,
+      "x": 528,
+      "y": 377
+    },
+    {
+      "type": "heading",
+      "heading": "DHL Express",
+      "level": 4,
+      "module": "go-card",
+      "body": [
+        "De juiste kandidaten voor de business leveren"
+      ],
+      "y": 593
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Kruidvat.png",
+      "width": 384,
+      "height": 192,
+      "x": 936,
+      "y": 377
+    },
+    {
+      "type": "heading",
+      "heading": "Kruidvat",
+      "level": 4,
+      "module": "go-card",
+      "body": [
+        "De juiste kandidaten via het juiste kanaal"
+      ],
+      "y": 603
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Schiphol.png",
+      "width": 384,
+      "height": 192,
+      "x": 120,
+      "y": 710
+    },
+    {
+      "type": "heading",
+      "heading": "Schiphol",
+      "level": 4,
+      "module": "go-card",
+      "body": [
+        "Vliegensvlug 1.000 vacatures invullen"
+      ],
+      "y": 926
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Jam%20werkt.png",
+      "width": 384,
+      "height": 192,
+      "x": 528,
+      "y": 710
+    },
+    {
+      "type": "heading",
+      "heading": "JAM werkt",
+      "level": 4,
+      "module": "go-card",
+      "body": [
+        "Datadriven young professionals werven"
+      ],
+      "y": 926
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/faam-2.png",
+      "width": 384,
+      "height": 192,
+      "x": 936,
+      "y": 710
+    },
+    {
+      "type": "heading",
+      "heading": "Faam",
+      "level": 4,
+      "module": "go-card",
+      "body": [
+        "Efficiëntieslag in recruitment marketing"
+      ],
+      "y": 926
+    },
+    {
+      "type": "heading",
+      "heading": "Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren en optimaliseren?",
+      "level": 3,
+      "module": "heading",
+      "body": [],
+      "y": 1162
+    },
+    {
+      "type": "heading",
+      "heading": "Tevreden klanten",
+      "level": 2,
+      "module": "heading",
+      "body": [],
+      "y": 1368
+    }
+  ],
+  "richBody": null,
   "tables": [],
   "blocks": [
     {
