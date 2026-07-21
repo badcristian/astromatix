@@ -61,7 +61,7 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
         */}
         <a
           href="/nl/actueel"
-          class="rounded-[12px] bg-navy px-[21.76px] py-3 text-[16px] font-medium text-white ring-1 ring-navy transition-transform hover:scale-105 aria-[current=page]:bg-white aria-[current=page]:text-navy"
+          class="rounded-[12px] bg-navy px-[21.76px] py-3 text-[16px] font-medium text-white ring-1 ring-navy transition duration-200 hover:scale-105 aria-[current=page]:bg-white aria-[current=page]:text-navy"
           aria-current={activeCategory === null ? 'page' : undefined}
           data-filter="*"
         >
@@ -70,7 +70,7 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
         {orderedCategories.map((cat) => (
           <a
             href={hrefFor(cat)}
-            class="rounded-[12px] bg-navy px-[21.76px] py-3 text-[16px] font-medium text-white ring-1 ring-navy transition-transform hover:scale-105 aria-[current=page]:bg-white aria-[current=page]:text-navy"
+            class="rounded-[12px] bg-navy px-[21.76px] py-3 text-[16px] font-medium text-white ring-1 ring-navy transition duration-200 hover:scale-105 aria-[current=page]:bg-white aria-[current=page]:text-navy"
             aria-current={activeCategory === cat ? 'page' : undefined}
             data-filter={cat}
           >
@@ -81,8 +81,8 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
     )}
 
     <div class="flex flex-wrap -mx-3" data-listing>
-      {cards.map((card) => (
-        <article class="w-full px-3 pb-6 md:w-1/2 lg:w-1/3" data-category={card.category}>
+      {cards.map((card, i) => (
+        <article class="listing-card w-full px-3 pb-6 md:w-1/2 lg:w-1/3" data-category={card.category} style={`--i:${i}`}>
           <a
             href={card.href ?? '#'}
             class="flex h-full flex-col overflow-hidden rounded-3xl bg-white transition-opacity hover:opacity-90"
@@ -112,6 +112,28 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
   </div>
 </section>
 
+<style>
+  /* Cards fade + slide up, staggered by their position (--i), when switching
+     category — both on client-side filter (/nl/actueel) and on load for the
+     server-filtered category pages. Motion is opt-out via reduced-motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .listing-card {
+      animation: listing-card-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+      animation-delay: calc(var(--i, 0) * 45ms);
+    }
+  }
+  @keyframes listing-card-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
 <script>
   // Progressive enhancement only: every card is already in the HTML, and each
   // filter is a real link to a real page. This just avoids the navigation.
@@ -138,7 +160,14 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
         cards.forEach((card) => {
           const match = wanted === '*' || card.dataset.category === wanted;
           card.hidden = !match;
-          if (match) shown += 1;
+          if (match) {
+            // Re-stagger and replay the entrance animation for the new set.
+            card.style.setProperty('--i', String(shown));
+            card.style.animation = 'none';
+            void card.offsetWidth; // reflow so the animation restarts
+            card.style.animation = '';
+            shown += 1;
+          }
         });
         if (empty) empty.hidden = shown > 0;
 
