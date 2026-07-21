@@ -141,9 +141,12 @@ const {
   {/* A horizontal row 1200 wide BELOW the block, not a column inside the text
       copy: measured at y=2143 and y=2766 on the homepage, all four items share
       a y and differ only in x. Rendering it as a vertical list inside the text
-      column added ~300px at 768 and 390. */}
+      column added ~300px at 768 and 390.
+      Mobile: centre the list as a block (`w-fit mx-auto`) with items left-aligned,
+      so the icons line up in one column under the centred title rather than each
+      icon+label centring on its own. Full row again at md. */}
   {properties.length > 0 && (
-    <div class="mx-auto mt-10 flex max-w-[1200px] flex-col gap-3 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-8">
+    <div class="mx-auto mt-10 flex w-fit max-w-[1200px] flex-col gap-3 md:w-auto md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-8">
       {properties.map((prop) => (
         <span class="flex items-center gap-3 text-[16px] text-navy">
           {prop.iconSvg && (

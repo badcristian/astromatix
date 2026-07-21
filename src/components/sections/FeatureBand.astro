@@ -32,7 +32,10 @@ const { items = home.featureBand, chip = true } = Astro.props;
         original — a fixed-height flex-wrap row overlapped the items). From lg:
         one 68px centred row with hairline dividers (items are 44px, vertically
         centred with 12px above/below; 10px padding makes the strip 88). */}
-    <div class="flex flex-col items-center gap-4 lg:h-[68px] lg:flex-row lg:flex-wrap lg:items-center lg:justify-center lg:gap-0">
+    {/* Mobile: the stack is centred AS A BLOCK (`w-fit mx-auto`) with items
+        left-aligned inside, so every icon lines up in one column instead of
+        each icon+label pair centring independently (which scattered the icons). */}
+    <div class="mx-auto flex w-fit flex-col gap-4 lg:h-[68px] lg:w-auto lg:flex-row lg:flex-wrap lg:items-center lg:justify-center lg:gap-0">
       {items.map((item, i) => (
         <div
           class:list={[
