@@ -24,7 +24,7 @@ const icons = [statErvaring, statVacatures, statSollicitaties, statGebruikers];
     {/* No negative margin here: the 1164 container is the exact width of the
         four 291px columns, so -mx-3 would widen the row to 1188 and give
         297px columns — enough to change where the body text wraps. */}
-    <Reveal variant="zoom" duration={2000} class="flex flex-wrap justify-center">
+    <Reveal variant="zoom" duration={2000} class="flex flex-wrap justify-center gap-y-6">
       {copy.statsBand.map((stat, i) => (
         <div class="w-full px-3 sm:w-1/2 lg:w-1/4">
           <FeatureCard

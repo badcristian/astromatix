@@ -52,7 +52,7 @@ const hasSlideInCta = a.slug === 'programmatic-advertising-de-toekomst-van-job-m
         <a href={backHref} class="text-orange hover:underline">{a.category}</a>
       </p>
 
-      <h1 class="font-display text-[40px] leading-[48px] font-bold text-navy">
+      <h1 class="font-display text-[30px] leading-[32px] font-bold text-navy lg:text-[40px] lg:leading-[48px]">
         {a.title}
       </h1>
 
@@ -155,9 +155,11 @@ const hasSlideInCta = a.slug === 'programmatic-advertising-de-toekomst-van-job-m
   .rich-text :global(strong) { font-weight: 700; }
   .rich-text :global(em) { font-style: italic; }
 
+  /* Body images render at their natural size, capped to the column — NOT
+     stretched to full width (which upscaled a 401px badge to a soft 900px). */
   .rich-text :global(img) {
     display: block;
-    width: 100%;
+    max-width: 100%;
     height: auto;
     border-radius: 1.5rem;
     margin: 2rem 0;

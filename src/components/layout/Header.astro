@@ -47,7 +47,7 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
   class="site-header sticky top-0 z-50 w-full bg-white"
   data-header
 >
-  <div class="container-site flex h-[85px] items-center justify-between gap-6">
+  <div class="container-site flex h-[64px] items-center justify-between gap-6 lg:h-[85px]">
     <a href="/nl/" aria-label={a11y.home} class="shrink-0">
       <Image src={logoNavy} alt="Jobmatix" width={180} densities={[1, 2]} />
     </a>
@@ -182,12 +182,42 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
 
     {nav.map((item) => (
       <div class="border-b border-navy/10">
-        <a
-          href={item.href ?? '#'}
-          class="block py-4 text-[18px] text-navy"
-        >
-          {item.label}
-        </a>
+        {item.children ? (
+          <div data-mnav-parent>
+            {/* Parent row: the label (a link to the parent page, if any) plus a
+                separate chevron that expands the submenu — the original's mobile
+                menu is a tap-to-expand accordion, collapsed by default. */}
+            <div class="flex items-center justify-between">
+              <a href={item.href ?? '#'} class="block flex-1 py-4 text-[18px] text-navy">
+                {item.label}
+              </a>
+              <button
+                type="button"
+                class="grid size-11 shrink-0 place-items-center text-navy"
+                aria-label={`Submenu ${item.label}`}
+                aria-expanded="false"
+                data-mnav-toggle
+              >
+                <svg class="mnav-chevron size-4 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+            </div>
+            <ul class="hidden pb-2" data-mnav-sub>
+              {item.children.map((child) => (
+                <li>
+                  <a href={child.href} class="block py-2.5 pl-4 text-[15px] text-navy/80">
+                    {child.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <a href={item.href ?? '#'} class="block py-4 text-[18px] text-navy">
+            {item.label}
+          </a>
+        )}
       </div>
     ))}
 
@@ -240,6 +270,18 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
 
   openBtn?.addEventListener('click', () => setOpen(true));
   closeBtn?.addEventListener('click', () => setOpen(false));
+
+  // Mobile submenu accordions (Oplossingen, Over ons): the chevron toggles the
+  // child list; collapsed by default, matching the original.
+  document.querySelectorAll<HTMLElement>('[data-mnav-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const sub = btn.closest('[data-mnav-parent]')?.querySelector<HTMLElement>('[data-mnav-sub]');
+      if (!sub) return;
+      const nowHidden = sub.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!nowHidden));
+      btn.querySelector('.mnav-chevron')?.classList.toggle('rotate-180', !nowHidden);
+    });
+  });
 
   // Sticky state class, matching the original's .header--sticky-active.
   const header = document.querySelector<HTMLElement>('[data-header]');

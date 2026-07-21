@@ -121,8 +121,8 @@ const {
         rounds down here and up on the original. Nudged rather than pinned so
         it stays correct if the copy reflows. */}
     <div class:list={[
-      'lg:relative lg:top-px lg:self-center',
-      stackUntil === 'md' ? 'md:w-1/2 md:self-center' : 'lg:w-[520px]',
+      'text-center lg:relative lg:top-px lg:self-center',
+      stackUntil === 'md' ? 'md:w-1/2 md:self-center md:text-left' : 'lg:w-[520px] lg:text-left',
     ]}>
       <h2 class="font-display text-[30px] leading-[52.5px] font-bold text-navy">
         {title}
