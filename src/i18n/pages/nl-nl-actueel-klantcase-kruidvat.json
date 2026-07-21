@@ -192,6 +192,158 @@
     "text": "\"Met duizenden vacatures per jaar is jobmarketing voor ons essentieel. Dankzij onze samenwerking met Jobmatix kunnen we via één tool zichtbaar zijn op meerdere jobboards, waardoor we flexibel kunnen inspelen op de wervingsbehoeften van onze organisatie. Daarnaast is de samenwerking zeer prettig en worden we uitstekend begeleid in het optimaliseren van onze campagnes.\"",
     "color": "rgb(17, 65, 122)"
   },
+  "order": [
+    {
+      "type": "heading",
+      "heading": "Kruidvat De juiste kandidaten via het juiste kanaal",
+      "level": 1,
+      "module": "rtext",
+      "body": []
+    },
+    {
+      "type": "properties",
+      "items": [
+        {
+          "label": "Drogisterij",
+          "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" aria-hidden=\"true\"><g id=\"Alternate Arrow Circle Right1_layer\"><path d=\"M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zM140 300h116v70.9c0 10.7 13 16.1 20.5 8.5l114.3-114.9c4.7-4.7 4.7-12.2 0-16.9l-114.3-115c-7.6-7.6-20.5-2.2-20.5 8.5V212H140c-6.6 0-12 5.4-12 12v64c0 6.6 5.4 12 12 12z\"></path></g></svg>"
+        },
+        {
+          "label": "Directe werkgever",
+          "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" aria-hidden=\"true\"><g id=\"Building2_layer\"><path d=\"M436 480h-20V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v456H12c-6.627 0-12 5.373-12 12v20h448v-20c0-6.627-5.373-12-12-12zM128 76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76zm0 96c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40zm52 148h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12zm76 160h-64v-84c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v84zm64-172c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40z\"></path></g></svg>"
+        },
+        {
+          "label": "1.300 vestigingen",
+          "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\" aria-hidden=\"true\"><g id=\"Alternate Map Marker3_layer\"><path d=\"M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z\"></path></g></svg>"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "heading": "Steeds verrassend, altijd voordelig!",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "Met bijna 50 jaar ervaring (sinds 1975) is Kruidvat een gevestigde naam in Nederland en België. Naast een bekende drogisterijketen is Kruidvat ook een grote werkgever. De afgelopen jaren heeft Kruidvat veel geïnvesteerd in recruitment marketing, en dat werpt zijn vruchten af.",
+        "jaar klant",
+        "Vacatures per maand",
+        "Kosten per sollicitatie"
+      ]
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/5Tekengebied%201.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/1Tekengebied%201-2.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/12Tekengebied%201-2.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "type": "heading",
+      "heading": "Uitdaging",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Voor bijbanen heeft Kruidvat onder andere duo-solliciteren of ‘solliciteren met je bestie’ en andere succesvolle recruitment marketingcampagnes. Voor functies zoals teamleider, assistent-filiaalmanager en filiaalmanager zet Kruidvat in op alle lagen binnen arbeidsmarktcommunicatie, waaronder job marketing via jobboards. In job marketing zijn jobboards essentieel onderdeel van de strategie. Vooral wanneer meer gerichte zichtbaarheid onder de doelgroep nodig is.",
+        "Met jaarlijks duizenden vacatures is het handmatig plaatsen, beheren en analyseren van job marketing campagnes een tijdrovende klus. Het recruitment-team van Kruidvat werkt bovendien niet alleen voor Kruidvat, maar ook voor andere merken binnen AS Watson Health & Beauty Benelux. Efficiëntie is dus cruciaal."
+      ]
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Kruidvat%20afb.%202%20(1).png",
+      "width": 792,
+      "height": 396
+    },
+    {
+      "type": "featureCard",
+      "title": "Kruidvat",
+      "body": "Bij Kruidvat werk je in een omgeving waar vriendschap en ontwikkeling centraal staan. Teams bouwen sterke onderlinge banden op, en medewerkers voelen zich veilig en gesteund. Persoonlijke en professionele groei zijn belangrijk: medewerkers kunnen opleidingen volgen, en er is volop aandacht voor carrièrekansen binnen het bedrijf.",
+      "icon": null
+    },
+    {
+      "type": "compactCard",
+      "title": "Lisa van Laarhoven",
+      "body": "Recruitment Marketing Specialist",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1639671753335.jpeg"
+    },
+    {
+      "type": "heading",
+      "heading": "Oplossing",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Jobmatix biedt Kruidvat één centraal platform waarmee het team niet alleen de juiste kandidaten bereikt, maar ook tijd bespaart."
+      ]
+    },
+    {
+      "type": "quickfeat",
+      "items": [
+        {
+          "title": "Een van de eersten!",
+          "body": "Kruidvat was een van de eerste bedrijven die Jobmatix omarmde en heeft zo de ontwikkeling van ons platform van dichtbij meegemaakt.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/First%20eerste%20.png"
+        },
+        {
+          "title": "Tijdsbesparing",
+          "body": "Het Jobmatix-platform is grotendeels geautomatiseerd, wat extra tijdwinst oplevert voor het recruitment-team van Kruidvat.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%204%20jobboost%20blauw.png"
+        },
+        {
+          "title": "Gerichte zichtbaarheid",
+          "body": "Het platform werkt automatisch en slim, zodat Kruidvat-vacatures op het juiste moment zichtbaar zijn voor de juiste kandidaten. Dit verhoogt de gerichte zichtbaarheid bij de doelgroepen die het bedrijf wil bereiken.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%205%20jobboost%20blauw.png"
+        },
+        {
+          "title": "Samen sterker",
+          "body": "Kruidvat werkt samen met een eigen Jobmatix-consultant. Wekelijks worden optimalisaties doorgevoerd, en dat is zichtbaar in de resultaten. Door de inzet van de tool én de begeleiding van een toegewijde consultant wint het team kostbare tijd.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/sterker.png"
+        },
+        {
+          "title": "Overzicht",
+          "body": "In plaats van losse toolings, budgetten, contacten en rapportages is er nu één overzichtelijke omgeving voor het beheren van alle campagnes voor de job marketing van Kruidvat.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/overzicht%20.png"
+        },
+        {
+          "title": "Plan een gratis demo",
+          "body": "Weten hoe je jouw job marketing voor je kun laten werken? Plan een gesprek en krijg advies op maat.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/Demo%20%20(2).png"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "heading": "Resultaat",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Als een van de eerste gebruikers van Jobmatix heeft Kruidvat niet alleen de groei van het platform meegemaakt, maar ook de voordelen ervan ervaren. Het platform biedt een duidelijke toegevoegde waarde, vooral als het gaat om tijdbesparing voor de recruitmentafdeling. Sinds er dit jaar een toegewijde Customer Success Manager vanuit Jobmatix betrokken is, krijgt Kruidvat ook meer inzicht in vacaturetitels. Hierdoor worden vacatures geoptimaliseerd voor een betere aansluiting bij de doelgroep."
+      ]
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/Kruidvat%20.png",
+      "width": 1200,
+      "height": 400
+    },
+    {
+      "type": "heading",
+      "heading": "Get the job done",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "Op zoek naar een alles-in-één platform om jouw job marketing en vacature advertenties centraal te beheren, automatiseren én te optimaliseren? Laat je gegevens achter, dan vertellen we je graag meer over hoe job marketing automation jouw wervingssucces kan vergroten!"
+      ]
+    }
+  ],
   "richBody": "<h2>Uitdaging</h2> <p>Voor bijbanen heeft Kruidvat onder andere duo-solliciteren of ‘solliciteren met je bestie’ en andere succesvolle recruitment marketingcampagnes. Voor functies zoals teamleider, assistent-filiaalmanager en filiaalmanager zet Kruidvat in op alle lagen binnen arbeidsmarktcommunicatie, waaronder job marketing via jobboards. In job marketing zijn jobboards essentieel onderdeel van de strategie. Vooral wanneer meer gerichte zichtbaarheid onder de doelgroep nodig is.</p> <p>Met jaarlijks duizenden vacatures is het handmatig plaatsen, beheren en analyseren van job marketing campagnes een tijdrovende klus. Het recruitment-team van Kruidvat werkt bovendien niet alleen voor Kruidvat, maar ook voor andere merken binnen AS Watson Health &amp; Beauty Benelux. Efficiëntie is dus cruciaal.</p>",
   "tables": [],
   "blocks": [

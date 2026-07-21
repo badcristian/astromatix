@@ -28,9 +28,6 @@ export const KLANTCASES: Klantcase[] = [
   { slug: 'dhl-express', file: 'nl-nl-klantcase-dhl-express' },
 ];
 
-/** Headings that structure every case study's narrative, in order. */
-const NARRATIVE = ['Uitdaging', 'Oplossing', 'Resultaat'];
-
 export function caseData(entry: Klantcase) {
   const key = Object.keys(pages).find((p) => p.endsWith(`/${entry.file}.json`));
   if (!key) throw new Error(`No extractor output for klantcase "${entry.slug}" (${entry.file}.json)`);
@@ -38,12 +35,6 @@ export function caseData(entry: Klantcase) {
 
   const blocks: any[] = d.blocks ?? [];
 
-  // The narrative sections. On faam they are exactly "Uitdaging" / "Oplossing"
-  // / "Resultaat", but djops titles them "Uitdaging: van handwerk naar
-  // inzicht", "De oplossing: …", "Het resultaat: …", "Toekomstvisie" — so an
-  // exact match dropped every djops section. They are the module-less headings
-  // that carry body copy (the hero title and the lead/CTA headings sit in
-  // rtext/heading modules), taken in document order.
   // Band colour per section, from the extracted sectionBands (matched on the
   // heading it sits under). null → plain white. So each narrative section wears
   // the exact colour the original gives it, faam and djops alike.
@@ -54,50 +45,93 @@ export function caseData(entry: Klantcase) {
     return c && c.replace(/\s/g, '') !== 'rgb(255,255,255)' ? c : null;
   };
 
-  const narrative = blocks
-    .filter((b) => b.module === null && b.heading && (b.body?.length ?? 0) > 0)
-    .map((b) => ({
-      heading: b.heading as string,
-      body: (b.body ?? []) as string[],
-      band: bandColor(b.heading as string),
-    }));
-
-  const intro = d.featureCards?.[0] ?? null;
-
   const headingBlocks = blocks.filter((b) => b.module === 'heading');
-
-  // The FIRST heading module is the case study's lead section — a headline
-  // plus several paragraphs summarising the engagement. Only the last one (the
-  // CTA) was being read, which left every case study ~1000px short. A negative
-  // height delta means missing content, not tight spacing (FINDINGS.md §2).
-  const lead = headingBlocks.length > 1 ? headingBlocks[0] : null;
-
-  // The closing CTA heading is the last module--heading on the page.
   const cta = headingBlocks.at(-1) ?? null;
+
+  // --- render list, built from the full document ORDER ----------------------
+  //
+  // The per-type arrays cannot express how the block kinds interleave, and the
+  // klantcases interleave quote cards between narrative sections (djops:
+  // Uitdaging, quote, De oplossing, Het resultaat, quote). d.order is the exact
+  // document sequence; we group it into render items:
+  //
+  //   lead      the first heading module — a centred headline + intro + the
+  //             row of square sector tiles that follow it
+  //   section   a narrative heading + its body + any images below it, and — if
+  //             a feature-card follows — that card as a right-hand sidebar
+  //   quote     a compact-card (person + quote), on its own navy band
+  //   quickfeat the how-we-did-it grid, attached to the section it follows
+  //
+  // Skipped: the leading rtext hero headings (the hero renders them) and the
+  // final "Get the job done" heading (ContactCta renders it).
+  const order: any[] = d.order ?? [];
+  const ctaHeading = cta?.heading ?? null;
+
+  type Section = {
+    kind: 'section';
+    heading: string;
+    body: string[];
+    band: string | null;
+    images: { src: string; width: number; height: number }[];
+    card: { title: string; body: string } | null;
+    quickfeat: any[];
+    lead: boolean;
+  };
+  const render: (
+    | Section
+    | { kind: 'quote'; title: string; body: string; image: string | null }
+  )[] = [];
+
+  let leadSeen = false;
+  for (let i = 0; i < order.length; i++) {
+    const b = order[i];
+
+    if (b.type === 'heading') {
+      if (b.module === 'rtext') continue; // hero title/subtitle
+      if (b.heading === ctaHeading && i > order.length - 4) continue; // closing CTA
+      const isLead = b.module === 'heading' && !leadSeen;
+      if (isLead) leadSeen = true;
+
+      const section: Section = {
+        kind: 'section',
+        heading: b.heading,
+        body: b.body ?? [],
+        band: bandColor(b.heading),
+        images: [],
+        card: null,
+        quickfeat: [],
+        lead: isLead,
+      };
+      // Absorb following images / feature-card / quickfeat until the next
+      // heading or quote — those belong to this section.
+      let j = i + 1;
+      for (; j < order.length; j++) {
+        const n = order[j];
+        if (n.type === 'heading' || n.type === 'compactCard') break;
+        if (n.type === 'image') section.images.push(n);
+        else if (n.type === 'featureCard' && n.title)
+          section.card = { title: n.title, body: n.body ?? '' };
+        else if (n.type === 'quickfeat') section.quickfeat = n.items ?? [];
+      }
+      i = j - 1;
+      render.push(section);
+    } else if (b.type === 'compactCard') {
+      render.push({ kind: 'quote', title: b.title, body: b.body, image: b.image });
+    }
+    // properties / standalone images before the lead are handled by the hero +
+    // tags band above; ignore them here.
+  }
 
   return {
     meta: d.meta,
     title: d.hero?.title ?? entry.slug,
     // The <h1> holds two differently-styled spans: the client name large and
-    // white, the case headline smaller and lilac. Flattening them to one line
-    // lost both the split and the colours.
+    // white, the case headline smaller and lilac.
     heroParts: (d.hero?.parts ?? []) as { text: string; fontSize: string; color: string }[],
     heroBackground: (d.hero?.background ?? null) as string | null,
-    // Each tag carries an inline SVG glyph, not an <img>, so there is no URL
-    // to fetch — the markup itself is the asset.
+    // Each tag carries an inline SVG glyph, not an <img>.
     tags: (d.properties ?? []).map((p: any) => ({ label: p.label, iconSvg: p.iconSvg })),
-    bandQuote: (d.bandQuote ?? null) as { text: string } | null,
-    intro: intro?.title ? { title: intro.title, body: intro.body ?? '' } : null,
-    lead: lead ? { heading: lead.heading as string, body: (lead.body ?? []) as string[] } : null,
-    narrative,
-    quickfeat: d.quickfeat ?? [],
-    contacts: d.compactCards ?? [],
-    // Five per case study, none of them inside a module the other extractors
-    // look at, so they were simply absent — most of the ~750px shortfall.
-    // Anchored to the heading they follow rather than to an index.
-    images: (d.contentImages ?? []) as {
-      src: string; width: number; height: number; afterHeading: string | null;
-    }[],
+    render,
     ctaTitle: cta?.heading ?? null,
     ctaIntro: cta?.body?.[0] ?? null,
   };

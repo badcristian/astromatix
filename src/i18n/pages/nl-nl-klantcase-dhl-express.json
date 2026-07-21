@@ -217,6 +217,166 @@
     "text": "“Typerend voor de cultuur binnen DHL Express is dat we ons werk continu nóg beter willen doen. De samenwerking met Jobmatix past daar uitstekend bij.”",
     "color": "rgb(17, 65, 122)"
   },
+  "order": [
+    {
+      "type": "heading",
+      "heading": "DHL Express De juiste kandidaten voor de business leveren",
+      "level": 1,
+      "module": "rtext",
+      "body": []
+    },
+    {
+      "type": "properties",
+      "items": [
+        {
+          "label": "Transport & Logistiek",
+          "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" aria-hidden=\"true\"><g id=\"Alternate Arrow Circle Right1_layer\"><path d=\"M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zM140 300h116v70.9c0 10.7 13 16.1 20.5 8.5l114.3-114.9c4.7-4.7 4.7-12.2 0-16.9l-114.3-115c-7.6-7.6-20.5-2.2-20.5 8.5V212H140c-6.6 0-12 5.4-12 12v64c0 6.6 5.4 12 12 12z\"></path></g></svg>"
+        },
+        {
+          "label": "Grote organisatie",
+          "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" aria-hidden=\"true\"><g id=\"Building2_layer\"><path d=\"M436 480h-20V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v456H12c-6.627 0-12 5.373-12 12v20h448v-20c0-6.627-5.373-12-12-12zM128 76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76zm0 96c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40zm52 148h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12zm76 160h-64v-84c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v84zm64-172c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40z\"></path></g></svg>"
+        },
+        {
+          "label": "2.500 FTE",
+          "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" aria-hidden=\"true\"><g id=\"Suitcase3_layer\"><path d=\"M128 480h256V80c0-26.5-21.5-48-48-48H176c-26.5 0-48 21.5-48 48v400zm64-384h128v32H192V96zm320 80v256c0 26.5-21.5 48-48 48h-48V128h48c26.5 0 48 21.5 48 48zM96 480H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48h48v352z\"></path></g></svg>"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "heading": "Efficiënt werven in een snel veranderende markt",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "Met 1.000 vacatures per jaar in diverse functies - van koeriers tot administratieve rollen - had DHL Express behoefte aan flexibele en schaalbare recruitment marketing. De samenwerking met Jobmatix zorgt voor een constante instroom van kandidaten, geoptimaliseerde processen en lagere advertentiekosten.",
+        "Stijging CTR",
+        "Lagere CPA",
+        "Budgetbesparing"
+      ]
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/1Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/112Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/12Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "type": "heading",
+      "heading": "Uitdaging",
+      "level": 2,
+      "module": null,
+      "body": [
+        "De flexibele, high volume dienstverlening van DHL Express vraagt om een recruitmentstrategie die daarbij aansluit. Daarom richtte DHL Express enkele jaren geleden een eigen recruitmentteam op voor de business unit, in plaats van centraal te werven vanuit de groep. Dit team zorgde voor een omslag van ‘post and pray’ naar proactieve werving. Bijvoorbeeld met een nieuwe career website, maar ook met een strategisch plan voor een structurele instroom van kandidaten. Vanuit deze behoefte ontstond de samenwerking met Jobmatix.",
+        "DHL Express heeft op jaarbasis zo’n 1.000 vacatures. Dit zijn grotendeels operationele functies, zoals koeriers en logistieke medewerkers. Deze vacatures kennen een hoog volume. Daarnaast zoekt het bedrijf collega’s voor kantoorfuncties, bijvoorbeeld inside sales of administratie."
+      ]
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/DHL%20afb%202.png",
+      "width": 792,
+      "height": 396
+    },
+    {
+      "type": "featureCard",
+      "title": "DHL Express",
+      "body": "DHL Express staat bekend om supersnelle bezorging, wereldwijd. Het is een bedrijfstak van de DHL Groep, een organisatie die actief is in 220 landen en gebieden. Met hun eigen vliegtuigen, voertuigen, hubs en service centers bereikt DHL Expess binnen no-time de hele wereld. Of het nu gaat om een belangrijk document of een kritiek pakket.",
+      "icon": null
+    },
+    {
+      "type": "compactCard",
+      "title": "Loek Wansink",
+      "body": "Corporate Recruiter",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1649652596180.jpeg"
+    },
+    {
+      "type": "heading",
+      "heading": "Oplossing",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Het Jobmatix platform is voor DHL Express de weg naar flexibele jobboard marketing."
+      ]
+    },
+    {
+      "type": "quickfeat",
+      "items": [
+        {
+          "title": "Snel onderweg",
+          "body": "Na het eerste contact was het DHL Express account in een flits opgestart en ingericht.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/vliegtuig%20(1).png"
+        },
+        {
+          "title": "Flexibel werven",
+          "body": "DHL Express kan jobboard ads flexibel op- en afschalen. Een must in hun branche.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%206%20jobboost%20blauw.png"
+        },
+        {
+          "title": "Meer verkeer naar de werken-bij website",
+          "body": "Sinds de samenwerking met Jobmatix is het verkeer op de career website gestegen.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/stap%205%20jobboost%20blauw.png"
+        },
+        {
+          "title": "Meer controle, minder uitgaven",
+          "body": "Een betere verdeling van het budget over de maand én gewoonweg minder budget nodig.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/overzicht%20.png"
+        },
+        {
+          "title": "Persoonlijke ondersteuning",
+          "body": "Door de adviezen van de Customer Succes Manager leer je zelf ook steeds meer.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/sterker.png"
+        },
+        {
+          "title": "Plan een gratis demo",
+          "body": "Ontdek jouw route naar succesvolle recruitment marketing met een demo op maat.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/Demo%20%20(2).png"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "heading": "Resultaat",
+      "level": 2,
+      "module": null,
+      "body": [
+        "“In onze business verandert de situatie per dag”, vertelt Loek Wansink (Recruitment Business Partner bij DHL Express). “Met het Jobmatix platform realiseren we niet alleen een groot bereik voor onze vacatures, maar kunnen we ook zeer flexibel op- en afschalen. Daarmee spelen we in op veranderende wervingsbehoeften en seizoensmatige invloeden.”",
+        "“Samen met de Customer Succes Manager van Jobmatix zijn we continu bezig met optimalisaties. We hebben bijvoorbeeld veel A/B testen gedaan. Onze CPA’s zijn relatief laag voor de branche en onze conversiepercentages relatief hoog. Bovendien hebben we veel minder advertentiebudget nodig dan voorheen. De resultaten zijn gewoon heel goed.”",
+        "“Het Jobmatix platform is een belangrijk onderdeel van onze recruitmentstrategie. We bereiken nu veel meer sollicitanten, met aanzienlijk minder advertentiebudget.”"
+      ]
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hubfs/dhl%20.png",
+      "width": 1200,
+      "height": 400
+    },
+    {
+      "type": "compactCard",
+      "title": "Lonneke Schagen-Eelman",
+      "body": "Head of total talent acquisition",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/Lonneke-Schagen-Eelman.jpeg"
+    },
+    {
+      "type": "heading",
+      "heading": "Get the job done",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "Op zoek naar een alles-in-één platform om jouw job marketing en vacature advertenties centraal te beheren, automatiseren én te optimaliseren? Laat je gegevens achter, dan vertellen we je graag meer over hoe job marketing automation jouw wervingssucces kan vergroten!"
+      ]
+    }
+  ],
   "richBody": "<h2>Uitdaging</h2> <p>De flexibele, high volume dienstverlening van DHL Express vraagt om een recruitmentstrategie die daarbij aansluit. Daarom richtte DHL Express enkele jaren geleden een eigen recruitmentteam op voor de business unit, in plaats van centraal te werven vanuit de groep. Dit team zorgde voor een omslag van ‘post and pray’ naar proactieve werving. Bijvoorbeeld met een nieuwe career website, maar ook met een strategisch plan voor een structurele instroom van kandidaten. Vanuit deze behoefte ontstond de samenwerking met Jobmatix.</p> <p>DHL Express heeft op jaarbasis zo’n 1.000 vacatures. Dit zijn grotendeels operationele functies, zoals koeriers en logistieke medewerkers. Deze vacatures kennen een hoog volume. Daarnaast zoekt het bedrijf collega’s voor kantoorfuncties, bijvoorbeeld inside sales of administratie.</p>",
   "tables": [],
   "blocks": [

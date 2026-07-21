@@ -526,6 +526,142 @@ const data = await page.evaluate(() => {
       return null;
     })(),
 
+    // FULL DOCUMENT ORDER of the page's content blocks, each with its data
+    // inline. The per-type arrays (blocks, compactCards, quickfeat…) each list
+    // one kind in order, but they cannot express how the kinds INTERLEAVE — and
+    // the klantcases interleave quote cards between narrative sections (djops:
+    // Uitdaging, quote, De oplossing, Het resultaat, quote, …). A template that
+    // wants the exact sequence renders from this instead.
+    //
+    // Walks headings, cards, quickfeat, properties, pricing/steps/featshow and
+    // large images in document order, recording each block and skipping
+    // anything nested inside one already recorded so a card's inner heading is
+    // not double-counted.
+    order: (() => {
+      const main = document.querySelector('main') ?? document.body;
+      const recorded = [];
+      const covered = (el) => recorded.some((r) => r !== el && r.contains(el));
+
+      const BLOCK =
+        '.compact-card, .feature-card, .quickfeat, .pricing, .steps, .featshow, .properties';
+      const nodes = Array.from(main.querySelectorAll(`${BLOCK}, h1, h2, h3, h4, img`)).filter(
+        (el) => !el.closest('nav, footer, header'),
+      );
+      const headings = nodes.filter((n) => /^H[1-4]$/.test(n.tagName));
+
+      // Paragraphs between a heading and the next heading, skipping component
+      // internals (a card's own copy is on the card).
+      const bodyFor = (h) => {
+        const nextH = headings[headings.indexOf(h) + 1] ?? null;
+        const out = [];
+        const walker = document.createTreeWalker(main, NodeFilter.SHOW_ELEMENT);
+        walker.currentNode = h;
+        let node = walker.nextNode();
+        while (node && node !== nextH) {
+          if (
+            (node.tagName === 'P' || node.tagName === 'LI') &&
+            !node.closest(`${BLOCK}, form, nav, footer`)
+          ) {
+            const t = text(node);
+            if (t && !out.includes(t)) out.push(t);
+          }
+          node = walker.nextNode();
+        }
+        return out;
+      };
+
+      const moduleOf = (el) => {
+        const m = el.closest('[class*="module--"]');
+        if (!m) return null;
+        return (
+          Array.from(m.classList)
+            .filter((c) => c.startsWith('module--'))
+            .map((c) => c.slice(8))
+            .find(
+              (c) =>
+                !/^\d|^[0-9a-f]{8}-/.test(c) &&
+                !c.includes('text-center') &&
+                !c.includes('block-center'),
+            ) ?? null
+        );
+      };
+
+      const out = [];
+      for (const el of nodes) {
+        if (covered(el)) continue;
+        const rect = el.getBoundingClientRect();
+        if (el.tagName !== 'IMG' && rect.height === 0) continue; // hidden module
+
+        if (el.matches('.compact-card')) {
+          recorded.push(el);
+          out.push({
+            type: 'compactCard',
+            title: text(el.querySelector('.compact-card__title, h3, h4')),
+            body: text(el.querySelector('.compact-card__desc, p')),
+            image: src(el.querySelector('img')),
+          });
+        } else if (el.matches('.feature-card')) {
+          recorded.push(el);
+          out.push({
+            type: 'featureCard',
+            title: text(el.querySelector('.feature-card__title, h3, h4')),
+            body: text(el.querySelector('.feature-card__desc, p')),
+            icon: src(el.querySelector('.feature-card__icon img, img')),
+          });
+        } else if (el.matches('.quickfeat')) {
+          recorded.push(el);
+          out.push({
+            type: 'quickfeat',
+            items: visible(el.querySelectorAll('.quickfeat__item')).map((it) => ({
+              title: text(it.querySelector('.quickfeat__title')) || null,
+              body: text(it.querySelector('.quickfeat__desc')) || null,
+              icon: src(it.querySelector('img')),
+            })),
+          });
+        } else if (el.matches('.properties')) {
+          recorded.push(el);
+          out.push({
+            type: 'properties',
+            items: visible(el.querySelectorAll('.properties__item')).map((p) => ({
+              label: text(p.querySelector('.properties__text')) || text(p),
+              iconSvg: (() => {
+                const svg = p.querySelector('svg');
+                return svg ? svg.outerHTML.replace(/\s+/g, ' ').slice(0, 2000) : null;
+              })(),
+            })),
+          });
+        } else if (el.matches('.pricing, .steps, .featshow')) {
+          recorded.push(el);
+          out.push({
+            type: el.classList.contains('pricing')
+              ? 'pricing'
+              : el.classList.contains('steps')
+                ? 'steps'
+                : 'featshow',
+          });
+        } else if (el.tagName === 'IMG') {
+          if (rect.width < 120 || rect.height < 80) continue;
+          out.push({
+            type: 'image',
+            src: src(el),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+          });
+        } else {
+          const t = text(el);
+          if (!t) continue;
+          out.push({
+            type: 'heading',
+            heading: t,
+            level: Number(el.tagName[1]),
+            module: moduleOf(el),
+            body: bodyFor(el),
+          });
+        }
+      }
+      return out;
+    })(),
+
     // Sanitised rich-text body, for pages whose content is one free-form
     // rich_text module rather than DnD sections — the two legal pages.
     //

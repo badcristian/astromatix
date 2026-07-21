@@ -192,6 +192,160 @@
     "text": "“Sinds we samenwerken met Jobmatix hebben we aanzienlijk meer sollicitanten mogen spreken. Ik adviseer iedereen: onderschat de kracht van jobmarketing en jobboards niet. Het zijn hele waardevolle kanalen die zorgen voor meer naamsbekendheid. Jobmatix is een belangrijke stakeholder voor het realiseren van onze ambities.”",
     "color": "rgb(17, 65, 122)"
   },
+  "order": [
+    {
+      "type": "heading",
+      "heading": "Faam Efficiëntieslag in recruitment marketing",
+      "level": 1,
+      "module": "rtext",
+      "body": []
+    },
+    {
+      "type": "properties",
+      "items": [
+        {
+          "label": "Uitzendbureau",
+          "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 512\" aria-hidden=\"true\"><g id=\"Wired Network1_layer\"><path d=\"M640 264v-16c0-8.84-7.16-16-16-16H344v-40h72c17.67 0 32-14.33 32-32V32c0-17.67-14.33-32-32-32H224c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h72v40H16c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h104v40H64c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h160c17.67 0 32-14.33 32-32V352c0-17.67-14.33-32-32-32h-56v-40h304v40h-56c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h160c17.67 0 32-14.33 32-32V352c0-17.67-14.33-32-32-32h-56v-40h104c8.84 0 16-7.16 16-16zM256 128V64h128v64H256zm-64 320H96v-64h96v64zm352 0h-96v-64h96v64z\"></path></g></svg>"
+        },
+        {
+          "label": "Intermediair",
+          "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" aria-hidden=\"true\"><g id=\"Building2_layer\"><path d=\"M128 148v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12zm140 12h40c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12zm-128 96h40c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12zm128 0h40c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12zm-76 84v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm76 12h40c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12zm180 124v36H0v-36c0-6.6 5.4-12 12-12h19.5V24c0-13.3 10.7-24 24-24h337c13.3 0 24 10.7 24 24v440H436c6.6 0 12 5.4 12 12zM79.5 463H192v-67c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v67h112.5V49L80 48l-.5 415z\"></path></g></svg>"
+        },
+        {
+          "label": "Landelijk",
+          "iconSvg": "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\" aria-hidden=\"true\"><g id=\"People Arrows3_layer\"><path d=\"M96,128A64,64,0,1,0,32,64,64,64,0,0,0,96,128Zm0,176.08a44.11,44.11,0,0,1,13.64-32L181.77,204c1.65-1.55,3.77-2.31,5.61-3.57A63.91,63.91,0,0,0,128,160H64A64,64,0,0,0,0,224v96a32,32,0,0,0,32,32V480a32,32,0,0,0,32,32h64a32,32,0,0,0,32-32V383.61l-50.36-47.53A44.08,44.08,0,0,1,96,304.08ZM480,128a64,64,0,1,0-64-64A64,64,0,0,0,480,128Zm32,32H448a63.91,63.91,0,0,0-59.38,40.42c1.84,1.27,4,2,5.62,3.59l72.12,68.06a44.37,44.37,0,0,1,0,64L416,383.62V480a32,32,0,0,0,32,32h64a32,32,0,0,0,32-32V352a32,32,0,0,0,32-32V224A64,64,0,0,0,512,160ZM444.4,295.34l-72.12-68.06A12,12,0,0,0,352,236v36H224V236a12,12,0,0,0-20.28-8.73L131.6,295.34a12.4,12.4,0,0,0,0,17.47l72.12,68.07A12,12,0,0,0,224,372.14V336H352v36.14a12,12,0,0,0,20.28,8.74l72.12-68.07A12.4,12.4,0,0,0,444.4,295.34Z\"></path></g></svg>"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "heading": "Lange termijn succes dankzij marketing automation",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "Faam staat bekend om de persoonlijke aanpak en focus op de lange termijn. Met slimme recruitment marketing werkt de intermediair aan haar landelijke ambities.",
+        "Minder tijd kwijt aan het beheren van campagnes op jobbooards.",
+        "Het aantal bezoekers is dankzij de inzet van Jobmatix met 53% gestegen.",
+        "Dankzij de inzet van Jobmatix is het aantal sollicitaties met 45% gestegen."
+      ]
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/1234Tekengebied%201-1.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/112Tekengebied%201.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/12341Tekengebied%201.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "type": "heading",
+      "heading": "Uitdaging",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Uitzendbureau Faam biedt honderden (mbo-)vacatures in techniek, productie, logistiek, groen en bouw. De collega’s binnen Faam kennen deze vakgebieden op hun duimpje én zijn sterk in contentmarketing. Faam werkt samen met de klant aan krachtige foto’s, video’s en teksten. De vacatures adverteren zij vervolgens via verschillende kanalen, zoals jobboards. Wanneer je dit handmatig aanpakt, is het een tijdrovende klus: van het afzonderlijk contracteren van elke jobboard tot het voortdurend monitoren van iedere campagne.",
+        "Met de ambitie om van een regionale naar een landelijke speler uit te groeien, was het voor Faam tijd om een efficiëntieslag in recruitment marketing te slaan. Zo kwam de samenwerking met Jobmatix tot stand."
+      ]
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hs-fs/hubfs/faam%20afb.%202.png",
+      "width": 792,
+      "height": 396
+    },
+    {
+      "type": "featureCard",
+      "title": "Faam",
+      "body": "Faam bestaat al sinds 2007. De intermediair onderscheidt zich met een persoonlijke aanpak en focus op lange termijn succes. 92 procent van de mensen die via Faam een baan vindt, krijgt een verlenging of vast contract. De lange termijn ambitie van de organisatie: vanuit het kantoor in Barneveld het hele land bedienen!",
+      "icon": null
+    },
+    {
+      "type": "heading",
+      "heading": "Oplossing",
+      "level": 2,
+      "module": null,
+      "body": [
+        "Een gebruiksvriendelijk all-in-one platform, waarmee iedereen binnen Faam kan werken."
+      ]
+    },
+    {
+      "type": "quickfeat",
+      "items": [
+        {
+          "title": "Goed van start",
+          "body": "Samen met Faam hebben we het platform ingericht en de campagnes nauwkeurig opgezet.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/sterker.png"
+        },
+        {
+          "title": "Focus op Cost Per Applicant (CPA)",
+          "body": "Faam krijgt bij het bepalen van de CPA’s begeleiding vanuit Jobmatix en stuurt actief op deze voor hen belangrijke KPI.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/expert%20.png"
+        },
+        {
+          "title": "Eén platform voor alle vacature ads",
+          "body": "Faam hoeft niet langer alle jobboards handmatig te contracteren, monitoren en bij te sturen.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/centraliseren.png"
+        },
+        {
+          "title": "Grip op mediabudgetten",
+          "body": "Met het all-in-one dashboard houdt Faam beter overzicht én grip op de mediabudgetten per opdrachtgever.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/Budget.png"
+        },
+        {
+          "title": "Learning by doing",
+          "body": "Ook na de livegang blijven we de campagnes optimaliseren. Met de slimme AI in het platform gaat dit automatisch.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/First%20eerste%20.png"
+        },
+        {
+          "title": "Plan een gratis demo",
+          "body": "Ontdek hoe jij ook succesvoller kan werven, tijdens een demo op maat.",
+          "icon": "https://www.jobmatix.com/hs-fs/hubfs/Demo%20%20(2).png"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "heading": "Resultaat",
+      "level": 2,
+      "module": null,
+      "body": [
+        "“Voorheen plaatsten we de vacatures handmatig op verschillende jobboards”, vertelt Job Frens van Faam. “We hielden met ieder kanaal afzonderlijk contact over de voortgang van elke campagne. Nu beheren we alle vacaturecampagnes voor onze opdrachtgevers via één platform. Ook hoeven we maar met één partij, namelijk Jobmatix, contact te hebben.”",
+        "“De interface is heel gebruiksvriendelijk, waardoor iedereen er makkelijk mee kan werken. Bovendien houden de adviezen van het Jobmatix teams ons scherp. Soms komen we er bijvoorbeeld achter dat een bepaald type vacature een eigen campagne verdient. Samen gaan we voor de ideale balans tussen Cost Per Applicant (CPA) en Cost Per Click (CPC).”",
+        "“Sinds we samenwerken met Jobmatix hebben we aanzienlijk meer sollicitanten mogen spreken. Ik adviseer iedereen: onderschat de kracht van jobmarketing en jobboards niet. Het zijn hele waardevolle kanalen die zorgen voor meer naamsbekendheid. Jobmatix is een belangrijke stakeholder voor het realiseren van onze ambities.”"
+      ]
+    },
+    {
+      "type": "image",
+      "src": "https://www.jobmatix.com/hubfs/Faam%20.png",
+      "width": 1200,
+      "height": 400
+    },
+    {
+      "type": "compactCard",
+      "title": "Job Frens",
+      "body": "Accountmanager",
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/job.webp"
+    },
+    {
+      "type": "heading",
+      "heading": "Get the job done",
+      "level": 2,
+      "module": "heading",
+      "body": [
+        "Ook succesvoller werven dankzij recruitment marketing automation? Laat je gegevens achter en wij nemen zo snel mogelijk contact met je op."
+      ]
+    }
+  ],
   "richBody": "<h2>Uitdaging</h2> <p>Uitzendbureau Faam biedt honderden (mbo-)vacatures in techniek, productie, logistiek, groen en bouw. De collega’s binnen Faam kennen deze vakgebieden op hun duimpje én zijn sterk in contentmarketing. Faam werkt samen met de klant aan krachtige foto’s, video’s en teksten. De vacatures adverteren zij vervolgens via verschillende kanalen, zoals jobboards. Wanneer je dit handmatig aanpakt, is het een tijdrovende klus: van het afzonderlijk contracteren van elke jobboard tot het voortdurend monitoren van iedere campagne.</p> <p>Met de ambitie om van een regionale naar een landelijke speler uit te groeien, was het voor Faam tijd om een efficiëntieslag in recruitment marketing te slaan. Zo kwam de samenwerking met Jobmatix tot stand.</p>",
   "tables": [],
   "blocks": [

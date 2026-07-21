@@ -2,34 +2,25 @@
 import Base from '../../../../layouts/Base.astro';
 import QuickFeat from '../../../../components/ui/QuickFeat.astro';
 import ContactCta from '../../../../components/sections/ContactCta.astro';
-import Figures from '../../../../components/ui/Figures.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../../../lib/icons';
 import { KLANTCASES, caseData } from '../../../../lib/klantcases';
 
-// Six customer stories, one template.
+// Six customer stories, one template — driven by the page's FULL document
+// order (see caseData / the extractor's `order` field), so the block kinds
+// interleave exactly as the original. faam runs three narrative sections and a
+// single closing quote; djops runs four sections with a quote card BETWEEN
+// them (Uitdaging → quote → De oplossing → Het resultaat → quote). A per-type
+// layout could not express that; the ordered render list can.
 //
-// STRUCTURE, measured on /nl/actueel/klantcase/royal-schiphol-group at 1440.
-// An earlier version of this file reproduced the COPY correctly and almost
-// none of the layout — no hero photo, one uniform heading instead of two
-// styled halves, text pills instead of icon tags, every band on white, and the
-// client card rendered as a full-width intro block instead of a sidebar.
-//
-//   y=  85  h=348  hero, full-bleed background photo, text column 588 wide
-//                  h1 = client name 60px white + headline 42px #e9b9ec
-//   y= 433  h= 64  properties band on #f8f9fb, three inline-SVG tags, navy
-//   y= 497  h=153  section heading 1138 wide + intro paragraph, centred
-//   y= 650  h=360  three 384x270 tiles
-//   y=1011  h=814  UITDAGING on #f5f5ff — two columns:
-//                    left  792  prose + a 792x396 photo
-//                    right 282  white feature-card (the client profile)
-//   y=1824  h=610  OPLOSSING 1200 wide + quickfeat
-//   y=2434  h=682  RESULTAAT on #f8f9fb + a 1200x400 photo
-//   y=3116  h=166  navy band: the pull-quote
-//   y=3282  h=153  navy band: the contact compact-card, 384 wide
-//   y=3435  h=769  "Get the job done" + form, 1200 wide
-//
-// Content widths are 1138/1200, not the 850 this template used throughout.
+// Structure, measured on royal-schiphol-group @1440:
+//   hero      full-bleed background photo, two-tone <h1>
+//   tags      properties band, #f8f9fb, inline-SVG glyph per tag
+//   lead      centred headline + intro + a row of square sector tiles
+//   section   narrative heading + body + photos, on its own band colour; the
+//             first also carries the client-profile card as a right sidebar
+//   quote     a compact-card on a navy band
+//   CTA       "Get the job done" + form
 
 export function getStaticPaths() {
   return KLANTCASES.map((c) => ({ params: { slug: c.slug }, props: { entry: c } }));
@@ -39,23 +30,12 @@ const { entry } = Astro.props;
 const c = caseData(entry);
 
 const heroBg = resolveIcon(c.heroBackground);
-const imagesFor = (headingText: string | null | undefined) =>
-  c.images
-    .filter((i) => (i.afterHeading ?? null) === (headingText ?? null))
-    .map((i) => ({ ...i, resolved: resolveIcon(i.src) }))
-    .filter((i) => i.resolved);
 
-// The client-profile card is a SIDEBAR beside the first narrative section, not
-// a lead section of its own.
-const profile = c.intro;
-
-// Render every narrative section in document order — faam has three
-// (Uitdaging / Oplossing / Resultaat), djops has four with longer titles
-// ("Uitdaging: van handwerk naar inzicht", "De oplossing: …", "Het resultaat:
-// …", "Toekomstvisie"). The quickfeat, when present, follows the "oplossing"
-// section (faam); the profile sidebar sits beside the first.
-const sections = c.narrative;
-const oplossingIdx = sections.findIndex((s) => /oplossing/i.test(s.heading));
+// Resolve a content image's local asset; a square tile shrinks below 640.
+const resolveImg = (img: { src: string; width: number; height: number }) => ({
+  ...img,
+  resolved: resolveIcon(img.src),
+});
 ---
 
 <Base title={c.meta.title} description={c.meta.description ?? undefined}>
@@ -99,107 +79,89 @@ const oplossingIdx = sections.findIndex((s) => /oplossing/i.test(s.heading));
     </section>
   )}
 
-  {/* --- lead: centred heading + intro ------------------------------------ */}
-  {c.lead && (
-    <section class="px-6 pt-[50px]">
-      <div class="mx-auto max-w-[1138px] text-center">
-        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
-          {c.lead.heading}
-        </h2>
-        {c.lead.body.map((para) => (
-          <p class="mx-auto mt-4 max-w-[900px] text-[16px] leading-[26px] text-navy">{para}</p>
-        ))}
-      </div>
-    </section>
-  )}
-
-  <Figures images={imagesFor(c.lead?.heading)} />
-
-  {/* --- narrative sections, in order ------------------------------------- */}
-  {sections.map((section, i) => (
-    <section class="px-6 py-[50px]" style={section.band ? `background-color:${section.band}` : undefined}>
-      <div
-        class:list={[
-          'mx-auto max-w-[1200px]',
-          i === 0 && profile && 'flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-[42px]',
-        ]}
-      >
-        <div class:list={[i === 0 && profile && 'lg:w-[792px] lg:shrink-0']}>
-          <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
-            {section.heading}
-          </h2>
-          {section.body.map((para) => (
-            <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
-          ))}
-
-          {/* Images anchored to this section (and, on the first, to the profile
-              card's own heading — the wide photo sits in that column). */}
-          {imagesFor(section.heading).map((img) => (
-            <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="mt-8 h-auto w-full rounded-3xl" />
-          ))}
-          {i === 0 && imagesFor(profile?.title).map((img) => (
-            <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="mt-8 h-auto w-full rounded-3xl" />
-          ))}
-
-          {/* The quickfeat grid follows the "oplossing" section. */}
-          {i === oplossingIdx && c.quickfeat.length > 0 && (
-            <div class="mt-10">
-              <QuickFeat items={c.quickfeat} columns={2} />
+  {/* --- blocks, in exact document order ---------------------------------- */}
+  {c.render.map((item) => {
+    if (item.kind === 'quote') {
+      const portrait = resolveIcon(item.image);
+      return (
+        <section class="bg-navy px-6 py-10">
+          <div class="mx-auto flex max-w-[1200px] flex-wrap justify-center gap-8">
+            <div class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5">
+              {portrait && (
+                <Image src={portrait} alt="" width={96} height={96} class="size-24 shrink-0 rounded-full object-cover" />
+              )}
+              <div>
+                <p class="font-display text-[20px] leading-[28px] font-bold text-navy">{item.title}</p>
+                {item.body && <p class="text-[14.4px] text-navy/70">{item.body}</p>}
+              </div>
             </div>
+          </div>
+        </section>
+      );
+    }
+
+    // A narrative (or lead) section.
+    const images = item.images.map(resolveImg).filter((i) => i.resolved);
+
+    if (item.lead) {
+      return (
+        <section class="px-6 pt-[50px]" style={item.band ? `background-color:${item.band}` : undefined}>
+          <div class="mx-auto max-w-[1138px] text-center">
+            <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">{item.heading}</h2>
+            {item.body.map((para) => (
+              <p class="mx-auto mt-4 max-w-[900px] text-[16px] leading-[26px] text-navy">{para}</p>
+            ))}
+            {images.length > 0 && (
+              <div class="mt-8 flex flex-wrap items-center justify-center gap-6">
+                {images.map((img) => (
+                  <Image
+                    src={img.resolved!}
+                    alt=""
+                    width={img.width}
+                    height={img.height}
+                    class:list={['h-auto rounded-3xl', img.width > 400 ? 'w-full' : 'w-[130px] sm:w-[200px]']}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      );
+    }
+
+    return (
+      <section class="px-6 py-[50px]" style={item.band ? `background-color:${item.band}` : undefined}>
+        <div
+          class:list={[
+            'mx-auto max-w-[1200px]',
+            item.card && 'flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-[42px]',
+          ]}
+        >
+          <div class:list={[item.card && 'lg:w-[792px] lg:shrink-0']}>
+            <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">{item.heading}</h2>
+            {item.body.map((para) => (
+              <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+            ))}
+            {images.map((img) => (
+              <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="mt-8 h-auto w-full rounded-3xl" />
+            ))}
+            {item.quickfeat.length > 0 && (
+              <div class="mt-10">
+                <QuickFeat items={item.quickfeat} columns={2} />
+              </div>
+            )}
+          </div>
+
+          {item.card && (
+            <aside class="rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] lg:w-[282px] lg:shrink-0">
+              <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">{item.card.title}</h3>
+              <p class="mt-3 text-[14.4px] leading-[20.16px] text-navy">{item.card.body}</p>
+            </aside>
           )}
         </div>
-
-        {/* Client-profile sidebar, beside the first section only. */}
-        {i === 0 && profile && (
-          <aside class="rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] lg:w-[282px] lg:shrink-0">
-            <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
-              {profile.title}
-            </h3>
-            <p class="mt-3 text-[14.4px] leading-[20.16px] text-navy">{profile.body}</p>
-          </aside>
-        )}
-      </div>
-    </section>
-  ))}
-
-  {/* --- navy band: pull-quote, then the contact card ---------------------- */}
-  {(c.bandQuote || c.contacts.length > 0) && (
-    <section class="bg-navy px-6 py-10">
-      <div class="mx-auto max-w-[1200px]">
-        {c.bandQuote && (
-          <blockquote class="mx-auto max-w-[900px] text-center text-[20px] leading-[30px] text-white">
-            {c.bandQuote.text}
-          </blockquote>
-        )}
-        {c.contacts.length > 0 && (
-          <div class="mt-8 flex flex-wrap justify-center gap-8">
-            {c.contacts.map((person) => {
-              const portrait = resolveIcon(person.image);
-              return (
-                <div class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5">
-                  {portrait && (
-                    <Image
-                      src={portrait}
-                      alt=""
-                      width={96}
-                      height={96}
-                      class="size-24 shrink-0 rounded-full object-cover"
-                    />
-                  )}
-                  <div>
-                    <p class="font-display text-[20px] leading-[28px] font-bold text-navy">
-                      {person.title}
-                    </p>
-                    {person.body && <p class="text-[14.4px] text-navy/70">{person.body}</p>}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    </section>
-  )}
+      </section>
+    );
+  })}
 
   <ContactCta title={c.ctaTitle ?? undefined} intro={c.ctaIntro} />
 </Base>
