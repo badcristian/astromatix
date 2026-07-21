@@ -22,17 +22,18 @@ const { items = home.featureBand } = Astro.props;
 ---
 
 <section class="bg-navy">
-  <Reveal variant="up" duration={500} class="bg-white/10 px-6 py-[10px]">
-    {/* Inner row is 68px on the original — items are 44px, vertically centred
-        with 12px above and below. 10px padding either side makes the strip 88. */}
-    <div class="flex h-[68px] flex-wrap items-center justify-center">
+  <Reveal variant="up" duration={500} class="bg-white/10 px-6 py-4 lg:py-[10px]">
+    {/* Mobile: a vertical stack, each item its own full-width row (matching the
+        original — a fixed-height flex-wrap row overlapped the items). From lg:
+        one 68px centred row with hairline dividers (items are 44px, vertically
+        centred with 12px above/below; 10px padding makes the strip 88). */}
+    <div class="mx-auto flex max-w-[1133px] flex-col gap-4 lg:h-[68px] lg:flex-row lg:flex-wrap lg:items-center lg:justify-center lg:gap-0">
       {items.map((item, i) => (
         <div
           class:list={[
-            // Each item carries ~25px of trailing space on the original,
-            // except the last. Without it the whole row measures ~75px narrow.
-            i < items.length - 1 && 'pr-[25px]',
-            i > 0 && 'border-l border-white/20 pl-[14px] ml-[14px]',
+            // ~25px trailing space per item (except the last) on the original.
+            i < items.length - 1 && 'lg:pr-[25px]',
+            i > 0 && 'lg:ml-[14px] lg:border-l lg:border-white/20 lg:pl-[14px]',
           ]}
         >
           <PropertyItem icon={item.icon} label={item.label} variant="light" />
