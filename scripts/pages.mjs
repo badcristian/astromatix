@@ -90,26 +90,85 @@ export const WIDE_VIEWPORT = { width: 1920, height: 1080, label: '1920' };
 //   .accordion__item--expanded  FAQ item open     (.accordion__header)
 //   .header--sticky-active      sticky nav        (added on scroll)
 //   .splide__arrow--next        carousel advance  (loop mode, uses clones)
+// The FULL route set (~50), for the comprehensive parity sweep. The original
+// slugs from the 14-page "one per template" manifest are kept verbatim so their
+// existing captures stay valid; the rest were added to cover every instance of
+// every template (the per-content bugs — a missed component on one klantcase, a
+// wrong band on one landing page — are invisible when only one instance of a
+// template is diffed). Paths verified against reference/original/urls.txt.
+//
+// The two doubled /nl/nl/ klantcase URLs now serve real content at that exact
+// path on BOTH the original and the rebuild, so a single `path` diffs correctly.
 export const PAGES = [
   { slug: 'home', path: '/nl/', template: 'home', wide: true,
     states: ['menu-open', 'nav-stuck', 'hover-cta', 'slider-2', 'slider-3'] },
 
+  // --- product / solution ---
   { slug: 'platform', path: '/nl/platform', template: 'product' },
   { slug: 'jobadvertising', path: '/nl/oplossingen/jobadvertising', template: 'product' },
   { slug: 'jobboost', path: '/nl/oplossingen/jobboost', template: 'product' },
   { slug: 'jobbooster', path: '/nl/jobbooster', template: 'product' },
 
+  // --- marketing ---
   { slug: 'over-ons', path: '/nl/over-ons', template: 'marketing' },
+  { slug: 'werken-bij', path: '/nl/over-ons/werken-bij', template: 'marketing' },
   { slug: 'contact', path: '/nl/contact', template: 'marketing' },
   { slug: 'voor-wie', path: '/voor-wie', template: 'marketing' },
   { slug: 'faq', path: '/veel-gestelde-vragen', template: 'marketing',
     states: ['accordion-open'] },
   { slug: 'klantcases', path: '/nl/klantcases', template: 'marketing' },
 
-  { slug: 'actueel', path: '/nl/actueel', template: 'listing' },
+  // --- legal ---
+  { slug: 'privacy-statement', path: '/nl/privacy-statement', template: 'legal' },
+  { slug: 'algemene-voorwaarden', path: '/nl/algemene-voorwaarden', template: 'legal' },
 
+  // --- listing hubs (one template, category-filtered) ---
+  { slug: 'actueel', path: '/nl/actueel', template: 'listing' },
+  { slug: 'actueel-blogs', path: '/nl/actueel/blogs', template: 'listing' },
+  { slug: 'actueel-nieuws', path: '/nl/actueel/nieuws', template: 'listing' },
+  { slug: 'actueel-kennis', path: '/nl/actueel/kennis', template: 'listing' },
+  { slug: 'actueel-events', path: '/nl/actueel/events', template: 'listing' },
+
+  // --- articles (11 posts, one template) ---
   { slug: 'blog-post', path: '/nl/actueel/blogs/podcast-recruitment-marketing', template: 'article' },
+  { slug: 'blog-5-tips', path: '/nl/actueel/blogs/5-tips-voor-effectieve-recruitment-marketing', template: 'article' },
+  { slug: 'blog-effectief-werven', path: '/nl/actueel/blogs/effectief-werven-10-tips-vacatureteksten', template: 'article' },
+  { slug: 'blog-programmatic', path: '/nl/actueel/blogs/programmatic-advertising-de-toekomst-van-job-marketing', template: 'article' },
+  { slug: 'kennis-webinar', path: '/nl/actueel/kennis/webinar-recruitment-marketing-automation', template: 'article' },
+  { slug: 'nieuws-interview', path: '/nl/actueel/nieuws/interview-lancering-recruitment-marketing-platform', template: 'article' },
+  { slug: 'nieuws-interview-0', path: '/nl/actueel/nieuws/interview-lancering-recruitment-marketing-platform-0', template: 'article' },
+  { slug: 'nieuws-lancering', path: '/nl/actueel/nieuws/lancering-recruitment-marketing-platform', template: 'article' },
+  { slug: 'nieuws-premium', path: '/nl/actueel/nieuws/premium-partnership-werkzoeken.nl', template: 'article' },
+  { slug: 'nieuws-recruitment-tech-35', path: '/nl/actueel/nieuws/recruitment-tech-35', template: 'article' },
+  { slug: 'nieuws-talkshow', path: '/nl/actueel/nieuws/talkshow-recruitment-marketing', template: 'article' },
+
+  // --- klantcases (one template; last two live at doubled /nl/nl/ paths) ---
   { slug: 'case-study', path: '/nl/actueel/klantcase/faam', template: 'case' },
+  { slug: 'klantcase-djops', path: '/nl/actueel/klantcase/djops', template: 'case' },
+  { slug: 'klantcase-jam-werkt', path: '/nl/actueel/klantcase/jam-werkt', template: 'case' },
+  { slug: 'klantcase-royal-schiphol', path: '/nl/actueel/klantcase/royal-schiphol-group', template: 'case' },
+  { slug: 'klantcase-kruidvat', path: '/nl/nl/actueel/klantcase/kruidvat', template: 'case' },
+  { slug: 'klantcase-dhl', path: '/nl/nl/klantcase/dhl-express', template: 'case' },
+
+  // --- vacancies (one template) ---
   { slug: 'vacature', path: '/nl/vacature/customer-success-manager', template: 'vacancy' },
+  { slug: 'vacature-marketeer', path: '/nl/vacature/recruitment-marketeer', template: 'vacancy' },
+  { slug: 'vacature-developer', path: '/nl/vacature/senior-software-developer', template: 'vacancy' },
+
+  // --- landing / funnel (one template) ---
   { slug: 'landing', path: '/nl/demo-aanvragen', template: 'landing' },
+  { slug: 'landing-advies-gesprek', path: '/nl/advies-gesprek', template: 'landing' },
+  { slug: 'landing-demo-aanvraag', path: '/nl/demo-aanvraag', template: 'landing' },
+  { slug: 'landing-demo-day', path: '/nl/demo-day-actie', template: 'landing' },
+  { slug: 'landing-demo-emile', path: '/nl/demo-emile', template: 'landing' },
+  { slug: 'landing-meeting-koen', path: '/nl/meeting-koen', template: 'landing' },
+  { slug: 'landing-webinar', path: '/nl/webinar-recruitment-marketing-video', template: 'landing' },
+  { slug: 'landing-jobmarketing-scan', path: '/nl/jobmarketing-scan', template: 'landing' },
+  { slug: 'landing-job-marketing-tool', path: '/nl/job-marketing-tool-0', template: 'landing' },
+
+  // --- bedankt / thank-you (one template) ---
+  { slug: 'bedankt-contact', path: '/nl/bedankt-contact', template: 'bedankt' },
+  { slug: 'bedankt-demo-emile', path: '/nl/bedankt-demo-emile', template: 'bedankt' },
+  { slug: 'bedankt-demo-koen', path: '/nl/bedankt-demo-koen', template: 'bedankt' },
+  { slug: 'bedankt-jobbooster', path: '/nl/bedankt-jobbooster', template: 'bedankt' },
 ];

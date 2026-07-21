@@ -95,9 +95,10 @@ const dropdownActive = (children?: { href: string }[]) =>
 
     <div class="flex items-center gap-4">
       <!-- Search trigger: 20×20 navy icon, sits ~58px before the CTA on the
-           original, separated by a hairline divider. The search overlay itself
-           is HubSpot-backed (/hs-search-results) and is out of scope, so this
-           is presentational for now. -->
+           original, separated by a hairline divider. Opens the SearchPanel
+           (mounted in Base), a client-side Pagefind search over the built
+           pages — the original's search was HubSpot-backed (/hs-search-results),
+           which can't be reused, so we index our own output instead. -->
       <button
         type="button"
         class="hidden text-navy transition-opacity hover:opacity-70 lg:block"

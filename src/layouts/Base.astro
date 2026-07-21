@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { getImage } from 'astro:assets';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
+import SearchPanel from '../components/layout/SearchPanel.astro';
 import faviconSrc from '../assets/favicon.png';
 
 // The source is 4667x4667; generate the sizes browsers actually ask for
@@ -44,7 +45,14 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <Header />
-    <main>
+    <SearchPanel />
+    {/* data-pagefind-body scopes the search index to page content — the
+        Header, SearchPanel and Footer chrome are excluded from results. */}
+    <main data-pagefind-body>
+      {/* Pin the search-result title to the clean page <title>. Without this
+          Pagefind derives it from the first <h1>, whose two-tone spans run
+          together ("KruidvatDe juiste…") and can absorb an in-heading CTA. */}
+      <span data-pagefind-meta="title" class="sr-only">{title}</span>
       <slot />
     </main>
     <Footer />

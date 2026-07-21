@@ -13,11 +13,17 @@ import StatsBand from '../../components/sections/StatsBand.astro';
 import copy from '../../i18n/home-copy.json';
 import productJobAdvertising from '../../assets/product-jobadvertising.png';
 import productJobboost from '../../assets/product-jobboost.png';
+import productMultiposter from '../../assets/product-multiposter.png';
 
-const blockImages = [productJobAdvertising, productJobboost];
+// Three alternating product blocks on the original: Job Advertising, Jobboost,
+// Multiposter (image right / left / right). The Multiposter block was missing.
+const blockImages = [productJobAdvertising, productJobboost, productMultiposter];
 ---
 
-<Base title="Jobmatix">
+<Base
+  title="Jobmatix | Hét job marketing platform dat voor je werkt!"
+  description="Benieuwd hoe jij jouw job marketing eenvoudig vanuit één plek kunt beheren, automatiseren en optimaliseren?"
+>
   <Hero />
   <FeatureBand />
   <ValueProp />

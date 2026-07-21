@@ -1,0 +1,23 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import KlantcaseArticle from '../../../../components/sections/KlantcaseArticle.astro';
+import { KLANTCASES, caseData } from '../../../../lib/klantcases';
+
+// The original serves this customer story at the DOUBLED path
+// /nl/nl/klantcase/dhl-express (note: NO `actueel` segment, unlike kruidvat —
+// a different migration-artifact shape). It is the live, indexed URL (200). We
+// also serve it at the clean /nl/actueel/klantcase/dhl-express; both return
+// real content.
+export function getStaticPaths() {
+  const entry = KLANTCASES.find((c) => c.slug === 'dhl-express');
+  if (!entry) throw new Error('dhl-express klantcase entry missing from KLANTCASES');
+  return [{ params: { slug: 'dhl-express' }, props: { entry } }];
+}
+
+const { entry } = Astro.props;
+const c = caseData(entry);
+---
+
+<Base title={c.meta.title} description={c.meta.description ?? undefined}>
+  <KlantcaseArticle c={c} />
+</Base>

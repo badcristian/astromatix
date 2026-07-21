@@ -1,0 +1,23 @@
+---
+import Base from '../../../../../layouts/Base.astro';
+import KlantcaseArticle from '../../../../../components/sections/KlantcaseArticle.astro';
+import { KLANTCASES, caseData } from '../../../../../lib/klantcases';
+
+// The original serves this customer story at the DOUBLED path
+// /nl/nl/actueel/klantcase/kruidvat (a HubSpot migration artifact, but it is
+// the live, indexed URL — returns 200). We also serve it at the clean
+// /nl/actueel/klantcase/kruidvat; both return real content, matching the
+// original and keeping inbound links alive.
+export function getStaticPaths() {
+  const entry = KLANTCASES.find((c) => c.slug === 'kruidvat');
+  if (!entry) throw new Error('kruidvat klantcase entry missing from KLANTCASES');
+  return [{ params: { slug: 'kruidvat' }, props: { entry } }];
+}
+
+const { entry } = Astro.props;
+const c = caseData(entry);
+---
+
+<Base title={c.meta.title} description={c.meta.description ?? undefined}>
+  <KlantcaseArticle c={c} />
+</Base>

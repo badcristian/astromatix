@@ -1,0 +1,218 @@
+---
+import QuickFeat from '../ui/QuickFeat.astro';
+import ContactCta from './ContactCta.astro';
+import { Image } from 'astro:assets';
+import { resolveIcon } from '../../lib/icons';
+
+// The rendered body of a customer story, shared by the clean
+// /nl/actueel/klantcase/[slug] route and the two doubled /nl/nl/ routes that
+// the original also serves (kruidvat, dhl-express). Driven by the page's FULL
+// document order (see caseData / the extractor's `order` field) so the block
+// kinds interleave exactly as the original — faam runs three narrative
+// sections and a single closing quote; djops runs four sections with a quote
+// card BETWEEN them (Uitdaging → quote → De oplossing → Het resultaat → quote).
+//
+// Structure, measured on royal-schiphol-group @1440:
+//   hero      full-bleed background photo, two-tone <h1>
+//   tags      properties band, #f8f9fb, inline-SVG glyph per tag
+//   lead      centred headline + intro + a row of square sector tiles
+//   section   narrative heading + body + photos, on its own band colour; the
+//             first also carries the client-profile card as a right sidebar
+//   quote     a compact-card on a navy band
+//   CTA       "Get the job done" + form
+
+interface Props {
+  c: ReturnType<typeof import('../../lib/klantcases').caseData>;
+}
+
+const { c } = Astro.props;
+
+const heroBg = resolveIcon(c.heroBackground);
+
+// Resolve a content image's local asset; a square tile shrinks below 640.
+const resolveImg = (img: { src: string; width: number; height: number }) => ({
+  ...img,
+  resolved: resolveIcon(img.src),
+});
+---
+
+{/* --- hero: full-bleed photo, two-tone heading ------------------------- */}
+<section
+  class="relative bg-navy bg-cover bg-center px-6"
+  style={heroBg ? `background-image:url(${heroBg.src})` : undefined}
+>
+  <div class="mx-auto flex min-h-[348px] max-w-[1200px] items-center">
+    <h1 class="max-w-[588px] font-display font-bold">
+      {c.heroParts.length > 0 ? (
+        c.heroParts.map((part) => (
+          <span
+            class="block"
+            style={`font-size:${part.fontSize};line-height:${part.fontSize};color:${part.color}`}
+          >
+            {part.text}
+          </span>
+        ))
+      ) : (
+        <span class="block text-[60px] leading-[60px] text-white">{c.title}</span>
+      )}
+    </h1>
+  </div>
+</section>
+
+{/* --- properties band -------------------------------------------------- */}
+{c.tags.length > 0 && (
+  <section class="bg-fog px-6 py-5">
+    <div class="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-x-12 gap-y-3">
+      {c.tags.map((tag) => (
+        <span class="flex items-center gap-3 text-[16px] text-navy">
+          {tag.iconSvg && (
+            // Build-time markup we extracted ourselves, not user input.
+            <span class="inline-block size-6 shrink-0 [&>svg]:size-6 [&>svg]:fill-current" set:html={tag.iconSvg} />
+          )}
+          {tag.label}
+        </span>
+      ))}
+    </div>
+  </section>
+)}
+
+{/* --- blocks, in exact document order ---------------------------------- */}
+{c.render.map((item) => {
+  if (item.kind === 'quote') {
+    const portrait = resolveIcon(item.image);
+    const CardInner = (
+      <>
+        {portrait && (
+          <Image src={portrait} alt="" width={96} height={96} class="size-24 shrink-0 rounded-full object-cover" />
+        )}
+        <div class="min-w-0 flex-1">
+          <p class="font-display text-[20px] leading-[28px] font-bold text-navy">{item.title}</p>
+          {item.body && <p class="text-[14.4px] text-navy/70">{item.body}</p>}
+        </div>
+        {/* The card links to the person's LinkedIn, with a trailing arrow. */}
+        {item.link && (
+          <svg class="size-6 shrink-0 text-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        )}
+      </>
+    );
+    return (
+      <section class="bg-navy px-6 py-10">
+        <div class="mx-auto max-w-[1000px] text-center">
+          {item.text && (
+            <blockquote class="text-[20px] leading-[30px] text-white">{item.text}</blockquote>
+          )}
+          <div class="mt-8 flex justify-center">
+            {item.link ? (
+              <a
+                href={item.link}
+                rel="noopener"
+                target="_blank"
+                class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5 text-left shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] transition-transform hover:scale-[1.02]"
+              >
+                {CardInner}
+              </a>
+            ) : (
+              <div class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5 text-left">
+                {CardInner}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // A narrative (or lead) section.
+  const images = item.images.map(resolveImg).filter((i) => i.resolved);
+
+  // An image laid out past centre on the original (djops "Het resultaat":
+  // 588px at x=732) is a RIGHT column beside the text, not a full-width photo
+  // below it. Only applies when the section has no profile sidebar.
+  const sideImage = !item.card && images.length === 1 && (images[0].x ?? 0) > 700 ? images[0] : null;
+  const belowImages = sideImage ? [] : images;
+
+  if (item.lead) {
+    const lead = item.parts[0];
+    return (
+      <section class="px-6 pt-[50px]" style={item.band ? `background-color:${item.band}` : undefined}>
+        <div class="mx-auto max-w-[1138px] text-center">
+          <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">{lead.heading}</h2>
+          {lead.body.map((para) => (
+            <p class="mx-auto mt-4 max-w-[900px] text-[16px] leading-[26px] text-navy">{para}</p>
+          ))}
+          {images.length > 0 && (
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-6">
+              {images.map((img) => (
+                <Image
+                  src={img.resolved!}
+                  alt=""
+                  width={img.width}
+                  height={img.height}
+                  class:list={['h-auto rounded-3xl', img.width > 400 ? 'w-full' : 'w-[130px] sm:w-[200px]']}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section class="px-6 py-[50px]" style={item.band ? `background-color:${item.band}` : undefined}>
+      <div
+        class:list={[
+          'mx-auto max-w-[1200px]',
+          (item.card || sideImage) && 'flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-[42px]',
+        ]}
+      >
+        <div class:list={[item.card && 'lg:w-[792px] lg:shrink-0', sideImage && 'lg:flex-1']}>
+          {item.parts.map((part, pi) => (
+            <>
+              <h2 class:list={['font-display text-[30px] leading-[33px] font-bold text-navy', pi > 0 && 'mt-10']}>
+                {part.heading}
+              </h2>
+              {part.body.map((para) => (
+                <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+              ))}
+            </>
+          ))}
+          {belowImages.map((img) => (
+            <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="mt-8 h-auto w-full rounded-3xl" />
+          ))}
+          {item.quickfeat.length > 0 && (
+            <div class="mt-10">
+              <QuickFeat items={item.quickfeat} columns={2} />
+            </div>
+          )}
+        </div>
+
+        {sideImage && (
+          <Image
+            src={sideImage.resolved!}
+            alt=""
+            width={sideImage.width}
+            height={sideImage.height}
+            class="h-auto w-full rounded-3xl lg:w-[588px] lg:shrink-0"
+          />
+        )}
+
+        {item.card && (
+          <aside class="rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] lg:w-[282px] lg:shrink-0">
+            <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">{item.card.title}</h3>
+            <p class="mt-3 text-[14.4px] leading-[20.16px] text-navy">{item.card.body}</p>
+          </aside>
+        )}
+      </div>
+    </section>
+  );
+})}
+
+<ContactCta
+  title={c.ctaTitle ?? undefined}
+  intro={c.ctaIntro}
+  fields={c.formFields ?? undefined}
+  submitLabel={c.formSubmitLabel ?? undefined}
+/>

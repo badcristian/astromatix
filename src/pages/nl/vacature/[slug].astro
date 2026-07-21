@@ -39,9 +39,19 @@ const d = pages[file].default;
 const slide = d.heroSlider?.[0] ?? null;
 const applyCta = slide?.buttons?.[0] ?? d.buttons?.find((b: any) => /solliciteer/i.test(b.label));
 
-// The whole job description sits as paragraphs under the h1 rather than in a
-// module of its own, so it arrives as the first block's body.
-const description: string[] = d.blocks?.[0]?.body ?? [];
+// The job description usually sits as paragraphs under the h1, arriving as the
+// first block's body. But some vacancies split it: the senior-software-developer
+// role keeps only a 2-line intro in the hero block and puts the real 23-para
+// description under a following "Wat ga ik doen?" heading. Gather every block up
+// to the first structural section (recruiter card / process / CTA / testimonial)
+// so none of the description is dropped.
+const STRUCTURAL = new Set(['heading', 'steps', 'img-txt', 'contact-card', 'team-card', 'form']);
+const descBlocks: any[] = [];
+for (let i = 0; i < (d.blocks?.length ?? 0); i++) {
+  const b = d.blocks[i];
+  if (i > 0 && STRUCTURAL.has(b.module)) break;
+  descBlocks.push(b);
+}
 
 // Headings the theme emits as standalone module--heading, in page order.
 const headingBlocks = (d.blocks ?? []).filter((b: any) => b.module === 'heading');
@@ -87,11 +97,21 @@ const tel = recruiter?.links?.find((l: any) => l.href?.startsWith('tel:'));
     </section>
   )}
 
-  {description.length > 0 && (
+  {descBlocks.some((b) => (b.body?.length ?? 0) > 0) && (
     <section class="px-6 py-14">
       <div class="mx-auto max-w-[850px]">
-        {description.map((para) => (
-          <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+        {descBlocks.map((b, i) => (
+          <>
+            {/* Block 0's heading is the role title, already in the hero. */}
+            {i > 0 && b.heading && (
+              <h2 class="mt-8 mb-4 font-display text-[24px] leading-[30px] font-bold text-navy first:mt-0">
+                {b.heading}
+              </h2>
+            )}
+            {(b.body ?? []).map((para: string) => (
+              <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+            ))}
+          </>
         ))}
       </div>
     </section>

@@ -85,5 +85,16 @@ export const a11y = {
   openMenu: 'Open menu',
   closeMenu: 'Sluit menu',
   openSearch: 'Open zoekvenster',
+  closeSearch: 'Sluit zoekvenster',
   home: 'Naar de homepage',
+};
+
+// Site search (Pagefind). Copy mirrors the original HubSpot site-search module
+// so the panel reads identically: placeholder "Doorzoek onze website", the
+// zero-state, and the load-more label.
+export const search = {
+  placeholder: 'Doorzoek onze website',
+  empty: 'Sorry, geen resultaten gevonden.',
+  more: 'Meer resultaten',
+  hint: 'Typ om te zoeken',
 };
