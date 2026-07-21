@@ -9,39 +9,30 @@ byte-for-byte identical, so there is **no need to reindex** and **no "Change of
 Address"** in Search Console (that is only for domain changes). Googlebot
 recrawls naturally; a sitemap submission just speeds rediscovery.
 
-The single biggest risk is the opposite of an SEO problem: **accidentally
-shipping the demo's noindex to production.** That is why indexability is a
-build-time flag, not a hand-edited page — see [`src/lib/seo.ts`](../src/lib/seo.ts).
+Indexability is **on by default** so a production deploy is not gated on
+remembering to flip anything — see [`src/lib/seo.ts`](../src/lib/seo.ts) and
+FINDINGS.md #38.
 
 ---
 
-## 1. Flip indexability ON  ⚠️ do this first, verify twice
+## 1. Indexability — already ON
 
-Indexing is OFF by default so the demo can never be indexed. Turning it on is
-**two changes**:
+The site is **indexable by default** (see [`src/lib/seo.ts`](../src/lib/seo.ts)):
+every page emits `<meta name="robots" content="index, follow">`, `robots.txt`
+allows all and points at the sitemap, and there is no `X-Robots-Tag` noindex
+header. A production deploy needs **no indexability flip** — it just works.
 
-1. **Build with the flag:**
-   ```bash
-   INDEXABLE=true npx astro build
-   ```
-   This drops the `<meta name="robots" noindex>` tag from every page and makes
-   `robots.txt` emit `Allow: /` + the `Sitemap:` line (both driven by the one
-   flag, so they can't disagree).
+If the pre-launch demo needs to stay private, do that with **access-restriction**
+(Cloudflare Access, or an unguessable host linked nowhere), not noindex — see
+FINDINGS.md #38 for why noindex was dropped.
 
-2. **Delete the X-Robots-Tag from [`public/_headers`](../public/_headers).**
-   This is the ONE control the build flag cannot reach (a static Cloudflare
-   config file). It is left as `noindex` on purpose — if you forget it, the site
-   stays *out* of the index (a safe failure) rather than indexing the clone.
-   Remove the `X-Robots-Tag: noindex, …` line, rebuild, redeploy.
-
-**Verify before announcing:**
+**Verify after deploy:**
 ```bash
-curl -sI https://www.jobmatix.com/nl/ | grep -i x-robots-tag   # must be EMPTY
-curl -s  https://www.jobmatix.com/robots.txt                   # must Allow, not Disallow
-curl -s  https://www.jobmatix.com/nl/ | grep -i 'name="robots"' # must be EMPTY
+curl -sI https://www.jobmatix.com/nl/ | grep -i x-robots-tag    # expect EMPTY
+curl -s  https://www.jobmatix.com/robots.txt                    # expect Allow + Sitemap
+curl -s  https://www.jobmatix.com/nl/ | grep -i 'name="robots"' # expect index, follow
 ```
-Then run the URL through Search Console's **URL Inspection → Live Test** and
-confirm "URL is available to Google".
+Then run a URL through Search Console's **URL Inspection → Live Test**.
 
 ---
 
@@ -136,8 +127,7 @@ demo to avoid churn; do it as part of go-live.
 
 ## Quick checklist
 
-- [ ] `INDEXABLE=true npx astro build`
-- [ ] Deleted `X-Robots-Tag` from `public/_headers`
+- [ ] Confirmed indexable (curl checks in §1) — no flag flip needed
 - [ ] (optional) `build.format: 'file'` + drop-trailing-slash
 - [ ] Deployed to prod Worker, smoke-tested on `*.workers.dev`
 - [ ] Custom domain `www.jobmatix.com` added; old HubSpot `www` CNAME removed

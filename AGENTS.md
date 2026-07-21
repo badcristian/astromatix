@@ -42,9 +42,13 @@ collections. The site is Dutch-only but structured so adding a locale is additiv
 **Excluded from the rebuild:** the HubSpot customer-portal login (`/_hcms/mem/login`) — no page, no
 footer link. Also the 8 junk test pages, GTM/HubSpot analytics, and the redirect map.
 
-**Demo deploys must not be indexable** — `noindex` meta + `X-Robots-Tag` header + `robots.txt`
-`Disallow: /`, and access-restricted. This publishes a copy of another company's site and their
-customers' logos; an indexed clone would harm the prospect's own SEO.
+**Indexability is ON by default.** The site emits `<meta name="robots" content="index, follow">`,
+`robots.txt` allows all and links the sitemap, and there is **no** `X-Robots-Tag` noindex (see
+`src/lib/seo.ts`, FINDINGS.md #38). This reverses the original noindex plan: the code may reach
+production without anyone flipping a flag, and a noindex default would then leave the real site
+invisible to Google — a worse failure than the SEO-competition risk, which a placeholder identity
+covers. If the pre-launch demo needs privacy, restrict access at the edge (Cloudflare Access / an
+unguessable host) — do not re-add noindex.
 
 ## Reference material
 

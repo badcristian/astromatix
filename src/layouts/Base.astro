@@ -5,7 +5,7 @@ import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import SearchPanel from '../components/layout/SearchPanel.astro';
 import faviconSrc from '../assets/favicon.png';
-import { SITE, INDEXABLE } from '../lib/seo';
+import { SITE } from '../lib/seo';
 
 // The source is 4667x4667; generate the sizes browsers actually ask for
 // rather than shipping a 98KB PNG to every tab.
@@ -39,12 +39,10 @@ const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site ?? SITE
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalURL} />
 
-    {/*
-      Indexability is a deploy-target property (see src/lib/seo.ts). The demo
-      build is noindex; a production `INDEXABLE=true` build drops this tag.
-      Reinforced by the env-driven robots.txt and public/_headers.
-    */}
-    {!INDEXABLE && <meta name="robots" content="noindex, nofollow, noarchive" />}
+    {/* Indexable by default — stated explicitly so it can't be mistaken for an
+        oversight, and so a production deploy works without flipping anything.
+        See src/lib/seo.ts / FINDINGS.md #38. */}
+    <meta name="robots" content="index, follow" />
 
     {/* Open Graph / Twitter — parity with the original's social tags. */}
     <meta property="og:type" content="website" />

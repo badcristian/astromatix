@@ -476,3 +476,39 @@ which points at the element, not the comment. Put the comment **above** the
   while its body says "Bel of mail Laszlo!" and the address is
   `laszlo.jansen@`. Reproduced as-is — it is their content drift to fix, and
   guessing which name is correct would be inventing copy.
+
+## 36. Testimonial / review carousels are JS-rendered — absent from the scrape.
+
+The colleague-testimonials block on `/nl/over-ons/werken-bij` ("Wat zeggen onze
+collega's?") and the card lists on the four listing pages have their content
+injected client-side (a slider / List.js), so the server HTML we scrape contains
+only the section heading, no quotes or cards. No extractor field covers them
+because there is nothing in the static markup to extract. Rebuilding them needs a
+render pass (headless browser) over the original, not another regex — deferred.
+Everything else on werken-bij (values, the 21-image Kantoormomenten gallery) is
+in the static HTML and is rendered.
+
+## 37. A vacancy's job description can span more than one block.
+
+Most vacancies keep the whole description in the hero block's body, but
+`/nl/vacature/senior-software-developer` puts a 2-line intro there and the real
+23-paragraph description under a following **"Wat ga ik doen?"** heading (module
+`null`, not `heading`). The template read only `blocks[0].body`, so that page
+silently lost its entire description. Fix: gather every block up to the first
+structural section (recruiter card / process / testimonial). A per-index read of
+`blocks` is fragile whenever the theme splits prose across headings — prefer
+"take everything until the next known module".
+
+## 38. Indexability is now ON by default (reversed decision).
+
+The original plan made the demo `noindex` (meta + `X-Robots-Tag` + `robots.txt`
+Disallow) because it republishes another company's content and customers' logos.
+That was reversed on request: the demo now serves as indexable by default, on the
+grounds that the deployment uses a placeholder identity (so it does not compete
+with the prospect's own SEO) and, more importantly, that the code may reach
+production without anyone flipping a flag — a `noindex` default would then leave
+the *real* production site invisible to Google, a far worse failure. So the safe
+default is now "indexable". `src/lib/seo.ts` keeps only `SITE`; the noindex meta,
+the `X-Robots-Tag` header and the `robots.txt` Disallow are removed. If the demo
+phase needs privacy, use access-restriction (Cloudflare Access / an unguessable
+host), not `noindex`.

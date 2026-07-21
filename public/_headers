@@ -1,10 +1,5 @@
 # Cloudflare Workers static-assets headers.
 #
-# GO-LIVE: the X-Robots-Tag below is the ONE indexability control the INDEXABLE
-# build flag cannot reach (a static Cloudflare config file — see src/lib/seo.ts
-# and docs/GO-LIVE.md). It is left noindex on purpose: if go-live forgets it the
-# site simply stays out of the index (a safe failure) instead of accidentally
-# indexing the clone. Step 1 of the go-live checklist is to DELETE the
-# X-Robots-Tag line below.
-/*
-  X-Robots-Tag: noindex, nofollow, noarchive
+# The site is indexable by default — this file deliberately sets no robots
+# response header (see src/lib/seo.ts / FINDINGS.md #38). Kept as the place to
+# add response headers (caching, security) at go-live.
