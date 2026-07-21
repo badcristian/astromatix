@@ -10,6 +10,7 @@ import LogoWall from '../../components/sections/LogoWall.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../lib/icons';
 import { LANDING_SLUGS } from '../../lib/landing';
+import { bandFor } from '../../lib/bands';
 
 // The 13 funnel and thank-you pages, from one data-driven template.
 //
@@ -247,9 +248,12 @@ const tablesFor = (heading: string | null) =>
   )}
 
   {/*
-    The original presents the wall as a six-at-a-time carousel (169px tall),
-    not a wrapped grid. Rendering 19 logos as a grid was ~600px too tall on
-    every landing page — reuse the shared component instead.
+    The original presents the wall as a six-at-a-time carousel (169px tall) on
+    a #f5f5ff band, not a wrapped grid on white.
   */}
-  {logos.length > 0 && <LogoWall />}
+  {logos.length > 0 && (
+    <div style={`background-color:${bandFor(d, 'Plan een demo') ?? '#f5f5ff'}`}>
+      <LogoWall />
+    </div>
+  )}
 </Base>

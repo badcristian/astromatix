@@ -35,7 +35,8 @@ const cards = visible.map((item) => ({ ...item, img: resolveIcon(item.image) }))
 const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
 ---
 
-<section class="px-6 py-16">
+{/* fog band behind the whole listing on the original (y=292). */}
+<section class="bg-fog px-6 py-16">
   <div class="mx-auto max-w-[1138px]">
     <div class="mb-10 flex flex-wrap gap-3" role="group" aria-label="Filter op categorie">
       {/*
@@ -68,7 +69,7 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
         <article class="w-full px-3 pb-6 md:w-1/2 lg:w-1/3" data-category={card.category}>
           <a
             href={card.href ?? '#'}
-            class="flex h-full flex-col overflow-hidden rounded-3xl bg-fog transition-opacity hover:opacity-90"
+            class="flex h-full flex-col overflow-hidden rounded-3xl bg-white transition-opacity hover:opacity-90"
             {...(card.external ? { rel: 'noopener', target: '_blank' } : {})}
           >
             {card.img && (

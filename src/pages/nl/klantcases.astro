@@ -4,6 +4,7 @@ import PageHero from '../../components/sections/PageHero.astro';
 import GoCard from '../../components/ui/GoCard.astro';
 import ContactCta from '../../components/sections/ContactCta.astro';
 import Reveal from '../../components/ui/Reveal.astro';
+import LogoWall from '../../components/sections/LogoWall.astro';
 import { resolveIcon } from '../../lib/icons';
 import page from '../../i18n/pages/nl-klantcases.json';
 import { ctaHeading } from '../../lib/cta';
@@ -40,6 +41,7 @@ const cleanHref = (href: string | null | undefined) =>
   (href ?? '#')
     .replace('/nl/nl/actueel/klantcase/', '/nl/actueel/klantcase/')
     .replace('/nl/nl/klantcase/', '/nl/actueel/klantcase/');
+const tevredenHeading = page.headings.find((h) => h.startsWith('Tevreden')) ?? null;
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
@@ -56,6 +58,20 @@ const cleanHref = (href: string | null | undefined) =>
       </Reveal>
     </div>
   </section>
+
+  {/* "Tevreden klanten" titles the client logo wall on a #f5f5ff band — the
+      heading rendered but the wall it introduces did not. This page has no
+      .logos element of its own; it shares the site-wide LogoWall. */}
+  {tevredenHeading && (
+    <section class="px-6 pt-16" style={`background-color:${bandFor(page, "Tevreden") ?? "#f5f5ff"}`}>
+      <h2 class="text-center font-display text-[30px] leading-[33px] font-bold text-navy">
+        {tevredenHeading}
+      </h2>
+    </section>
+  )}
+  <div style={tevredenHeading ? `background-color:${bandFor(page, "Tevreden") ?? "#f5f5ff"}` : undefined}>
+    <LogoWall />
+  </div>
 
   <ContactCta title={ctaTitle} intro={null} band={bandFor(page, "Benieuwd hoe jij")} />
 </Base>
