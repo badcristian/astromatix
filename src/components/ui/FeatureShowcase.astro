@@ -10,7 +10,9 @@
 // under the panel do the same. Built as buttons with aria-selected so it is
 // keyboard-navigable.
 //
-// RESPONSIVE: tabbed at lg, stacked below it. The previous version hid
+// RESPONSIVE: tabbed at every width (the original tabs on mobile too — its
+// panels all sit at one y). The nav labels stack above the card on mobile and
+// act as the tabs. The previous version hid
 // non-first panels with `md:hidden` while the JS toggled plain `hidden` — the
 // two never corresponded, so clicking a tab hid the open panel and left the
 // new one still hidden, i.e. the box went blank. The visibility is now driven
@@ -86,13 +88,11 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
 </div>
 
 <style>
-  /* Below lg the panels stack — every one laid out, as the original does at
-     mobile widths (all 27 headings visible at 390). At lg the featshow becomes
-     a tabbed view: only the active panel shows. */
-  @media (min-width: 1140px) {
-    .fs-panel { display: none; }
-    .fs-panel[data-active] { display: block; }
-  }
+  /* Only the active panel shows — tabbed at EVERY width, matching the original
+     (its featshow panels all sit at the same y on mobile, i.e. one at a time).
+     The nav labels on the left are the tabs. */
+  .fs-panel { display: none; }
+  .fs-panel[data-active] { display: block; }
 </style>
 
 <script>

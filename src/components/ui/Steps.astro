@@ -12,9 +12,9 @@
 //     top of the section rather than a caption on its button
 //   - panels initialised with `md:hidden` while the JS toggled plain `hidden`,
 //     so clicking a number hid the open panel and left the new one hidden —
-//     the content area went blank. Visibility now runs off `data-active` plus
-//     the scoped rule below, so the button and the JS agree. Tabbed at lg,
-//     stacked below it (the original lays all panels out at mobile widths).
+//     the content area went blank. Visibility now runs off `data-active` and
+//     the CSS below, so the button and the JS agree. Tabbed at EVERY width —
+//     the original tabs on mobile too (only the active step shows).
 //
 // Buttons carry aria-selected and the panels are real tabpanels, so this is
 // keyboard-navigable — the original uses plain divs.
@@ -123,9 +123,8 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
 </script>
 
 <style>
-  /* Tabbed at lg, stacked below it. Same pattern as FeatureShowcase. */
-  @media (min-width: 1140px) {
-    .steps-panel { display: none; }
-    .steps-panel[data-active] { display: block; }
-  }
+  /* Only the active step's panel is shown — tabbed at EVERY width, matching the
+     original (which tabs on mobile too, not stacked). Same as FeatureShowcase. */
+  .steps-panel { display: none; }
+  .steps-panel[data-active] { display: block; }
 </style>
