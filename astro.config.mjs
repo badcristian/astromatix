@@ -5,11 +5,17 @@ import tailwindcss from '@tailwindcss/vite';
 import pagefind from 'astro-pagefind';
 import sitemap from '@astrojs/sitemap';
 
+// Canonical/OG/sitemap host. Defaults to the current preview deployment so the
+// live demo attributes its pages to itself — NOT to jobmatix.com, which would be
+// a duplicate-content signal against the original. Override at build time for the
+// production go-live (e.g. the client's own host):  SITE_URL=https://… astro build
+// Keep the default in sync with SITE in src/lib/seo.ts.
+const SITE_URL =
+  process.env.SITE_URL ?? 'https://jm-preview-d2605922f1188b06.cristian-0ad.workers.dev';
+
 // https://astro.build/config
 export default defineConfig({
-  // The prospect's production host — canonical URLs, OG tags and the sitemap
-  // are absolute against this. Keep in sync with SITE in src/lib/seo.ts.
-  site: 'https://www.jobmatix.com',
+  site: SITE_URL,
 
   // The original redirects / to /nl/. Keeping the locale prefix means adding
   // /en/ later is additive rather than a URL change for every existing page.
