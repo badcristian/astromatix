@@ -42,7 +42,7 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
             id={`${uid}-tab-${i}`}
             aria-controls={`${uid}-panel-${i}`}
             aria-selected={i === 0 ? 'true' : 'false'}
-            class="w-full text-left font-display text-[20px] leading-[28px] font-bold text-navy/40 transition-colors aria-selected:text-navy"
+            class="w-full text-left font-display text-[22px] leading-[28px] font-bold text-navy transition-colors aria-selected:text-[#5478f7] lg:text-[28px] lg:leading-[35px]"
             data-featshow-tab={i}
           >
             {item.title}
@@ -69,7 +69,7 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
             data-featshow-panel={i}
             data-active={i === 0 ? '' : undefined}
           >
-            <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
+            <h3 class="font-display text-[28px] leading-[34px] font-bold text-[#5478f7] lg:text-[40px] lg:leading-[44px]">
               {item.title}
             </h3>
             {item.body && (
@@ -128,6 +128,19 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
      The nav labels on the left are the tabs. */
   .fs-panel { display: none; }
   .fs-panel[data-active] { display: block; }
+
+  /* The original animates the content when you switch entries. A panel goes
+     display:none → block on activation, which restarts this fade + slight rise
+     each time. Opt out under reduced-motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .fs-panel[data-active] {
+      animation: fs-panel-in 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+  }
+  @keyframes fs-panel-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
 </style>
 
 <script>
