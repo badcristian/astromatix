@@ -110,5 +110,10 @@ const vacancyLink = (vacancy?.links ?? []).find((l: any) => l.href)?.href ?? nul
     </section>
   )}
 
-  <ContactCta title={ctaHeading(page, 'werken-bij')} intro={null} />
+  {/* The original's "Bouw mee aan succes!" block carries this intro line; the
+      extractor didn't capture it, so it's restored here verbatim. */}
+  <ContactCta
+    title={ctaHeading(page, 'werken-bij')}
+    intro="Voeg je bij ons team en maak deel uit van ons succes! Heb je ervaring in recruitment marketing of wil je er alles over leren? Kijk dan hieronder of er een vacature beschikbaar is die bij jou past!"
+  />
 </Base>

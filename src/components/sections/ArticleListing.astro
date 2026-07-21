@@ -46,6 +46,14 @@ const cards = visible.map((item) => ({ ...item, img: resolveIcon(item.image) }))
 
 /** Category slug as the original routes it: /nl/actueel/blogs. */
 const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
+
+// Dates arrive ISO (2025-04-08); the original shows them Dutch ("8 april
+// 2025"). Format for display, keep the ISO value in the <time datetime>.
+const MONTHS_NL = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+const formatDate = (d: string) => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d ?? '');
+  return m ? `${+m[3]} ${MONTHS_NL[+m[2] - 1]} ${m[1]}` : d;
+};
 ---
 
 {/* fog band behind the whole listing on the original (y=292). */}
@@ -101,7 +109,7 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
                 {card.title}
               </h2>
               <time class="mt-3 block text-[14.4px] text-navy/60" datetime={card.date}>
-                {card.date}
+                {formatDate(card.date)}
               </time>
               <p class="mt-3 text-[14.4px] leading-[20.16px] text-navy">{card.excerpt}</p>
               <span class="mt-6 inline-flex h-10 w-fit items-center rounded-[10px] border-2 border-mist px-[13px] text-[16px] text-navy">
@@ -116,6 +124,10 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
     <p class="mt-8 text-[16px] text-navy/60" data-empty hidden>
       Geen resultaten in deze categorie.
     </p>
+
+    {/* Pager — built by JS (9 cards/page, as the original). No-JS shows every
+        card, which is still a complete, crawlable list. */}
+    <nav class="mt-10 hidden justify-center gap-2" data-pager aria-label="Paginering"></nav>
   </div>
 </section>
 
@@ -142,45 +154,83 @@ const hrefFor = (cat: string) => `/nl/actueel/${cat.toLowerCase()}`;
 </style>
 
 <script>
-  // Progressive enhancement only: every card is already in the HTML, and each
-  // filter is a real link to a real page. This just avoids the navigation.
+  // Progressive enhancement: every card is real HTML and every filter is a real
+  // URL, so this works with JS off. With JS it filters in place AND paginates 9
+  // per page (the original's List.js pageSize), with a numbered pager.
+  const PAGE_SIZE = 9;
   const list = document.querySelector<HTMLElement>('[data-listing]');
   const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-filter]'));
   const empty = document.querySelector<HTMLElement>('[data-empty]');
+  const pager = document.querySelector<HTMLElement>('[data-pager]');
 
-  // Only safe to intercept on the unfiltered page — a category page has been
-  // server-filtered, so it does not hold the cards for other categories.
+  // A category page is already server-filtered, so its cards can't be filtered
+  // further — but they still paginate.
   const isUnfiltered = document.querySelector('[data-filter="*"]')?.getAttribute('aria-current') === 'page';
 
-  if (list && isUnfiltered) {
+  if (list) {
     const cards = Array.from(list.querySelectorAll<HTMLElement>('[data-category]'));
+    let filter = '*';
+    let page = 0;
 
-    links.forEach((link) => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        const wanted = link.dataset.filter;
-        links.forEach((l) =>
-          l.setAttribute('aria-current', l === link ? 'page' : 'false'),
-        );
+    const matches = (card: HTMLElement) => filter === '*' || card.dataset.category === filter;
 
-        let shown = 0;
-        cards.forEach((card) => {
-          const match = wanted === '*' || card.dataset.category === wanted;
-          card.hidden = !match;
-          if (match) {
-            // Re-stagger and replay the entrance animation for the new set.
-            card.style.setProperty('--i', String(shown));
-            card.style.animation = 'none';
-            void card.offsetWidth; // reflow so the animation restarts
-            card.style.animation = '';
-            shown += 1;
-          }
-        });
-        if (empty) empty.hidden = shown > 0;
-
-        // Keep the URL honest so a filtered view is still shareable.
-        history.replaceState(null, '', link.href);
+    const render = () => {
+      const active = cards.filter(matches);
+      const pages = Math.max(1, Math.ceil(active.length / PAGE_SIZE));
+      if (page >= pages) page = pages - 1;
+      let shownOnPage = 0;
+      let idxInActive = 0;
+      cards.forEach((card) => {
+        if (!matches(card)) { card.hidden = true; return; }
+        const onPage = idxInActive >= page * PAGE_SIZE && idxInActive < (page + 1) * PAGE_SIZE;
+        card.hidden = !onPage;
+        if (onPage) {
+          card.style.setProperty('--i', String(shownOnPage));
+          card.style.animation = 'none';
+          void card.offsetWidth; // reflow so the entrance animation restarts
+          card.style.animation = '';
+          shownOnPage += 1;
+        }
+        idxInActive += 1;
       });
-    });
+      if (empty) empty.hidden = active.length > 0;
+
+      // Rebuild the numbered pager.
+      if (pager) {
+        pager.replaceChildren();
+        pager.classList.toggle('flex', pages > 1);
+        pager.classList.toggle('hidden', pages <= 1);
+        for (let p = 0; p < pages; p++) {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = String(p + 1);
+          b.setAttribute('aria-label', `Pagina ${p + 1}`);
+          b.className =
+            'grid size-10 place-items-center rounded-[10px] border-2 border-mist text-[16px] text-navy transition-colors aria-[current=true]:border-navy aria-[current=true]:bg-navy aria-[current=true]:text-white';
+          b.setAttribute('aria-current', String(p === page));
+          b.addEventListener('click', () => {
+            page = p;
+            render();
+            list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+          pager.appendChild(b);
+        }
+      }
+    };
+
+    if (isUnfiltered) {
+      links.forEach((link) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          filter = link.dataset.filter ?? '*';
+          page = 0;
+          links.forEach((l) => l.setAttribute('aria-current', l === link ? 'page' : 'false'));
+          render();
+          history.replaceState(null, '', link.href);
+        });
+      });
+    }
+
+    render();
   }
 </script>

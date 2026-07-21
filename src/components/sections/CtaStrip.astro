@@ -21,14 +21,14 @@ const { heading = copy.ctaStrip.heading, cta = copy.ctaStrip.cta, id } = Astro.p
 {/* scroll-mt clears the 66px sticky header so the heading isn't hidden under it
     when scrolled to via the hash. */}
 <section id={id} class="scroll-mt-[90px] bg-navy px-6 py-10">
-  <div class="mx-auto flex max-w-[1138px] flex-col gap-6 md:flex-row">
-    <h2 class="w-full font-display text-[28px] leading-[35px] font-bold text-white md:w-[751px]">
+  <div class="mx-auto flex max-w-[1138px] flex-col gap-6 md:flex-row md:items-center md:gap-8">
+    {/* flex-1 rather than a fixed 751 — a short heading ("Maak deel uit…" on
+        over-ons) then fits on one line, while a long one still wraps. */}
+    <h2 class="w-full font-display text-[28px] leading-[35px] font-bold text-white md:flex-1">
       {heading}
     </h2>
 
-    {/* Explicit 9px offset rather than items-center: centring a 53px button in
-        a 70px row gives 8.5px, which rounds down here and up on the original. */}
-    <div class="flex items-start md:w-[363px] md:pt-[9px]">
+    <div class="flex items-start md:shrink-0">
       <Reveal variant="zoom" duration={500}>
         <Button href={cta.href} label={cta.label} height={53} icon />
       </Reveal>

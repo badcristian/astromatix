@@ -37,11 +37,6 @@ const { items } = Astro.props;
       <li class="relative mb-10 lg:mb-6">
         <div class:list={['md:flex', right ? 'md:justify-end' : 'md:justify-start']}>
           <div class="rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] md:w-[312px] lg:w-[552px]">
-            {item.badge && (
-              <span class="inline-block rounded-full bg-orange px-3 py-1 text-[11.68px] font-bold text-white">
-                {item.badge}
-              </span>
-            )}
             {/* Below 1140 the card STACKS: the image goes to the card's full
                 width and the text sits under it. Measured on the original —
                 image 151x101 beside 353px of text at 1440, but 264x176 above
@@ -76,11 +71,23 @@ const { items } = Astro.props;
           </div>
         </div>
 
-        {/* dot on the centre bar */}
+        {/* Dot on the centre bar — a navy ring — plus the date as a navy pill
+            beside it, on the card's EMPTY side (right of the dot for a left
+            card, left of the dot for a right card), matching the original. */}
         <span
           aria-hidden="true"
-          class="absolute top-8 left-1/2 hidden size-[30px] -translate-x-1/2 rounded-full border-4 border-white bg-navy md:block"
+          class="absolute top-8 left-1/2 hidden size-[18px] -translate-x-1/2 rounded-full border-[3px] border-navy bg-white md:block"
         ></span>
+        {item.badge && (
+          <span
+            class:list={[
+              'absolute top-[30px] hidden rounded-full bg-navy px-3 py-1 text-[13px] font-medium whitespace-nowrap text-white md:inline-block',
+              right ? 'right-1/2 mr-5' : 'left-1/2 ml-5',
+            ]}
+          >
+            {item.badge}
+          </span>
+        )}
       </li>
     );
   })}

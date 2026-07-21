@@ -2,15 +2,21 @@
 import Base from '../../layouts/Base.astro';
 import ListingHero from '../../components/sections/ListingHero.astro';
 import ArticleListing from '../../components/sections/ArticleListing.astro';
-import ContactCta from '../../components/sections/ContactCta.astro';
-import { ctaHeading } from '../../lib/cta';
+import FormStub from '../../components/ui/FormStub.astro';
 import page from '../../i18n/pages/nl-actueel.json';
-import { bandFor, heroBand } from '../../lib/bands';
+import { bandFor } from '../../lib/bands';
 
 // The unfiltered hub. Category views live at /nl/actueel/[category] and are
 // generated from the same component — see ArticleListing.astro for why this
 // page is the rebuild's strongest single argument.
 const helpBlock = page.blocks.find((b: any) => b.heading === 'We helpen je graag');
+const contactBand = bandFor(page, 'Vragen, opmerkingen') ?? '#f5f5ff';
+const newsletterFields = (page.forms?.[0]?.fields ?? []).map((f: any) => ({
+  name: f.name,
+  type: f.type,
+  label: f.label ?? f.name,
+  required: f.required,
+}));
 ---
 
 <Base title="Actueel — Jobmatix" description="Nieuws, blogs, kennis en events van Jobmatix.">
@@ -21,10 +27,54 @@ const helpBlock = page.blocks.find((b: any) => b.heading === 'We helpen je graag
     subtitle="Ontdek wat er speelt in de wereld van job marketing!"
   />
   <ArticleListing />
-  <ContactCta
-    title={ctaHeading(page, 'actueel')}
-    subheading={helpBlock?.heading ?? null}
-    intro={helpBlock?.body?.[0] ?? null}
-    band={bandFor(page, 'Vragen, opmerkingen')}
-  />
+
+  {/* "Vragen, opmerkingen…" — a two-column block: the "We helpen je graag"
+      contact info LEFT, the newsletter signup RIGHT (Voornaam + E-mail + orange
+      "Schrijf me in"), matching the original. */}
+  <section class="px-6 py-16" style={`background-color:${contactBand}`}>
+    <div class="mx-auto max-w-[1200px]">
+      <h2 class="text-center font-display text-[30px] leading-[40px] font-bold text-navy">
+        Vragen, opmerkingen of wil je meer informatie?
+      </h2>
+
+      <div class="mt-12 flex flex-col gap-12 lg:flex-row lg:gap-16">
+        <div class="lg:flex-1">
+          <h3 class="font-display text-[24px] leading-[30px] font-bold text-navy">We helpen je graag</h3>
+          <p class="mt-3 text-[16px] leading-[26px] text-navy">
+            {helpBlock?.body?.[0] ?? 'Neem gerust contact op, dan denken we met je mee.'}
+          </p>
+          <div class="mt-6 flex flex-wrap gap-8">
+            <a href="tel:0853036760" class="flex items-center gap-3 text-[16px] text-navy transition-opacity hover:opacity-70">
+              <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-navy text-white">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3H4.2a1 1 0 0 0-1 1.1c.3 3 1.5 5.8 3.4 8 1.9 2.2 4.4 3.7 7.2 4.5a1 1 0 0 0 1.2-.8l.5-2.3a1 1 0 0 0-.6-1.1l-2.5-1a1 1 0 0 0-1.1.25l-.8.9a10.5 10.5 0 0 1-3.8-3.8l.9-.8a1 1 0 0 0 .25-1.1l-1-2.5A1 1 0 0 0 6.6 3z" /></svg>
+              </span>
+              Bel 085 - 303 67 60
+            </a>
+            <a href="/nl/contact" class="flex items-center gap-3 text-[16px] text-navy transition-opacity hover:opacity-70">
+              <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-navy text-white">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H9l-4 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z" /></svg>
+              </span>
+              Contact
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:flex-1">
+          <h3 class="font-display text-[24px] leading-[32px] font-bold text-navy">
+            Get the job done &amp; ontvang laatste nieuwtjes rechtstreeks in je inbox!
+          </h3>
+          <p class="mt-3 text-[16px] leading-[26px] text-navy">
+            {helpBlock?.body?.[1] ?? 'Schrijf je in voor onze nieuwsbrief'}
+          </p>
+          <div class="mt-6">
+            <FormStub
+              fields={newsletterFields}
+              submitLabel={page.forms?.[0]?.submitLabel ?? 'Schrijf me in'}
+              submitColor="orange"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>

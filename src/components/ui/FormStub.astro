@@ -38,10 +38,13 @@ interface Props {
    * shadow. Measured on /nl/demo-aanvraag: border #959494, bg #f5f8fa, 44px.
    */
   variant?: 'styled' | 'raw';
+  /** Submit button colour — navy by default, orange for the newsletter form. */
+  submitColor?: 'navy' | 'orange';
 }
 
-const { fields, submitLabel, variant = 'styled' } = Astro.props;
+const { fields, submitLabel, variant = 'styled', submitColor = 'navy' } = Astro.props;
 const raw = variant === 'raw';
+const submitBg = submitColor === 'orange' ? 'bg-orange' : 'bg-navy';
 
 // Checkbox/radio groups (jobboost's "Welke boost past bij jou?" — Small /
 // Medium / Large) render as ONE labelled set of pill options, not as loose
@@ -176,7 +179,7 @@ const errorClass =
 
   <button
     type="submit"
-    class="inline-flex h-[52px] items-center rounded-[12px] bg-navy px-[21.76px] text-[16px] font-medium text-white transition-opacity hover:opacity-90"
+    class:list={['inline-flex h-[52px] items-center rounded-[12px] px-[21.76px] text-[16px] font-medium text-white transition-opacity hover:opacity-90', submitBg]}
   >
     {submitLabel}
   </button>

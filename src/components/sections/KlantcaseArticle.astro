@@ -141,25 +141,49 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
 
   if (item.lead) {
     const lead = item.parts[0];
+    // djops closes its lead with a metric row: three ~200px "coin" images, each
+    // captioned by the LAST body lines ("Een daling van de CPA", …). When the
+    // trailing body lines match the image count and read like short captions,
+    // pair image[i] with caption[i] and lay them out as spread columns; the
+    // earlier body lines stay narrative paragraphs.
+    const metricImgs = images.filter((i) => (i.width ?? 0) <= 260);
+    const trailing = lead.body.slice(-metricImgs.length);
+    const paired =
+      metricImgs.length >= 2 &&
+      metricImgs.length === images.length &&
+      lead.body.length > metricImgs.length &&
+      trailing.every((t) => t.length <= 45);
+    const narrative = paired ? lead.body.slice(0, -metricImgs.length) : lead.body;
     return (
       <section class="px-6 pt-[50px]" style={item.band ? `background-color:${item.band}` : undefined}>
         <div class="mx-auto max-w-[1138px] text-center">
           <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">{lead.heading}</h2>
-          {lead.body.map((para) => (
+          {narrative.map((para) => (
             <p class="mx-auto mt-4 max-w-[900px] text-[16px] leading-[26px] text-navy">{para}</p>
           ))}
-          {images.length > 0 && (
-            <div class="mt-8 flex flex-wrap items-center justify-center gap-6">
-              {images.map((img) => (
-                <Image
-                  src={img.resolved!}
-                  alt=""
-                  width={img.width}
-                  height={img.height}
-                  class:list={['h-auto rounded-3xl', img.width > 400 ? 'w-full' : 'w-[130px] sm:w-[200px]']}
-                />
+          {paired ? (
+            <div class="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-3">
+              {metricImgs.map((img, i) => (
+                <div class="flex flex-col items-center gap-4">
+                  <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="size-[200px] object-contain" />
+                  <p class="text-[16px] leading-[22px] text-navy">{trailing[i]}</p>
+                </div>
               ))}
             </div>
+          ) : (
+            images.length > 0 && (
+              <div class="mt-8 flex flex-wrap items-center justify-center gap-6">
+                {images.map((img) => (
+                  <Image
+                    src={img.resolved!}
+                    alt=""
+                    width={img.width}
+                    height={img.height}
+                    class:list={['h-auto rounded-3xl', img.width > 400 ? 'w-full' : 'w-[130px] sm:w-[200px]']}
+                  />
+                ))}
+              </div>
+            )
           )}
         </div>
       </section>
