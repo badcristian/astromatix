@@ -96,7 +96,9 @@ const usesBookingEmbed = ['demo-emile', 'meeting-koen'].includes(slug!);
 // The long-form legal pages set their text column to 1200 on the original, not
 // the 850 the funnel pages use. Measured: 1200px across 144 paragraphs.
 const wide = ['privacy-statement', 'algemene-voorwaarden'].includes(slug!);
-const colClass = wide ? 'mx-auto max-w-[1200px]' : 'mx-auto max-w-[850px]';
+// The funnel pages run their intro column at 928, not 850. Legal pages go
+// wider still (1200), measured across 144 paragraphs.
+const colClass = wide ? 'mx-auto max-w-[1200px]' : 'mx-auto max-w-[928px]';
 
 // Tables anchored to the heading they follow.
 const tablesFor = (heading: string | null) =>

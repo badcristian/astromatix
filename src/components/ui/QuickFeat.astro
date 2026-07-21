@@ -5,24 +5,32 @@ import { Image } from 'astro:assets';
 // The original's `.quickfeat`. Measured @1440 on /nl/oplossingen/jobboost:
 //   grid   col s4 md-s6 sm-s12 — three across, 379px columns
 //   item   355 wide: a 29px icon column beside a 326px text column
-//   title  h4, Poppins 700 20px, 254 wide
-//   desc   Manrope 14.4px, 254 wide
+//   title  h4, Poppins 700 20px, up to 458 wide (254 in the denser 3-up grid)
+//   desc   Manrope 14.4px, up to 458 wide
 //
 // Icons are inline SVG in the theme rather than <img>, so the extractor finds
 // no URL for them. Falls back to a shared glyph until they are traced.
 
 interface Props {
   items: { title: string | null; body: string | null; icon?: string | null }[];
+  /**
+   * Columns at lg. The original genuinely differs by page: the klantcases run
+   * two across (588px items, text up to 458 wide) while the product pages run
+   * three (355px items). A 3-up grid on a klantcase squeezed the text to ~331
+   * against the original's 458.
+   */
+  columns?: 2 | 3;
 }
 
-const { items } = Astro.props;
+const { items, columns = 3 } = Astro.props;
+const colClass = columns === 2 ? 'lg:w-1/2' : 'lg:w-1/3';
 ---
 
 <div class="flex flex-wrap -mx-3">
   {items.map((item) => {
     const icon = resolveIcon(item.icon);
     return (
-      <div class="w-full px-3 pb-12 md:w-1/2 lg:w-1/3">
+      <div class:list={['w-full px-3 pb-12 md:w-1/2', colClass]}>
         <div class="flex gap-6">
           <span class="mt-1 size-[29px] shrink-0 text-orange" aria-hidden="true">
             {icon ? (
@@ -35,7 +43,7 @@ const { items } = Astro.props;
             )}
           </span>
 
-          <div class="max-w-[254px]">
+          <div class="max-w-[458px]">
             {item.title && (
               <h4 class="font-display text-[20px] leading-[28px] font-bold text-navy">
                 {item.title}

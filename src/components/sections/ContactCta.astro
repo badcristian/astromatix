@@ -32,7 +32,9 @@ const onDark = !!band && /rgb\(\s*17,\s*(65|29)/.test(band);
   style={band ? `background-color:${band}` : undefined}
 >
   <div class="mx-auto max-w-[800px]">
-    <div class="mx-auto max-w-[650px] text-center">
+    {/* Intro spans the form column (~800), not a narrower 650 — measured at
+        822 on /nl/contact. */}
+    <div class="mx-auto max-w-[800px] text-center">
       <h2
         class:list={[
           'font-display text-[30px] leading-[33px] font-bold',

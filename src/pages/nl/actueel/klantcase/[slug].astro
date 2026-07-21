@@ -155,7 +155,7 @@ const resultaat = c.narrative.find((n) => n.heading === 'Resultaat') ?? null;
         ))}
         {c.quickfeat.length > 0 && (
           <div class="mt-10">
-            <QuickFeat items={c.quickfeat} />
+            <QuickFeat items={c.quickfeat} columns={2} />
           </div>
         )}
       </div>
