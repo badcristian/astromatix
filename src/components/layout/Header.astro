@@ -52,8 +52,13 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
       <Image src={logoNavy} alt="Jobmatix" width={180} densities={[1, 2]} />
     </a>
 
-    <!-- desktop nav -->
-    <nav class="hidden items-center gap-8 lg:flex" aria-label="Hoofdmenu">
+    <!-- desktop nav. Right-anchored rather than centred: on the original the nav
+         sits a fixed gap left of the search/CTA controls, not midway between the
+         logo and them. `lg:ml-auto` absorbs the free space on the nav's left
+         (auto margins beat justify-between, which stays for the mobile row where
+         the nav is hidden); `lg:mr-8` sets the gap to the controls. This matches
+         the original's nav x-position across widths (measured 450@1440, 246@1140). -->
+    <nav class="hidden items-center gap-8 lg:flex lg:ml-auto lg:mr-8" aria-label="Hoofdmenu">
       {nav.map((item) => (
         <div class="group relative">
           {item.href ? (
