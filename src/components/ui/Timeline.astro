@@ -36,7 +36,7 @@ const { items } = Astro.props;
     return (
       <li class="relative mb-10 lg:mb-6">
         <div class:list={['md:flex', right ? 'md:justify-end' : 'md:justify-start']}>
-          <div class="rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] md:w-[312px] lg:w-[552px]">
+          <div class="rounded-3xl bg-white p-6 shadow-card md:w-[312px] lg:w-[552px]">
             {/* Below 1140 the card STACKS: the image goes to the card's full
                 width and the text sits under it. Measured on the original —
                 image 151x101 beside 353px of text at 1440, but 264x176 above

@@ -28,7 +28,7 @@ const { title, tag, price, info, desc, features, cta, disclaimer } = Astro.props
 const ctaHref = (cta?.href ?? '#').replace(/^[^#]*/, '') || '#';
 ---
 
-<div class="flex h-full flex-col rounded-3xl bg-white px-9 pt-6 pb-10 shadow-[0_32px_64px_0_rgba(17,65,122,0.05),0_16px_32px_0_rgba(17,65,122,0.05)]">
+<div class="flex h-full flex-col rounded-3xl bg-white px-9 pt-6 pb-10 shadow-card-lg">
   {title && (
     <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">{title}</h3>
   )}

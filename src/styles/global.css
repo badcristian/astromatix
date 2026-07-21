@@ -40,6 +40,15 @@
   --breakpoint-sm: 480px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1140px;
+
+  /* The theme's soft navy shadows, named so the long rgba(17,65,122,.05) string
+     isn't hand-copied into a dozen components (the highest-duplication value in
+     the codebase). `shadow-card` / `shadow-card-lg` / `shadow-field` compile to
+     the same box-shadow the arbitrary `shadow-[…]` values did. The rarer 0.08 /
+     0.12 / 0.18 variants stay inline — they occur once each. */
+  --shadow-card: 0 16px 32px 0 rgba(17, 65, 122, 0.05);
+  --shadow-card-lg: 0 32px 64px 0 rgba(17, 65, 122, 0.05), 0 16px 32px 0 rgba(17, 65, 122, 0.05);
+  --shadow-field: 0 8px 16px 0 rgba(17, 65, 122, 0.05), 0 4px 8px 0 rgba(17, 65, 122, 0.05);
 }
 
 @layer base {
