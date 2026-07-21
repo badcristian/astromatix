@@ -84,7 +84,7 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
 
           {item.children && (
             <div
-              class="invisible absolute left-0 top-full min-w-[220px] rounded-xl bg-white py-2 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100"
+              class="invisible absolute left-0 top-full min-w-[220px] rounded-xl border border-navy/10 bg-white py-2 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100"
             >
               {item.children.map((child) => (
                 <a
