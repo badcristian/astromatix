@@ -27,6 +27,12 @@ interface Props {
    */
   titleHtml?: string | null;
   subtitle?: string | null;
+  /**
+   * Render the subtitle as raw HTML instead of plain text, for a matched hard
+   * break. jobboost's original h2 is `Boost jouw vacature en <br>vergroot de
+   * zichtbaarheid!` — two lines, broken after "en". Falls back to `subtitle`.
+   */
+  subtitleHtml?: string | null;
   cta?: { label: string; href: string } | null;
   image?: ImageMetadata;
   imageWidth?: number;
@@ -50,6 +56,7 @@ const {
   title,
   titleHtml = null,
   subtitle = null,
+  subtitleHtml = null,
   cta = null,
   image,
   imageWidth = 588,
@@ -98,7 +105,7 @@ const imageColClass = imageWidth >= 700 ? 'lg:w-[720px]' : 'lg:w-[588px]';
           size. */}
       {subtitle && !subtitleInHeading && (
         <p class:list={['mt-6 text-[24px] leading-[26.4px]', dark ? 'text-white' : 'text-navy']}>
-          {subtitle}
+          {subtitleHtml ? <Fragment set:html={subtitleHtml} /> : subtitle}
         </p>
       )}
 

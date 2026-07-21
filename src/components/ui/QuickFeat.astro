@@ -24,6 +24,14 @@ interface Props {
 
 const { items, columns = 3 } = Astro.props;
 const colClass = columns === 2 ? 'lg:w-1/2' : 'lg:w-1/3';
+
+// The theme frames each image icon in a 58×58 rounded chip (10px radius): mist
+// for the informational line-icons, navy for the "Plan een gratis demo" glyph —
+// which is white "DEMO" lettering baked into the PNG and therefore invisible on
+// a light background WITHOUT the navy chip behind it (the user's report). The
+// chip colour is per-icon generated CSS on the original with no field in our
+// extraction, so key off the one glyph that needs the dark treatment.
+const isDemoIcon = (url?: string | null) => !!url && /demo/i.test(url);
 ---
 
 <div class="flex flex-wrap -mx-3">
@@ -32,17 +40,26 @@ const colClass = columns === 2 ? 'lg:w-1/2' : 'lg:w-1/3';
     return (
       <div class:list={['w-full px-3 pb-12 md:w-1/2', colClass]}>
         <div class="flex gap-6">
-        {/* The original's icon is a NAVY right-arrow (theme `arrow-right`,
-            icon--accent), not an orange check. */}
-        <span class="mt-1 size-[29px] shrink-0 text-navy" aria-hidden="true">
-          {icon ? (
-            <Image src={icon} alt="" width={29} densities={[1, 2]} />
-          ) : (
+        {icon ? (
+          // Image icon in the theme's 58×58 chip: mist behind the line-icons,
+          // navy behind the white "DEMO" glyph so it stays legible.
+          <span
+            class:list={[
+              'flex size-[58px] shrink-0 items-center justify-center rounded-[10px]',
+              isDemoIcon(item.icon) ? 'bg-navy' : 'bg-mist',
+            ]}
+          >
+            <Image src={icon} alt="" width={29} densities={[1, 2]} class="size-[29px] object-contain" />
+          </span>
+        ) : (
+          // No image was extracted (jobboost's inline-SVG icons): the original's
+          // NAVY right-arrow (theme `arrow-right`, icon--accent), not an orange check.
+          <span class="mt-1 size-[29px] shrink-0 text-navy" aria-hidden="true">
             <svg width="29" height="29" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
               <path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z" />
             </svg>
-          )}
-        </span>
+          </span>
+        )}
 
           <div class="max-w-[458px]">
             {item.title && (

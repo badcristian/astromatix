@@ -67,6 +67,14 @@ export function caseData(entry: Klantcase) {
   const order: any[] = d.order ?? [];
   const ctaHeading = cta?.heading ?? null;
 
+  // The pull-quote above the person card lives in its own `bandQuote` field (the
+  // compactCard's own `quote` is null) — and the extractor ALSO leaves a copy in
+  // the preceding "Resultaat" section body. Feed it to the quote card and strip
+  // the duplicate from the narrative.
+  const bandQuote: string | null = d.bandQuote?.text ?? null;
+  const norm = (s: string) => s.replace(/[“”"'‘’]/g, '').replace(/\s+/g, ' ').trim();
+  let bandQuoteUsed = false;
+
   type Section = {
     kind: 'section';
     // A section can stack several heading+body pairs in its text column — djops
@@ -103,7 +111,10 @@ export function caseData(entry: Klantcase) {
 
       const section: Section = {
         kind: 'section',
-        parts: [{ heading: b.heading, body: b.body ?? [] }],
+        parts: [{
+          heading: b.heading,
+          body: (b.body ?? []).filter((x: string) => !(bandQuote && norm(x) === norm(bandQuote))),
+        }],
         band: bandColor(b.heading),
         images: [],
         card: null,
@@ -125,12 +136,14 @@ export function caseData(entry: Klantcase) {
       i = j - 1;
       render.push(section);
     } else if (b.type === 'compactCard') {
+      const text = b.quote ?? (bandQuoteUsed ? null : bandQuote);
+      if (!b.quote && bandQuote) bandQuoteUsed = true;
       render.push({
         kind: 'quote',
         title: b.title,
         body: b.body,
         image: b.image,
-        text: b.quote ?? null,
+        text,
         link: b.link ?? null,
       });
     }

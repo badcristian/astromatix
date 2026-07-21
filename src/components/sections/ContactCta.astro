@@ -35,6 +35,8 @@ interface Props {
    * without this the h3 was dropped.
    */
   subheading?: string | null;
+  /** Wider (1200) form — the klantcases' "Get the job done" form. */
+  wide?: boolean;
 }
 const {
   title,
@@ -44,6 +46,7 @@ const {
   fields = copy.contactCta.fields,
   submitLabel = copy.contactCta.submitLabel,
   subheading = null,
+  wide = false,
 } = Astro.props;
 
 // Navy bands need light text; the light bands keep navy text.
@@ -55,7 +58,7 @@ const onDark = !!band && /rgb\(\s*17,\s*(65|29)/.test(band);
   class="scroll-mt-24 bg-mist px-6 py-24"
   style={band ? `background-color:${band}` : undefined}
 >
-  <div class="mx-auto max-w-[800px]">
+  <div class:list={['mx-auto', wide ? 'max-w-[1200px]' : 'max-w-[800px]']}>
     {/* Intro spans the form column (~800), not a narrower 650 — measured at
         822 on /nl/contact. */}
     <div class="mx-auto max-w-[800px] text-center">
@@ -82,7 +85,7 @@ const onDark = !!band && /rgb\(\s*17,\s*(65|29)/.test(band);
     <div class="mt-11">
       {/* Field set is identical across pages on the original, so it stays
           sourced from the homepage extraction rather than duplicated. */}
-      <FormStub fields={fields} submitLabel={submitLabel} />
+      <FormStub fields={fields} submitLabel={submitLabel} wide={wide} />
     </div>
   </div>
 </section>

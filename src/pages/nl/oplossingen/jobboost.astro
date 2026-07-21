@@ -24,7 +24,10 @@ const bandIcons = ['download', 'expand', 'send', 'arrow'] as const;
 const band = page.properties.map((p, i) => ({ icon: bandIcons[i], label: p.label }));
 
 
-const heroCta = page.buttons.find((b) => b.href?.includes('demo-aanvraag')) ?? null;
+// The hero CTA is "Kies jouw boost!" and scrolls to the pricing tiers (the
+// original links to a cross-page #Prijzenjobboost anchor) — not a redirect.
+const kiesBtn = page.buttons.find((b) => /Kies jouw boost/i.test(b.label));
+const heroCta = kiesBtn ? { label: kiesBtn.label, href: '#prijzen' } : null;
 const stripCta = page.buttons.find((b) => /Plan een gesprek/i.test(b.label)) ?? null;
 
 // Headings by content, not index — see the note in jobadvertising.astro. The
@@ -38,6 +41,8 @@ const block = (prefix: string) =>
   page.blocks?.find((b: any) => b.heading?.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
 
 const heroSubtitle = heading('Boost jouw vacature');
+// The original hard-breaks this h2 after "en" — two lines, same visible copy.
+const heroSubtitleHtml = heroSubtitle?.replace(/\ben\s+vergroot/, 'en <br>vergroot') ?? null;
 const chooseHeading = heading('Kies jouw Jobboost en bereik');
 // The original hard-breaks this heading after "bereik" and sets it in Manrope
 // at 30/33 (not Poppins at 30/52.5 like the cards heading we copied from
@@ -70,6 +75,7 @@ const faqImage = (() => {
   <ProductHero
     title={page.hero.title}
     subtitle={heroSubtitle}
+    subtitleHtml={heroSubtitleHtml}
     cta={heroCta ? { label: heroCta.label, href: heroCta.href } : null}
     image={resolveIcon(page.hero.background)}
     theme="light"
@@ -101,7 +107,7 @@ const faqImage = (() => {
   </section>
 
   {page.pricing && (
-    <section class="px-6 py-[70px]">
+    <section id="prijzen" class="scroll-mt-[90px] px-6 py-[70px]">
       <div class="mx-auto max-w-[1200px]">
         <h2 class="text-center font-display text-[30px] leading-[33px] font-bold text-navy">
           {tiersHeading}

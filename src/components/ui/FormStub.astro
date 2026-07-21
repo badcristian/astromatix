@@ -40,10 +40,13 @@ interface Props {
   variant?: 'styled' | 'raw';
   /** Submit button colour — navy by default, orange for the newsletter form. */
   submitColor?: 'navy' | 'orange';
+  /** Wider form (1200) with paired fields splitting the row — the klantcases. */
+  wide?: boolean;
 }
 
-const { fields, submitLabel, variant = 'styled', submitColor = 'navy' } = Astro.props;
+const { fields, submitLabel, variant = 'styled', submitColor = 'navy', wide = false } = Astro.props;
 const raw = variant === 'raw';
+const pairClass = wide ? 'md:flex-1' : 'md:w-[388px]';
 const submitBg = submitColor === 'orange' ? 'bg-orange' : 'bg-navy';
 
 // Checkbox/radio groups (jobboost's "Welke boost past bij jou?" — Small /
@@ -104,7 +107,7 @@ const errorClass =
   'form-error mt-1 hidden w-fit rounded-[6px] bg-navy px-2 py-1 text-[13px] leading-tight text-white';
 ---
 
-<form class:list={['w-full', raw ? '' : 'mx-auto max-w-[800px]']} data-form-stub novalidate>
+<form class:list={['w-full', raw ? '' : (wide ? 'mx-auto max-w-[1200px]' : 'mx-auto max-w-[800px]')]} data-form-stub novalidate>
   {singles.map((field) => (
     <div class="mb-6">
       <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
@@ -122,7 +125,7 @@ const errorClass =
 
   <div class="mb-6 flex flex-col gap-6 md:flex-row">
     {pairs.slice(0, 2).map((field) => (
-      <div class="md:w-[388px]">
+      <div class:list={pairClass}>
         <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
         <input class={inputClass} id={field.name} name={field.name} type={field.type} required={field.required} style={inputStyle} />
         <span class={errorClass} data-error>{FIELD_ERROR}</span>
@@ -132,7 +135,7 @@ const errorClass =
 
   <div class="mb-6 flex flex-col gap-6 md:flex-row">
     {pairs.slice(2).map((field) => (
-      <div class="md:w-[388px]">
+      <div class:list={pairClass}>
         <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
         <input class={inputClass} id={field.name} name={field.name} type={field.type} required={field.required} style={inputStyle} />
         <span class={errorClass} data-error>{FIELD_ERROR}</span>

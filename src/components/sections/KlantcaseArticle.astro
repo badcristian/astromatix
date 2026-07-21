@@ -29,10 +29,23 @@ const { c } = Astro.props;
 
 const heroBg = resolveIcon(c.heroBackground);
 
+// Animated GIFs cannot go through astro:assets — sharp flattens them to a
+// single frame — so they live in /public and render as a plain <img>. jam-werkt's
+// "Uitdaging" is a 3-frame GIF that cycles through team photos; keyed by the
+// original filename so the extractor's src maps to the local copy.
+const GIF_PUBLIC: Record<string, { src: string; width: number; height: number }> = {
+  'Ontwerp zonder titel (2).gif': { src: '/klantcases/jam-werkt-uitdaging.gif', width: 792, height: 549 },
+};
+const gifFor = (src: string) => {
+  const name = decodeURIComponent((src.split('/').pop() ?? '').split('?')[0]);
+  return GIF_PUBLIC[name] ?? null;
+};
+
 // Resolve a content image's local asset; a square tile shrinks below 640.
 const resolveImg = (img: { src: string; width: number; height: number }) => ({
   ...img,
   resolved: resolveIcon(img.src),
+  gif: gifFor(img.src),
 });
 ---
 
@@ -131,7 +144,7 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
   }
 
   // A narrative (or lead) section.
-  const images = item.images.map(resolveImg).filter((i) => i.resolved);
+  const images = item.images.map(resolveImg).filter((i) => i.resolved || i.gif);
 
   // An image laid out past centre on the original (djops "Het resultaat":
   // 588px at x=732) is a RIGHT column beside the text, not a full-width photo
@@ -148,16 +161,23 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
     // earlier body lines stay narrative paragraphs.
     const metricImgs = images.filter((i) => (i.width ?? 0) <= 260);
     const trailing = lead.body.slice(-metricImgs.length);
+    // A caption is short — but faam's run to ~75 chars ("...het aantal
+    // sollicitaties met 45% gestegen."), longer than djops/royal's terse labels,
+    // so allow up to 80. The 1:1 match with coin-sized (≤260px) images is what
+    // actually identifies the metric row; the length is only a false-positive guard.
     const paired =
       metricImgs.length >= 2 &&
       metricImgs.length === images.length &&
       lead.body.length > metricImgs.length &&
-      trailing.every((t) => t.length <= 45);
+      trailing.every((t) => t.length <= 80);
     const narrative = paired ? lead.body.slice(0, -metricImgs.length) : lead.body;
     return (
-      <section class="px-6 pt-[50px]" style={item.band ? `background-color:${item.band}` : undefined}>
+      <section
+        class:list={['px-6 pt-[50px]', paired && 'pb-[50px]']}
+        style={item.band ? `background-color:${item.band}` : undefined}
+      >
         <div class="mx-auto max-w-[1138px] text-center">
-          <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">{lead.heading}</h2>
+          <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy lg:text-[40px] lg:leading-[44px]">{lead.heading}</h2>
           {narrative.map((para) => (
             <p class="mx-auto mt-4 max-w-[900px] text-[16px] leading-[26px] text-navy">{para}</p>
           ))}
@@ -201,7 +221,7 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
         <div class:list={[item.card && 'lg:w-[792px] lg:shrink-0', sideImage && 'lg:flex-1']}>
           {item.parts.map((part, pi) => (
             <>
-              <h2 class:list={['font-display text-[30px] leading-[33px] font-bold text-navy', pi > 0 && 'mt-10']}>
+              <h2 class:list={['font-display text-[30px] leading-[33px] font-bold text-navy lg:text-[40px] lg:leading-[44px]', pi > 0 && 'mt-10']}>
                 {part.heading}
               </h2>
               {part.body.map((para) => (
@@ -209,9 +229,13 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
               ))}
             </>
           ))}
-          {belowImages.map((img) => (
-            <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="mt-8 h-auto w-full rounded-3xl" />
-          ))}
+          {belowImages.map((img) =>
+            img.gif ? (
+              <img src={img.gif.src} alt="" width={img.gif.width} height={img.gif.height} loading="lazy" class="mt-8 h-auto w-full rounded-3xl" />
+            ) : (
+              <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="mt-8 h-auto w-full rounded-3xl" />
+            ),
+          )}
           {item.quickfeat.length > 0 && (
             <div class="mt-10">
               <QuickFeat items={item.quickfeat} columns={2} />
@@ -245,4 +269,5 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
   intro={c.ctaIntro}
   fields={c.formFields ?? undefined}
   submitLabel={c.formSubmitLabel ?? undefined}
+  wide
 />
