@@ -11,8 +11,8 @@ import Button from './Button.astro';
 
 interface Props {
   title: string | null;
-  tag: string | null;
   price: string | null;
+  /** The small suffix beside the price ("per boost"). */
   info: string | null;
   desc: string | null;
   features: string[];
@@ -20,7 +20,9 @@ interface Props {
   disclaimer: string | null;
 }
 
-const { title, tag, price, info, desc, features, cta, disclaimer } = Astro.props;
+// `tag` from the extractor ("€399 per boost") duplicates price + info, so it is
+// intentionally not destructured/rendered.
+const { title, price, info, desc, features, cta, disclaimer } = Astro.props;
 
 // The original CTA href is "/jobboost#Contactjobboost" — a cross-page link on
 // their site. On our page the button should scroll to the form at the bottom,
@@ -33,16 +35,15 @@ const ctaHref = (cta?.href ?? '#').replace(/^[^#]*/, '') || '#';
     <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">{title}</h3>
   )}
 
-  {/* The price is big — 59px Manrope bold on the original (not 40px Poppins). */}
+  {/* Price row: the big number (59px Manrope bold on the original, not 40px
+      Poppins) with a small "per boost" suffix on the same baseline, exactly as
+      the original renders it. */}
   {price && (
-    <p class="mt-4 text-[59px] leading-[59px] font-bold text-navy">{price}</p>
+    <div class="mt-4 flex items-baseline gap-1.5">
+      <p class="text-[59px] leading-[59px] font-bold text-navy">{price}</p>
+      {info && <span class="text-[14.4px] leading-[20px] text-navy">{info}</span>}
+    </div>
   )}
-
-  {tag && tag !== price && (
-    <p class="mt-1 text-[16px] leading-[22.4px] text-navy/70">{tag}</p>
-  )}
-
-  {info && <p class="mt-2 text-[16px] leading-[22.4px] text-navy">{info}</p>}
   {desc && <p class="mt-4 text-[16px] leading-[22.4px] text-navy">{desc}</p>}
 
   {features.length > 0 && (
