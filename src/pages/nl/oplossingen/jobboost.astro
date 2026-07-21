@@ -148,10 +148,8 @@ const faqImage = (() => {
         />
       )}
       <div class="lg:flex-1">
-        <h2 class="mb-6 font-display text-[30px] leading-[33px] font-bold text-navy">
-          {faqHeading}
-        </h2>
-        <Accordion items={page.accordion} />
+        {/* "Veelgestelde vragen" renders INSIDE the accordion card (see Accordion). */}
+        <Accordion items={page.accordion} heading={faqHeading} />
       </div>
     </div>
   </section>

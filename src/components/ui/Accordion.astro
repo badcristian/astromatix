@@ -24,19 +24,30 @@ interface Props {
    * page supplies a single card around all of them.
    */
   chrome?: boolean;
+  /**
+   * Section heading rendered INSIDE the card, above the items — the original's
+   * "Veelgestelde vragen" sits within the accordion card, not above it. Only
+   * shown with chrome (the multi-category FAQ page supplies its own headings).
+   */
+  heading?: string | null;
 }
 
-const { items, openIndex = null , chrome = true } = Astro.props;
+const { items, openIndex = null, chrome = true, heading = null } = Astro.props;
 ---
 
 <div class:list={[chrome && 'rounded-3xl bg-white px-6 py-24 shadow-card-lg']}>
+  {heading && chrome && (
+    <h2 class="mb-[50px] font-display text-[28px] leading-[33px] font-bold text-navy">{heading}</h2>
+  )}
   {items.map((item, i) => (
     <details
-      class="group border-b border-mist pb-6 [&:not(:first-child)]:pt-6"
+      class="faq-item group border-b border-mist pb-6 [&:not(:first-child)]:pt-6"
       open={i === openIndex}
     >
+      {/* Question title: 20px Poppins 700 (the theme's .accordion__title.h4),
+          not the 16px Manrope the wrapper measured at. */}
       <summary
-        class="flex cursor-pointer list-none items-center justify-between gap-4 text-[16px] leading-[22.4px] text-navy marker:hidden [&::-webkit-details-marker]:hidden"
+        class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-[20px] leading-[28px] font-bold text-navy marker:hidden [&::-webkit-details-marker]:hidden"
       >
         {item.question}
         <span
@@ -55,3 +66,25 @@ const { items, openIndex = null , chrome = true } = Astro.props;
     </details>
   ))}
 </div>
+
+<style>
+  /* Smoothly reveal the answer when an item opens, using the modern
+     ::details-content pseudo + interpolate-size (so height can animate to auto).
+     Progressive enhancement: browsers without support simply snap open. */
+  .faq-item {
+    interpolate-size: allow-keywords;
+  }
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      block-size 300ms ease,
+      opacity 250ms ease,
+      content-visibility 300ms allow-discrete;
+  }
+  .faq-item[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+</style>

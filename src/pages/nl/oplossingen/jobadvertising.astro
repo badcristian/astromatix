@@ -149,12 +149,10 @@ const faqImage = (() => {
         />
       )}
       <div class="lg:flex-1">
-        <h2 class="mb-6 font-display text-[30px] leading-[33px] font-bold text-navy">
-          {faqHeading}
-        </h2>
         {/* Default chrome: white card, 24px radius, the theme's shadow, 96px
-            vertical padding — all measured on the original. */}
-        <Accordion items={page.accordion} />
+            vertical padding — all measured on the original. "Veelgestelde
+            vragen" sits INSIDE that card (see Accordion), as on the original. */}
+        <Accordion items={page.accordion} heading={faqHeading} />
       </div>
     </div>
   </section>
