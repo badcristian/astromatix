@@ -34,6 +34,13 @@ const isCurrent = (href?: string) => {
 // current section is one of its children.
 const dropdownActive = (children?: { href: string }[]) =>
   !!children?.some((c) => isCurrent(c.href));
+
+// A dropdown CHILD's dot/bold marks the EXACT current page only. isCurrent is
+// section-aware, which is right for top-level entries but wrong for children:
+// on /nl/oplossingen/jobboost the section is jobadvertising, so isCurrent lit
+// BOTH Job Advertising (via section) and Jobboost (via URL). Exact match fixes
+// it — only the page you are on gets the dot.
+const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
 ---
 
 <header
@@ -77,8 +84,8 @@ const dropdownActive = (children?: { href: string }[]) =>
               {item.children.map((child) => (
                 <a
                   href={child.href}
-                  aria-current={isCurrent(child.href) ? 'page' : undefined}
-                  class="group/link flex items-center gap-2 px-5 py-2 text-[18px] text-navy hover:bg-mist aria-[current=page]:bg-mist aria-[current=page]:font-bold"
+                  aria-current={isExact(child.href) ? 'page' : undefined}
+                  class="group/link flex items-center gap-2 whitespace-nowrap px-5 py-2 text-[18px] text-navy hover:bg-mist aria-[current=page]:bg-mist aria-[current=page]:font-bold"
                 >
                   <span
                     class="size-1.5 shrink-0 rounded-full bg-navy opacity-0 group-aria-[current=page]/link:opacity-100"
