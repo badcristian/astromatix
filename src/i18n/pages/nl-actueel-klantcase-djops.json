@@ -156,14 +156,16 @@
       "heading": "Djops Uitzendgroep",
       "level": 1,
       "module": "rtext",
-      "body": []
+      "body": [],
+      "y": 145
     },
     {
       "type": "heading",
       "heading": "Kwaliteit en kwantiteit verbinden met datagedreven recruitment",
       "level": 4,
       "module": "rtext",
-      "body": []
+      "body": [],
+      "y": 244
     },
     {
       "type": "properties",
@@ -193,25 +195,32 @@
         "Een daling van de CPA",
         "Een stijging van de conversie",
         "Toename van plaatsingen"
-      ]
+      ],
+      "y": 460
     },
     {
       "type": "image",
       "src": "https://www.jobmatix.com/hs-fs/hubfs/51Tekengebied%201.png",
       "width": 200,
-      "height": 200
+      "height": 200,
+      "x": 212,
+      "y": 734
     },
     {
       "type": "image",
       "src": "https://www.jobmatix.com/hs-fs/hubfs/5Tekengebied%201-1.png",
       "width": 200,
-      "height": 200
+      "height": 200,
+      "x": 620,
+      "y": 734
     },
     {
       "type": "image",
       "src": "https://www.jobmatix.com/hs-fs/hubfs/54Tekengebied%201.png",
       "width": 200,
-      "height": 200
+      "height": 200,
+      "x": 1028,
+      "y": 734
     },
     {
       "type": "heading",
@@ -221,13 +230,16 @@
       "body": [
         "Djops werkt vanuit drie duidelijke pijlers, waarbij ‘aandacht’ centraal staat. De organisatie richt zich op logistiek, productie en de industriële branche binnen een straal van 30 kilometer. Voor de samenwerking met Jobmatix liep Djops echter tegen beperkingen aan in het wervingsproces.",
         "Het ontbrak aan centraal inzicht: er was geen duidelijk beeld van wat er aan budget in ging en wat er precies uitkwam. Veel processen verliepen handmatig en er werd geacteerd op onderbuikgevoel. Daarnaast werkten recruiters reactief: ze moesten zelf op zoek naar kandidaten in databases, in plaats van dat de juiste kandidaten Djops wisten te vinden."
-      ]
+      ],
+      "y": 1095
     },
     {
       "type": "image",
       "src": "https://www.jobmatix.com/hs-fs/hubfs/2Jobmatix%202.jpg",
       "width": 792,
-      "height": 527
+      "height": 527,
+      "x": 120,
+      "y": 1358
     },
     {
       "type": "featureCard",
@@ -239,7 +251,9 @@
       "type": "compactCard",
       "title": "Alwin van Domselaar",
       "body": "Management",
-      "image": "https://www.jobmatix.com/hs-fs/hubfs/1712664948181.jpeg"
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1712664948181.jpeg",
+      "quote": "Voorheen hadden wij geen inzicht in de input en output, waardoor wij op ons onderbuikgevoel handelden. Nu kunnen we onze kwaliteit monitoren en daar keuzes op maken.\"",
+      "link": "https://www.linkedin.com/in/alwin-van-domselaar-30bb878a/"
     },
     {
       "type": "heading",
@@ -249,7 +263,8 @@
       "body": [
         "De keuze voor Jobmatix kwam voort uit de wens om het recruitmentproces te professionaliseren en te standaardiseren. Door gebruik te maken van programmatic job advertising kon Djops alle vacatures vanuit één centraal punt beheren en automatisch verspreiden over diverse Jobboards en Social media.",
         "De samenwerking ging verder dan alleen software. Er werd een traject gestart met vierwekelijkse meetings om de resultaten te evalueren en campagnes bij te sturen waar nodig. Door de inzet van programmatic job advertising en specifieke social media campagnes, werd niet alleen de zichtbaarheid vergroot, maar kon ook de juiste doelgroep (zowel Nederlandse als internationale kandidaten) beter worden bereikt."
-      ]
+      ],
+      "y": 2259
     },
     {
       "type": "heading",
@@ -259,7 +274,8 @@
       "body": [
         "Sinds de implementatie van Jobmatix en de focus op datagedreven werken, heeft Djops indrukwekkende resultaten geboekt. Waar de organisatie voorheen onvoldoende grip had op KPI's zoals CPA (Cost Per Applicant) en conversie, sturen ze nu wekelijks op realistische cijfers.",
         "Naast het inzicht in de cijfers is ook de kwaliteit van het wervingsproces aantoonbaar sterk verbeterd. 90% van de sollicitaties komt nu direct digitaal bij Djops binnen via de geautomatiseerde flow van Jobmatix. Dit stelt de recruiters in staat om zich te focussen op wat echt telt: persoonlijke aandacht voor de kandidaat. Elke sollicitatie kan hierdoor op dezelfde dag worden opgevolgd. Dat maakt Djops een actieve en sterke partner voor werkzoekenden."
-      ]
+      ],
+      "y": 2578
     },
     {
       "type": "heading",
@@ -269,19 +285,24 @@
       "body": [
         "De samenwerking tussen Djops en Jobmatix blijft zich ontwikkelen. Door continu te evalueren en nieuwe features met elkaar te testen, blijft Djops als wervingsspecialist vooroplopen in de regio. Verbeterde AI-toepassingen en nieuwe kanalen zoals Werkzoeken.nl spelen hierbij een grote rol.",
         "\"De focus ligt nu echt op kwaliteit. Jobmatix helpt ons om het proces te verbeteren en inzicht te krijgen, zodat wij ons kunnen focussen op het menselijke aspect: het persoonlijke contact met de kandidaat.\""
-      ]
+      ],
+      "y": 2990
     },
     {
       "type": "image",
       "src": "https://www.jobmatix.com/hs-fs/hubfs/1Jobmatix%201.jpg",
       "width": 588,
-      "height": 391
+      "height": 391,
+      "x": 732,
+      "y": 2698
     },
     {
       "type": "compactCard",
       "title": "Doris Appeldoorn",
       "body": "Teamleider Recruitment",
-      "image": "https://www.jobmatix.com/hs-fs/hubfs/1747309222313.jpeg"
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1747309222313.jpeg",
+      "quote": "\"De focus ligt nu echt op kwaliteit. Jobmatix helpt ons om het proces te verbeteren en inzicht te krijgen, zodat wij ons kunnen focussen op het menselijke aspect: het persoonlijke contact met de kandidaat.\"",
+      "link": "https://www.linkedin.com/in/doris-appeldoorn-5a523a22a/"
     },
     {
       "type": "heading",
@@ -290,7 +311,8 @@
       "module": "heading",
       "body": [
         "Wil jij net als Djops Uitzendgroep meer grip op je wervingsproces en je aantal plaatsingen verdubbelen? Ontdek wat Jobmatix voor jouw organisatie kan betekenen."
-      ]
+      ],
+      "y": 3562
     }
   ],
   "richBody": "<h3>Het resultaat: verdubbeling van plaatsingen</h3> <p>Sinds de implementatie van Jobmatix en de focus op datagedreven werken, heeft Djops indrukwekkende resultaten geboekt. Waar de organisatie voorheen onvoldoende grip had op KPI's zoals CPA (Cost Per Applicant) en conversie, sturen ze nu wekelijks op realistische cijfers.</p> <p>Naast het inzicht in de cijfers is ook de kwaliteit van het wervingsproces aantoonbaar sterk verbeterd. 90% van de sollicitaties komt nu direct digitaal bij Djops binnen via de geautomatiseerde flow van Jobmatix. Dit stelt de recruiters in staat om zich te focussen op wat echt telt: persoonlijke aandacht voor de kandidaat. Elke sollicitatie kan hierdoor op dezelfde dag worden opgevolgd. Dat maakt Djops een actieve en sterke partner voor werkzoekenden.</p> <p>&nbsp;</p> <h3>Toekomstvisie</h3> <p>De samenwerking tussen Djops en Jobmatix blijft zich ontwikkelen. Door continu te evalueren en nieuwe features met elkaar te testen, blijft Djops als wervingsspecialist vooroplopen in de regio. Verbeterde AI-toepassingen en nieuwe kanalen zoals Werkzoeken.nl spelen hierbij een grote rol.</p> <p>&nbsp;</p>",

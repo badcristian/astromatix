@@ -594,11 +594,34 @@ const data = await page.evaluate(() => {
 
         if (el.matches('.compact-card')) {
           recorded.push(el);
+          // The card sits on a navy band with a TESTIMONIAL quote above it
+          // ("Voorheen hadden wij geen inzicht…"), which lives in a sibling row
+          // within the same band — so walk up to the navy-background ancestor,
+          // not the card's own row, then take the longest text outside the card.
+          let band = el;
+          while (band && !getComputedStyle(band).backgroundImage.includes('17, 65, 122')) {
+            band = band.parentElement;
+          }
+          let quote = null;
+          if (band) {
+            const candidates = Array.from(band.querySelectorAll('p, blockquote, span'))
+              .filter((n) => !n.closest('.compact-card'))
+              .map((n) => text(n))
+              .filter((t) => t.length > 30);
+            quote = candidates.sort((a, b) => b.length - a.length)[0] ?? null;
+          }
           out.push({
             type: 'compactCard',
             title: text(el.querySelector('.compact-card__title, h3, h4')),
             body: text(el.querySelector('.compact-card__desc, p')),
             image: src(el.querySelector('img')),
+            quote,
+            // The djops cards are LinkedIn links with a trailing arrow
+            // (compact-card--with-link). Capture the destination.
+            link:
+              el.closest('a')?.getAttribute('href') ??
+              el.querySelector('a')?.getAttribute('href') ??
+              null,
           });
         } else if (el.matches('.feature-card')) {
           recorded.push(el);
@@ -646,6 +669,11 @@ const data = await page.evaluate(() => {
             src: src(el),
             width: Math.round(rect.width),
             height: Math.round(rect.height),
+            // Left edge in the 1440 viewport — a section image sitting past
+            // centre is laid out as a RIGHT column beside the text (djops "Het
+            // resultaat"), not full-width below it.
+            x: Math.round(rect.left),
+            y: Math.round(rect.top + window.scrollY),
           });
         } else {
           const t = text(el);
@@ -656,6 +684,7 @@ const data = await page.evaluate(() => {
             level: Number(el.tagName[1]),
             module: moduleOf(el),
             body: bodyFor(el),
+            y: Math.round(rect.top + window.scrollY),
           });
         }
       }

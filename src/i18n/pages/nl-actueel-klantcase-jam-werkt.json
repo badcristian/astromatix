@@ -198,7 +198,8 @@
       "heading": "JAM Werkt Young professionals, data driven werven",
       "level": 1,
       "module": "rtext",
-      "body": []
+      "body": [],
+      "y": 145
     },
     {
       "type": "properties",
@@ -227,25 +228,32 @@
         "Sollicitanten per maand op de opdrachten van JAM.",
         "Van de sollicitanten is direct de herleiden naar een van de jobboard advertenties.",
         "Jongeren werken dagelijks op flexbasis via JAM."
-      ]
+      ],
+      "y": 477
     },
     {
       "type": "image",
       "src": "https://www.jobmatix.com/hs-fs/hubfs/3Tekengebied%201-1.png",
       "width": 200,
-      "height": 200
+      "height": 200,
+      "x": 212,
+      "y": 640
     },
     {
       "type": "image",
       "src": "https://www.jobmatix.com/hs-fs/hubfs/123412Tekengebied%201.png",
       "width": 200,
-      "height": 200
+      "height": 200,
+      "x": 620,
+      "y": 640
     },
     {
       "type": "image",
       "src": "https://www.jobmatix.com/hs-fs/hubfs/312Tekengebied%201.png",
       "width": 200,
-      "height": 200
+      "height": 200,
+      "x": 1028,
+      "y": 640
     },
     {
       "type": "heading",
@@ -255,13 +263,16 @@
       "body": [
         "Zo’n 500 jongeren werken dagelijks op flexibele basis via JAM. Zij kunnen bij de intermediair terecht voor een baan in de sectoren logistiek, horeca, techniek of office.",
         "JAM heeft meerdere vestigingen in Nederland en wil dit aantal uitbreiden, zodat jongeren altijd ergens bij de uitzendspecialist naar binnen kunnen lopen. Vooral in de coronaperiode bleek echter een andere aanpak nodig om nieuwe sollicitanten aan te trekken. De van oorsprong Kempische organisatie, die al ruim 12 jaar actief is in recruitment, is daarom steeds meer marketing driven gaan werken. De samenwerking met Jobmatix draagt daaraan bij."
-      ]
+      ],
+      "y": 1023
     },
     {
       "type": "image",
       "src": "https://www.jobmatix.com/hs-fs/hubfs/Ontwerp%20zonder%20titel%20(2).gif",
       "width": 792,
-      "height": 549
+      "height": 549,
+      "x": 120,
+      "y": 1296
     },
     {
       "type": "featureCard",
@@ -276,7 +287,8 @@
       "module": null,
       "body": [
         "Met hun datagedreven aanpak werft JAM maandelijks zo’n 800 sollicitanten."
-      ]
+      ],
+      "y": 1945
     },
     {
       "type": "quickfeat",
@@ -322,13 +334,16 @@
         "Bij de uitbreiding naar een nieuwe regio speelt voor JAM niet langer de vraag hoe zij hier kandidaten kunnen bereiken. Ruim 80 procent van de sollicitanten is rechtstreeks te herleiden naar een van de jobboards waarop de organisatie via Jobmatix adverteert.",
         "JAM is gedreven om nog meer uit recruitment marketing automation te halen. Erik van de Snepscheut (Marketing- en Recruitment Directeur) bij JAM vertelt: “Iedere maand bespreken we met Marketing, Recruitment en HR welke kansen er liggen. Dit doen we aan de hand van het Jobmatix dashboard. We doen er alles aan om onze ambities waar te maken en deze datagedreven aanpak werkt voor ons heel goed.”",
         "“Het recruitment marketing platform van Jobmatix speelt een essentiële rol in ons wervingsproces. Onze vacatures worden snel op veel jobboards geadverteerd en Jobmatix denkt actief mee over het optimaliseren van onze campagnes en het efficiënt verdelen van onze budgetten. Een mooie samenwerking die ons succesvol maakt!”"
-      ]
+      ],
+      "y": 2627
     },
     {
       "type": "compactCard",
       "title": "Erik van de Snepscheut",
       "body": "Marketing & Recruitment",
-      "image": "https://www.jobmatix.com/hs-fs/hubfs/1718265980075.jpeg"
+      "image": "https://www.jobmatix.com/hs-fs/hubfs/1718265980075.jpeg",
+      "quote": null,
+      "link": "https://www.linkedin.com/in/erikvandesnepscheut/"
     },
     {
       "type": "heading",
@@ -337,7 +352,8 @@
       "module": "heading",
       "body": [
         "Ook succesvoller werven dankzij recruitment marketing automation? Laat je gegevens achter en wij nemen zo snel mogelijk contact met je op."
-      ]
+      ],
+      "y": 3274
     }
   ],
   "richBody": "<h2>Resultaat</h2> <p>Bij de uitbreiding naar een nieuwe regio speelt voor JAM niet langer de vraag hoe zij hier kandidaten kunnen bereiken. Ruim 80 procent van de sollicitanten is rechtstreeks te herleiden naar een van de jobboards waarop de organisatie via Jobmatix adverteert.</p> <p>JAM is gedreven om nog meer uit recruitment marketing automation te halen. Erik van de Snepscheut (Marketing- en Recruitment Directeur) bij JAM vertelt: “Iedere maand bespreken we met Marketing, Recruitment en HR welke kansen er liggen. Dit doen we aan de hand van het Jobmatix dashboard. We doen er alles aan om onze ambities waar te maken en deze datagedreven aanpak werkt voor ons heel goed.”</p>",

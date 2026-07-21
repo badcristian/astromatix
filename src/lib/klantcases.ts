@@ -69,17 +69,26 @@ export function caseData(entry: Klantcase) {
 
   type Section = {
     kind: 'section';
-    heading: string;
-    body: string[];
+    // A section can stack several heading+body pairs in its text column — djops
+    // groups "Het resultaat" and "Toekomstvisie" beside one right-hand photo.
+    parts: { heading: string; body: string[] }[];
     band: string | null;
-    images: { src: string; width: number; height: number }[];
+    images: { src: string; width: number; height: number; x?: number }[];
     card: { title: string; body: string } | null;
     quickfeat: any[];
     lead: boolean;
+    y: number;
   };
   const render: (
     | Section
-    | { kind: 'quote'; title: string; body: string; image: string | null }
+    | {
+        kind: 'quote';
+        title: string;
+        body: string;
+        image: string | null;
+        text: string | null;
+        link: string | null;
+      }
   )[] = [];
 
   let leadSeen = false;
@@ -94,13 +103,13 @@ export function caseData(entry: Klantcase) {
 
       const section: Section = {
         kind: 'section',
-        heading: b.heading,
-        body: b.body ?? [],
+        parts: [{ heading: b.heading, body: b.body ?? [] }],
         band: bandColor(b.heading),
         images: [],
         card: null,
         quickfeat: [],
         lead: isLead,
+        y: b.y ?? 0,
       };
       // Absorb following images / feature-card / quickfeat until the next
       // heading or quote — those belong to this section.
@@ -116,10 +125,42 @@ export function caseData(entry: Klantcase) {
       i = j - 1;
       render.push(section);
     } else if (b.type === 'compactCard') {
-      render.push({ kind: 'quote', title: b.title, body: b.body, image: b.image });
+      render.push({
+        kind: 'quote',
+        title: b.title,
+        body: b.body,
+        image: b.image,
+        text: b.quote ?? null,
+        link: b.link ?? null,
+      });
     }
     // properties / standalone images before the lead are handled by the hero +
     // tags band above; ignore them here.
+  }
+
+  // Merge pass: a section whose single image is laid out past centre (a RIGHT
+  // column, x > 700) absorbs the immediately-preceding media-less sections into
+  // its text column — djops renders "Het resultaat" and "Toekomstvisie" beside
+  // one photo, and the photo trails Toekomstvisie in the DOM. Non-lead only.
+  const isMedialess = (s: any) =>
+    s.kind === 'section' && !s.lead && !s.card && s.images.length === 0 && s.quickfeat.length === 0;
+  for (let i = render.length - 1; i >= 1; i--) {
+    const s = render[i] as any;
+    if (s.kind !== 'section' || s.lead || s.card) continue;
+    const rightImage = s.images.length === 1 && (s.images[0].x ?? 0) > 700;
+    if (!rightImage) continue;
+    // Only pull in a preceding media-less section whose heading sits alongside
+    // the photo — i.e. within ~180px above the image's top. "Het resultaat"
+    // (just above the photo) merges; "De oplossing" (a separate block further
+    // up) does not.
+    const imgTop = s.images[0].y ?? 0;
+    while (i >= 1 && isMedialess(render[i - 1]) && (render[i - 1] as Section).y >= imgTop - 180) {
+      const prev = render[i - 1] as Section;
+      s.parts = [...prev.parts, ...s.parts];
+      s.band = s.band ?? prev.band;
+      render.splice(i - 1, 1);
+      i--;
+    }
   }
 
   return {

@@ -83,17 +83,44 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
   {c.render.map((item) => {
     if (item.kind === 'quote') {
       const portrait = resolveIcon(item.image);
+      const CardInner = (
+        <>
+          {portrait && (
+            <Image src={portrait} alt="" width={96} height={96} class="size-24 shrink-0 rounded-full object-cover" />
+          )}
+          <div class="min-w-0 flex-1">
+            <p class="font-display text-[20px] leading-[28px] font-bold text-navy">{item.title}</p>
+            {item.body && <p class="text-[14.4px] text-navy/70">{item.body}</p>}
+          </div>
+          {/* The card links to the person's LinkedIn, with a trailing arrow. */}
+          {item.link && (
+            <svg class="size-6 shrink-0 text-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          )}
+        </>
+      );
       return (
         <section class="bg-navy px-6 py-10">
-          <div class="mx-auto flex max-w-[1200px] flex-wrap justify-center gap-8">
-            <div class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5">
-              {portrait && (
-                <Image src={portrait} alt="" width={96} height={96} class="size-24 shrink-0 rounded-full object-cover" />
+          <div class="mx-auto max-w-[1000px] text-center">
+            {item.text && (
+              <blockquote class="text-[20px] leading-[30px] text-white">{item.text}</blockquote>
+            )}
+            <div class="mt-8 flex justify-center">
+              {item.link ? (
+                <a
+                  href={item.link}
+                  rel="noopener"
+                  target="_blank"
+                  class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5 text-left shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] transition-transform hover:scale-[1.02]"
+                >
+                  {CardInner}
+                </a>
+              ) : (
+                <div class="flex w-[384px] items-center gap-5 rounded-3xl bg-white p-5 text-left">
+                  {CardInner}
+                </div>
               )}
-              <div>
-                <p class="font-display text-[20px] leading-[28px] font-bold text-navy">{item.title}</p>
-                {item.body && <p class="text-[14.4px] text-navy/70">{item.body}</p>}
-              </div>
             </div>
           </div>
         </section>
@@ -103,12 +130,19 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
     // A narrative (or lead) section.
     const images = item.images.map(resolveImg).filter((i) => i.resolved);
 
+    // An image laid out past centre on the original (djops "Het resultaat":
+    // 588px at x=732) is a RIGHT column beside the text, not a full-width photo
+    // below it. Only applies when the section has no profile sidebar.
+    const sideImage = !item.card && images.length === 1 && (images[0].x ?? 0) > 700 ? images[0] : null;
+    const belowImages = sideImage ? [] : images;
+
     if (item.lead) {
+      const lead = item.parts[0];
       return (
         <section class="px-6 pt-[50px]" style={item.band ? `background-color:${item.band}` : undefined}>
           <div class="mx-auto max-w-[1138px] text-center">
-            <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">{item.heading}</h2>
-            {item.body.map((para) => (
+            <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">{lead.heading}</h2>
+            {lead.body.map((para) => (
               <p class="mx-auto mt-4 max-w-[900px] text-[16px] leading-[26px] text-navy">{para}</p>
             ))}
             {images.length > 0 && (
@@ -134,15 +168,21 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
         <div
           class:list={[
             'mx-auto max-w-[1200px]',
-            item.card && 'flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-[42px]',
+            (item.card || sideImage) && 'flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-[42px]',
           ]}
         >
-          <div class:list={[item.card && 'lg:w-[792px] lg:shrink-0']}>
-            <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">{item.heading}</h2>
-            {item.body.map((para) => (
-              <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+          <div class:list={[item.card && 'lg:w-[792px] lg:shrink-0', sideImage && 'lg:flex-1']}>
+            {item.parts.map((part, pi) => (
+              <>
+                <h2 class:list={['font-display text-[30px] leading-[33px] font-bold text-navy', pi > 0 && 'mt-10']}>
+                  {part.heading}
+                </h2>
+                {part.body.map((para) => (
+                  <p class="mt-4 text-[16px] leading-[26px] text-navy">{para}</p>
+                ))}
+              </>
             ))}
-            {images.map((img) => (
+            {belowImages.map((img) => (
               <Image src={img.resolved!} alt="" width={img.width} height={img.height} class="mt-8 h-auto w-full rounded-3xl" />
             ))}
             {item.quickfeat.length > 0 && (
@@ -151,6 +191,16 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
               </div>
             )}
           </div>
+
+          {sideImage && (
+            <Image
+              src={sideImage.resolved!}
+              alt=""
+              width={sideImage.width}
+              height={sideImage.height}
+              class="h-auto w-full rounded-3xl lg:w-[588px] lg:shrink-0"
+            />
+          )}
 
           {item.card && (
             <aside class="rounded-3xl bg-white p-6 shadow-[0_16px_32px_0_rgba(17,65,122,0.05)] lg:w-[282px] lg:shrink-0">
