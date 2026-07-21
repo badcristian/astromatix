@@ -5,6 +5,7 @@ import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import SearchPanel from '../components/layout/SearchPanel.astro';
 import faviconSrc from '../assets/favicon.png';
+import { SITE, INDEXABLE } from '../lib/seo';
 
 // The source is 4667x4667; generate the sizes browsers actually ask for
 // rather than shipping a 98KB PNG to every tab.
@@ -14,9 +15,16 @@ const favicon180 = await getImage({ src: faviconSrc, width: 180, height: 180, fo
 interface Props {
   title: string;
   description?: string;
+  /**
+   * Override the canonical URL. Defaults to the page's own path; the doubled
+   * /nl/nl/ klantcase routes point theirs at the clean path so the duplicate
+   * URL doesn't compete with it in search.
+   */
+  canonical?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, canonical } = Astro.props;
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site ?? SITE).href;
 ---
 
 <!doctype html>
@@ -27,14 +35,27 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/png" sizes="32x32" href={favicon32.src} />
     <link rel="apple-touch-icon" sizes="180x180" href={favicon180.src} />
 
-    {/*
-      Private pitch demo — must never be indexed.
-      Reinforced by public/robots.txt and the X-Robots-Tag in public/_headers.
-    */}
-    <meta name="robots" content="noindex, nofollow, noarchive" />
-
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonicalURL} />
+
+    {/*
+      Indexability is a deploy-target property (see src/lib/seo.ts). The demo
+      build is noindex; a production `INDEXABLE=true` build drops this tag.
+      Reinforced by the env-driven robots.txt and public/_headers.
+    */}
+    {!INDEXABLE && <meta name="robots" content="noindex, nofollow, noarchive" />}
+
+    {/* Open Graph / Twitter — parity with the original's social tags. */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jobmatix" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonicalURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
 
     {/* Set before first paint so reveal elements start hidden without a flash.
         Gating the hidden state on this class means a JS failure leaves the page

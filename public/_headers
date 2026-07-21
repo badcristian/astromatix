@@ -1,6 +1,10 @@
 # Cloudflare Workers static-assets headers.
-# Belt-and-braces with the robots.txt and the per-page noindex meta tag:
-# an indexed copy of the original site's content would compete with the
-# prospect's own pages in search results.
+#
+# GO-LIVE: the X-Robots-Tag below is the ONE indexability control the INDEXABLE
+# build flag cannot reach (a static Cloudflare config file — see src/lib/seo.ts
+# and docs/GO-LIVE.md). It is left noindex on purpose: if go-live forgets it the
+# site simply stays out of the index (a safe failure) instead of accidentally
+# indexing the clone. Step 1 of the go-live checklist is to DELETE the
+# X-Robots-Tag line below.
 /*
   X-Robots-Tag: noindex, nofollow, noarchive

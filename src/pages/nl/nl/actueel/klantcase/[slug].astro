@@ -18,6 +18,10 @@ const { entry } = Astro.props;
 const c = caseData(entry);
 ---
 
-<Base title={c.meta.title} description={c.meta.description ?? undefined}>
+<Base
+  title={c.meta.title}
+  description={c.meta.description ?? undefined}
+  canonical="/nl/actueel/klantcase/kruidvat/"
+>
   <KlantcaseArticle c={c} />
 </Base>
