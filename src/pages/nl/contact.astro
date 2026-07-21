@@ -1,25 +1,100 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/sections/PageHero.astro';
-import ContactCta from '../../components/sections/ContactCta.astro';
+import FormStub from '../../components/ui/FormStub.astro';
+import { Image } from 'astro:assets';
+import contactMap from '../../assets/contact-map.png';
 import page from '../../i18n/pages/nl-contact.json';
 
-// Contact is essentially hero + form; the original also embeds a Google Maps
-// iframe, which is deliberately omitted from the demo (third-party embed,
-// no value in a pitch, and it would load tracking).
+// Contact = hero + a TWO-COLUMN block: the form on the left, contact details on
+// the right (phone, address, a map). The right column was missing entirely —
+// the extractor lumped "Bel ons direct …" and "Of kom eens langs …" into the
+// intro block's body, and the old page rendered only the first paragraph.
+//
+// The map is a STATIC image captured from the original's Google Maps embed
+// (350×500), linked out to Maps — so we match the original visually without
+// shipping a third-party tracking iframe. (Supersedes FINDINGS.md #35's blanket
+// omission of the map — the address/phone were being dropped with it.)
 
-// Headings by content, not index — see jobadvertising.astro. headings[1] was used BOTH as the hero subtitle and as
-// the CTA title, so "Hoe kunnen we je helpen?" rendered twice. On the original
-// it appears once, over the form.
 const heading = (prefix: string) =>
   page.headings.find((h) => h.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
-const block = (prefix: string) =>
-  page.blocks?.find((b: any) => b.heading?.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
 
-const ctaBlock = block('Hoe kunnen we je helpen');
+const info = page.blocks?.find((b: any) => b.heading?.startsWith('Hoe kunnen'));
+const body: string[] = info?.body ?? [];
+
+const intro = body[0] ?? null;
+
+// "Bel ons direct 085 - 3036760" and "Of kom eens langs Willemstraat 11A 4811 AH
+// Breda" arrive as single strings — split the label from the value.
+const phoneRaw = body.find((t) => /^Bel ons direct/i.test(t)) ?? '';
+const phoneValue = phoneRaw.replace(/^Bel ons direct\s*/i, '').trim();
+const telHref = `tel:${phoneValue.replace(/\D/g, '')}`;
+
+const addrRaw = body.find((t) => /^Of kom eens langs/i.test(t)) ?? '';
+const addrValue = addrRaw.replace(/^Of kom eens langs\s*/i, '').trim();
+const addrMatch = addrValue.match(/^(.*?)\s*(\d{4}\s?[A-Z]{2}\b.*)$/);
+const street = addrMatch?.[1] ?? addrValue;
+const cityLine = addrMatch?.[2] ?? '';
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addrValue)}`;
+
+// The contact form the original shows (a HubSpot embed, so not in the scrape) —
+// labels taken from the live page.
+const contactFields = [
+  { name: 'firstname', type: 'text', label: 'Voornaam', required: true },
+  { name: 'lastname', type: 'text', label: 'Achternaam', required: true },
+  { name: 'email', type: 'email', label: 'Email', required: true },
+  { name: 'phone', type: 'tel', label: 'Telefoonnummer', required: true },
+  { name: 'message', type: 'textarea', label: 'Jouw bericht', required: false },
+];
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
   <PageHero title={heading("Let's get in touch") ?? 'Contact'} subtitle={null} />
-  <ContactCta title={ctaBlock?.heading ?? 'Hoe kunnen we je helpen?'} intro={ctaBlock?.body?.[0] ?? null} />
+
+  <section class="px-6 py-16">
+    <div class="mx-auto grid max-w-[1200px] gap-12 lg:grid-cols-[1fr_360px]">
+      {/* --- left: heading + intro + form --- */}
+      <div>
+        <h2 class="font-display text-[40px] leading-[48px] font-bold text-navy">
+          {info?.heading ?? 'Hoe kunnen we je helpen?'}
+        </h2>
+        {intro && (
+          <p class="mt-5 max-w-[600px] text-[16px] leading-[24px] text-navy">{intro}</p>
+        )}
+        <div class="mt-8">
+          <FormStub fields={contactFields} submitLabel="Verzenden" />
+        </div>
+      </div>
+
+      {/* --- right: phone, address, map --- */}
+      <aside class="text-navy">
+        {phoneValue && (
+          <div>
+            <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">Bel ons direct</h3>
+            <a href={telHref} class="mt-1 inline-block text-[16px] text-navy hover:text-orange">{phoneValue}</a>
+          </div>
+        )}
+
+        {addrValue && (
+          <div class="mt-8">
+            <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">Of kom eens langs</h3>
+            <p class="mt-1 text-[16px] leading-[24px] text-navy">
+              {street}
+              {cityLine && (<>{' '}<br />{cityLine}</>)}
+            </p>
+          </div>
+        )}
+
+        <a
+          href={mapsHref}
+          target="_blank"
+          rel="noopener"
+          class="mt-6 block w-full max-w-[350px] overflow-hidden rounded-2xl transition-opacity hover:opacity-90"
+          aria-label="Openen in Google Maps"
+        >
+          <Image src={contactMap} alt="Kaart: Willemstraat 11A, 4811 AH Breda" width={350} height={500} class="h-auto w-full" />
+        </a>
+      </aside>
+    </div>
+  </section>
 </Base>

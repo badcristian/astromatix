@@ -1,35 +1,47 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/sections/PageHero.astro';
-import FeatureBand from '../../components/sections/FeatureBand.astro';
 import FeatureCard from '../../components/ui/FeatureCard.astro';
-import ContactCta from '../../components/sections/ContactCta.astro';
+import CtaStrip from '../../components/sections/CtaStrip.astro';
 import Reveal from '../../components/ui/Reveal.astro';
 import Timeline from '../../components/ui/Timeline.astro';
 import { Image } from 'astro:assets';
 import { resolveIcon } from '../../lib/icons';
 import page from '../../i18n/pages/nl-over-ons.json';
 import { ctaHeading } from '../../lib/cta';
-import { bandFor, heroBand } from '../../lib/bands';
+import { bandFor } from '../../lib/bands';
 
-// No <h1> on the original — rendered here deliberately.
-const bandIcons = ['download', 'expand', 'send', 'arrow'] as const;
-const band = page.properties.map((p, i) => ({ icon: bandIcons[i % 4], label: p.label }));
+// Structure on the original (top → bottom):
+//   hero        navy band, TITLE ONLY
+//   intro       white, two-column: text + 3 stats LEFT, team photo RIGHT
+//   kernwaarden FOG band, intro + 3 value cards
+//   ons verhaal WHITE band, intro + timeline
+//   cta         navy strip, heading + "Bekijk alle vacatures" (ABOVE the quote)
+//   quote       white, Koen Blokland portrait + testimonial
+//
+// The old version dumped the intro copy into the hero (making it too tall),
+// rendered the CTA as a FormStub (the page has no form) below the quote, and
+// swapped the kernwaarden/timeline band colours.
 
-// Headings by content, not index — see jobadvertising.astro. The hero SUBTITLE was reading headings[2], which is the
-// "Ons verhaal" section heading further down the page — the same string then
-// rendered twice. The hero's real supporting copy is the body under its own
-// heading.
-const heading = (prefix: string) =>
-  page.headings.find((h) => h.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
 const block = (prefix: string) =>
   page.blocks?.find((b: any) => b.heading?.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
+const heading = (prefix: string) =>
+  page.headings.find((h) => h.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
 
 const heroBlock = block('Alles over Jobmatix');
 
-// Two content photos the page carries that were not rendered: a team photo in
-// the intro (384x307, under "Alles over Jobmatix") and a portrait beside the
-// closing quote (384x384, under "Maak deel uit…").
+// Intro paragraphs. The original sets a bold "Over ons" / "Onze missie" lead-in
+// on its own line; the extractor flattened it into the sentence, so split it
+// back out.
+const LEADS = ['Over ons', 'Onze missie'];
+const introParas = (heroBlock?.body ?? []).map((para: string) => {
+  const lead = LEADS.find((l) => para.startsWith(l + ' '));
+  return lead ? { lead, rest: para.slice(lead.length + 1) } : { lead: null, rest: para };
+});
+
+// The 3 stats beside the intro, each with its own inline-SVG glyph.
+const stats = (page.properties ?? []).map((p: any) => ({ label: p.label, iconSvg: p.iconSvg }));
+
 const introImage = (() => {
   const hit = (page.contentImages ?? []).find(
     (i: any) => i.afterHeading?.startsWith('Alles over') && i.width > 300,
@@ -37,6 +49,16 @@ const introImage = (() => {
   const r = resolveIcon(hit?.src);
   return r ? { ...hit, resolved: r } : null;
 })();
+
+const kernwaardenIntro = block('Onze kernwaarden')?.body?.[0] ?? null;
+const verhaalIntro = block('Ons verhaal')?.body?.[0] ?? null;
+const kernwaardenBand = bandFor(page, 'Onze kernwaarden') ?? '#f8f9fb';
+
+const ctaBtn = (page.buttons ?? []).find((b: any) => /vacatures/i.test(b.label)) ?? {
+  label: 'Bekijk alle vacatures',
+  href: '/nl/over-ons/werken-bij',
+};
+
 const quoteBlock = block('"De positieve reacties');
 const quoteImage = (() => {
   const hit = (page.contentImages ?? []).find(
@@ -48,28 +70,60 @@ const quoteImage = (() => {
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={heroBlock?.heading ?? 'Over ons'} subtitle={heroBlock?.body?.[0] ?? null} />
-  {band.length > 0 && <FeatureBand items={band} />}
+  {/* Hero: navy band, title only. */}
+  <PageHero title={heroBlock?.heading ?? 'Over ons'} subtitle={null} />
 
-  {introImage && (
-    <section class="px-6 pt-12">
-      <div class="mx-auto max-w-[1200px]">
+  {/* Intro: text + stats LEFT, team photo RIGHT. */}
+  <section class="px-6 py-16">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12 lg:flex-row lg:items-start lg:gap-16">
+      <div class="lg:flex-1">
+        {introParas.map((p) => (
+          <p class="mb-4 text-[16px] leading-[26px] text-navy">
+            {p.lead && <strong class="font-display font-bold">{p.lead}</strong>}
+            {p.lead && <br />}
+            {p.rest}
+          </p>
+        ))}
+        {stats.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+            {stats.map((s) => (
+              <div class="flex items-center gap-3">
+                {s.iconSvg && (
+                  // Build-time markup we extracted ourselves, not user input.
+                  <span
+                    class="flex size-11 shrink-0 items-center justify-center rounded-full bg-lilac/25 text-navy [&>svg]:size-6 [&>svg]:fill-current"
+                    set:html={s.iconSvg}
+                  />
+                )}
+                <span class="font-display text-[16px] font-bold text-navy">{s.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      {introImage && (
         <Image
           src={introImage.resolved}
           alt=""
           width={introImage.width}
           height={introImage.height}
-          class="mx-auto h-auto w-full max-w-[900px] rounded-3xl"
+          class="h-auto w-full rounded-3xl lg:w-[420px] lg:shrink-0"
         />
-      </div>
-    </section>
-  )}
+      )}
+    </div>
+  </section>
 
-  <section class="px-6 py-24">
+  {/* Onze kernwaarden — FOG band, intro + 3 value cards. */}
+  <section class="px-6 py-20" style={`background-color:${kernwaardenBand}`}>
     <div class="mx-auto max-w-[1200px]">
       <h2 class="text-center font-display text-[30px] leading-[33px] font-bold text-navy">
         {heading('Onze kernwaarden') ?? ''}
       </h2>
+      {kernwaardenIntro && (
+        <p class="mx-auto mt-4 max-w-[820px] text-center text-[16px] leading-[26px] text-navy">
+          {kernwaardenIntro}
+        </p>
+      )}
       <Reveal variant="zoom" duration={1000} class="mt-11 flex flex-wrap justify-center -mx-3">
         {page.featureCards.map((card) => (
           <div class="w-full px-3 md:w-1/2 lg:w-1/3">
@@ -79,18 +133,28 @@ const quoteImage = (() => {
       </Reveal>
     </div>
   </section>
-    {/* fog (#f8f9fb) on the original, not mist. */}
+
+  {/* Ons verhaal — WHITE band, intro + timeline. */}
   {page.timeline && (
-    <section class="px-6 py-[50px]" style={`background-color:${bandFor(page, 'Onze kernwaarden') ?? '#f8f9fb'}`}>
+    <section class="bg-white px-6 py-[50px]">
       <div class="mx-auto max-w-[1200px]">
-        <h2 class="mb-10 text-center font-display text-[30px] leading-[38px] font-bold text-navy">
+        <h2 class="text-center font-display text-[30px] leading-[38px] font-bold text-navy">
           {heading('Ons verhaal') ?? 'Ons verhaal'}
         </h2>
+        {verhaalIntro && (
+          <p class="mx-auto mt-3 mb-10 max-w-[820px] text-center text-[16px] leading-[26px] text-navy">
+            {verhaalIntro}
+          </p>
+        )}
         <Timeline items={page.timeline} />
       </div>
     </section>
   )}
 
+  {/* CTA — navy strip, heading + "Bekijk alle vacatures", ABOVE the quote. */}
+  <CtaStrip heading={ctaHeading(page, 'over-ons')} cta={ctaBtn} />
+
+  {/* Quote — Koen Blokland. */}
   {quoteBlock?.body?.[0] && (
     <section class="px-6 py-16">
       <figure class="mx-auto flex max-w-[1000px] flex-col items-center gap-8 lg:flex-row">
@@ -110,6 +174,4 @@ const quoteImage = (() => {
       </figure>
     </section>
   )}
-
-  <ContactCta title={ctaHeading(page, "over-ons")} intro={null} band={bandFor(page, "Maak deel uit")} />
 </Base>
