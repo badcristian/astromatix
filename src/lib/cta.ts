@@ -18,9 +18,19 @@
 // rather than a silent substitution. This helper supplies it from the page's
 // own extracted data.
 
-export function ctaHeading(pageData: any, slug = 'page'): string {
-  const headings = (pageData?.blocks ?? []).filter((b: any) => b.module === 'heading');
-  const title = headings.at(-1)?.heading;
+interface HeadingBlock {
+  module?: string;
+  heading?: string;
+  body?: string[];
+}
+
+/** The last heading module on the page — the closing CTA's heading + intro live here. */
+function lastHeading(pageData: { blocks?: HeadingBlock[] }): HeadingBlock | undefined {
+  return (pageData.blocks ?? []).filter((b) => b.module === 'heading').at(-1);
+}
+
+export function ctaHeading(pageData: { blocks?: HeadingBlock[] }, slug = 'page'): string {
+  const title = lastHeading(pageData)?.heading;
   if (!title) {
     throw new Error(
       `[${slug}] no CTA heading found in blocks — pass an explicit title to ContactCta ` +
@@ -31,7 +41,6 @@ export function ctaHeading(pageData: any, slug = 'page'): string {
 }
 
 /** The paragraph under the CTA heading, if the page has one. */
-export function ctaIntro(pageData: any): string | null {
-  const headings = (pageData?.blocks ?? []).filter((b: any) => b.module === 'heading');
-  return headings.at(-1)?.body?.[0] ?? null;
+export function ctaIntro(pageData: { blocks?: HeadingBlock[] }): string | null {
+  return lastHeading(pageData)?.body?.[0] ?? null;
 }

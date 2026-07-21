@@ -3,10 +3,93 @@
 // Kept out of the .astro file because two of the six live at doubled /nl/nl/
 // paths on the original and therefore need their own routes, so this mapping
 // is used from more than one place.
+//
+// caseData() is a thin orchestrator; the real work lives in the small named
+// helpers below it (strip-set, render list, merge pass, hero fallback).
 
-const pages = import.meta.glob<{ default: any }>('../i18n/pages/*klantcase*.json', {
+import { nonWhite } from './bands';
+
+// --- extractor JSON shape -------------------------------------------------
+// The scraped page JSON has a stable but wide shape (many optional, per-block
+// fields), so one permissive interface documents the contract without a
+// discriminated union that would fight every heterogeneous `order` access.
+
+interface HeroPart {
+  text: string;
+  fontSize: string;
+  color: string;
+}
+
+interface OrderBlock {
+  type: 'heading' | 'image' | 'featureCard' | 'quickfeat' | 'compactCard';
+  module?: string;
+  heading?: string;
+  /** heading/lead: an array of lines. compactCard/featureCard: a single string. */
+  body?: string[] | string;
+  y?: number;
+  // image
+  src?: string;
+  width?: number;
+  height?: number;
+  x?: number;
+  // featureCard / compactCard
+  title?: string;
+  // quickfeat
+  items?: unknown[];
+  // compactCard
+  quote?: string | null;
+  image?: string | null;
+  link?: string | null;
+}
+
+interface ExtractorDoc {
+  meta?: unknown;
+  blocks?: OrderBlock[];
+  order?: OrderBlock[];
+  sectionBands?: { heading: string | null; color: string | null }[];
+  bandQuote?: { text: string } | null;
+  hero?: { title?: string; parts?: HeroPart[]; background?: string | null };
+  properties?: { label: string; iconSvg: string }[];
+  forms?: { fields?: unknown[]; submitLabel?: string | null }[];
+}
+
+const pages = import.meta.glob<{ default: ExtractorDoc }>('../i18n/pages/*klantcase*.json', {
   eager: true,
 });
+
+// --- render list shapes ---------------------------------------------------
+
+interface RenderImage {
+  src: string;
+  width: number;
+  height: number;
+  x?: number;
+  y?: number;
+}
+
+interface Section {
+  kind: 'section';
+  // A section can stack several heading+body pairs in its text column — djops
+  // groups "Het resultaat" and "Toekomstvisie" beside one right-hand photo.
+  parts: { heading: string; body: string[] }[];
+  band: string | null;
+  images: RenderImage[];
+  card: { title: string; body: string } | null;
+  quickfeat: unknown[];
+  lead: boolean;
+  y: number;
+}
+
+interface Quote {
+  kind: 'quote';
+  title: string;
+  body: string;
+  image: string | null;
+  text: string | null;
+  link: string | null;
+}
+
+type RenderItem = Section | Quote;
 
 export interface Klantcase {
   /** Route slug under /nl/actueel/klantcase/. */
@@ -28,99 +111,113 @@ export const KLANTCASES: Klantcase[] = [
   { slug: 'dhl-express', file: 'nl-nl-klantcase-dhl-express' },
 ];
 
+// A page with TWO person cards but only one extracted bandQuote leaves the
+// second card without its pull-quote (dhl-express's Lonneke card is the only
+// such gap — the extractor stored an empty `quote` for both cards and just one
+// bandQuote, which the first card claims). Supply the missing copy byte-exact
+// from the original, keyed by name.
+const EXTRA_QUOTES: Record<string, string> = {
+  'Lonneke Schagen-Eelman':
+    '“Het Jobmatix platform is een belangrijk onderdeel van onze recruitmentstrategie. We bereiken nu veel meer sollicitanten, met aanzienlijk minder advertentiebudget.”',
+};
+
+/** Fold quotation marks and whitespace away so near-duplicate quotes compare equal. */
+const norm = (s: string) => s.replace(/[“”"'‘’]/g, '').replace(/\s+/g, ' ').trim();
+
 export function caseData(entry: Klantcase) {
   const key = Object.keys(pages).find((p) => p.endsWith(`/${entry.file}.json`));
   if (!key) throw new Error(`No extractor output for klantcase "${entry.slug}" (${entry.file}.json)`);
   const d = pages[key].default;
 
-  const blocks: any[] = d.blocks ?? [];
+  const order = d.order ?? [];
 
-  // Band colour per section, from the extracted sectionBands (matched on the
-  // heading it sits under). null → plain white. So each narrative section wears
-  // the exact colour the original gives it, faam and djops alike.
-  const bandColor = (heading: string): string | null => {
-    const bands: any[] = d.sectionBands ?? [];
-    const hit = bands.find((b) => b.heading && heading.startsWith(b.heading));
-    const c = hit?.color ?? null;
-    return c && c.replace(/\s/g, '') !== 'rgb(255,255,255)' ? c : null;
-  };
-
-  const headingBlocks = blocks.filter((b) => b.module === 'heading');
-  const cta = headingBlocks.at(-1) ?? null;
-
-  // --- render list, built from the full document ORDER ----------------------
-  //
-  // The per-type arrays cannot express how the block kinds interleave, and the
-  // klantcases interleave quote cards between narrative sections (djops:
-  // Uitdaging, quote, De oplossing, Het resultaat, quote). d.order is the exact
-  // document sequence; we group it into render items:
-  //
-  //   lead      the first heading module — a centred headline + intro + the
-  //             row of square sector tiles that follow it
-  //   section   a narrative heading + its body + any images below it, and — if
-  //             a feature-card follows — that card as a right-hand sidebar
-  //   quote     a compact-card (person + quote), on its own navy band
-  //   quickfeat the how-we-did-it grid, attached to the section it follows
-  //
-  // Skipped: the leading rtext hero headings (the hero renders them) and the
-  // final "Get the job done" heading (ContactCta renders it).
-  const order: any[] = d.order ?? [];
+  // The closing "Get the job done" heading is the last heading module; the hero
+  // renders the rest. ContactCta renders this one, so the render list skips it.
+  const cta = (d.blocks ?? []).filter((b) => b.module === 'heading').at(-1) ?? null;
   const ctaHeading = cta?.heading ?? null;
 
-  // The pull-quote above the person card lives in its own `bandQuote` field (the
-  // compactCard's own `quote` is null) — and the extractor ALSO leaves a copy in
-  // the preceding "Resultaat" section body. Feed it to the quote card and strip
-  // the duplicate from the narrative.
-  const bandQuote: string | null = d.bandQuote?.text ?? null;
-  const norm = (s: string) => s.replace(/[“”"'‘’]/g, '').replace(/\s+/g, ' ').trim();
-  let bandQuoteUsed = false;
+  // The pull-quote above a person card lives in `bandQuote` (the compactCard's
+  // own `quote` is often null) and the extractor ALSO leaves a copy in the
+  // preceding "Resultaat" body. Strip every quote from the narrative bodies.
+  const bandQuote = d.bandQuote?.text ?? null;
+  const stripQuotes = buildStripQuotes(order, bandQuote);
 
-  // A page with TWO person cards but only one extracted bandQuote leaves the
-  // second card without its pull-quote (dhl-express's Lonneke card is the only
-  // such gap — the extractor stored an empty `quote` for both cards and just one
-  // bandQuote, which the first card claims). Supply the missing copy byte-exact
-  // from the original, keyed by name.
-  const EXTRA_QUOTES: Record<string, string> = {
-    'Lonneke Schagen-Eelman':
-      '“Het Jobmatix platform is een belangrijk onderdeel van onze recruitmentstrategie. We bereiken nu veel meer sollicitanten, met aanzienlijk minder advertentiebudget.”',
+  // Band colour per section, from the extracted sectionBands (matched on the
+  // heading it sits under). null → plain white, so each narrative section wears
+  // the exact colour the original gives it. NOTE the match is heading-starts-
+  // with-band (case-sensitive) — deliberately unlike bands.ts's bandFor.
+  const bandColor = (heading: string): string | null =>
+    nonWhite((d.sectionBands ?? []).find((b) => b.heading && heading.startsWith(b.heading))?.color);
+
+  const render = buildRenderList(order, { ctaHeading, bandQuote, stripQuotes, bandColor });
+  mergeMedialessSections(render);
+
+  const heroParts = (d.hero?.parts ?? []) as HeroPart[];
+  const { heroCentered, heroSubtitle } = resolveHero(heroParts, order);
+
+  return {
+    meta: d.meta,
+    title: d.hero?.title ?? entry.slug,
+    // The <h1> holds two differently-styled spans: the client name large and
+    // white, the case headline smaller and lilac.
+    heroParts,
+    // djops: centred hero + a lilac subtitle line under the white title.
+    heroCentered,
+    heroSubtitle,
+    heroBackground: d.hero?.background ?? null,
+    // Each tag carries an inline SVG glyph, not an <img>.
+    tags: (d.properties ?? []).map((p) => ({ label: p.label, iconSvg: p.iconSvg })),
+    render,
+    ctaTitle: ctaHeading,
+    ctaIntro: (cta?.body as string[] | undefined)?.[0] ?? null,
+    // The page's OWN closing form — the klantcases require the message field
+    // ("Jouw bericht *") and use their own labels, unlike the generic home
+    // form the shared ContactCta falls back to.
+    formFields: (d.forms?.[0]?.fields ?? null) as unknown[] | null,
+    formSubmitLabel: d.forms?.[0]?.submitLabel ?? null,
   };
+}
 
-  // Every quote that ends up on a card also tends to be duplicated into a nearby
-  // narrative body ("Resultaat"/"Toekomstvisie"); collect them all so the body
-  // filter strips each one, not only the bandQuote.
-  const stripQuotes = new Set<string>();
-  if (bandQuote) stripQuotes.add(norm(bandQuote));
+/**
+ * The set of normalized quote texts to strip from narrative bodies: the
+ * bandQuote plus every card quote (extractor-stored or from EXTRA_QUOTES).
+ */
+function buildStripQuotes(order: OrderBlock[], bandQuote: string | null): Set<string> {
+  const set = new Set<string>();
+  if (bandQuote) set.add(norm(bandQuote));
   for (const b of order) {
     if (b.type !== 'compactCard') continue;
-    if (b.quote) stripQuotes.add(norm(b.quote));
-    else if (EXTRA_QUOTES[b.title]) stripQuotes.add(norm(EXTRA_QUOTES[b.title]));
+    if (b.quote) set.add(norm(b.quote));
+    else if (b.title && EXTRA_QUOTES[b.title]) set.add(norm(EXTRA_QUOTES[b.title]));
   }
+  return set;
+}
 
-  type Section = {
-    kind: 'section';
-    // A section can stack several heading+body pairs in its text column — djops
-    // groups "Het resultaat" and "Toekomstvisie" beside one right-hand photo.
-    parts: { heading: string; body: string[] }[];
-    band: string | null;
-    images: { src: string; width: number; height: number; x?: number }[];
-    card: { title: string; body: string } | null;
-    quickfeat: any[];
-    lead: boolean;
-    y: number;
-  };
-  const render: (
-    | Section
-    | {
-        kind: 'quote';
-        title: string;
-        body: string;
-        image: string | null;
-        text: string | null;
-        link: string | null;
-      }
-  )[] = [];
-
+/**
+ * Group the flat document `order` into the render list, preserving the exact
+ * sequence the block kinds interleave in (djops runs section → quote → section
+ * → section → quote). Each heading absorbs the images / feature-card / quickfeat
+ * that follow it until the next heading or quote.
+ *
+ * Skipped: the leading rtext hero headings (the hero renders them) and the
+ * final "Get the job done" heading (ContactCta renders it).
+ */
+function buildRenderList(
+  order: OrderBlock[],
+  opts: {
+    ctaHeading: string | null;
+    bandQuote: string | null;
+    stripQuotes: Set<string>;
+    bandColor: (heading: string) => string | null;
+  },
+): RenderItem[] {
+  const { ctaHeading, bandQuote, stripQuotes, bandColor } = opts;
+  const render: RenderItem[] = [];
   let leadSeen = false;
+  // The first quote-less card claims the lone bandQuote; any later card without
+  // its own quote then gets null (a two-card page has its own EXTRA_QUOTES entry).
+  let bandQuoteUsed = false;
+
   for (let i = 0; i < order.length; i++) {
     const b = order[i];
 
@@ -132,39 +229,42 @@ export function caseData(entry: Klantcase) {
 
       const section: Section = {
         kind: 'section',
-        parts: [{
-          heading: b.heading,
-          body: (b.body ?? []).filter((x: string) => !stripQuotes.has(norm(x))),
-        }],
-        band: bandColor(b.heading),
+        parts: [
+          {
+            heading: b.heading ?? '',
+            body: ((b.body ?? []) as string[]).filter((x) => !stripQuotes.has(norm(x))),
+          },
+        ],
+        band: bandColor(b.heading ?? ''),
         images: [],
         card: null,
         quickfeat: [],
         lead: isLead,
         y: b.y ?? 0,
       };
+
       // Absorb following images / feature-card / quickfeat until the next
       // heading or quote — those belong to this section.
       let j = i + 1;
       for (; j < order.length; j++) {
         const n = order[j];
         if (n.type === 'heading' || n.type === 'compactCard') break;
-        if (n.type === 'image') section.images.push(n);
+        if (n.type === 'image') section.images.push(n as RenderImage);
         else if (n.type === 'featureCard' && n.title)
-          section.card = { title: n.title, body: n.body ?? '' };
+          section.card = { title: n.title, body: (n.body ?? '') as string };
         else if (n.type === 'quickfeat') section.quickfeat = n.items ?? [];
       }
       i = j - 1;
       render.push(section);
     } else if (b.type === 'compactCard') {
-      const extra = EXTRA_QUOTES[b.title] ?? null;
-      const text = b.quote ?? extra ?? (bandQuoteUsed ? null : bandQuote);
+      const extra = (b.title && EXTRA_QUOTES[b.title]) || null;
+      const text = (b.quote ?? extra ?? (bandQuoteUsed ? null : bandQuote)) as string | null;
       if (!b.quote && !extra && bandQuote) bandQuoteUsed = true;
       render.push({
         kind: 'quote',
-        title: b.title,
-        body: b.body,
-        image: b.image,
+        title: b.title ?? '',
+        body: (b.body ?? '') as string,
+        image: b.image ?? null,
         text,
         link: b.link ?? null,
       });
@@ -173,14 +273,21 @@ export function caseData(entry: Klantcase) {
     // tags band above; ignore them here.
   }
 
-  // Merge pass: a section whose single image is laid out past centre (a RIGHT
-  // column, x > 700) absorbs the immediately-preceding media-less sections into
-  // its text column — djops renders "Het resultaat" and "Toekomstvisie" beside
-  // one photo, and the photo trails Toekomstvisie in the DOM. Non-lead only.
-  const isMedialess = (s: any) =>
+  return render;
+}
+
+/**
+ * A section whose single image is laid out past centre (a RIGHT column, x > 700)
+ * absorbs the immediately-preceding media-less sections into its text column —
+ * djops renders "Het resultaat" and "Toekomstvisie" beside one photo, and the
+ * photo trails Toekomstvisie in the DOM. Non-lead only. Mutates `render`.
+ */
+function mergeMedialessSections(render: RenderItem[]): void {
+  const isMedialess = (s: RenderItem): s is Section =>
     s.kind === 'section' && !s.lead && !s.card && s.images.length === 0 && s.quickfeat.length === 0;
+
   for (let i = render.length - 1; i >= 1; i--) {
-    const s = render[i] as any;
+    const s = render[i];
     if (s.kind !== 'section' || s.lead || s.card) continue;
     const rightImage = s.images.length === 1 && (s.images[0].x ?? 0) > 700;
     if (!rightImage) continue;
@@ -197,35 +304,20 @@ export function caseData(entry: Klantcase) {
       i--;
     }
   }
+}
 
-  // djops expresses its hero as two CENTRED rtext blocks — a 60px white title
-  // and a 20px lilac subtitle — instead of the left-aligned hero.parts the other
-  // cases use. When parts is empty, fall back to those rtext lines and centre.
+/**
+ * djops expresses its hero as two CENTRED rtext blocks — a 60px white title and
+ * a 20px lilac subtitle — instead of the left-aligned hero.parts the other cases
+ * use. When parts is empty, fall back to those rtext lines and centre.
+ */
+function resolveHero(
+  heroParts: HeroPart[],
+  order: OrderBlock[],
+): { heroCentered: boolean; heroSubtitle: string | null } {
   const rtextHeads = order
-    .filter((b: any) => b.type === 'heading' && b.module === 'rtext')
-    .map((b: any) => b.heading as string);
-  const heroCentered = (d.hero?.parts ?? []).length === 0 && rtextHeads.length >= 2;
-  const heroSubtitle: string | null = heroCentered ? (rtextHeads[1] ?? null) : null;
-
-  return {
-    meta: d.meta,
-    title: d.hero?.title ?? entry.slug,
-    // The <h1> holds two differently-styled spans: the client name large and
-    // white, the case headline smaller and lilac.
-    heroParts: (d.hero?.parts ?? []) as { text: string; fontSize: string; color: string }[],
-    // djops: centred hero + a lilac subtitle line under the white title.
-    heroCentered,
-    heroSubtitle,
-    heroBackground: (d.hero?.background ?? null) as string | null,
-    // Each tag carries an inline SVG glyph, not an <img>.
-    tags: (d.properties ?? []).map((p: any) => ({ label: p.label, iconSvg: p.iconSvg })),
-    render,
-    ctaTitle: cta?.heading ?? null,
-    ctaIntro: cta?.body?.[0] ?? null,
-    // The page's OWN closing form — the klantcases require the message field
-    // ("Jouw bericht *") and use their own labels, unlike the generic home
-    // form the shared ContactCta falls back to.
-    formFields: (d.forms?.[0]?.fields ?? null) as any[] | null,
-    formSubmitLabel: (d.forms?.[0]?.submitLabel ?? null) as string | null,
-  };
+    .filter((b) => b.type === 'heading' && b.module === 'rtext')
+    .map((b) => b.heading ?? '');
+  const heroCentered = heroParts.length === 0 && rtextHeads.length >= 2;
+  return { heroCentered, heroSubtitle: heroCentered ? rtextHeads[1] ?? null : null };
 }

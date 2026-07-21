@@ -13,28 +13,37 @@
 // Hard-coding a class per component shipped the wrong colour on five pages, so
 // the extractor records the resolved paint and templates read it.
 
-interface Band {
+export interface Band {
   color: string | null;
   heading: string | null;
+}
+
+interface BandedPage {
+  sectionBands?: Band[];
+}
+
+/**
+ * White is the page default, so a section painted white is really unbanded;
+ * returning it would draw a band that isn't there. Collapses white → null and
+ * passes any real colour through. Shared by every band lookup here and by
+ * klantcases.ts, which resolves bands the same way.
+ */
+export function nonWhite(color: string | null | undefined): string | null {
+  return color && color.replace(/\s/g, '') !== 'rgb(255,255,255)' ? color : null;
 }
 
 /**
  * The band colour behind the section whose heading starts with `prefix`,
  * or null when that section is unbanded (i.e. plain white).
  */
-export function bandFor(pageData: any, prefix: string): string | null {
-  const bands: Band[] = pageData?.sectionBands ?? [];
-  const hit = bands.find((b) =>
+export function bandFor(pageData: BandedPage, prefix: string): string | null {
+  const hit = (pageData.sectionBands ?? []).find((b) =>
     b.heading?.toLowerCase().startsWith(prefix.toLowerCase()),
   );
-  const c = hit?.color ?? null;
-  // White is the page default; returning it would paint a band that is not one.
-  return c && c.replace(/\s/g, '') !== 'rgb(255,255,255)' ? c : null;
+  return nonWhite(hit?.color);
 }
 
 /** The hero band — the first recorded band on the page. */
-export function heroBand(pageData: any): string | null {
-  const bands: Band[] = pageData?.sectionBands ?? [];
-  const c = bands[0]?.color ?? null;
-  return c && c.replace(/\s/g, '') !== 'rgb(255,255,255)' ? c : null;
+export function heroBand(pageData: BandedPage): string | null {
+  return nonWhite((pageData.sectionBands ?? [])[0]?.color);
 }
