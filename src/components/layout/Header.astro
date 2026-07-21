@@ -32,7 +32,7 @@ const isCurrent = (href?: string) => !!href && here === href.replace(/\/$/, '');
             <a
               href={item.href}
               aria-current={isCurrent(item.href) ? 'page' : undefined}
-              class="flex items-center gap-1 text-[20px] leading-[28px] text-navy transition-opacity hover:opacity-70 aria-[current=page]:font-bold"
+              class="nav-top flex items-center gap-1 text-[20px] leading-[28px] text-navy transition-opacity hover:opacity-70 aria-[current=page]:font-bold"
             >
               {item.label}
               {item.children && <span class="chevron" aria-hidden="true" />}
@@ -157,6 +157,21 @@ const isCurrent = (href?: string) => !!href && here === href.replace(/\/$/, '');
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
     transform: rotate(45deg) translateY(-0.15em);
+  }
+
+  /* The current top-level page (e.g. Actueel) gets an underline on the
+     original — a short navy rule under the label. */
+  .nav-top {
+    position: relative;
+  }
+  .nav-top[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background: var(--color-navy);
   }
 </style>
 

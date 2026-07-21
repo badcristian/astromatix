@@ -22,8 +22,22 @@ interface Props {
   band?: string | null;
   /** Anchor id, so in-page CTAs (jobboost's pricing buttons) can scroll here. */
   id?: string;
+  /**
+   * Override the form fields. Defaults to the shared homepage form, but pages
+   * with their own form shape pass it — jobboost adds a "Welke boost past bij
+   * jou?" checkbox group (Small / Medium / Large) the generic form lacks.
+   */
+  fields?: any[];
+  submitLabel?: string;
 }
-const { title, intro = null, band = null, id } = Astro.props;
+const {
+  title,
+  intro = null,
+  band = null,
+  id,
+  fields = copy.contactCta.fields,
+  submitLabel = copy.contactCta.submitLabel,
+} = Astro.props;
 
 // Navy bands need light text; the light bands keep navy text.
 const onDark = !!band && /rgb\(\s*17,\s*(65|29)/.test(band);
@@ -56,7 +70,7 @@ const onDark = !!band && /rgb\(\s*17,\s*(65|29)/.test(band);
     <div class="mt-11">
       {/* Field set is identical across pages on the original, so it stays
           sourced from the homepage extraction rather than duplicated. */}
-      <FormStub fields={copy.contactCta.fields} submitLabel={copy.contactCta.submitLabel} />
+      <FormStub fields={fields} submitLabel={submitLabel} />
     </div>
   </div>
 </section>

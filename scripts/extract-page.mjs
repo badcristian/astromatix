@@ -674,6 +674,19 @@ const data = await page.evaluate(() => {
           label: text(f.querySelector(`label[for="${el.id}"]`)) || null,
           placeholder: el.getAttribute('placeholder') || null,
           required: el.hasAttribute('required'),
+          // For a checkbox/radio, capture the option's own label and the
+          // group legend so a group like "Welke boost past bij jou?" (Small /
+          // Medium / Large) can be rendered as a labelled set, not five loose
+          // inputs. HubSpot wraps each option in an <li class="hs-form-*"> and
+          // the group in a .hs-form-field whose <label>/<legend> is the legend.
+          option: /^(checkbox|radio)$/.test(el.getAttribute('type') ?? '')
+            ? text(el.closest('li')?.querySelector('label') ?? el.parentElement)
+            : null,
+          group: /^(checkbox|radio)$/.test(el.getAttribute('type') ?? '')
+            ? text(
+                el.closest('.hs-form-field, fieldset')?.querySelector(':scope > label, legend'),
+              ) || null
+            : null,
         })),
     })),
   };

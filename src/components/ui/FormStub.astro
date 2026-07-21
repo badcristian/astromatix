@@ -23,6 +23,9 @@ interface Field {
   type: string;
   label: string;
   required: boolean;
+  /** For a checkbox/radio: this option's label and the group legend. */
+  option?: string | null;
+  group?: string | null;
 }
 
 interface Props {
@@ -31,6 +34,21 @@ interface Props {
 }
 
 const { fields, submitLabel } = Astro.props;
+
+// Checkbox/radio groups (jobboost's "Welke boost past bij jou?" — Small /
+// Medium / Large) render as ONE labelled set of pill options, not as loose
+// inputs. Grouped by field name so a multi-option group collapses to a single
+// control. Everything else flows through the normal field layout.
+const choiceFields = fields.filter((f) => f.type === 'checkbox' || f.type === 'radio');
+const choiceGroups = [...new Set(choiceFields.map((f) => f.name))].map((name) => {
+  const items = choiceFields.filter((f) => f.name === name);
+  return {
+    name,
+    legend: items.find((f) => f.group)?.group ?? null,
+    type: items[0].type,
+    options: items.map((f) => f.option || f.label).filter(Boolean),
+  };
+});
 
 // Measured on the original: 12px radius plus a soft navy shadow,
 // TWO stacked shadows: rgba(17,65,122,0.05) at 0 8px 16px and again at
@@ -50,8 +68,9 @@ const textareaClass = `w-full rounded-[12px] p-[14.56px] ${fieldChrome}`;
 
 // The original pairs firstname/lastname and phone/email side by side.
 const paired = new Set(['firstname', 'lastname', 'phone', 'email']);
+const isChoice = (f: Field) => f.type === 'checkbox' || f.type === 'radio';
 const textareas = fields.filter((f) => f.type === 'textarea');
-const singles = fields.filter((f) => f.type !== 'textarea' && !paired.has(f.name));
+const singles = fields.filter((f) => f.type !== 'textarea' && !paired.has(f.name) && !isChoice(f));
 const pairs = fields.filter((f) => paired.has(f.name));
 ---
 
@@ -86,6 +105,29 @@ const pairs = fields.filter((f) => paired.has(f.name));
       </div>
     ))}
   </div>
+
+  {choiceGroups.map((group) => (
+    <fieldset class="mb-6">
+      {group.legend && (
+        <legend class="mb-2 block text-[16px] text-navy">{group.legend}</legend>
+      )}
+      <div class="flex flex-wrap gap-3">
+        {group.options.map((option, i) => (
+          <label
+            class="flex cursor-pointer items-center gap-2 rounded-[12px] border border-mist bg-white px-4 py-3 text-[16px] text-navy shadow-[0_8px_16px_0_rgba(17,65,122,0.05),0_4px_8px_0_rgba(17,65,122,0.05)] transition-colors has-[:checked]:border-navy has-[:checked]:bg-mist"
+          >
+            <input
+              type={group.type}
+              name={group.name}
+              value={option}
+              class="accent-navy"
+            />
+            {option}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  ))}
 
   {textareas.map((field) => (
     <div class="mb-6">

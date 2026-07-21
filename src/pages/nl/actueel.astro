@@ -14,7 +14,12 @@ const helpBody = page.blocks.find((b: any) => b.heading === 'We helpen je graag'
 ---
 
 <Base title="Actueel — Jobmatix" description="Nieuws, blogs, kennis en events van Jobmatix.">
-  <PageHero title="Actueel" subtitle={page.blocks[0]?.heading ?? null} />
+  {/* The hero heading is "Kennis & Updates" (not "Actueel"), with the tagline
+      below it — both measured on the original's hero. */}
+  <PageHero
+    title={page.blocks[0]?.heading ?? 'Kennis & Updates'}
+    subtitle="Ontdek wat er speelt in de wereld van job marketing!"
+  />
   <ArticleListing />
   <ContactCta
     title={ctaHeading(page, 'actueel')}

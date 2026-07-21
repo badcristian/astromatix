@@ -67,6 +67,12 @@
    parity screenshots still work: the capture script requests reduced motion, so
    every revealed element renders in its final state. */
 @media (prefers-reduced-motion: no-preference) {
+  /* In-page anchor jumps (jobboost's "Kies jouw Jobboost!" buttons -> the form)
+     glide rather than snap. Gated on reduced-motion so it never fights a11y. */
+  html {
+    scroll-behavior: smooth;
+  }
+
   .js .reveal {
     opacity: 0;
   }

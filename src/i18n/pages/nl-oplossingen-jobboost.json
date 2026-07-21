@@ -404,56 +404,72 @@
           "type": "text",
           "label": "Bedrijfsnaam",
           "placeholder": null,
-          "required": false
+          "required": false,
+          "option": null,
+          "group": null
         },
         {
           "name": "firstname",
           "type": "text",
           "label": "Voornaam*",
           "placeholder": null,
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "lastname",
           "type": "text",
           "label": "Achternaam*",
           "placeholder": null,
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "phone",
           "type": "tel",
           "label": "Telefoonnummer*",
           "placeholder": null,
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "email",
           "type": "email",
           "label": "E-mail*",
           "placeholder": null,
-          "required": true
+          "required": true,
+          "option": null,
+          "group": null
         },
         {
           "name": "boost",
           "type": "checkbox",
           "label": "Small",
           "placeholder": null,
-          "required": false
+          "required": false,
+          "option": "Small",
+          "group": "Welke boost past bij jou?"
         },
         {
           "name": "boost",
           "type": "checkbox",
           "label": "Medium",
           "placeholder": null,
-          "required": false
+          "required": false,
+          "option": "Medium",
+          "group": "Welke boost past bij jou?"
         },
         {
           "name": "boost",
           "type": "checkbox",
           "label": "Large",
           "placeholder": null,
-          "required": false
+          "required": false,
+          "option": "Large",
+          "group": "Welke boost past bij jou?"
         }
       ]
     }

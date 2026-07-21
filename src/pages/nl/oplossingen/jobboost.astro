@@ -136,10 +136,14 @@ const faqImage = (() => {
     </div>
   </section>
 
+  {/* jobboost's own form carries the "Welke boost past bij jou?" checkbox
+      group (Small / Medium / Large) that the shared form lacks. */}
   <ContactCta
     title={ctaHeading!}
     intro={null}
     band={bandFor(page, "Klaar om jouw")}
     id="Contactjobboost"
+    fields={page.forms?.[0]?.fields ?? undefined}
+    submitLabel={page.forms?.[0]?.submitLabel ?? undefined}
   />
 </Base>
