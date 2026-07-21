@@ -103,12 +103,34 @@ const colClass = wide ? 'mx-auto max-w-[1200px]' : 'mx-auto max-w-[928px]';
 // Tables anchored to the heading they follow.
 const tablesFor = (heading: string | null) =>
   (d.tables ?? []).filter((t: any) => (t.afterHeading ?? null) === heading);
+
+// Rich-text pages (privacy-statement) render their sanitised HTML body, which
+// preserves <strong> runs and the <br> line breaks the plain-text walker lost.
+const richBody: string | null = d.richBody ?? null;
+
+// Legal pages get a shorter dark hero on the original (~compact banner) rather
+// than the tall 200px-padded interior hero the funnel pages use.
+const compactHero = wide;
 ---
 
 <Base title={metaTitle} description={d.meta.description || undefined}>
-  <PageHero title={title} subtitle={slide?.body ?? null} background={d.hero?.background} />
+  {compactHero ? (
+    <section class="bg-navy px-6 pt-[120px] pb-10 text-center text-white">
+      <div class="container-site">
+        <h1 class="font-display text-[40px] leading-[48px] font-bold text-white">{title}</h1>
+      </div>
+    </section>
+  ) : (
+    <PageHero title={title} subtitle={slide?.body ?? null} background={d.hero?.background} />
+  )}
 
-  {(introBody.length > 0 || sections.length > 0) && (
+  {richBody && (
+    <section class="px-6 py-12">
+      <div class:list={['rich-text legal', colClass]} set:html={richBody} />
+    </section>
+  )}
+
+  {!richBody && (introBody.length > 0 || sections.length > 0) && (
     <section class="px-6 py-12">
       <div class:list={[colClass]}>
         {introBody.map((para) => (
@@ -259,3 +281,40 @@ const tablesFor = (heading: string | null) =>
     </div>
   )}
 </Base>
+
+<style>
+  /* Prose for the legal rich-text bodies (privacy-statement). Preserves the
+     bold section labels and the <br> line breaks in the Contactgegevens block,
+     both of which the plain-text walker had flattened. */
+  .legal {
+    color: var(--color-navy);
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .legal :global(p) { margin-bottom: 1.25rem; }
+  .legal :global(strong) { font-weight: 700; }
+  .legal :global(h2), .legal :global(h3) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    margin: 2rem 0 0.75rem;
+  }
+  .legal :global(h2) { font-size: 24px; line-height: 30px; }
+  .legal :global(h3) { font-size: 20px; line-height: 28px; }
+  .legal :global(ul), .legal :global(ol) { margin: 0 0 1.25rem 1.25rem; }
+  .legal :global(ul) { list-style: disc; }
+  .legal :global(ol) { list-style: decimal; }
+  .legal :global(li) { margin-bottom: 0.5rem; }
+  .legal :global(a) { color: var(--color-orange); text-decoration: underline; }
+  .legal :global(table) {
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    display: block;
+    overflow-x: auto;
+  }
+  .legal :global(th), .legal :global(td) {
+    border: 1px solid color-mix(in srgb, var(--color-navy) 15%, transparent);
+    padding: 0.5rem 1rem;
+    text-align: left;
+  }
+  .legal :global(th) { background: var(--color-mist); font-weight: 700; }
+</style>

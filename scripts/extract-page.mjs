@@ -514,6 +514,49 @@ const data = await page.evaluate(() => {
       return null;
     })(),
 
+    // Sanitised rich-text body, for pages whose content is one free-form
+    // rich_text module rather than DnD sections — the two legal pages.
+    //
+    // The blocks walker reads text with text(), which flattens <strong> and
+    // <br>: /nl/privacy-statement lost every bold run ("Privacy statement",
+    // "Gebruik van persoonsgegevens") and the line breaks in the Contactgegevens
+    // address, which collapsed onto one line. This keeps the markup, sanitised
+    // the same way article bodies are, so the same .rich-text prose styles
+    // render it. Null on pages with no such module.
+    richBody: (() => {
+      const modules = Array.from(document.querySelectorAll('[data-hs-cos-type="rich_text"]'));
+      // The biggest one — a legal page's body dwarfs any incidental rich_text.
+      const el = modules.sort(
+        (a, b) => (b.textContent?.length ?? 0) - (a.textContent?.length ?? 0),
+      )[0];
+      if (!el || (el.textContent?.length ?? 0) < 400) return null;
+
+      const c = el.cloneNode(true);
+      c.querySelectorAll('style, script, noscript').forEach((n) => n.remove());
+      // Unwrap HubSpot's editor spans, keep their text.
+      c.querySelectorAll('span').forEach((n) => {
+        const bold = /font-weight:\s*(bold|[6789]00)/.test(n.getAttribute('style') || '');
+        if (bold) {
+          const strong = document.createElement('strong');
+          strong.innerHTML = n.innerHTML;
+          n.replaceWith(strong);
+        } else {
+          n.replaceWith(...n.childNodes);
+        }
+      });
+      // Strip every attribute except href/colspan/rowspan.
+      c.querySelectorAll('*').forEach((n) => {
+        for (const a of [...n.attributes]) {
+          if (!['href', 'colspan', 'rowspan'].includes(a.name)) n.removeAttribute(a.name);
+        }
+      });
+      c.querySelectorAll('a[href]').forEach((a) => {
+        const h = a.getAttribute('href');
+        if (h) a.setAttribute('href', h.replace('https://www.jobmatix.com', ''));
+      });
+      return c.innerHTML.replace(/\s+/g, ' ').trim();
+    })(),
+
     // Tables. /nl/algemene-voorwaarden carries two SLA priority matrices
     // ("Impact / Urgentie", "Prioriteit / Reactietijd / Oplostijd") and the
     // blocks walker only collects <p> and <li>, so both were dropped silently
