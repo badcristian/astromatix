@@ -54,11 +54,11 @@ const socialPaths: Record<string, string> = {
     </div>
 
     {/*
-      Bottom bar. The logo is NOT at the top of the footer — on the original it
-      sits at the bottom-RIGHT, tucked beside the copyright line, with the two
-      legal links to its left. A centred logo-on-top read as a different footer.
+      Copyright block — the original's `footer__copyright module--text-center`:
+      a CENTRED stack, the two legal links on one row and "Copyright © YYYY -
+      [logo]" centred on the row below it (not split left/right).
     */}
-    <div class="mt-4 flex w-full flex-col items-center gap-4 border-t border-white/15 pt-6 md:flex-row md:justify-between">
+    <div class="mt-4 flex flex-col items-center gap-2 text-center">
       {/* The original separates the two legal links with a literal pipe. */}
       <div class="flex flex-wrap items-center justify-center gap-3 text-[16px] text-white/90">
         {footer.legal.map((link, i) => (
@@ -71,7 +71,7 @@ const socialPaths: Record<string, string> = {
         ))}
       </div>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
         <p class="text-[16px] text-white/90">Copyright &copy; {year} -</p>
         <a href="/nl/" aria-label="Jobmatix">
           <Image src={logoWhite} alt="Jobmatix" width={98} densities={[1, 2]} />
