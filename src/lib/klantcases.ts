@@ -75,6 +75,27 @@ export function caseData(entry: Klantcase) {
   const norm = (s: string) => s.replace(/[“”"'‘’]/g, '').replace(/\s+/g, ' ').trim();
   let bandQuoteUsed = false;
 
+  // A page with TWO person cards but only one extracted bandQuote leaves the
+  // second card without its pull-quote (dhl-express's Lonneke card is the only
+  // such gap — the extractor stored an empty `quote` for both cards and just one
+  // bandQuote, which the first card claims). Supply the missing copy byte-exact
+  // from the original, keyed by name.
+  const EXTRA_QUOTES: Record<string, string> = {
+    'Lonneke Schagen-Eelman':
+      '“Het Jobmatix platform is een belangrijk onderdeel van onze recruitmentstrategie. We bereiken nu veel meer sollicitanten, met aanzienlijk minder advertentiebudget.”',
+  };
+
+  // Every quote that ends up on a card also tends to be duplicated into a nearby
+  // narrative body ("Resultaat"/"Toekomstvisie"); collect them all so the body
+  // filter strips each one, not only the bandQuote.
+  const stripQuotes = new Set<string>();
+  if (bandQuote) stripQuotes.add(norm(bandQuote));
+  for (const b of order) {
+    if (b.type !== 'compactCard') continue;
+    if (b.quote) stripQuotes.add(norm(b.quote));
+    else if (EXTRA_QUOTES[b.title]) stripQuotes.add(norm(EXTRA_QUOTES[b.title]));
+  }
+
   type Section = {
     kind: 'section';
     // A section can stack several heading+body pairs in its text column — djops
@@ -113,7 +134,7 @@ export function caseData(entry: Klantcase) {
         kind: 'section',
         parts: [{
           heading: b.heading,
-          body: (b.body ?? []).filter((x: string) => !(bandQuote && norm(x) === norm(bandQuote))),
+          body: (b.body ?? []).filter((x: string) => !stripQuotes.has(norm(x))),
         }],
         band: bandColor(b.heading),
         images: [],
@@ -136,8 +157,9 @@ export function caseData(entry: Klantcase) {
       i = j - 1;
       render.push(section);
     } else if (b.type === 'compactCard') {
-      const text = b.quote ?? (bandQuoteUsed ? null : bandQuote);
-      if (!b.quote && bandQuote) bandQuoteUsed = true;
+      const extra = EXTRA_QUOTES[b.title] ?? null;
+      const text = b.quote ?? extra ?? (bandQuoteUsed ? null : bandQuote);
+      if (!b.quote && !extra && bandQuote) bandQuoteUsed = true;
       render.push({
         kind: 'quote',
         title: b.title,
@@ -176,12 +198,24 @@ export function caseData(entry: Klantcase) {
     }
   }
 
+  // djops expresses its hero as two CENTRED rtext blocks — a 60px white title
+  // and a 20px lilac subtitle — instead of the left-aligned hero.parts the other
+  // cases use. When parts is empty, fall back to those rtext lines and centre.
+  const rtextHeads = order
+    .filter((b: any) => b.type === 'heading' && b.module === 'rtext')
+    .map((b: any) => b.heading as string);
+  const heroCentered = (d.hero?.parts ?? []).length === 0 && rtextHeads.length >= 2;
+  const heroSubtitle: string | null = heroCentered ? (rtextHeads[1] ?? null) : null;
+
   return {
     meta: d.meta,
     title: d.hero?.title ?? entry.slug,
     // The <h1> holds two differently-styled spans: the client name large and
     // white, the case headline smaller and lilac.
     heroParts: (d.hero?.parts ?? []) as { text: string; fontSize: string; color: string }[],
+    // djops: centred hero + a lilac subtitle line under the white title.
+    heroCentered,
+    heroSubtitle,
     heroBackground: (d.hero?.background ?? null) as string | null,
     // Each tag carries an inline SVG glyph, not an <img>.
     tags: (d.properties ?? []).map((p: any) => ({ label: p.label, iconSvg: p.iconSvg })),

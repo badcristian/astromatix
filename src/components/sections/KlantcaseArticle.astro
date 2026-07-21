@@ -54,12 +54,25 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
   class="relative bg-navy bg-cover bg-center px-6"
   style={heroBg ? `background-image:url(${heroBg.src})` : undefined}
 >
-  <div class="mx-auto flex min-h-[348px] max-w-[1200px] items-center">
+  <div
+    class:list={[
+      'mx-auto flex min-h-[348px] max-w-[1200px] items-center',
+      c.heroCentered && 'justify-center',
+    ]}
+  >
     {/* Fonts scale with the viewport so a long client name ("Djops
         Uitzendgroep") does not overflow the right edge on mobile, while the
         original desktop sizes are the clamp ceiling. */}
-    <h1 class="max-w-[760px] font-display font-bold break-words">
-      {c.heroParts.length > 0 ? (
+    <h1 class:list={['max-w-[760px] font-display font-bold break-words', c.heroCentered && 'text-center']}>
+      {c.heroCentered ? (
+        <>
+          {/* djops: centred white title + a small lilac subtitle line. */}
+          <span class="block text-white" style="font-size:clamp(30px, 9vw, 60px);line-height:1.08">{c.title}</span>
+          {c.heroSubtitle && (
+            <span class="mt-3 block text-[20px] leading-[25px]" style="color:#e9b9ec">{c.heroSubtitle}</span>
+          )}
+        </>
+      ) : c.heroParts.length > 0 ? (
         c.heroParts.map((part) => (
           <span
             class="block"
