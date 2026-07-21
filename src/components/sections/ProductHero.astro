@@ -19,6 +19,13 @@ import type { ImageMetadata } from 'astro';
 
 interface Props {
   title: string;
+  /**
+   * Render the title as raw HTML instead of plain text. jobadvertising's
+   * original h1 is literally `Job <br>Advertising` — a hard break after the
+   * first word — so "Job" sits on one line and "Advertising" on the next.
+   * Same visible copy, matched line breaks. Falls back to `title`.
+   */
+  titleHtml?: string | null;
   subtitle?: string | null;
   cta?: { label: string; href: string } | null;
   image?: ImageMetadata;
@@ -41,6 +48,7 @@ interface Props {
 
 const {
   title,
+  titleHtml = null,
   subtitle = null,
   cta = null,
   image,
@@ -53,6 +61,12 @@ const {
 
 const dark = theme === 'dark';
 const backdrop = imageAsBackdrop && image;
+
+// The desktop image column tracks the passed width. jobadvertising's original
+// serves a big right-anchored dashboard (renders ~812x552); we go to 720 to
+// get close. Platform stays at 588. Both literals live here so Tailwind keeps
+// them. */
+const imageColClass = imageWidth >= 700 ? 'lg:w-[720px]' : 'lg:w-[588px]';
 ---
 
 <section
@@ -73,14 +87,17 @@ const backdrop = imageAsBackdrop && image;
           dark ? 'text-white' : 'text-navy',
         ]}
       >
-        {title}
+        {titleHtml ? <Fragment set:html={titleHtml} /> : title}
         {subtitle && subtitleInHeading && (
           <span class="mt-1 block text-[30px] leading-[36px] text-lilac">{subtitle}</span>
         )}
       </h1>
 
+      {/* The original renders this as an H2 at 24px/26.4px (both product pages),
+          not a small paragraph. Keep it a <p> for heading hierarchy, matched
+          size. */}
       {subtitle && !subtitleInHeading && (
-        <p class:list={['mt-6 text-[16px] leading-[24px]', dark ? 'text-white' : 'text-navy']}>
+        <p class:list={['mt-6 text-[24px] leading-[26.4px]', dark ? 'text-white' : 'text-navy']}>
           {subtitle}
         </p>
       )}
@@ -99,7 +116,7 @@ const backdrop = imageAsBackdrop && image;
         width={imageWidth}
         height={imageHeight}
         densities={[1, 2]}
-        class="h-auto w-full lg:w-[588px] lg:shrink-0"
+        class:list={['h-auto w-full lg:shrink-0', imageColClass]}
       />
     )}
   </div>

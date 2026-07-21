@@ -22,7 +22,6 @@ const images = Object.keys(modules)
   .map((path) => modules[path].default);
 
 const PER_VIEW = 6;
-const pages = Math.ceil(images.length / PER_VIEW);
 ---
 
 <section class="px-6 py-10">
@@ -71,26 +70,38 @@ const pages = Math.ceil(images.length / PER_VIEW);
 </section>
 
 <script>
-  // Page-wise logo carousel. Separate from the testimonial one because it
-  // advances by a page of six rather than a single slide.
+  // Brand-logo carousel. Advances ONE logo per arrow click — the original's
+  // Splide runs perMove:1 (verified: one click nudges the row a single logo
+  // width, not a page of six). The track's own box is perView slides wide
+  // (its children overflow it), so a percentage translate is relative to that
+  // window: one logo = (100 / perView)%, not (100 / total).
   document.querySelectorAll<HTMLElement>('[data-carousel][data-per-view]').forEach((root) => {
     const track = root.querySelector<HTMLElement>('[data-track]');
     if (!track) return;
 
-    const perView = Number(root.dataset.perView) || 6;
-    const pages = Math.ceil(track.children.length / perView);
-    let page = 0;
+    const count = track.children.length;
+    if (count === 0) return;
 
+    // Logos in view at once, tracking the responsive slide widths in the
+    // markup (w-1/2 base, md w-1/3, lg w-1/6). Keep these breakpoints in step.
+    const perView = () => (window.innerWidth >= 1140 ? 6 : window.innerWidth >= 768 ? 3 : 2);
+    const maxIndex = () => Math.max(0, count - perView());
+
+    let index = 0;
     const render = () => {
-      track.style.transform = `translateX(-${page * 100}%)`;
+      index = Math.min(index, maxIndex());
+      track.style.transform = `translateX(-${index * (100 / perView())}%)`;
     };
 
+    // Advance a single logo; wrap once the last full view is reached.
     const go = (delta: number) => {
-      page = (page + delta + pages) % pages;
+      const span = maxIndex() + 1;
+      index = (index + delta + span) % span;
       render();
     };
 
     root.querySelector('[data-prev]')?.addEventListener('click', () => go(-1));
     root.querySelector('[data-next]')?.addEventListener('click', () => go(1));
+    window.addEventListener('resize', render);
   });
 </script>

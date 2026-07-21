@@ -527,3 +527,95 @@ the same as being displayed — verify visibility (getBoundingClientRect / a
 screenshot), not just that the node exists in the HTML, before treating a
 "missing" component as real. Same caution applies to any component behind a
 responsive `display:none`.
+
+## 40. Section background is a positioned layer, not `background-color`.
+
+The jobadvertising `.featshow` (the "Alles-in-één oplossing / Slim adverteren"
+tabbed carousel) sits on a **mist** (`#f5f5ff`) band that distinguishes it from
+the white cards section above. Walking the ancestor chain for `background-color`
+finds nothing — every wrapper is `rgba(0,0,0,0)` up to a white root. The tint
+comes from an **absolutely-positioned `div.section-bg__custom--color`** inside
+the `.dnd-section` (HubSpot's "force full width section" background layer), not
+from any element's own `background-color`. To find a section's real background,
+`querySelectorAll('*')` inside the row and look for a positioned child with a
+non-transparent `background-color`/`background-image`, or sample a pixel — don't
+trust the computed background of the content elements. Fix here was one class:
+`bg-mist` on the `<section>`. Same pattern likely tints other product sections.
+
+Two more measured on the same page while here:
+- The hero h1 is literally `Job <br>Advertising` — a hard break, so it is two
+  lines at every width. Plain-text `{title}` kept it on one line. ProductHero
+  now takes a `titleHtml` prop for this (same visible copy, matched break).
+- The hero photo is `background-size:contain, position:100% 0%` in a 1440×552
+  row → renders ~812×552, bleeding to the viewport edge. We render it as a
+  right `<img>`; it was pinned at 588 wide with a **wrong 588×317 height attr**
+  (AR 1.855) that squashed the 1000×680 asset (AR 1.47). Now 720×490 (true AR),
+  bigger and undistorted. `<img width/height>` sets the aspect-ratio box even
+  with `h-auto`, so a wrong height attr distorts silently — match the asset.
+
+## 41. A `translateX(%)` carousel step is relative to the track's *window*, not its content.
+
+The brand-logo wall (`LogoWall`) advanced a whole page of six logos per arrow
+click; the original's Splide advances **one** logo (`perMove:1` — verified: one
+click nudges the row a single ~151px slide, not 6). The subtle part of the fix:
+the track is `display:flex` with `shrink-0` children that overflow it, so the
+track's **own box width equals the visible window (`perView` slides), not the
+18-slide content width**. A percentage `translateX` is resolved against that box
+width. So one logo is `translateX(100 / perView %)` — the first attempt used
+`100 / totalCount %` and moved only ~0.33 of a logo (50px of a 151px pitch).
+`perView` is responsive (2 / 3 / 6 at the 768 and 1140 breakpoints), so the step
+and the max index must both read it live. Page-wise stepping (`page * 100%`)
+happened to be correct precisely because 100% of that box *is* one page.
+
+## 42. The `.properties__item` icons are BARE glyphs — the white chip was ours.
+
+`PropertyItem` (hero property bands + voor-wie's feature lists) wrapped its glyph
+in a 44×44 `bg-white rounded-lg` chip. The original has **no chip**: the glyph
+is a bare coloured SVG on a transparent background. On the navy hero band that
+made ours read as white squares with a navy glyph — the inverse of the original,
+which is a plain **white 18×18 glyph**. On voor-wie the chip was white-on-white
+(invisible) but still wrong; the original there is a **navy 29×29 glyph**. So
+glyph colour and size are per-context (white/18 on the navy bands, navy/29 in
+voor-wie), and there is never a background chip. Fixed by dropping the chip and
+sizing/colouring the glyph off `variant`. The old code comment even *claimed*
+"icon 44×44, white bg, 8px radius" as a measurement — it was wrong; always
+re-verify a chip/background against the live DOM (`getComputedStyle`) rather than
+trusting a prior note.
+
+Two hero details found alongside, both per-page (see #25, #28):
+- Product-hero subtitles ("Boost jouw vacature…", "De beste alles-in-een…") are
+  an **H2 at 24px/26.4px** on the original, not a 16px paragraph. Bumped the
+  ProductHero subtitle to 24px (light theme; platform uses `subtitleInHeading`).
+- jobboost's cards heading "Kies jouw Jobboost en bereik jouw kandidaten" is
+  **Manrope 30/33 with a hard `<br>` after "bereik"** (an inline `font-family:
+  Manrope` override in the source), NOT Poppins 30/52.5 like jobadvertising's
+  equivalent — which we'd copied. Poppins at 30 reads visibly bigger/heavier
+  than Manrope at 30, so matching the face (plus the tighter line-height and the
+  break) is what makes it look "smaller". Set that one heading to `font-sans`.
+
+## 43. Tailwind v4 dropped `cursor: pointer` on buttons; and the scrape kept Splide's clones.
+
+Two unrelated fixes made together.
+
+**Cursor.** Tailwind v4's Preflight no longer sets `cursor: pointer` on `<button>`
+/ `[role=button]` (v3 did). Everything we built as a `<button>` — featshow &
+steps tabs, carousel arrows/dots, the search toggle — showed the default arrow on
+hover, reading as un-clickable. Fixed once in `@layer base`:
+`button:not(:disabled), [role="button"]:not(:disabled), [role="tab"], summary,
+label[for] { cursor: pointer }`. Note a component's explicit `cursor-default`
+utility (we had one on the hrefless "Oplossingen" nav dropdown) still wins over
+the base rule — the original shows pointer there too, so that utility was
+removed. Disabled controls (e.g. the featshow prev arrow at slide 0) correctly
+keep the arrow via `:not(:disabled)`.
+
+**Kantoormomenten carousel.** The werken-bij office gallery is a Splide carousel
+(`type:loop, perPage 3 / perMove 1 / gap 24`, dropping to `perPage 1` at ≤767,
+arrows hidden below md, one pagination dot per *page*). Our scrape of
+`contentImages` captured **21** entries for **9** real photos — Splide renders
+loop CLONES (3× the wrapped slides) into the static HTML and the extractor took
+them at face value, which is why the page showed duplicated, stacked images.
+Deduped by `src` keeping first-appearance order (which equals the original slide
+order) → 9. Rebuilt as `PhotoCarousel.astro`, a translateX carousel matching the
+Splide config (px-based pitch so the 24px gap counts; dots built in JS so the
+count tracks perView — 3 desktop / 9 mobile). General rule: any `.splide` in the
+scraped HTML carries clone slides — dedupe before rendering.

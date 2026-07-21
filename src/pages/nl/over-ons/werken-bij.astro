@@ -3,6 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import PageHero from '../../../components/sections/PageHero.astro';
 import ContactCta from '../../../components/sections/ContactCta.astro';
 import { Image } from 'astro:assets';
+import PhotoCarousel from '../../../components/ui/PhotoCarousel.astro';
 import { resolveIcon } from '../../../lib/icons';
 import { ctaHeading } from '../../../lib/cta';
 import { bandFor } from '../../../lib/bands';
@@ -30,8 +31,13 @@ const valuesHeading = heading('Onze kernwaarden');
 const values = (page.featureCards ?? []).filter((c) => c.title);
 
 const kantoorHeading = heading('Kantoormomenten');
+// The scrape captured Splide's loop CLONES too, so contentImages holds 21
+// entries for 9 real photos (3× each for the cloned ones). Dedupe by src,
+// keeping first-appearance order — which matches the original's slide order.
+const seenKantoor = new Set<string>();
 const gallery = (page.contentImages ?? [])
   .filter((i: any) => i.afterHeading === kantoorHeading)
+  .filter((i: any) => (seenKantoor.has(i.src) ? false : (seenKantoor.add(i.src), true)))
   .map((i: any) => ({ ...i, resolved: resolveIcon(i.src) }))
   .filter((i: any) => i.resolved);
 
@@ -92,27 +98,15 @@ const vacancyLink = (vacancy?.links ?? []).find((l: any) => l.href)?.href ?? nul
     </section>
   )}
 
-  {/* "Kantoormomenten" — office photo gallery. */}
+  {/* "Kantoormomenten" — office photo carousel (Splide replica). */}
   {gallery.length > 0 && (
     <section class="px-6 py-14">
-      <div class="mx-auto max-w-[1138px]">
-        {kantoorHeading && (
-          <h2 class="mb-10 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
-            {kantoorHeading}
-          </h2>
-        )}
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {gallery.map((img: any) => (
-            <Image
-              src={img.resolved}
-              alt=""
-              width={img.width}
-              height={img.height}
-              class="h-full w-full rounded-2xl object-cover"
-            />
-          ))}
-        </div>
-      </div>
+      {kantoorHeading && (
+        <h2 class="mb-10 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
+          {kantoorHeading}
+        </h2>
+      )}
+      <PhotoCarousel images={gallery} />
     </section>
   )}
 

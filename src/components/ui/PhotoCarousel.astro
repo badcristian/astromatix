@@ -1,0 +1,151 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Replica of the original's Splide photo carousel (the "Kantoormomenten" gallery
+// on /nl/over-ons/werken-bij). Measured/read from the live Splide config:
+//   type   loop, perMove 1, gap 24, speed 400ms, autoplay off
+//   perPage 3 above 768px, 1 at/below 767px  (splide--lg-3 md-3 sm-1)
+//   arrows outside the track, hidden below md; navy chevrons
+//   dots   one per PAGE (3 on desktop, 9 on mobile), active = current page
+//   slide  352x234 on desktop inside a 1104 track (1200 - 2x48 gutters),
+//          24px radius, object-cover ~3:2
+//
+// A single click steps ONE photo (perMove 1); dots jump a whole page. Built as
+// a lightweight translateX carousel (px-based pitch, so the 24px flex gap is
+// counted) rather than pulling in Splide for a hand-over site.
+
+interface Props {
+  images: { resolved: ImageMetadata }[];
+}
+
+const { images } = Astro.props;
+---
+
+{/* 1200 frame; md:px-12 opens the 48px gutters the arrows sit in, leaving a
+    1104 track = three 352 slides + two 24 gaps, matching the original. */}
+<div class="relative mx-auto max-w-[1200px] md:px-12" data-pcar>
+  <button
+    type="button"
+    aria-label="Vorige"
+    class="absolute top-1/2 left-0 z-10 hidden -translate-y-1/2 text-navy transition-opacity hover:opacity-60 md:block"
+    data-pcar-prev
+  >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M15 5l-7 7 7 7" />
+    </svg>
+  </button>
+
+  <div class="overflow-hidden">
+    <div class="flex gap-6 transition-transform duration-[400ms] ease-out" data-pcar-track>
+      {images.map((img) => (
+        <div class="w-full shrink-0 md:w-[calc((100%-48px)/3)]">
+          <Image
+            src={img.resolved}
+            alt=""
+            width={704}
+            height={469}
+            densities={[1, 2]}
+            class="aspect-[3/2] w-full rounded-3xl object-cover"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <button
+    type="button"
+    aria-label="Volgende"
+    class="absolute top-1/2 right-0 z-10 hidden -translate-y-1/2 text-navy transition-opacity hover:opacity-60 md:block"
+    data-pcar-next
+  >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  {/* Dots are built by JS so their count tracks perView (3 desktop / 9 mobile). */}
+  <div class="mt-6 flex justify-center gap-2" data-pcar-dots></div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-pcar]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-pcar-track]');
+    const dotsWrap = root.querySelector<HTMLElement>('[data-pcar-dots]');
+    if (!track) return;
+
+    const slides = Array.from(track.children) as HTMLElement[];
+    const count = slides.length;
+    if (count === 0) return;
+
+    const prev = root.querySelector<HTMLButtonElement>('[data-pcar-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-pcar-next]');
+
+    // 3 photos above the 768 breakpoint, 1 below (splide--sm-1).
+    const perView = () => (window.innerWidth >= 768 ? 3 : 1);
+    const maxIndex = () => Math.max(0, count - perView());
+    // Pixel pitch (slide width + the 24px flex gap) — read live so resize works.
+    const pitch = () =>
+      count > 1
+        ? slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left
+        : slides[0].getBoundingClientRect().width;
+
+    let index = 0;
+    let dots: HTMLButtonElement[] = [];
+
+    const buildDots = () => {
+      if (!dotsWrap) return;
+      const pv = perView();
+      const pages = Math.ceil(count / pv);
+      dotsWrap.replaceChildren();
+      dots = [];
+      for (let p = 0; p < pages; p++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Ga naar ${p + 1}`);
+        dot.className =
+          'size-[10px] rounded-full bg-navy/20 transition-colors data-[active]:bg-navy';
+        dot.addEventListener('click', () => {
+          index = Math.min(p * pv, maxIndex());
+          render();
+        });
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      }
+    };
+
+    const render = () => {
+      index = Math.min(index, maxIndex());
+      track.style.transform = `translateX(-${index * pitch()}px)`;
+      const page = Math.floor(index / perView());
+      dots.forEach((d, i) => {
+        if (i === page) d.setAttribute('data-active', '');
+        else d.removeAttribute('data-active');
+      });
+    };
+
+    // type:loop — the arrows wrap and are never disabled.
+    const go = (delta: number) => {
+      const span = maxIndex() + 1;
+      index = (index + delta + span) % span;
+      render();
+    };
+
+    prev?.addEventListener('click', () => go(-1));
+    next?.addEventListener('click', () => go(1));
+
+    let lastPv = perView();
+    buildDots();
+    render();
+
+    window.addEventListener('resize', () => {
+      const pv = perView();
+      if (pv !== lastPv) {
+        lastPv = pv;
+        index = 0;
+        buildDots();
+      }
+      render();
+    });
+  });
+</script>

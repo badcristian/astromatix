@@ -73,13 +73,18 @@ const faqImage = (() => {
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
+  {/* The original hard-breaks the h1 ("Job <br>Advertising") and serves a big
+      right-anchored dashboard (background-size:contain, renders ~812x552). We
+      match the break and enlarge the image to 720 wide. imageHeight tracks the
+      asset's true 1000x680 ratio (1.47) — the old 588x317 squashed it. */}
   <ProductHero
     title={page.hero.title}
+    titleHtml="Job <br>Advertising"
     subtitle={heroSubtitle}
     cta={heroCta ? { label: heroCta.label, href: heroCta.href } : null}
     image={resolveIcon(page.hero.background)}
-    imageWidth={588}
-    imageHeight={317}
+    imageWidth={720}
+    imageHeight={490}
     theme="light"
   />
 
@@ -101,8 +106,11 @@ const faqImage = (() => {
     </div>
   </section>
 
+  {/* Mist band (full width). The original sits this section on a
+      `section-bg__custom--color` layer at #f5f5ff so the white featshow card
+      floats on a tint — distinct from the plain-white cards section above. */}
   {page.featshow && (
-    <section class="px-6 py-[70px]">
+    <section class="bg-mist px-6 py-[70px]">
       <FeatureShowcase items={page.featshow} />
     </section>
   )}

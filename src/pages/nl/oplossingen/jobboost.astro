@@ -39,6 +39,10 @@ const block = (prefix: string) =>
 
 const heroSubtitle = heading('Boost jouw vacature');
 const chooseHeading = heading('Kies jouw Jobboost en bereik');
+// The original hard-breaks this heading after "bereik" and sets it in Manrope
+// at 30/33 (not Poppins at 30/52.5 like the cards heading we copied from
+// jobadvertising) — so it reads tighter and a touch smaller. Same visible copy.
+const chooseHeadingHtml = chooseHeading?.replace('bereik jouw', 'bereik <br>jouw') ?? '';
 const tiersHeading = heading('Kies jouw Jobboost!');
 const stripHeading = block('Benieuwd hoe jij jouw job marketing')?.heading ?? null;
 const faqHeading = heading('Veelgestelde vragen');
@@ -73,8 +77,8 @@ const faqImage = (() => {
 
   <section class="px-6 pt-[70px] pb-[20px]">
     <div class="mx-auto max-w-[1200px]">
-      <h2 class="mx-auto max-w-[1050px] text-center font-display text-[30px] leading-[52.5px] font-bold text-navy">
-        {chooseHeading}
+      <h2 class="mx-auto max-w-[1050px] text-center font-sans text-[30px] leading-[33px] font-bold text-navy">
+        <Fragment set:html={chooseHeadingHtml} />
       </h2>
 
       <Reveal variant="zoom" duration={1000} class="mt-11 flex flex-wrap justify-center -mx-3">

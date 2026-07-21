@@ -52,6 +52,19 @@
     font-family: var(--font-display);
     font-weight: 700;
   }
+
+  /* Tailwind v4's Preflight no longer sets `cursor: pointer` on buttons — the
+     default is the arrow, so every <button> (featshow/steps tabs, carousel
+     arrows, dots, accordion toggles, the search button…) felt un-clickable.
+     Restore the pointer for interactive elements; disabled controls keep the
+     default arrow. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  [role="tab"]:not([aria-disabled='true']),
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
 }
 
 /* Scroll-reveal.

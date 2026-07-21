@@ -27,7 +27,9 @@ const { items } = Astro.props;
 const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
-<div class="mx-auto flex max-w-[1200px] flex-col gap-8 lg:flex-row" data-featshow>
+{/* nav 480 + card 720 = the 1200 row exactly, so lg:gap-0 (the original has
+    no gap between them; the nav's own 480→370 inset is the visual gutter). */}
+<div class="mx-auto flex max-w-[1200px] flex-col gap-8 lg:flex-row lg:gap-0" data-featshow>
   <div class="lg:w-[480px] lg:shrink-0">
     <ul class="mx-auto flex max-w-[370px] flex-col gap-4" role="tablist">
       {items.map((item, i) => (
@@ -48,41 +50,72 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
     </ul>
   </div>
 
-  <div class="lg:w-[720px]">
-    {/* The right panel is a white card with the theme's soft navy shadow
-        (measured on .featshow__content). The nav labels on the left sit on
-        the transparent section background, not inside this card. */}
-    <div class="rounded-3xl bg-white p-10 shadow-[0_32px_64px_0_rgba(17,65,122,0.05),0_16px_32px_0_rgba(17,65,122,0.05)]">
-      {items.map((item, i) => (
-        <div
-          role="tabpanel"
-          id={`${uid}-panel-${i}`}
-          aria-labelledby={`${uid}-tab-${i}`}
-          class="fs-panel mx-auto max-w-[500px]"
-          data-featshow-panel={i}
-          data-active={i === 0 ? '' : undefined}
-        >
-          <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
-            {item.title}
-          </h3>
-          {item.body && (
-            <p class="mt-4 text-[16px] leading-[22.4px] text-navy">{item.body}</p>
-          )}
-        </div>
-      ))}
-    </div>
+  {/* The right panel is a white card with the theme's soft navy shadow
+      (measured on .featshow__content, 720x514). The nav labels on the left sit
+      on the mist section background, not inside this card. min-h holds the box
+      at the original's height regardless of which panel is open; content is
+      centred vertically and the dots + arrows pin to the bottom. */}
+  <div class="lg:w-[720px] lg:shrink-0">
+    <div class="flex flex-col rounded-3xl bg-white p-10 shadow-[0_32px_64px_0_rgba(17,65,122,0.05),0_16px_32px_0_rgba(17,65,122,0.05)] lg:min-h-[514px]">
+      <div class="flex flex-1 flex-col justify-center">
+        {items.map((item, i) => (
+          <div
+            role="tabpanel"
+            id={`${uid}-panel-${i}`}
+            aria-labelledby={`${uid}-tab-${i}`}
+            class="fs-panel mx-auto w-full max-w-[500px]"
+            data-featshow-panel={i}
+            data-active={i === 0 ? '' : undefined}
+          >
+            <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
+              {item.title}
+            </h3>
+            {item.body && (
+              <p class="mt-4 text-[16px] leading-[22.4px] text-navy">{item.body}</p>
+            )}
+          </div>
+        ))}
+      </div>
 
-    {/* Pagination dots — hidden below lg, where the panels stack. */}
-    <div class="mt-6 hidden justify-center gap-3 lg:flex" role="tablist" aria-label="Selecteer">
-      {items.map((_, i) => (
-        <button
-          type="button"
-          aria-label={`Toon ${i + 1}`}
-          aria-selected={i === 0 ? 'true' : 'false'}
-          class="size-3 rounded-full bg-navy/20 transition-colors aria-selected:bg-navy"
-          data-featshow-dot={i}
-        />
-      ))}
+      {/* Dots (left) + prev/next arrows (right), inside the card at the bottom
+          — matching the original. Hidden below lg, where the nav labels
+          double as the tabs. */}
+      <div class="mt-8 hidden items-center justify-between lg:flex">
+        <div class="flex gap-3" role="tablist" aria-label="Selecteer">
+          {items.map((_, i) => (
+            <button
+              type="button"
+              aria-label={`Toon ${i + 1}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              class="size-3 rounded-full bg-navy/20 transition-colors aria-selected:bg-navy"
+              data-featshow-dot={i}
+            />
+          ))}
+        </div>
+        <div class="flex items-center gap-5 text-navy">
+          <button
+            type="button"
+            aria-label="Vorige"
+            class="transition-opacity disabled:opacity-30"
+            disabled
+            data-featshow-prev
+          >
+            <svg width="26" height="18" viewBox="0 0 26 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="25" y1="9" x2="2" y2="9" /><polyline points="9 2 2 9 9 16" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            aria-label="Volgende"
+            class="transition-opacity disabled:opacity-30"
+            data-featshow-next
+          >
+            <svg width="26" height="18" viewBox="0 0 26 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="1" y1="9" x2="24" y2="9" /><polyline points="17 2 24 9 17 16" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -100,15 +133,25 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
     const tabs = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-tab]'));
     const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-dot]'));
     const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-panel]'));
+    const prev = root.querySelector<HTMLButtonElement>('[data-featshow-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-featshow-next]');
 
+    let current = 0;
     const select = (index: number) => {
+      current = index;
       tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === index)));
       dots.forEach((d, i) => d.setAttribute('aria-selected', String(i === index)));
       panels.forEach((p, i) => {
         if (i === index) p.setAttribute('data-active', '');
         else p.removeAttribute('data-active');
       });
+      // The original disables an arrow at each end rather than wrapping.
+      if (prev) prev.disabled = index === 0;
+      if (next) next.disabled = index === tabs.length - 1;
     };
+
+    prev?.addEventListener('click', () => { if (current > 0) select(current - 1); });
+    next?.addEventListener('click', () => { if (current < tabs.length - 1) select(current + 1); });
 
     tabs.forEach((tab, i) => {
       tab.addEventListener('click', () => select(i));
