@@ -127,8 +127,9 @@ const faqImage = (() => {
   )}
 
   {/* Image LEFT (588x317 at x=120), heading + accordion RIGHT — a two-column
-      section on the original, not the accordion stacked over the image. */}
-  <section class="bg-mist px-6 py-[60px]">
+      section on a WHITE background (not mist). The accordion is its own white
+      card with the theme's soft navy shadow. */}
+  <section class="bg-white px-6 py-[60px]">
     <div class="mx-auto flex max-w-[1200px] flex-col items-start gap-10 lg:flex-row lg:gap-20">
       {faqImage && (
         <Image
@@ -140,12 +141,12 @@ const faqImage = (() => {
         />
       )}
       <div class="lg:flex-1">
-        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+        <h2 class="mb-6 font-display text-[30px] leading-[33px] font-bold text-navy">
           {faqHeading}
         </h2>
-        <div class="mt-8">
-          <Accordion items={page.accordion} chrome={false} />
-        </div>
+        {/* Default chrome: white card, 24px radius, the theme's shadow, 96px
+            vertical padding — all measured on the original. */}
+        <Accordion items={page.accordion} />
       </div>
     </div>
   </section>

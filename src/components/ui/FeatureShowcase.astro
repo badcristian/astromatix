@@ -47,7 +47,10 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
   </div>
 
   <div class="lg:w-[720px]">
-    <div class="rounded-3xl bg-white p-10">
+    {/* The right panel is a white card with the theme's soft navy shadow
+        (measured on .featshow__content). The nav labels on the left sit on
+        the transparent section background, not inside this card. */}
+    <div class="rounded-3xl bg-white p-10 shadow-[0_32px_64px_0_rgba(17,65,122,0.05),0_16px_32px_0_rgba(17,65,122,0.05)]">
       {items.map((item, i) => (
         <div
           role="tabpanel"
