@@ -6,6 +6,7 @@ import ContactCta from '../../../components/sections/ContactCta.astro';
 import listing from '../../../i18n/pages/listing.json';
 import hub from '../../../i18n/pages/nl-actueel.json';
 import { ctaHeading } from '../../../lib/cta';
+import { bandFor } from '../../../lib/bands';
 
 // The original ships /nl/actueel/{blogs,nieuws,kennis,events} as four
 // byte-identical 115,751-byte copies of /nl/actueel — same empty <div>, same
@@ -22,6 +23,7 @@ export function getStaticPaths() {
 
 const { category } = Astro.props;
 const count = listing.items.filter((i) => i.category === category).length;
+const helpBlock = hub.blocks.find((b: any) => b.heading === 'We helpen je graag');
 ---
 
 <Base
@@ -34,5 +36,10 @@ const count = listing.items.filter((i) => i.category === category).length;
     activeCategory={category}
   />
   <ArticleListing activeCategory={category} />
-  <ContactCta title={ctaHeading(hub, 'actueel-category')} intro={null} />
+  <ContactCta
+    title={ctaHeading(hub, 'actueel-category')}
+    subheading={helpBlock?.heading ?? null}
+    intro={helpBlock?.body?.[0] ?? null}
+    band={bandFor(hub, 'Vragen, opmerkingen')}
+  />
 </Base>

@@ -10,7 +10,7 @@ import { bandFor, heroBand } from '../../lib/bands';
 // The unfiltered hub. Category views live at /nl/actueel/[category] and are
 // generated from the same component — see ArticleListing.astro for why this
 // page is the rebuild's strongest single argument.
-const helpBody = page.blocks.find((b: any) => b.heading === 'We helpen je graag')?.body?.[0] ?? null;
+const helpBlock = page.blocks.find((b: any) => b.heading === 'We helpen je graag');
 ---
 
 <Base title="Actueel — Jobmatix" description="Nieuws, blogs, kennis en events van Jobmatix.">
@@ -23,7 +23,8 @@ const helpBody = page.blocks.find((b: any) => b.heading === 'We helpen je graag'
   <ArticleListing />
   <ContactCta
     title={ctaHeading(page, 'actueel')}
-    intro={helpBody}
+    subheading={helpBlock?.heading ?? null}
+    intro={helpBlock?.body?.[0] ?? null}
     band={bandFor(page, 'Vragen, opmerkingen')}
   />
 </Base>

@@ -29,6 +29,12 @@ interface Props {
    */
   fields?: any[];
   submitLabel?: string;
+  /**
+   * Optional sub-heading (h3) between the title and intro. The listing pages'
+   * contact block is h2 "Vragen, opmerkingen…" + h3 "We helpen je graag" + p;
+   * without this the h3 was dropped.
+   */
+  subheading?: string | null;
 }
 const {
   title,
@@ -37,6 +43,7 @@ const {
   id,
   fields = copy.contactCta.fields,
   submitLabel = copy.contactCta.submitLabel,
+  subheading = null,
 } = Astro.props;
 
 // Navy bands need light text; the light bands keep navy text.
@@ -60,6 +67,11 @@ const onDark = !!band && /rgb\(\s*17,\s*(65|29)/.test(band);
       >
         {title}
       </h2>
+      {subheading && (
+        <h3 class:list={['mt-4 font-display text-[20px] leading-[28px] font-bold', onDark ? 'text-white' : 'text-navy']}>
+          {subheading}
+        </h3>
+      )}
       {intro && (
         <p class:list={['mt-6 text-[16px] leading-[22.4px]', onDark ? 'text-white' : 'text-navy']}>
           {intro}
