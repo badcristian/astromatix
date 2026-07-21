@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../../../layouts/Base.astro';
 import { localiseBodyImages } from '../../../../lib/richtext';
+import { tagHref } from '../../../../lib/tags';
 
 // The 11 HubSpot blog posts — the only genuine article template on the site.
 // Routes are generated from each entry's stored `path` so they match the live
@@ -55,6 +56,20 @@ const backHref = `/nl/actueel/${a.category.toLowerCase()}`;
       )}
 
       <div class="rich-text mt-10" set:html={body} />
+
+      {/* Editorial tags ("Onderwerpen: Informatief"), each linking to the
+          per-category tag listing — only the three tagged posts render this. */}
+      {a.tags.length > 0 && (
+        <p class="mt-10 text-[14.4px] text-navy">
+          <span class="font-bold">Onderwerpen:</span>{' '}
+          {a.tags.map((tag, i) => (
+            <>
+              {i > 0 && ', '}
+              <a href={tagHref(a.path, tag)} class="text-orange hover:underline">{tag}</a>
+            </>
+          ))}
+        </p>
+      )}
 
       <p class="mt-12">
         <a href={backHref} class="text-[16px] text-orange hover:underline">

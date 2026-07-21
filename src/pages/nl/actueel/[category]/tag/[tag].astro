@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../../../layouts/Base.astro';
+import { tagSlug, categorySegment, segmentTitle, readMinutes } from '../../../../../lib/tags';
+
+// Per-category editorial-tag listings, e.g. /nl/actueel/blogs/tag/informatief
+// and /nl/actueel/nieuws/tag/informatief. On the original these are the HubSpot
+// blog listing filtered to a single topic; we generate one static page per
+// (category-segment, tag) pair that actually occurs, listing the tagged posts.
+//
+// The path DEPTH keeps this distinct from the sibling routes: [category]/[slug]
+// is two segments after /actueel, this is three (segment / "tag" / slug), so
+// /blogs/tag/informatief can never be mistaken for an article.
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  // Group tagged posts by their URL segment + tag slug.
+  const groups = new Map<
+    string,
+    { category: string; tag: string; label: string; posts: typeof articles }
+  >();
+  for (const entry of articles) {
+    const segment = categorySegment(entry.data.path);
+    for (const label of entry.data.tags) {
+      const slug = tagSlug(label);
+      const key = `${segment}/${slug}`;
+      if (!groups.has(key)) groups.set(key, { category: segment, tag: slug, label, posts: [] });
+      groups.get(key)!.posts.push(entry);
+    }
+  }
+  return [...groups.values()].map((g) => ({
+    params: { category: g.category, tag: g.tag },
+    props: { label: g.label, segment: g.category, posts: g.posts },
+  }));
+}
+
+const { label, segment, posts } = Astro.props;
+
+// Newest first, by the ISO-ish long-form date isn't sortable directly, so keep
+// document order — the original lists them in the same order it stores them.
+const cards = posts.map((p) => ({
+  href: p.data.path,
+  title: p.data.title,
+  date: p.data.date,
+  minutes: readMinutes(p.data.bodyHtml),
+}));
+
+const pageTitle = `${segmentTitle(segment)} | ${label}`;
+---
+
+<Base title={pageTitle}>
+  <section class="px-6 pt-[70px] pb-24">
+    <div class="mx-auto flex max-w-[1200px] flex-wrap justify-center gap-8">
+      {cards.map((card) => (
+        <a
+          href={card.href}
+          class="flex w-full flex-col rounded-3xl bg-white p-8 shadow-[0_16px_32px_0_rgba(17,65,122,0.05),0_8px_16px_0_rgba(17,65,122,0.05)] transition-transform hover:scale-[1.02] sm:w-[384px]"
+        >
+          <span class="w-fit rounded-[6px] bg-navy px-3 py-1 text-[13px] font-medium text-white">
+            {label}
+          </span>
+          <h2 class="mt-5 font-display text-[20px] leading-[28px] font-bold text-navy">
+            {card.title}
+          </h2>
+          <div class="mt-auto flex gap-4 pt-6 text-[14.4px] text-navy">
+            {card.date && <span>{card.date}</span>}
+            <span>{card.minutes} minuten</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

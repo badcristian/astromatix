@@ -28,6 +28,10 @@ const articles = defineCollection({
     heroImage: z.string().nullable(),
     images: z.array(z.string()),
     embeds: z.array(z.string()),
+    // Editorial topics ("Onderwerpen: Informatief"). Each links to a per-category
+    // tag listing (/nl/actueel/<category>/tag/<slug>). Only three posts carry one
+    // on the original; the rest have no tags block at all, hence the default.
+    tags: z.array(z.string()).default([]),
     bodyHtml: z.string(),
   }),
 });
