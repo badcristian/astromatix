@@ -84,6 +84,8 @@ const slides = reviews
 )}
 
 <script>
+  import { autoplay } from '../../lib/carousel';
+
   document.querySelectorAll<HTMLElement>('[data-review-carousel]').forEach((root) => {
     const track = root.querySelector<HTMLElement>('[data-track]');
     const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-dot]'));
@@ -96,8 +98,9 @@ const slides = reviews
       dots.forEach((d, i) => d.setAttribute('aria-current', String(i === index)));
     };
 
-    root.querySelector('[data-prev]')?.addEventListener('click', () => go(index - 1));
-    root.querySelector('[data-next]')?.addEventListener('click', () => go(index + 1));
-    dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+    const player = autoplay(root, () => go(index + 1));
+    root.querySelector('[data-prev]')?.addEventListener('click', () => { go(index - 1); player.reset(); });
+    root.querySelector('[data-next]')?.addEventListener('click', () => { go(index + 1); player.reset(); });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { go(i); player.reset(); }));
   });
 </script>

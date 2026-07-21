@@ -1,16 +1,18 @@
 ---
-// The original's `.properties__item` — an icon glyph plus a label. It recurs
-// across the homepage (hero band in white-on-navy) and voor-wie (navy on
-// white), so it lives in ui/ rather than inside any one section.
+// The original's `.properties__item` — an icon plus a label. It recurs across
+// the homepage hero band, the product-page bands, and voor-wie, so it lives in
+// ui/ rather than inside any one section.
 //
-// The glyph is a BARE coloured SVG — NOT an icon in a chip. An earlier version
-// wrapped it in a 44×44 white rounded square (`bg-white`); the original has no
-// such chip. On the navy hero band that white square was very visible and
-// wrong; on voor-wie's white background it was invisible but still not the
-// original. Measured @1440 on the live site:
-//   band (light)   glyph 18×18, WHITE, transparent behind, label 16/22.4 white
-//   voor-wie(dark) glyph 29×29, NAVY,  transparent behind, label 16/22.4 navy
-//   label sits 7px after the glyph
+// Two icon treatments, both on the live original — do NOT unify them:
+//   chip (homepage band)  `.icon--square.icon--fill`: an 18px NAVY glyph inside
+//                         a 44×44 WHITE rounded square. Label white.
+//   bare (product bands,  `.icon--medium`: a bare coloured glyph, no background.
+//        voor-wie)        white 18px on the navy product bands; navy 29px in
+//                         voor-wie's white list. Label matches the glyph.
+//
+// An earlier pass wrongly stripped the chip from ALL of them — right for the
+// product bands, but the homepage band genuinely has the white square. Hence
+// the `chip` prop. label sits 7px after the icon.
 //
 // Glyphs are our own equivalents of the theme's icon set, not traced copies.
 
@@ -19,14 +21,18 @@ interface Props {
   label: string;
   variant?: 'light' | 'dark';
   size?: 'default' | 'small';
+  /** White rounded-square background behind a navy glyph (the homepage band). */
+  chip?: boolean;
 }
 
-const { icon, label, variant = 'light', size = 'default' } = Astro.props;
+const { icon, label, variant = 'light', size = 'default', chip = false } = Astro.props;
 
-// Glyph colour and size track the original per context: white 18px on the
-// navy bands, navy 29px in voor-wie's light list.
-const glyphPx = variant === 'dark' ? 29 : 18;
-const iconColor = variant === 'light' ? 'text-white' : 'text-navy';
+// Label colour follows the variant; the glyph is navy inside a white chip, else
+// it matches the label. voor-wie's bare glyph is larger (29px).
+const labelColor = variant === 'light' ? 'text-white' : 'text-navy';
+const glyphColor = chip ? 'text-navy' : labelColor;
+const glyphPx = chip ? 18 : variant === 'dark' ? 29 : 18;
+const chipClass = chip ? 'size-11 rounded-lg bg-white' : '';
 
 const paths: Record<Props['icon'], string> = {
   download: 'M12 3v11m0 0l-4-4m4 4l4-4M4 19h16',
@@ -39,7 +45,7 @@ const labelClass = size === 'small' ? 'text-[14px] leading-[20px]' : 'text-[16px
 ---
 
 <div class="inline-flex items-center gap-[7px]">
-  <span class:list={['flex shrink-0 items-center justify-center', iconColor]}>
+  <span class:list={['flex shrink-0 items-center justify-center', chipClass, glyphColor]}>
     <svg
       width={glyphPx}
       height={glyphPx}
@@ -54,5 +60,5 @@ const labelClass = size === 'small' ? 'text-[14px] leading-[20px]' : 'text-[16px
       <path d={paths[icon]} />
     </svg>
   </span>
-  <span class={`${labelClass} ${iconColor}`}>{label}</span>
+  <span class={`${labelClass} ${labelColor}`}>{label}</span>
 </div>

@@ -69,6 +69,8 @@ const { images } = Astro.props;
 </div>
 
 <script>
+  import { autoplay } from '../../lib/carousel';
+
   document.querySelectorAll<HTMLElement>('[data-pcar]').forEach((root) => {
     const track = root.querySelector<HTMLElement>('[data-pcar-track]');
     const dotsWrap = root.querySelector<HTMLElement>('[data-pcar-dots]');
@@ -108,6 +110,7 @@ const { images } = Astro.props;
         dot.addEventListener('click', () => {
           index = Math.min(p * pv, maxIndex());
           render();
+          player?.reset();
         });
         dotsWrap.appendChild(dot);
         dots.push(dot);
@@ -131,8 +134,9 @@ const { images } = Astro.props;
       render();
     };
 
-    prev?.addEventListener('click', () => go(-1));
-    next?.addEventListener('click', () => go(1));
+    const player = autoplay(root, () => go(1));
+    prev?.addEventListener('click', () => { go(-1); player.reset(); });
+    next?.addEventListener('click', () => { go(1); player.reset(); });
 
     let lastPv = perView();
     buildDots();

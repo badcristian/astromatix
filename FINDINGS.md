@@ -619,3 +619,63 @@ order) → 9. Rebuilt as `PhotoCarousel.astro`, a translateX carousel matching t
 Splide config (px-based pitch so the 24px gap counts; dots built in JS so the
 count tracks perView — 3 desktop / 9 mobile). General rule: any `.splide` in the
 scraped HTML carries clone slides — dedupe before rendering.
+
+## 44. The homepage band icons DO have the chip — it's per-page (correcting #42).
+
+#42 said the white icon chip "was our invention." Half right: the **product-page**
+bands and voor-wie are bare glyphs (`.icon--medium`), but the **homepage** hero
+band uses `.icon--square.icon--fill` — an 18px NAVY glyph inside a 44×44 WHITE
+rounded square, label white. Stripping the chip globally (in #42) fixed the
+product pages but wrongly flattened the homepage. So `PropertyItem` now takes a
+`chip` prop; `FeatureBand` defaults it true (homepage), product pages pass
+`chip={false}`. Lesson: the same theme module renders two ways across pages —
+don't assume one measurement generalizes (see #25/#28); check the actual page.
+
+Two more per-page homepage details, same lesson:
+- Hero subtitle ("Benieuwd hoe jij jouw job marketing…") is **20px/30px** on the
+  original — rendered via an inline span that overrides the `<p>`'s 16px. Ours
+  was a plain 16px paragraph; bumped to 20/30.
+- `GoCard` image aspect differs by page: `/nl/klantcases` is **2:1** (384×192),
+  the homepage "Samen succesvol" cards are **4:3** (363×272, taller). Added an
+  `aspect` prop; klantcases keeps 2:1, CaseSection passes 4:3.
+
+Sanity-pass note: a `-mx-N` flex row must not exceed its section's side padding
+or it spills past the viewport. ValueProp had `-mx-3` (12px) inside `px-[10px]`
+→ a 2px overflow each side at 390. Matched them (`-mx-[10px] md:-mx-3` +
+`px-[10px] md:px-3`), preserving the intended ~369px mobile card width.
+
+## 45. demo-aanvraag: raw form + side-by-side contact, bullets from a flat body, autoplay.
+
+Four things the funnel pages need that the shared template got wrong.
+
+**Two form chromes, not one.** The contact/product forms are theme-styled
+(white, 12px radius, soft shadow). The funnel pages (`/nl/demo-aanvraag` et al.)
+embed the *raw* HubSpot form: single column, 1px `#959494` border, `#f5f8fa`
+fill, 3px radius, NO shadow, labels above. `FormStub` now takes
+`variant: 'styled' | 'raw'`; `[slug].astro` passes `raw`. Don't unify them.
+
+**Form + contact are side by side.** The Emile/Koen card floats to the RIGHT of
+the inputs (5 pages: demo-aanvraag, demo-aanvragen, advies-gesprek,
+demo-day-actie, jobmarketing-scan — `form && contact`). Extracted `ContactCard`
+(portrait + name + role + LinkedIn/mail/phone glyphs) and a two-column layout in
+`[slug].astro`; the old stacked form/contact sections are skipped when both
+exist.
+
+**Bulleted lists are lost in a flat body array.** The extractor flattens a
+section's copy — lead paragraph, the `<li>`s, closing paragraph — into one
+string[] with no list marker, so the bullets rendered as loose paragraphs.
+`lib/prose.ts#splitBody` rebuilds them: a run of fragments (no terminal `.!?`)
+after a line ending in `:` is a `<ul>`. Also: HubSpot dropdowns extract with a
+null `name` but a real label ("In welke branche actief? *"); filtering on `name`
+alone silently dropped that field — keep fields with a name OR a label.
+
+**Compact hero.** The funnel/thank-you pages have a short 184px navy banner
+(70px padding, h1 40/44), not PageHero's tall 200px-padded interior hero.
+`CompactHero.astro` is that banner, used for title-only funnel pages (no photo,
+no subtitle); pages with a hero photo/subtitle keep PageHero.
+
+**Carousel autoplay.** All five carousels (LogoWall, Testimonial, Review, Photo,
+FeatureShowcase) auto-advance every 5s via one shared `lib/carousel.ts#autoplay`
+— pauses on hover / focus-within / hidden tab, resets on manual interaction,
+and no-ops under prefers-reduced-motion. Matches the original Splide
+`interval:5000, pauseOnHover:true`.

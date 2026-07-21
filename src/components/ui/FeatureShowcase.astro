@@ -129,6 +129,8 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
 </style>
 
 <script>
+  import { autoplay } from '../../lib/carousel';
+
   document.querySelectorAll<HTMLElement>('[data-featshow]').forEach((root) => {
     const tabs = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-tab]'));
     const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-dot]'));
@@ -150,21 +152,26 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
       if (next) next.disabled = index === tabs.length - 1;
     };
 
-    prev?.addEventListener('click', () => { if (current > 0) select(current - 1); });
-    next?.addEventListener('click', () => { if (current < tabs.length - 1) select(current + 1); });
+    // Autoplay wraps past the last tab (the arrows don't, but a self-running
+    // carousel that stalls at the end would just stop).
+    const player = autoplay(root, () => select((current + 1) % tabs.length));
+
+    prev?.addEventListener('click', () => { if (current > 0) select(current - 1); player.reset(); });
+    next?.addEventListener('click', () => { if (current < tabs.length - 1) select(current + 1); player.reset(); });
 
     tabs.forEach((tab, i) => {
-      tab.addEventListener('click', () => select(i));
+      tab.addEventListener('click', () => { select(i); player.reset(); });
       tab.addEventListener('keydown', (event) => {
         const key = (event as KeyboardEvent).key;
         if (key !== 'ArrowRight' && key !== 'ArrowLeft') return;
         event.preventDefault();
-        const next = (i + (key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
-        tabs[next].focus();
-        select(next);
+        const nextIndex = (i + (key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[nextIndex].focus();
+        select(nextIndex);
+        player.reset();
       });
     });
 
-    dots.forEach((dot, i) => dot.addEventListener('click', () => select(i)));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { select(i); player.reset(); }));
   });
 </script>

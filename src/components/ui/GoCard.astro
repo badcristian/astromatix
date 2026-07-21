@@ -17,26 +17,32 @@ interface Props {
   name: string;
   title: string;
   href: string;
+  /**
+   * Image aspect. The two pages that use this card genuinely differ on the
+   * original: `/nl/klantcases` serves 2:1 (384×192), the homepage "Samen
+   * succesvol" section serves 4:3 (363×272) — a taller photo. So it's a prop,
+   * not a constant (FINDINGS.md §7).
+   */
+  aspect?: '2/1' | '4/3';
 }
 
-const { image, name, title, href } = Astro.props;
+const { image, name, title, href, aspect = '2/1' } = Astro.props;
+
+const aspectClass = aspect === '4/3' ? 'aspect-[4/3]' : 'aspect-[2/1]';
+const imgHeight = aspect === '4/3' ? 288 : 192;
 ---
 
 <a
   href={href}
   class="mb-6 block overflow-hidden rounded-3xl bg-fog transition-opacity hover:opacity-90"
 >
-  {/* 2:1, at every viewport. Measured on the original: 384x192 at 1440,
-      224x112 at 768, 342x171 at 390 — the ratio never changes. The previous
-      363x272 was 4:3 and ran each card ~85px tall, which on /nl/klantcases is
-      six cards' worth. */}
   <Image
     src={image}
     alt=""
     width={384}
-    height={192}
+    height={imgHeight}
     densities={[1, 2]}
-    class="aspect-[2/1] w-full object-cover"
+    class:list={[aspectClass, 'w-full object-cover']}
   />
 
   <div class="flex items-center justify-between p-6">

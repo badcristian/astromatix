@@ -70,6 +70,8 @@ const PER_VIEW = 6;
 </section>
 
 <script>
+  import { autoplay } from '../../lib/carousel';
+
   // Brand-logo carousel. Advances ONE logo per arrow click — the original's
   // Splide runs perMove:1 (verified: one click nudges the row a single logo
   // width, not a page of six). The track's own box is perView slides wide
@@ -100,8 +102,9 @@ const PER_VIEW = 6;
       render();
     };
 
-    root.querySelector('[data-prev]')?.addEventListener('click', () => go(-1));
-    root.querySelector('[data-next]')?.addEventListener('click', () => go(1));
+    const player = autoplay(root, () => go(1));
+    root.querySelector('[data-prev]')?.addEventListener('click', () => { go(-1); player.reset(); });
+    root.querySelector('[data-next]')?.addEventListener('click', () => { go(1); player.reset(); });
     window.addEventListener('resize', render);
   });
 </script>

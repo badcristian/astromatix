@@ -11,12 +11,16 @@ import copy from '../../i18n/home-copy.json';
 interface Props {
   heading?: string;
   cta?: { label: string; href: string };
+  /** Anchor id — the homepage hero's "Ontdek de mogelijkheden" scrolls here. */
+  id?: string;
 }
 // Defaults to the homepage strip; other pages pass their own.
-const { heading = copy.ctaStrip.heading, cta = copy.ctaStrip.cta } = Astro.props;
+const { heading = copy.ctaStrip.heading, cta = copy.ctaStrip.cta, id } = Astro.props;
 ---
 
-<section class="bg-navy px-6 py-10">
+{/* scroll-mt clears the 66px sticky header so the heading isn't hidden under it
+    when scrolled to via the hash. */}
+<section id={id} class="scroll-mt-[90px] bg-navy px-6 py-10">
   <div class="mx-auto flex max-w-[1138px] flex-col gap-6 md:flex-row">
     <h2 class="w-full font-display text-[28px] leading-[35px] font-bold text-white md:w-[751px]">
       {heading}

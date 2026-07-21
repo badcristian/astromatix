@@ -1,9 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/sections/PageHero.astro';
+import CompactHero from '../../components/sections/CompactHero.astro';
 import QuickFeat from '../../components/ui/QuickFeat.astro';
 import FeatureCard from '../../components/ui/FeatureCard.astro';
 import FormStub from '../../components/ui/FormStub.astro';
+import ContactCard from '../../components/ui/ContactCard.astro';
 import GoCard from '../../components/ui/GoCard.astro';
 import Button from '../../components/ui/Button.astro';
 import LogoWall from '../../components/sections/LogoWall.astro';
@@ -11,6 +13,7 @@ import { Image } from 'astro:assets';
 import { resolveIcon } from '../../lib/icons';
 import { LANDING_SLUGS } from '../../lib/landing';
 import { bandFor } from '../../lib/bands';
+import { splitBody } from '../../lib/prose';
 
 // The 13 funnel and thank-you pages, from one data-driven template.
 //
@@ -111,6 +114,34 @@ const richBody: string | null = d.richBody ?? null;
 // Legal pages get a shorter dark hero on the original (~compact banner) rather
 // than the tall 200px-padded interior hero the funnel pages use.
 const compactHero = wide;
+
+const heroBg = d.hero?.background ?? null;
+const heroSub = slide?.body ?? null;
+// A title-only funnel page (no hero photo, no subtitle) uses the short 184px
+// banner, not PageHero's tall 200px-padded interior hero — the "less tall
+// header" the demo-aanvraag / advies-gesprek / bedankt-* pages actually have.
+const useCompactHero = !wide && !heroBg && !heroSub;
+
+// Funnel pages that pair a form with a team-contact card (demo-aanvraag,
+// advies-gesprek, demo-aanvragen, demo-day-actie, jobmarketing-scan) lay them
+// out side by side — form left, the contact card floating on the right — with
+// the plain HubSpot form chrome. Everything else keeps the stacked flow.
+const sideBySide = !!form && !!contact && !usesBookingEmbed;
+const contactRole = contact?.body ?? contact?.role ?? null;
+// Keep any field that carries a name OR a real label — HubSpot's dropdowns
+// extract with a null name but a visible label ("In welke branche actief? *"),
+// and dropping name-less fields silently lost them. The dropdown's internal
+// "Search" box has neither, so it falls away.
+const formFields = (form?.fields ?? [])
+  .filter((f: any) => f.name || f.label)
+  .map((f: any, i: number) => ({
+    name: f.name || `veld-${i}`,
+    type: f.type,
+    label: f.label ?? f.placeholder ?? f.name,
+    required: f.required,
+    option: f.option,
+    group: f.group,
+  }));
 ---
 
 <Base title={metaTitle} description={d.meta.description || undefined}>
@@ -120,8 +151,56 @@ const compactHero = wide;
         <h1 class="font-display text-[40px] leading-[48px] font-bold text-white">{title}</h1>
       </div>
     </section>
+  ) : useCompactHero ? (
+    <CompactHero title={title} />
   ) : (
-    <PageHero title={title} subtitle={slide?.body ?? null} background={d.hero?.background} />
+    <PageHero title={title} subtitle={heroSub} background={heroBg} />
+  )}
+
+  {/* Funnel pages: the copy (heading + bulleted list), then the form and the
+      contact card side by side. */}
+  {sideBySide && (
+    <section class="px-6 py-12">
+      <div class="mx-auto max-w-[1245px]">
+        <div class="max-w-[928px]">
+          {introBody.map((para) => (
+            <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
+          ))}
+          {sections.map((s) => (
+            <>
+              {s.heading && (
+                <h2 class="mt-8 mb-4 font-display text-[30px] leading-[33px] font-bold text-navy first:mt-0">
+                  {s.heading}
+                </h2>
+              )}
+              {splitBody(s.body).map((piece) =>
+                piece.kind === 'p' ? (
+                  <p class="mb-4 text-[16px] leading-[26px] text-navy">{piece.text}</p>
+                ) : (
+                  <ul class="mb-4 ml-6 list-disc space-y-1 text-[16px] leading-[26px] text-navy">
+                    {piece.items.map((it) => <li>{it}</li>)}
+                  </ul>
+                ),
+              )}
+            </>
+          ))}
+        </div>
+
+        <div class="mt-8 flex flex-col gap-8 lg:flex-row lg:items-start">
+          <div class="lg:flex-1">
+            <FormStub fields={formFields} submitLabel={form.submitLabel ?? 'Verzenden'} variant="raw" />
+          </div>
+          <div class="lg:w-[300px] lg:shrink-0">
+            <ContactCard
+              name={contact.name}
+              role={contactRole}
+              portrait={portrait}
+              links={contact.links ?? []}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
   )}
 
   {richBody && (
@@ -130,7 +209,7 @@ const compactHero = wide;
     </section>
   )}
 
-  {!richBody && (introBody.length > 0 || sections.length > 0) && (
+  {!richBody && !sideBySide && (introBody.length > 0 || sections.length > 0) && (
     <section class="px-6 py-12">
       <div class:list={[colClass]}>
         {introBody.map((para) => (
@@ -143,9 +222,15 @@ const compactHero = wide;
                 {s.heading}
               </h2>
             )}
-            {s.body.map((para) => (
-              <p class="mb-4 text-[16px] leading-[26px] text-navy">{para}</p>
-            ))}
+            {splitBody(s.body).map((piece) =>
+              piece.kind === 'p' ? (
+                <p class="mb-4 text-[16px] leading-[26px] text-navy">{piece.text}</p>
+              ) : (
+                <ul class="mb-4 ml-6 list-disc space-y-1 text-[16px] leading-[26px] text-navy">
+                  {piece.items.map((it) => <li>{it}</li>)}
+                </ul>
+              ),
+            )}
             {tablesFor(s.heading).map((table: any) => (
               <div class="mb-8 overflow-x-auto">
                 <table class="w-auto border-collapse text-[16px] text-navy">
@@ -198,20 +283,10 @@ const compactHero = wide;
     </section>
   )}
 
-  {form && (
+  {form && !sideBySide && (
     <section class="px-6 py-16">
       <div class="mx-auto max-w-[850px]">
-        <FormStub
-          fields={form.fields
-            .filter((f: any) => f.name)
-            .map((f: any) => ({
-              name: f.name,
-              type: f.type,
-              label: f.label ?? f.placeholder ?? f.name,
-              required: f.required,
-            }))}
-          submitLabel={form.submitLabel ?? 'Verzenden'}
-        />
+        <FormStub fields={formFields} submitLabel={form.submitLabel ?? 'Verzenden'} />
       </div>
     </section>
   )}
@@ -229,7 +304,7 @@ const compactHero = wide;
     </section>
   )}
 
-  {contact && (
+  {contact && !sideBySide && (
     <section class="px-6 pb-16">
       <div class="mx-auto flex max-w-[850px] flex-wrap items-center gap-5">
         {portrait && (

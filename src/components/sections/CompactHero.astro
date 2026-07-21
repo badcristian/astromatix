@@ -1,0 +1,29 @@
+---
+// A short navy banner hero — just a centred title, ~184px tall.
+//
+// The interior PageHero pads 200px top for the tall product/marketing heroes.
+// The thin funnel/thank-you pages (demo-aanvraag, advies-gesprek, the bedankt-*
+// pages…) use a much shorter banner: measured 184px on the original
+// (70px vertical padding, h1 40px/44px, white on navy). Sharing it here keeps
+// those "less tall headers" identical and in one place.
+//
+// Still renders an <h1> for the same reason PageHero does — the originals ship
+// none on these pages (FINDINGS.md §5).
+
+interface Props {
+  title: string;
+  /** Band colour override; navy by default. */
+  band?: string | null;
+}
+
+const { title, band = null } = Astro.props;
+---
+
+<section
+  class="bg-navy px-6 py-[70px] text-center text-white"
+  style={band ? `background-color:${band}` : undefined}
+>
+  <div class="container-site">
+    <h1 class="font-display text-[40px] leading-[44px] font-bold text-white">{title}</h1>
+  </div>
+</section>

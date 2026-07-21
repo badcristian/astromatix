@@ -64,7 +64,9 @@ export const home = {
       'Benieuwd hoe jij jouw job marketing eenvoudig vanuit',
       'één plek kunt beheren, automatiseren en optimaliseren?',
     ],
-    cta: { label: 'Ontdek de mogelijkheden', href: '/nl/#mogelijkheden' },
+    // Same-page hash so it smooth-scrolls to the CtaStrip below without a
+    // reload, wherever the homepage is served (/ or /nl/).
+    cta: { label: 'Ontdek de mogelijkheden', href: '#mogelijkheden' },
   },
   featureBand: [
     { icon: 'download', label: 'Alles binnen één platform' },

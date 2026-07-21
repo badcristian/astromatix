@@ -106,6 +106,8 @@ const { testimonials } = copy.caseSection;
 </section>
 
 <script>
+  import { autoplay } from '../../lib/carousel';
+
   document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
     const track = root.querySelector<HTMLElement>('[data-track]');
     const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-dot]'));
@@ -128,12 +130,14 @@ const { testimonials } = copy.caseSection;
       render();
     };
 
-    root.querySelector('[data-prev]')?.addEventListener('click', () => go(-1));
-    root.querySelector('[data-next]')?.addEventListener('click', () => go(1));
+    const player = autoplay(root, () => go(1));
+    root.querySelector('[data-prev]')?.addEventListener('click', () => { go(-1); player.reset(); });
+    root.querySelector('[data-next]')?.addEventListener('click', () => { go(1); player.reset(); });
     dots.forEach((dot, i) =>
       dot.addEventListener('click', () => {
         index = i;
         render();
+        player.reset();
       }),
     );
   });

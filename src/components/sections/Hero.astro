@@ -30,11 +30,11 @@ const { titleLines, subtitleLines, cta } = home.hero;
       ))}
     </h1>
 
-    {/* The original's subtitle box measures 60px for two 24px lines — 12px
-        more than the text alone. Matched explicitly so the button below lands
-        at the same y. Worth re-checking at 390/768 in case it comes from a
-        wrap difference rather than fixed spacing. */}
-    <p class="mt-6 h-[60px] text-[16px] leading-[24px] text-white">
+    {/* The original renders this subtitle via an inline span at 20px/30px (the
+        <p> computes 16px, but the span inside overrides it) — so it's larger
+        than plain body copy. Two lines at 30px fill the 60px box exactly, which
+        keeps the button below at the same y. */}
+    <p class="mt-6 h-[60px] text-[20px] leading-[30px] text-white">
       {subtitleLines.map((line, i) => (
         <>
           {line}

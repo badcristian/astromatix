@@ -31,9 +31,17 @@ interface Field {
 interface Props {
   fields: Field[];
   submitLabel: string;
+  /**
+   * `styled` (default) — the theme's white pill-ish inputs with a soft shadow
+   * (contact, product CTAs). `raw` — the plain HubSpot look the funnel pages
+   * embed: single column, a 1px grey border, #f5f8fa fill, 3px radius, NO
+   * shadow. Measured on /nl/demo-aanvraag: border #959494, bg #f5f8fa, 44px.
+   */
+  variant?: 'styled' | 'raw';
 }
 
-const { fields, submitLabel } = Astro.props;
+const { fields, submitLabel, variant = 'styled' } = Astro.props;
+const raw = variant === 'raw';
 
 // Checkbox/radio groups (jobboost's "Welke boost past bij jou?" — Small /
 // Medium / Large) render as ONE labelled set of pill options, not as loose
@@ -58,13 +66,17 @@ const choiceGroups = [...new Set(choiceFields.map((f) => f.name))].map((name) =>
 // A first pass set these to 999px pills — that came from probing the FIRST
 // <input> on the page, which is a HIDDEN field with different styling. Filter
 // to a laid-out element before reading computed style (FINDINGS.md §1).
-const fieldChrome =
-  'border border-mist bg-white text-[16px] text-navy outline-none ' +
-  'shadow-[0_8px_16px_0_rgba(17,65,122,0.05),0_4px_8px_0_rgba(17,65,122,0.05)] ' +
-  'transition-colors focus:border-navy/30';
+const fieldChrome = raw
+  ? 'border border-[#959494] bg-[#f5f8fa] text-[16px] text-navy outline-none ' +
+    'transition-colors focus:border-navy/50'
+  : 'border border-mist bg-white text-[16px] text-navy outline-none ' +
+    'shadow-[0_8px_16px_0_rgba(17,65,122,0.05),0_4px_8px_0_rgba(17,65,122,0.05)] ' +
+    'transition-colors focus:border-navy/30';
 
-const inputClass = `w-full rounded-[12px] p-[14.56px] ${fieldChrome}`;
-const textareaClass = `w-full rounded-[12px] p-[14.56px] ${fieldChrome}`;
+const shape = raw ? 'rounded-[3px] p-[10px]' : 'rounded-[12px] p-[14.56px]';
+const inputClass = `w-full ${shape} ${fieldChrome}`;
+const textareaClass = `w-full ${shape} ${fieldChrome}`;
+const inputStyle = raw ? 'height:44px' : 'height:54px';
 
 // The reCAPTCHA response is a hidden textarea the widget fills; not a real
 // field, and we do not embed the third-party widget (out of scope, like the
@@ -75,8 +87,11 @@ const real = fields.filter((f) => f.name && f.name !== 'g-recaptcha-response');
 const paired = new Set(['firstname', 'lastname', 'phone', 'email']);
 const isChoice = (f: Field) => f.type === 'checkbox' || f.type === 'radio';
 const textareas = real.filter((f) => f.type === 'textarea');
-const singles = real.filter((f) => f.type !== 'textarea' && !paired.has(f.name) && !isChoice(f));
-const pairs = real.filter((f) => paired.has(f.name));
+// The raw funnel form is a single column — no firstname/lastname pairing.
+const singles = real.filter(
+  (f) => f.type !== 'textarea' && !isChoice(f) && (raw || !paired.has(f.name)),
+);
+const pairs = raw ? [] : real.filter((f) => paired.has(f.name));
 
 // Per-field error, shown on submit when a required field is empty — a navy
 // pill beneath the field, exactly as the original ("Vul dit verplichte veld
@@ -86,7 +101,7 @@ const errorClass =
   'form-error mt-1 hidden w-fit rounded-[6px] bg-navy px-2 py-1 text-[13px] leading-tight text-white';
 ---
 
-<form class="mx-auto w-full max-w-[800px]" data-form-stub novalidate>
+<form class:list={['w-full', raw ? '' : 'mx-auto max-w-[800px]']} data-form-stub novalidate>
   {singles.map((field) => (
     <div class="mb-6">
       <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
@@ -96,7 +111,7 @@ const errorClass =
         name={field.name}
         type={field.type}
         required={field.required}
-        style="height:54px"
+        style={inputStyle}
       />
       <span class={errorClass} data-error>{FIELD_ERROR}</span>
     </div>
@@ -106,7 +121,7 @@ const errorClass =
     {pairs.slice(0, 2).map((field) => (
       <div class="md:w-[388px]">
         <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
-        <input class={inputClass} id={field.name} name={field.name} type={field.type} required={field.required} style="height:54px" />
+        <input class={inputClass} id={field.name} name={field.name} type={field.type} required={field.required} style={inputStyle} />
         <span class={errorClass} data-error>{FIELD_ERROR}</span>
       </div>
     ))}
@@ -116,7 +131,7 @@ const errorClass =
     {pairs.slice(2).map((field) => (
       <div class="md:w-[388px]">
         <label class="mb-[3px] block text-[16px] text-navy" for={field.name}>{field.label}</label>
-        <input class={inputClass} id={field.name} name={field.name} type={field.type} required={field.required} style="height:54px" />
+        <input class={inputClass} id={field.name} name={field.name} type={field.type} required={field.required} style={inputStyle} />
         <span class={errorClass} data-error>{FIELD_ERROR}</span>
       </div>
     ))}

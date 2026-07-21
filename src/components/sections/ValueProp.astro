@@ -42,9 +42,12 @@ const icons = [iconCentraliseren, iconAutomatiseren2, iconAutomatiseren];
 
     {/* mb-12: the original's card row is 399 tall while its columns are 351,
         i.e. 48px of trailing space below the cards. */}
-    <Reveal variant="zoom" duration={1000} class="mt-11 mb-12 flex flex-wrap justify-center -mx-3">
+    {/* Negative margin must match the section's mobile padding (10px), not 12px
+        — a -mx-3 against px-[10px] spilled 2px past the viewport on each side.
+        Restores to -mx-3/px-3 from md up, where the section is px-6. */}
+    <Reveal variant="zoom" duration={1000} class="mt-11 mb-12 flex flex-wrap justify-center -mx-[10px] md:-mx-3">
       {valueProp.cards.map((card, i) => (
-        <div class="w-full px-3 md:w-1/2 lg:w-1/3">
+        <div class="w-full px-[10px] md:w-1/2 md:px-3 lg:w-1/3">
           <FeatureCard icon={icons[i]} title={card.title} body={card.body} />
         </div>
       ))}

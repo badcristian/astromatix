@@ -43,6 +43,14 @@
 }
 
 @layer base {
+  /* Smooth in-page anchor scrolling (e.g. the hero's "Ontdek de mogelijkheden"
+     → #mogelijkheden), disabled when the visitor prefers reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     font-family: var(--font-sans);
     color: var(--color-navy);
