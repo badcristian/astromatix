@@ -15,14 +15,26 @@ const PAGES_DIR = path.resolve('src/i18n/pages');
 const ARTICLES_DIR = path.resolve('src/content/articles');
 const OUT_DIR = path.resolve('src/assets/icons');
 
-/** Stable, filesystem-safe name for a remote asset URL. */
+/** Stable, filesystem-safe name for a remote asset URL.
+ *  MUST stay identical to slugForUrl in src/lib/icons.ts. */
 export function slugForUrl(url) {
-  const base = decodeURIComponent(url.split('/').pop() ?? '')
-    .replace(/\.[a-z0-9]+$/i, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-  return base || 'asset';
+  const file = decodeURIComponent(url.split('/').pop() ?? '');
+  const base =
+    file
+      .replace(/\.[a-z0-9]+$/i, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'asset';
+  // Short hash of the full filename (case + extension) so case-only or
+  // extension-only variants — Slider.jpg vs slider.jpg, kantoor.jpg vs
+  // Kantoor.webp — no longer collapse to the same file.
+  return `${base}-${shortHash(file)}`;
+}
+
+function shortHash(s) {
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+  return h.toString(36).slice(0, 5);
 }
 
 const urls = new Set();

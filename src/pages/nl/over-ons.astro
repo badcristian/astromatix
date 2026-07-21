@@ -6,6 +6,7 @@ import FeatureCard from '../../components/ui/FeatureCard.astro';
 import ContactCta from '../../components/sections/ContactCta.astro';
 import Reveal from '../../components/ui/Reveal.astro';
 import Timeline from '../../components/ui/Timeline.astro';
+import { Image } from 'astro:assets';
 import { resolveIcon } from '../../lib/icons';
 import page from '../../i18n/pages/nl-over-ons.json';
 import { ctaHeading } from '../../lib/cta';
@@ -25,11 +26,44 @@ const block = (prefix: string) =>
   page.blocks?.find((b: any) => b.heading?.toLowerCase().startsWith(prefix.toLowerCase())) ?? null;
 
 const heroBlock = block('Alles over Jobmatix');
+
+// Two content photos the page carries that were not rendered: a team photo in
+// the intro (384x307, under "Alles over Jobmatix") and a portrait beside the
+// closing quote (384x384, under "Maak deel uit…").
+const introImage = (() => {
+  const hit = (page.contentImages ?? []).find(
+    (i: any) => i.afterHeading?.startsWith('Alles over') && i.width > 300,
+  );
+  const r = resolveIcon(hit?.src);
+  return r ? { ...hit, resolved: r } : null;
+})();
+const quoteBlock = block('"De positieve reacties');
+const quoteImage = (() => {
+  const hit = (page.contentImages ?? []).find(
+    (i: any) => i.afterHeading?.startsWith('Maak deel') && i.width > 300,
+  );
+  const r = resolveIcon(hit?.src);
+  return r ? { ...hit, resolved: r } : null;
+})();
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
   <PageHero title={heroBlock?.heading ?? 'Over ons'} subtitle={heroBlock?.body?.[0] ?? null} />
   {band.length > 0 && <FeatureBand items={band} />}
+
+  {introImage && (
+    <section class="px-6 pt-12">
+      <div class="mx-auto max-w-[1200px]">
+        <Image
+          src={introImage.resolved}
+          alt=""
+          width={introImage.width}
+          height={introImage.height}
+          class="mx-auto h-auto w-full max-w-[900px] rounded-3xl"
+        />
+      </div>
+    </section>
+  )}
 
   <section class="px-6 py-24">
     <div class="mx-auto max-w-[1200px]">
@@ -54,6 +88,26 @@ const heroBlock = block('Alles over Jobmatix');
         </h2>
         <Timeline items={page.timeline} />
       </div>
+    </section>
+  )}
+
+  {quoteBlock?.body?.[0] && (
+    <section class="px-6 py-16">
+      <figure class="mx-auto flex max-w-[1000px] flex-col items-center gap-8 lg:flex-row">
+        {quoteImage && (
+          <Image
+            src={quoteImage.resolved}
+            alt=""
+            width={quoteImage.width}
+            height={quoteImage.height}
+            class="h-auto w-full rounded-3xl lg:w-[384px] lg:shrink-0"
+          />
+        )}
+        <blockquote class="text-[20px] leading-[30px] text-navy">
+          {quoteBlock.heading?.replace(/^"|"$/g, '')}
+          <footer class="mt-4 text-[16px] text-navy/70">{quoteBlock.body[0]}</footer>
+        </blockquote>
+      </figure>
     </section>
   )}
 
