@@ -1,8 +1,4 @@
 ---
-// NOTE: inactive panels are hidden only from 768 up. The original lays ALL of
-// them out at every width — at 390 it exposes 27 headings where the tabbed
-// rebuild exposed 13 — so below md we stack the panels instead of tabbing.
-// That is also the more accessible default: no JS, all content reachable.
 // The original's `.featshow` (nav-left variant). Measured @1440 on
 // /nl/oplossingen/jobadvertising:
 //   wrapper  1200 wide, 514 tall
@@ -10,8 +6,16 @@
 //   content  720 wide, white, 24px radius
 //   panel    inner wrapper 500 wide
 //
-// Selecting a nav entry swaps the panel. Built as buttons with aria-selected
-// rather than the original's plain divs, so it is keyboard-navigable.
+// A nav entry on the LEFT swaps the panel on the RIGHT, and pagination dots
+// under the panel do the same. Built as buttons with aria-selected so it is
+// keyboard-navigable.
+//
+// RESPONSIVE: tabbed at lg, stacked below it. The previous version hid
+// non-first panels with `md:hidden` while the JS toggled plain `hidden` — the
+// two never corresponded, so clicking a tab hid the open panel and left the
+// new one still hidden, i.e. the box went blank. The visibility is now driven
+// entirely by a `data-active` attribute plus the scoped rule below, so the
+// tab, the dots, and the JS all agree.
 
 interface Props {
   items: { title: string; body: string | null }[];
@@ -42,39 +46,69 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
     </ul>
   </div>
 
-  <div class="rounded-3xl bg-white p-10 lg:w-[720px]">
-    {items.map((item, i) => (
-      <div
-        role="tabpanel"
-        id={`${uid}-panel-${i}`}
-        aria-labelledby={`${uid}-tab-${i}`}
-        class:list={['mx-auto max-w-[500px]', i !== 0 && 'md:hidden']}
-        data-featshow-panel={i}
-      >
-        <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
-          {item.title}
-        </h3>
-        {item.body && (
-          <p class="mt-4 text-[16px] leading-[22.4px] text-navy">{item.body}</p>
-        )}
-      </div>
-    ))}
+  <div class="lg:w-[720px]">
+    <div class="rounded-3xl bg-white p-10">
+      {items.map((item, i) => (
+        <div
+          role="tabpanel"
+          id={`${uid}-panel-${i}`}
+          aria-labelledby={`${uid}-tab-${i}`}
+          class="fs-panel mx-auto max-w-[500px]"
+          data-featshow-panel={i}
+          data-active={i === 0 ? '' : undefined}
+        >
+          <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
+            {item.title}
+          </h3>
+          {item.body && (
+            <p class="mt-4 text-[16px] leading-[22.4px] text-navy">{item.body}</p>
+          )}
+        </div>
+      ))}
+    </div>
+
+    {/* Pagination dots — hidden below lg, where the panels stack. */}
+    <div class="mt-6 hidden justify-center gap-3 lg:flex" role="tablist" aria-label="Selecteer">
+      {items.map((_, i) => (
+        <button
+          type="button"
+          aria-label={`Toon ${i + 1}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          class="size-3 rounded-full bg-navy/20 transition-colors aria-selected:bg-navy"
+          data-featshow-dot={i}
+        />
+      ))}
+    </div>
   </div>
 </div>
+
+<style>
+  /* Below lg the panels stack — every one laid out, as the original does at
+     mobile widths (all 27 headings visible at 390). At lg the featshow becomes
+     a tabbed view: only the active panel shows. */
+  @media (min-width: 1140px) {
+    .fs-panel { display: none; }
+    .fs-panel[data-active] { display: block; }
+  }
+</style>
 
 <script>
   document.querySelectorAll<HTMLElement>('[data-featshow]').forEach((root) => {
     const tabs = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-tab]'));
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-dot]'));
     const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-featshow-panel]'));
 
     const select = (index: number) => {
       tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === index)));
-      panels.forEach((p, i) => p.classList.toggle('hidden', i !== index));
+      dots.forEach((d, i) => d.setAttribute('aria-selected', String(i === index)));
+      panels.forEach((p, i) => {
+        if (i === index) p.setAttribute('data-active', '');
+        else p.removeAttribute('data-active');
+      });
     };
 
     tabs.forEach((tab, i) => {
       tab.addEventListener('click', () => select(i));
-      // Left/right arrows move between tabs, as expected of a tablist.
       tab.addEventListener('keydown', (event) => {
         const key = (event as KeyboardEvent).key;
         if (key !== 'ArrowRight' && key !== 'ArrowLeft') return;
@@ -84,5 +118,7 @@ const uid = `featshow-${Math.random().toString(36).slice(2, 8)}`;
         select(next);
       });
     });
+
+    dots.forEach((dot, i) => dot.addEventListener('click', () => select(i)));
   });
 </script>

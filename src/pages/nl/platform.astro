@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/sections/PageHero.astro';
+import ProductHero from '../../components/sections/ProductHero.astro';
 import ProductBlock from '../../components/sections/ProductBlock.astro';
 import LogoWall from '../../components/sections/LogoWall.astro';
 import ContactCta from '../../components/sections/ContactCta.astro';
@@ -43,7 +43,17 @@ import page from '../../i18n/pages/nl-platform.json';
 // earlier version derived it from the page <title> to dodge a since-fixed
 // extractor bug, which silently shipped different copy than the original —
 // exactly what the byte-for-byte rule exists to prevent.
-const heroTitle = page.hero.title;
+// The h1 is two-tone on the original: "All-in-one Recruitment Marketing
+// platform" in white 42px, then "Ontdek de mogelijkheden" in lilac 30px on a
+// second line. The extractor fused them into hero.title; split at the known
+// boundary (all the copy is preserved, just re-split).
+const heroFull = page.hero.title;
+const heroTitle = heroFull.replace(/\s*Ontdek de mogelijkheden\s*$/, '');
+const heroSubtitle = /Ontdek de mogelijkheden/.test(heroFull) ? 'Ontdek de mogelijkheden' : null;
+const heroImage = (() => {
+  const hit = (page.contentImages ?? []).find((i: any) => i.afterHeading === null && i.width > 400);
+  return resolveIcon(hit?.src);
+})();
 const heroCta = page.buttons.find((b) => /demo/i.test(b.label)) ?? null;
 
 const blocks = page.imageTextBlocks
@@ -72,7 +82,16 @@ const voordelen = findBlock('Jobmatix voordelen');
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero title={heroTitle} cta={heroCta} />
+  <ProductHero
+    title={heroTitle}
+    subtitle={heroSubtitle}
+    subtitleInHeading
+    cta={heroCta ? { label: heroCta.label, href: heroCta.href } : null}
+    image={heroImage}
+    imageWidth={588}
+    imageHeight={342}
+    theme="dark"
+  />
 
   {beforeWall.map((block, i) => (
     <>

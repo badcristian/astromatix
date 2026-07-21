@@ -1,0 +1,90 @@
+---
+import { Image } from 'astro:assets';
+import Button from '../ui/Button.astro';
+import type { ImageMetadata } from 'astro';
+
+// Split hero for the product pages: title + subtitle + button on the LEFT, a
+// product screenshot on the RIGHT. NOT the centred PageHero, which these pages
+// were wrongly using — that rendered the image as a full-bleed background with
+// the text stacked and centred over it.
+//
+// Two themes, both measured on the originals at 1440:
+//   dark   platform          navy bg, white h1 42px, 588x342 <img> right
+//   light  jobadvertising    white bg, navy h1 40px + button, image contain
+//                            right (the original sets it as a right-anchored
+//                            `background-size: contain` layer; we render the
+//                            same image as a right-aligned <img>)
+//
+// Row is 1200 wide; the text column is the left half.
+
+interface Props {
+  title: string;
+  subtitle?: string | null;
+  cta?: { label: string; href: string } | null;
+  image?: ImageMetadata;
+  imageWidth?: number;
+  imageHeight?: number;
+  theme?: 'dark' | 'light';
+  /**
+   * Render the subtitle as a lilac 30px second line INSIDE the h1, the way
+   * platform's original does ("Ontdek de mogelijkheden" in #e9b9ec). Off by
+   * default — jobadvertising's subtitle is ordinary body text below the h1.
+   */
+  subtitleInHeading?: boolean;
+}
+
+const {
+  title,
+  subtitle = null,
+  cta = null,
+  image,
+  imageWidth = 588,
+  imageHeight = 342,
+  theme = 'dark',
+  subtitleInHeading = false,
+} = Astro.props;
+
+const dark = theme === 'dark';
+---
+
+<section class:list={[dark ? 'bg-navy' : 'bg-white', 'px-6 pt-[100px] pb-[60px]']}>
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10 lg:flex-row lg:gap-20">
+    <div class="lg:flex-1">
+      <h1
+        class:list={[
+          'font-display font-bold',
+          subtitleInHeading ? 'text-[42px] leading-[46px]' : 'text-[40px] leading-[48px]',
+          dark ? 'text-white' : 'text-navy',
+        ]}
+      >
+        {title}
+        {subtitle && subtitleInHeading && (
+          <span class="mt-1 block text-[30px] leading-[36px] text-lilac">{subtitle}</span>
+        )}
+      </h1>
+
+      {subtitle && !subtitleInHeading && (
+        <p class:list={['mt-6 text-[16px] leading-[24px]', dark ? 'text-white' : 'text-navy']}>
+          {subtitle}
+        </p>
+      )}
+
+      {cta && (
+        <div class="mt-8">
+          <Button href={cta.href} label={cta.label} height={52} />
+        </div>
+      )}
+    </div>
+
+    {image && (
+      <Image
+        src={image}
+        alt=""
+        width={imageWidth}
+        height={imageHeight}
+        densities={[1, 2]}
+        class="h-auto w-full lg:w-[588px] lg:shrink-0"
+      />
+    )}
+  </div>
+</section>

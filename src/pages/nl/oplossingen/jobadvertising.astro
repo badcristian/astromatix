@@ -1,6 +1,6 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import PageHero from '../../../components/sections/PageHero.astro';
+import ProductHero from '../../../components/sections/ProductHero.astro';
 import FeatureBand from '../../../components/sections/FeatureBand.astro';
 import FeatureCard from '../../../components/ui/FeatureCard.astro';
 import Accordion from '../../../components/ui/Accordion.astro';
@@ -73,11 +73,14 @@ const faqImage = (() => {
 ---
 
 <Base title={page.meta.title} description={page.meta.description ?? undefined}>
-  <PageHero
+  <ProductHero
     title={page.hero.title}
     subtitle={heroSubtitle}
-    cta={heroCta}
-    background={page.hero.background}
+    cta={heroCta ? { label: heroCta.label, href: heroCta.href } : null}
+    image={resolveIcon(page.hero.background)}
+    imageWidth={588}
+    imageHeight={317}
+    theme="light"
   />
 
   <FeatureBand items={band} />
@@ -123,25 +126,27 @@ const faqImage = (() => {
     </section>
   )}
 
+  {/* Image LEFT (588x317 at x=120), heading + accordion RIGHT — a two-column
+      section on the original, not the accordion stacked over the image. */}
   <section class="bg-mist px-6 py-[60px]">
-    <div class="mx-auto max-w-[1200px]">
-      <h2 class="text-center font-display text-[30px] leading-[33px] font-bold text-navy">
-        {faqHeading}
-      </h2>
-      <div class="mx-auto mt-8 max-w-[900px]">
-        <Accordion items={page.accordion} />
-      </div>
+    <div class="mx-auto flex max-w-[1200px] flex-col items-start gap-10 lg:flex-row lg:gap-20">
       {faqImage && (
-        <div class="mx-auto mt-10 max-w-[588px]">
-          <Image
-            src={faqImage.resolved}
-            alt=""
-            width={faqImage.width}
-            height={faqImage.height}
-            class="h-auto w-full rounded-3xl"
-          />
-        </div>
+        <Image
+          src={faqImage.resolved}
+          alt=""
+          width={faqImage.width}
+          height={faqImage.height}
+          class="h-auto w-full rounded-3xl lg:w-[588px] lg:shrink-0"
+        />
       )}
+      <div class="lg:flex-1">
+        <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy">
+          {faqHeading}
+        </h2>
+        <div class="mt-8">
+          <Accordion items={page.accordion} chrome={false} />
+        </div>
+      </div>
     </div>
   </section>
 

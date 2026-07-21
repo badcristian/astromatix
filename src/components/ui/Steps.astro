@@ -1,14 +1,20 @@
 ---
-// NOTE: inactive panels are hidden only from 768 up. The original lays ALL of
-// them out at every width — at 390 it exposes 27 headings where the tabbed
-// rebuild exposed 13 — so below md we stack the panels instead of tabbing.
-// That is also the more accessible default: no JS, all content reachable.
 // The original's `.module--steps`. Measured @1440:
 //   module   1200 wide, 225 tall
 //   nav      1200×51 — four 44×44 circular buttons, ~101px apart, centred
 //            active button filled navy, glyph is the step number
-//   tooltip  "stap N" sits above each button
+//   tooltip  "stap N" sits SNUG above each button (a small caption), not
+//            floating high above the row
 //   content  1200×174 below the nav
+//
+// Two bugs fixed here:
+//   - the "stap N" label was 41px above the number, reading as detached at the
+//     top of the section rather than a caption on its button
+//   - panels initialised with `md:hidden` while the JS toggled plain `hidden`,
+//     so clicking a number hid the open panel and left the new one hidden —
+//     the content area went blank. Visibility now runs off `data-active` plus
+//     the scoped rule below, so the button and the JS agree. Tabbed at lg,
+//     stacked below it (the original lays all panels out at mobile widths).
 //
 // Buttons carry aria-selected and the panels are real tabpanels, so this is
 // keyboard-navigable — the original uses plain divs.
@@ -29,10 +35,10 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
 <div class="mx-auto max-w-[1200px]" data-steps>
   <div class="flex items-center justify-center gap-[57px]" role="tablist">
     {steps.map((step, i) => (
-      <div class="relative">
+      <div class="flex flex-col items-center gap-1">
         {step.label && (
           <span
-            class="absolute -top-[41px] left-1/2 -translate-x-1/2 text-[13.12px] font-medium whitespace-nowrap text-orange"
+            class="text-[13.12px] font-medium whitespace-nowrap text-orange"
             aria-hidden="true"
           >
             {step.label}
@@ -59,8 +65,9 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
         role="tabpanel"
         id={`${uid}-panel-${i}`}
         aria-labelledby={`${uid}-tab-${i}`}
-        class:list={['mx-auto max-w-[800px] text-center', i !== 0 && 'md:hidden']}
+        class="steps-panel mx-auto max-w-[800px] text-center"
         data-steps-panel={i}
+        data-active={i === 0 ? '' : undefined}
       >
         {step.title && (
           <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">
@@ -82,7 +89,10 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
 
     const select = (index: number) => {
       tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === index)));
-      panels.forEach((p, i) => p.classList.toggle('hidden', i !== index));
+      panels.forEach((p, i) => {
+        if (i === index) p.setAttribute('data-active', '');
+        else p.removeAttribute('data-active');
+      });
     };
 
     tabs.forEach((tab, i) => {
@@ -98,3 +108,11 @@ const uid = `steps-${Math.random().toString(36).slice(2, 8)}`;
     });
   });
 </script>
+
+<style>
+  /* Tabbed at lg, stacked below it. Same pattern as FeatureShowcase. */
+  @media (min-width: 1140px) {
+    .steps-panel { display: none; }
+    .steps-panel[data-active] { display: block; }
+  }
+</style>
