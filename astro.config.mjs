@@ -5,13 +5,11 @@ import tailwindcss from '@tailwindcss/vite';
 import pagefind from 'astro-pagefind';
 import sitemap from '@astrojs/sitemap';
 
-// Canonical/OG/sitemap host. Defaults to the current preview deployment so the
-// live demo attributes its pages to itself — NOT to jobmatix.com, which would be
-// a duplicate-content signal against the original. Override at build time for the
-// production go-live (e.g. the client's own host):  SITE_URL=https://… astro build
+// Canonical/OG/sitemap host — the prospect's production host by default. Override
+// at build time to point the demo at its own deployment so the preview doesn't
+// attribute its pages to jobmatix.com:  SITE_URL=https://… astro build
 // Keep the default in sync with SITE in src/lib/seo.ts.
-const SITE_URL =
-  process.env.SITE_URL ?? 'https://jm-preview-d2605922f1188b06.cristian-0ad.workers.dev';
+const SITE_URL = process.env.SITE_URL ?? 'https://www.jobmatix.com';
 
 // https://astro.build/config
 export default defineConfig({

@@ -9,9 +9,8 @@
 // (Cloudflare Access / an unguessable host), don't rely on noindex.
 
 /**
- * Canonical/OG/sitemap host. Mirrors `site` in astro.config.mjs: defaults to the
- * preview deployment (so the demo doesn't attribute its pages to jobmatix.com);
- * set SITE_URL at build time for the production go-live.
+ * Canonical/OG/sitemap host. Mirrors `site` in astro.config.mjs: the production
+ * host by default; set SITE_URL at build time to point the demo at its own
+ * deployment (so the preview doesn't attribute its pages to jobmatix.com).
  */
-export const SITE =
-  process.env.SITE_URL ?? 'https://jm-preview-d2605922f1188b06.cristian-0ad.workers.dev';
+export const SITE = process.env.SITE_URL ?? 'https://www.jobmatix.com';

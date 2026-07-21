@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CompactHero from '../../components/sections/CompactHero.astro';
-import FeatureCard from '../../components/ui/FeatureCard.astro';
+import ValueCard from '../../components/ui/ValueCard.astro';
+import { valueIcons } from '../../lib/valueIcons';
 import CtaStrip from '../../components/sections/CtaStrip.astro';
 import Reveal from '../../components/ui/Reveal.astro';
 import Timeline from '../../components/ui/Timeline.astro';
@@ -127,7 +128,7 @@ const quoteImage = (() => {
       <Reveal variant="zoom" duration={1000} class="mt-11 flex flex-wrap justify-center -mx-3">
         {page.featureCards.map((card) => (
           <div class="w-full px-3 md:w-1/2 lg:w-1/3">
-            <FeatureCard icon={resolveIcon(card.icon)} title={card.title} body={card.body} background="navy" />
+            <ValueCard title={card.title} body={card.body} iconSvg={valueIcons[card.title]} />
           </div>
         ))}
       </Reveal>
