@@ -42,18 +42,21 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
   style={heroBg ? `background-image:url(${heroBg.src})` : undefined}
 >
   <div class="mx-auto flex min-h-[348px] max-w-[1200px] items-center">
-    <h1 class="max-w-[588px] font-display font-bold">
+    {/* Fonts scale with the viewport so a long client name ("Djops
+        Uitzendgroep") does not overflow the right edge on mobile, while the
+        original desktop sizes are the clamp ceiling. */}
+    <h1 class="max-w-[588px] font-display font-bold break-words">
       {c.heroParts.length > 0 ? (
         c.heroParts.map((part) => (
           <span
             class="block"
-            style={`font-size:${part.fontSize};line-height:${part.fontSize};color:${part.color}`}
+            style={`font-size:clamp(24px, 8vw, ${part.fontSize});line-height:1.08;color:${part.color}`}
           >
             {part.text}
           </span>
         ))
       ) : (
-        <span class="block text-[60px] leading-[60px] text-white">{c.title}</span>
+        <span class="block text-white" style="font-size:clamp(30px, 9vw, 60px);line-height:1.08">{c.title}</span>
       )}
     </h1>
   </div>
