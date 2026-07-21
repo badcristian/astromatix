@@ -679,3 +679,60 @@ FeatureShowcase) auto-advance every 5s via one shared `lib/carousel.ts#autoplay`
 — pauses on hover / focus-within / hidden tab, resets on manual interaction,
 and no-ops under prefers-reduced-motion. Matches the original Splide
 `interval:5000, pauseOnHover:true`.
+
+## 46. Actueel category membership ≠ the visible chip; two cards are "Alles-only".
+
+The original's List.js card array (`listing.values`) gives each card BOTH an
+`intro_label` (the visible chip) AND a separate `category` (what the tab buttons
+match, via a case-sensitive `includes`). They diverge:
+
+- **Programmatic Advertising** shows chip "Kennis" but its filter `category` is
+  **`Events`** — so it appears under the Events tab, not Kennis. Reproduced by
+  splitting `label` (chip) from `category` (filter) in `listing.json`.
+- **Effectief werven** (`category:"null"`) and **Werkzoeken.nl & Jobmatix**
+  (`category:"nieuws"`, lowercase → never matches the capitalised `Nieuws`
+  button) appear **only under Alles**. In our data they carry `category: null`.
+
+Correct live tab counts: Nieuws 5 · Kennis 2 · Blogs 1 · Events 4 · Alles 14.
+The original's page 2 also has a **malformed ghost duplicate** of Werkzoeken (no
+link, wrong image) — do NOT reproduce it. `/nl/actueel/{cat}` all 301 to
+`/nl/actueel` on the original (client-only filtering); our real server-filtered
+category pages are a deliberate SEO improvement, kept. Category `<title>` on the
+original is literally `Actueel` everywhere — our `Actueel - {Category}` is a
+deliberate, user-requested departure.
+
+## 47. Article bodies leaked absolute jobmatix.com links; body column is left-pinned.
+
+Article `bodyHtml` was authored on HubSpot, so its internal `<a href>` were
+absolute `https://www.jobmatix.com/nl/…` — `set:html` rendered them verbatim and
+the demo CTAs sent our visitors to the ORIGINAL site. `localiseBodyImages` now
+also strips the origin from internal page links (`/nl/…` and bare `/` only);
+`/hubfs/…` asset links (the webinar MP4) and other hosts stay absolute. Internal
+links are root-relative everywhere — no Astro `base` (root-domain deploy). NOTE
+(latent, unaddressed): `astro.config` `site` = `https://www.jobmatix.com`, so our
+canonical tags + sitemap still point at the original domain — a duplicate-content
+signal to fix before any indexed launch on our own domain.
+
+Article body layout: the original is a **left-pinned ~900px (75%) column in a
+1200px container with an empty right rail** (no sidebar) — not centered. Our
+earlier `mx-auto max-w-[850px]` centering was wrong.
+
+## 48. Blog-post module blocks are `rt-*` classes styled in the renderer.
+
+Post bodies carry semantic module blocks the extractor preserves as `rt-*`
+classes, styled globally in `[category]/[slug].astro`'s `.rich-text` block (not
+Astro components — the body is a `set:html` string). Added this batch:
+`rt-accent`/`rt-accent-yellow` (inline heading colour) + `rt-center`;
+`rt-partner-*` (premium's two white profile cards); `rt-stepper`/`rt-step-*` (a
+no-JS-graceful tabbed stepper + a small script in the same file); `rt-topics`/
+`rt-topic` (webinar's navy topic cards with a **pink `#e9b9ec`** icon disc — the
+same disc the werken-bij `ValueCard` uses); `rt-video`/`rt-video-play` (poster +
+play overlay standing in for a self-hosted HubSpot MP4, which the image-only
+asset pipeline can't embed).
+
+## 49. Klantcase section-heading size is per-page, encoded as the extractor's `level`.
+
+Djops authors its narrative section headings as `<h3>` (28px/35px) while every
+other klantcase uses `<h2>` (40px/44px). The extractor already captured this as
+a `level` field per heading block, so `KlantcaseArticle`'s `headingClass(level)`
+threads it through — no per-page data edits. Only djops differs.

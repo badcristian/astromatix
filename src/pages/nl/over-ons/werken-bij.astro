@@ -4,6 +4,13 @@ import CompactHero from '../../../components/sections/CompactHero.astro';
 import ContactCta from '../../../components/sections/ContactCta.astro';
 import { Image } from 'astro:assets';
 import PhotoCarousel from '../../../components/ui/PhotoCarousel.astro';
+import ValueCard from '../../../components/ui/ValueCard.astro';
+import TestimonialCard from '../../../components/ui/TestimonialCard.astro';
+import evanPhoto from '../../../assets/colleague-evan.jpg';
+import eefjePhoto from '../../../assets/colleague-eefje.jpg';
+// Kevin's card uses Koen.jpg on the original (its alt is "Koen"); that asset was
+// already fetched for the over-ons quote, so it is reused rather than re-downloaded.
+import kevinPhoto from '../../../assets/icons/koen-1xlcx.jpg';
 import { resolveIcon } from '../../../lib/icons';
 import { ctaHeading } from '../../../lib/cta';
 import { bandFor } from '../../../lib/bands';
@@ -17,9 +24,11 @@ import page from '../../../i18n/pages/nl-over-ons-werken-bij.json';
 // Structure on the original: hero → the open vacancy card → "Onze kernwaarden"
 // (three value cards) → "Kantoormomenten" (office photo gallery) → colleague
 // testimonials → CTA. An earlier version rendered only the hero, the value
-// cards (without their heading) and the vacancy card; the values heading and
-// the whole photo gallery were dropped. (The testimonial carousel has no
-// extracted data yet — see FINDINGS; it is the one remaining gap here.)
+// cards (as plain white boxes without their icons) and the vacancy card; the
+// values heading, the photo gallery and the testimonials were all dropped. The
+// value cards now use ValueCard (navy fill + circular icon disc), and the three
+// colleague testimonials are restored below (the extractor captures no review
+// data, so their copy is inlined verbatim — see the block above them).
 
 const title = page.hero.title || page.headings[0] || 'Werken bij Jobmatix';
 
@@ -29,6 +38,47 @@ const heading = (prefix: string) =>
 
 const valuesHeading = heading('Onze kernwaarden');
 const values = (page.featureCards ?? []).filter((c) => c.title);
+
+// The three value cards use inline FontAwesome-style glyphs on the original,
+// so the extractor (which only records image URLs) left `icon: null`. The exact
+// SVG paths are lifted verbatim from the original markup and keyed by title.
+const valueIcons: Record<string, string> = {
+  Betrokken:
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" aria-hidden="true"><path d="M488 192H336v56c0 39.7-32.3 72-72 72s-72-32.3-72-72V126.4l-64.9 39C107.8 176.9 96 197.8 96 220.2v47.3l-80 46.2C.7 322.5-4.6 342.1 4.3 357.4l80 138.6c8.8 15.3 28.4 20.5 43.7 11.7L231.4 448H368c35.3 0 64-28.7 64-64h16c17.7 0 32-14.3 32-32v-64h8c13.3 0 24-10.7 24-24v-48c0-13.3-10.7-24-24-24zm147.7-37.4L555.7 16C546.9.7 527.3-4.5 512 4.3L408.6 64H306.4c-12 0-23.7 3.4-33.9 9.7L239 94.6c-9.4 5.8-15 16.1-15 27.1V248c0 22.1 17.9 40 40 40s40-17.9 40-40v-88h184c30.9 0 56 25.1 56 56v28.5l80-46.2c15.3-8.9 20.5-28.4 11.7-43.7z"/></svg>',
+  Eenvoud:
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" aria-hidden="true"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm141.4 389.4c-37.8 37.8-88 58.6-141.4 58.6s-103.6-20.8-141.4-58.6S48 309.4 48 256s20.8-103.6 58.6-141.4S194.6 56 248 56s103.6 20.8 141.4 58.6S448 202.6 448 256s-20.8 103.6-58.6 141.4zM328 152c-23.8 0-52.7 29.3-56 71.4-.7 8.6 10.8 11.9 14.9 4.5l9.5-17c7.7-13.7 19.2-21.6 31.5-21.6s23.8 7.9 31.5 21.6l9.5 17c4.1 7.4 15.6 4 14.9-4.5-3.1-42.1-32-71.4-55.8-71.4zm-201 75.9l9.5-17c7.7-13.7 19.2-21.6 31.5-21.6s23.8 7.9 31.5 21.6l9.5 17c4.1 7.4 15.6 4 14.9-4.5-3.3-42.1-32.2-71.4-56-71.4s-52.7 29.3-56 71.4c-.6 8.5 10.9 11.9 15.1 4.5zM362.4 288H133.6c-8.2 0-14.5 7-13.5 15 7.5 59.2 58.9 105 121.1 105h13.6c62.2 0 113.6-45.8 121.1-105 1-8-5.3-15-13.5-15z"/></svg>',
+  Vooruitstrevend:
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true"><path d="M304 416h-64a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h48v304a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16V160h48c14.21 0 21.38-17.24 11.31-27.31l-80-96a16 16 0 0 0-22.62 0l-80 96C-5.35 142.74 1.77 160 16 160zm416 0H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-64 128H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM496 32H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h256a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"/></svg>',
+};
+
+// Colleague testimonials under "Wat zeggen onze collega's?". The extractor has
+// no review data yet (see FINDINGS / the header comment), so the three quotes,
+// names and roles are restored here byte-for-byte from the original — including
+// its curly quotation marks. Photos are local assets.
+const testimonialsHeading = heading("Wat zeggen onze collega");
+const testimonials = [
+  {
+    quote:
+      '“Echt heel gaaf om onderdeel te zijn van een organisatie die met de week groeit. Je ziet klanten echt glunderen als ze een demo van ons krijgen. Fijn om zo van toegevoegde waarde te zijn.”',
+    name: 'Evan',
+    role: 'Recruitment Marketeer',
+    photo: evanPhoto,
+  },
+  {
+    quote:
+      '“Wat werken bij Jobmatix leuk maakt is het hechte team dat altijd voor elkaar klaarstaat. Daarnaast vind ik het heel gaaf dat onze klanten heel blij zijn met onze kennis en tool.”',
+    name: 'Eefje',
+    role: 'Recruitment Marketeer',
+    photo: eefjePhoto,
+  },
+  {
+    quote:
+      '“Samen met het technisch team werken aan het onderhouden en doorontwikkelen van de Jobmatix tool is het mooiste wat er is. Ik krijg alle ruimte om mezelf te ontwikkelen en keuzes te maken.”',
+    name: 'Kevin',
+    role: 'Developer',
+    photo: kevinPhoto,
+  },
+];
 
 const kantoorHeading = heading('Kantoormomenten');
 // The scrape captured Splide's loop CLONES too, so contentImages holds 21
@@ -86,11 +136,8 @@ const vacancyLink = (vacancy?.links ?? []).find((l: any) => l.href)?.href ?? nul
         )}
         <div class="flex flex-wrap justify-center -mx-3">
           {values.map((v) => (
-            <div class="w-full px-3 pb-6 md:w-1/2 lg:w-1/3">
-              <div class="h-full rounded-3xl bg-white p-8 shadow-card">
-                <h3 class="font-display text-[20px] leading-[28px] font-bold text-navy">{v.title}</h3>
-                {v.body && <p class="mt-3 text-[16px] leading-[24px] text-navy/80">{v.body}</p>}
-              </div>
+            <div class="w-full px-3 md:w-1/2 lg:w-1/3">
+              <ValueCard title={v.title} body={v.body} iconSvg={valueIcons[v.title]} />
             </div>
           ))}
         </div>
@@ -109,6 +156,23 @@ const vacancyLink = (vacancy?.links ?? []).find((l: any) => l.href)?.href ?? nul
       <PhotoCarousel images={gallery} />
     </section>
   )}
+
+  {/* "Wat zeggen onze collega's?" — three boxed colleague testimonials. Static
+      grid on the original (3-up desktop, 2-up tablet), not a carousel. */}
+  <section class="px-6 py-14">
+    {testimonialsHeading && (
+      <h2 class="mb-10 text-center font-display text-[30px] leading-[33px] font-bold text-navy">
+        {testimonialsHeading}
+      </h2>
+    )}
+    <div class="mx-auto flex max-w-[1138px] flex-wrap justify-center -mx-3">
+      {testimonials.map((t) => (
+        <div class="w-full px-3 md:w-1/2 lg:w-1/3">
+          <TestimonialCard quote={t.quote} name={t.name} role={t.role} photo={t.photo} />
+        </div>
+      ))}
+    </div>
+  </section>
 
   {/* The original's "Bouw mee aan succes!" block carries this intro line; the
       extractor didn't capture it, so it's restored here verbatim. */}

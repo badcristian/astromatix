@@ -47,6 +47,17 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
   resolved: resolveIcon(img.src),
   gif: gifFor(img.src),
 });
+
+// Section heading size is NOT uniform across the six cases: five run every
+// heading at the 40px "H2" size, but djops authors its narrative sections one
+// step down at the 28px "H3" size (its lead headline stays 40px). The original
+// heading level rides on each part, so mirror it — level 3 → 28/35 (24/30 on
+// mobile), everything else → the 40/44 default (30/33 on mobile). Both were
+// measured @1440 and @390 on the live original.
+const headingClass = (level: number) =>
+  level >= 3
+    ? 'font-display text-[24px] leading-[30px] font-bold text-navy lg:text-[28px] lg:leading-[35px]'
+    : 'font-display text-[30px] leading-[33px] font-bold text-navy lg:text-[40px] lg:leading-[44px]';
 ---
 
 {/* --- hero: full-bleed photo, two-tone heading ------------------------- */}
@@ -196,7 +207,7 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
         style={item.band ? `background-color:${item.band}` : undefined}
       >
         <div class="mx-auto max-w-[1138px] text-center">
-          <h2 class="font-display text-[30px] leading-[33px] font-bold text-navy lg:text-[40px] lg:leading-[44px]">{lead.heading}</h2>
+          <h2 class={headingClass(lead.level)}>{lead.heading}</h2>
           {narrative.map((para) => (
             <p class="mx-auto mt-4 max-w-[900px] text-[16px] leading-[26px] text-navy">{para}</p>
           ))}
@@ -241,7 +252,7 @@ const resolveImg = (img: { src: string; width: number; height: number }) => ({
         <div class:list={[item.card && 'lg:w-[792px] lg:shrink-0', sideImage && 'lg:flex-1']}>
           {item.parts.map((part, pi) => (
             <>
-              <h2 class:list={['font-display text-[30px] leading-[33px] font-bold text-navy lg:text-[40px] lg:leading-[44px]', pi > 0 && 'mt-10']}>
+              <h2 class:list={[headingClass(part.level), pi > 0 && 'mt-10']}>
                 {part.heading}
               </h2>
               {part.body.map((para) => (

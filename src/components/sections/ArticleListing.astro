@@ -104,7 +104,10 @@ const formatDate = (d: string) => {
                 "Lees verder" for the internal articles. It's a styled span, not
                 a nested <a>, since the whole card is already the link. */}
             <div class="flex flex-1 flex-col p-6">
-              <p class="text-[14.4px] uppercase text-orange">{card.category}</p>
+              {/* Visible chip is the card's own label — it can differ from the
+                  filter category (Programmatic Advertising shows "Kennis" but
+                  filters under Events, an original quirk). */}
+              <p class="text-[14.4px] uppercase text-orange">{card.label ?? card.category}</p>
               <h2 class="mt-2 font-display text-[20px] leading-[28px] font-bold text-navy">
                 {card.title}
               </h2>
@@ -227,6 +230,8 @@ const formatDate = (d: string) => {
           links.forEach((l) => l.setAttribute('aria-current', l === link ? 'page' : 'false'));
           render();
           history.replaceState(null, '', link.href);
+          // Reflect the selected filter in the tab title ("Actueel - Kennis").
+          document.title = `Actueel - ${filter === '*' ? 'Alles' : filter}`;
         });
       });
     }

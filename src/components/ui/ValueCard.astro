@@ -1,0 +1,41 @@
+---
+// The original's werken-bij "Onze kernwaarden" cards — `.feature-card--dark`.
+// Measured from template_feature-card.min.css / module_icon.min.css @1440:
+//   card   navy #11417a fill, radius 24, padding 24, shadow-card, centred
+//   body   max-width 300, auto side margins
+//   icon   circular disc (icon--large icon--disc icon--fill): 58px, background
+//          #e9b9ec (the theme's pink accent, NOT the desktop-header lilac
+//          #dc93e1 — a different measured shade), holding a 29px white glyph;
+//          margin-top .56rem (~9px), margin-bottom 24
+//   title  h4 Poppins 700 20/28 white, margin-bottom 24
+//   desc   16/22.4 white/80 (the card's own colour: hsla(0,0%,100%,.8))
+//
+// Reusable so the three values render from one definition. The glyph is raw
+// <svg> markup we extracted from the original at build time (not user input),
+// so it is injected with set:html — the same pattern over-ons uses for its
+// stat icons. The disc's `text-white` + `fill-current` colour the glyph.
+
+interface Props {
+  title: string;
+  body: string;
+  /** Raw <svg> markup for the icon glyph. Sized to 29px / coloured by the disc. */
+  iconSvg?: string;
+}
+
+const { title, body, iconSvg } = Astro.props;
+---
+
+<div class="mb-6 h-full rounded-3xl bg-navy p-6 text-center shadow-card">
+  <div class="mx-auto max-w-[300px]">
+    <div class="mt-[9px] mb-6 flex justify-center">
+      <span
+        class="inline-flex size-[58px] items-center justify-center rounded-full bg-[#e9b9ec] text-white [&>svg]:size-[29px] [&>svg]:fill-current"
+        set:html={iconSvg}
+      />
+    </div>
+
+    <h4 class="mb-6 font-display text-[20px] leading-[28px] font-bold text-white">{title}</h4>
+
+    <p class="text-[16px] leading-[22.4px] text-white/80">{body}</p>
+  </div>
+</div>

@@ -12,8 +12,22 @@ import { resolveIcon } from './icons';
 const IMG_TAG = /<img\b[^>]*>/gi;
 const SRC_ATTR = /\bsrc="([^"]+)"/i;
 
+// Article bodies were authored on HubSpot, so their internal links are absolute
+// jobmatix.com URLs the extractor keeps verbatim. Left as-is they send OUR
+// visitors back to the original site — worst of all on the demo CTAs the pages
+// exist to convert. Strip the origin so page links resolve on our own domain.
+//
+// Deliberately narrow: only rewrite `/nl/...` page paths and the bare homepage.
+// Asset links (`/hubfs/...mp4`, images) and other hosts (platform.jobmatix.com,
+// recruitmenttech.nl, social) must stay absolute, so they are left untouched.
+const INTERNAL_HREF = /href="https?:\/\/(?:www\.)?jobmatix\.com(\/nl\/[^"]*|\/)"/gi;
+
+function relativiseInternalLinks(html: string): string {
+  return html.replace(INTERNAL_HREF, (_m, path) => `href="${path === '/' ? '/nl/' : path}"`);
+}
+
 export function localiseBodyImages(html: string, slug: string): string {
-  return html.replace(IMG_TAG, (tag) => {
+  const withLocalImages = html.replace(IMG_TAG, (tag) => {
     const src = tag.match(SRC_ATTR)?.[1];
     if (!src || !/^https?:\/\//i.test(src)) return tag;
 
@@ -30,4 +44,6 @@ export function localiseBodyImages(html: string, slug: string): string {
     const withLoading = /\bloading=/.test(tag) ? tag : tag.replace(/^<img/i, '<img loading="lazy" decoding="async"');
     return withLoading.replace(SRC_ATTR, `src="${asset.src}"`);
   });
+
+  return relativiseInternalLinks(withLocalImages);
 }

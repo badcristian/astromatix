@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// The original's colleague testimonials under "Wat zeggen onze collega's?" —
+// `.review--boxed.review--author-photo` (module--review). NOT a carousel here:
+// three static boxed cards in a `row items-stretch justify-center` grid.
+// From template_review.min.css:
+//   card   white, radius 24, padding 24, shadow-card, equal-height, mb 24
+//   quote  navy 16/22.4 (.important-text on a light card), margin-bottom 24;
+//          the curly quotation marks are part of the copy, kept verbatim
+//   author inline-flex, vertically centred: 80px circular photo + text, 15px gap
+//   name   Manrope 500, navy, 16px (.review__author__name)
+//   role   .small-text 14.4px, navy (no colour override → inherits #11417a)
+
+interface Props {
+  quote: string;
+  name: string;
+  role: string;
+  photo: ImageMetadata;
+}
+
+const { quote, name, role, photo } = Astro.props;
+---
+
+<div class="mb-6 h-full rounded-3xl bg-white p-6 shadow-card">
+  <p class="mb-6 text-[16px] leading-[22.4px] text-navy">{quote}</p>
+
+  <div class="flex items-center">
+    <Image
+      src={photo}
+      alt={name}
+      width={80}
+      height={80}
+      densities={[1, 2]}
+      class="mr-[15px] size-20 shrink-0 rounded-full object-cover"
+    />
+    <div>
+      <div class="text-[16px] font-medium text-navy">{name}</div>
+      <div class="text-[14.4px] text-navy">{role}</div>
+    </div>
+  </div>
+</div>

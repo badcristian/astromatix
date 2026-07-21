@@ -27,6 +27,9 @@ interface OrderBlock {
   heading?: string;
   /** 'center' on the narrative sections the original centres; absent = left. */
   align?: string;
+  /** DOM heading level the extractor captured: 2 = 40px H2 (the norm), 3 = 28px
+   *  H3 (only djops authors its narrative sections one step smaller). */
+  level?: number;
   /** heading/lead: an array of lines. compactCard/featureCard: a single string. */
   body?: string[] | string;
   y?: number;
@@ -74,7 +77,9 @@ interface Section {
   kind: 'section';
   // A section can stack several heading+body pairs in its text column — djops
   // groups "Het resultaat" and "Toekomstvisie" beside one right-hand photo.
-  parts: { heading: string; body: string[] }[];
+  // `level` is the original heading level (2 = 40px, 3 = 28px); it rides per
+  // part because a merged section can mix levels, though djops's are all 3.
+  parts: { heading: string; level: number; body: string[] }[];
   band: string | null;
   images: RenderImage[];
   card: { title: string; body: string } | null;
@@ -237,6 +242,7 @@ function buildRenderList(
         parts: [
           {
             heading: b.heading ?? '',
+            level: b.level ?? 2,
             body: ((b.body ?? []) as string[]).filter((x) => !stripQuotes.has(norm(x))),
           },
         ],

@@ -38,7 +38,10 @@ const backHref = `/nl/actueel/${a.category.toLowerCase()}`;
 
 <Base title={a.metaTitle} description={a.metaDescription ?? undefined}>
   <article class="px-6 pt-[60px] pb-16">
-    <div class="mx-auto max-w-[850px]">
+    {/* The original body is a left-pinned ~900px (75%) column inside a 1200px
+        container with an empty right rail — NOT centered. */}
+    <div class="mx-auto max-w-[1200px]">
+      <div class="lg:max-w-[900px]">
       <p class="mb-4 text-[14.4px]">
         <a href={backHref} class="text-orange hover:underline">{a.category}</a>
       </p>
@@ -76,6 +79,7 @@ const backHref = `/nl/actueel/${a.category.toLowerCase()}`;
           &larr; Terug naar {a.category}
         </a>
       </p>
+      </div>
     </div>
   </article>
 </Base>
@@ -198,4 +202,199 @@ const backHref = `/nl/actueel/${a.category.toLowerCase()}`;
   .rich-text :global(.rt-image img) {
     margin: 2rem 0;
   }
+
+  /* --- inline accent colours for headings / lead-ins -------------------- */
+  /* Orange headings (premium's title, programmatic's 5 lead-ins). Colour only;
+     centering is a separate .rt-center so the two pages can differ. */
+  .rich-text :global(.rt-accent) { color: var(--color-orange); }
+  .rich-text :global(.rt-accent-yellow) { color: #ffc82a; }
+  .rich-text :global(.rt-center) { text-align: center; }
+
+  /* --- partnership profile cards (premium-partnership) ------------------- */
+  /* Two white, rounded, shadowed cards with a centered round photo + name +
+     quote. Measured from the original's team-card module. */
+  .rich-text :global(.rt-partner-grid) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    align-items: stretch;
+    margin: 2rem 0;
+  }
+  @media (max-width: 767px) {
+    .rich-text :global(.rt-partner-grid) { grid-template-columns: 1fr; }
+  }
+  .rich-text :global(.rt-partner-card) {
+    background: #fff;
+    border-radius: 24px;
+    padding: 30px 30px 40px;
+    text-align: center;
+    box-shadow: 0 16px 32px rgba(17, 65, 122, 0.05), 0 8px 16px rgba(17, 65, 122, 0.05);
+  }
+  .rich-text :global(.rt-partner-photo) {
+    width: 100px;
+    height: 100px;
+    border-radius: 9999px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 15px;
+  }
+  .rich-text :global(.rt-partner-card h3) {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.28;
+    font-weight: 500;
+    color: var(--color-navy);
+    margin: 0 0 0.5rem;
+  }
+  .rich-text :global(.rt-partner-card p) {
+    font-size: 14.4px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* --- tabbed stepper ("Programmatic Advertising in 5 stappen") ---------- */
+  /* Numbered dots joined by a slight line; click a dot to reveal its panel.
+     First dot + panel carry .is-active so step 1 shows with JS off. */
+  .rich-text :global(.rt-stepper) { margin: 2rem 0; }
+  .rich-text :global(.rt-step-nav) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .rich-text :global(.rt-step-dot) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.73rem;
+    height: 2.73rem;
+    margin: 0 3.59rem 0.46rem 0;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    box-shadow: inset 0 0 0 2px var(--color-mist);
+    color: var(--color-navy);
+    font-family: var(--font-display);
+    font-size: 1.36rem;
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  }
+  .rich-text :global(.rt-step-dot:last-child) { margin-right: 0; }
+  .rich-text :global(.rt-step-dot:not(:last-child))::after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0.46rem;
+    width: 2.67rem;
+    height: 2px;
+    border-radius: 4px;
+    background: var(--color-mist);
+  }
+  .rich-text :global(.rt-step-dot.is-active) {
+    background: var(--color-navy);
+    box-shadow: none;
+    color: #fff;
+  }
+  .rich-text :global(.rt-step-dot:focus-visible) {
+    box-shadow: inset 0 0 0 2px var(--color-navy);
+  }
+  .rich-text :global(.rt-step-panels) { padding-top: 24px; }
+  .rich-text :global(.rt-step-panel) { display: none; }
+  .rich-text :global(.rt-step-panel.is-active) { display: block; }
+  .rich-text :global(.rt-step-panel p) { font-size: 18px; margin-bottom: 0; }
+
+  /* --- webinar "Topics" cards (navy card, pink icon disc, white text) ---- */
+  .rich-text :global(.rt-topics-title) {
+    font-family: var(--font-display);
+    font-size: 40px;
+    line-height: 44px;
+    font-weight: 700;
+    color: var(--color-navy);
+    text-align: center;
+    margin: 2.5rem 0 1rem;
+  }
+  .rich-text :global(.rt-topics) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 2rem 0;
+  }
+  @media (max-width: 767px) {
+    .rich-text :global(.rt-topics) { grid-template-columns: 1fr; }
+  }
+  .rich-text :global(.rt-topic) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: var(--color-navy);
+    border-radius: 24px;
+    padding: 24px;
+    color: hsla(0, 0%, 100%, 0.8);
+  }
+  .rich-text :global(.rt-topic h4) { color: #fff; margin: 0 0 0.5rem; }
+  .rich-text :global(.rt-topic p) { margin: 0; max-width: 300px; }
+  .rich-text :global(.rt-topic-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin: 9px 0 24px;
+    border-radius: 9999px;
+    background: #e9b9ec;
+    color: #fff;
+  }
+  .rich-text :global(.rt-topic-icon svg) { width: 29px; height: 29px; fill: currentColor; }
+
+  /* --- webinar video: static poster + play overlay (self-hosted MP4) ----- */
+  .rich-text :global(.rt-video) { position: relative; margin: 2rem 0; display: block; }
+  .rich-text :global(.rt-video a) { display: block; text-decoration: none; }
+  .rich-text :global(.rt-video img) {
+    margin: 0;
+    border-radius: 1.5rem;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .rich-text :global(.rt-video-play) {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: var(--color-orange);
+    color: #fff;
+    pointer-events: none;
+  }
+  .rich-text :global(.rt-video-play svg) { margin-left: 4px; }
 </style>
+
+<script>
+  // Progressive enhancement for the programmatic-advertising "5 stappen"
+  // stepper. No-op on every other article (empty NodeList). Initial active
+  // state is baked into the HTML (.is-active), so it also works with JS off.
+  document.querySelectorAll<HTMLElement>('.rt-stepper').forEach((stepper) => {
+    const dots = Array.from(stepper.querySelectorAll<HTMLElement>('.rt-step-dot'));
+    const panels = Array.from(stepper.querySelectorAll<HTMLElement>('.rt-step-panel'));
+    const show = (step: string | undefined) => {
+      dots.forEach((d) => {
+        const on = d.dataset.step === step;
+        d.classList.toggle('is-active', on);
+        d.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach((p) => p.classList.toggle('is-active', p.dataset.step === step));
+    };
+    dots.forEach((d) => d.addEventListener('click', () => show(d.dataset.step)));
+  });
+</script>
