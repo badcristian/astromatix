@@ -184,13 +184,26 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
       <div class="border-b border-navy/10">
         {item.children ? (
           <div data-mnav-parent>
-            {/* Parent row: the label (a link to the parent page, if any) plus a
-                separate chevron that expands the submenu — the original's mobile
-                menu is a tap-to-expand accordion, collapsed by default. */}
+            {/* Parent row: the label plus a chevron toggle. A parent that has
+                its OWN page (Over ons) keeps the label as a link — tapping it
+                navigates, the chevron expands the submenu. A dropdown-only
+                parent (Oplossingen, no href) has nowhere to go, so the label
+                itself toggles the submenu. Collapsed by default. */}
             <div class="flex items-center justify-between">
-              <a href={item.href ?? '#'} class="block flex-1 py-4 text-[18px] text-navy">
-                {item.label}
-              </a>
+              {item.href ? (
+                <a href={item.href} class="block flex-1 py-4 text-[18px] text-navy">
+                  {item.label}
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  class="flex-1 py-4 text-left text-[18px] text-navy"
+                  aria-expanded="false"
+                  data-mnav-toggle
+                >
+                  {item.label}
+                </button>
+              )}
               <button
                 type="button"
                 class="grid size-11 shrink-0 place-items-center text-navy"
@@ -275,11 +288,14 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
   // child list; collapsed by default, matching the original.
   document.querySelectorAll<HTMLElement>('[data-mnav-toggle]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const sub = btn.closest('[data-mnav-parent]')?.querySelector<HTMLElement>('[data-mnav-sub]');
-      if (!sub) return;
+      const parent = btn.closest('[data-mnav-parent]');
+      const sub = parent?.querySelector<HTMLElement>('[data-mnav-sub]');
+      if (!parent || !sub) return;
       const nowHidden = sub.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', String(!nowHidden));
-      btn.querySelector('.mnav-chevron')?.classList.toggle('rotate-180', !nowHidden);
+      // Either toggle (the label of a page-less parent, or the chevron) flips
+      // the whole row's state — so update every toggle + the chevron in the row.
+      parent.querySelectorAll('[data-mnav-toggle]').forEach((t) => t.setAttribute('aria-expanded', String(!nowHidden)));
+      parent.querySelector('.mnav-chevron')?.classList.toggle('rotate-180', !nowHidden);
     });
   });
 
