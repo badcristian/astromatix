@@ -153,8 +153,9 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
 <!-- mobile nav panel -->
 <div
   id="mobile-nav"
-  class="fixed inset-0 z-[60] hidden bg-white lg:hidden"
+  class="mobile-nav fixed inset-0 z-[60] bg-white lg:hidden"
   data-mobile-nav
+  aria-hidden="true"
 >
   <div class="flex h-[85px] items-center justify-end px-6">
     <button type="button" aria-label={a11y.closeMenu} data-menu-close>
@@ -266,6 +267,29 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
     height: 2px;
     background: var(--color-navy);
   }
+
+  /* Mobile menu: fade + slight slide-in when opened. Closed state stays out of
+     the a11y tree and non-interactive via visibility (delayed on close so the
+     fade-out finishes first). */
+  .mobile-nav {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 260ms ease, transform 260ms ease, visibility 0s linear 260ms;
+  }
+  .mobile-nav[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 260ms ease, transform 260ms ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-nav,
+    .mobile-nav[data-open] {
+      transition: none;
+      transform: none;
+    }
+  }
 </style>
 
 <script>
@@ -276,7 +300,8 @@ const isExact = (href?: string) => !!href && here === href.replace(/\/$/, '');
   const closeBtn = document.querySelector<HTMLElement>('[data-menu-close]');
 
   const setOpen = (open: boolean) => {
-    panel?.classList.toggle('hidden', !open);
+    panel?.toggleAttribute('data-open', open);
+    panel?.setAttribute('aria-hidden', String(!open));
     document.body.classList.toggle('mnav-active', open);
     openBtn?.setAttribute('aria-expanded', String(open));
   };
