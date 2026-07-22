@@ -77,13 +77,13 @@ const imageColClass = imageWidth >= 700 ? 'lg:w-[720px]' : 'lg:w-[588px]';
 ---
 
 <section
-  class:list={[dark ? 'bg-navy' : 'bg-white', 'px-6 pt-[100px]', backdrop ? 'pb-0' : 'pb-[60px]']}
+  class:list={[dark ? 'bg-navy' : 'bg-white', 'px-6 pt-[100px]', backdrop ? 'hero-backdrop pb-12 md:pb-0' : 'pb-[60px]']}
   style={backdrop ? `background-image:url(${image!.src});background-position:50% 100%;background-size:auto;background-repeat:no-repeat` : undefined}
 >
   <div
     class:list={[
       'mx-auto flex max-w-[1200px] gap-10',
-      backdrop ? 'min-h-[397px] flex-col' : 'flex-col items-center lg:flex-row lg:gap-20',
+      backdrop ? 'flex-col md:min-h-[397px]' : 'flex-col items-center lg:flex-row lg:gap-20',
     ]}
   >
     <div class="lg:flex-1">
@@ -128,3 +128,14 @@ const imageColClass = imageWidth >= 700 ? 'lg:w-[720px]' : 'lg:w-[588px]';
     )}
   </div>
 </section>
+
+<style>
+  /* jobboost's photo-collage backdrop is a desktop-only decoration: the original
+     hides it below 768px, where it sat behind the title and hurt legibility.
+     Match that — no background image on mobile, so the title reads on plain bg. */
+  @media (max-width: 767px) {
+    .hero-backdrop {
+      background-image: none !important;
+    }
+  }
+</style>
